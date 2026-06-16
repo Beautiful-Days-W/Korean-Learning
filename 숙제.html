@@ -65,7 +65,7 @@
     <div class="msg" id="msg"></div>
   </div>
 
-  <div class="card" style="background:none;border:none;padding:0 2px;margin-bottom:6px;">
+  <div class="card" id="histhead" style="background:none;border:none;padding:0 2px;margin-bottom:6px;">
     <h2>내 지난 숙제 + 첨삭 <span class="en">Your homework &amp; feedback</span></h2>
   </div>
   <div id="list"><div class="empty">불러오는 중…</div></div>
@@ -113,7 +113,14 @@ async function load(){
     }).join("");
   }catch(e){ list.innerHTML=`<div class="empty">${esc(e)}</div>`; }
 }
-load();
+// 공개 미러(github.io)에서는 제출 폼만 보이고, 제출된 답안·첨삭은 숨김(개인정보 보호).
+// 집 서버(songfamily.work)에서는 학습자가 자기 첨삭을 그대로 봄.
+if(location.hostname.endsWith("github.io")){
+  document.getElementById("histhead").style.display="none";
+  document.getElementById("list").style.display="none";
+} else {
+  load();
+}
 </script>
 </body>
 </html>
