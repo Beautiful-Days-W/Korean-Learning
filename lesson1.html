@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1 · 을/를 자동화 — Object Particles</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--ok-soft:#ecfdf5;--no:#dc2626;--no-soft:#fef2f2;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:19px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;}
+  h2 .en{font-size:13px;color:var(--muted);font-weight:500;}
+  h3{font-size:15px;margin:18px 0 8px;color:#374151;border-left:3px solid var(--accent);padding-left:9px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;margin:10px 0;}
+  .rule b{color:var(--accent);}
+  .chip{display:inline-block;background:var(--accent-soft);border-radius:6px;padding:1px 7px;font-weight:700;color:var(--accent);}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.vocab .p{color:var(--accent);font-weight:700;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.tiny{width:64px;text-align:center;font-size:18px;}
+  input.full{flex:1;min-width:200px;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .fb.warn{color:#854d0e;background:#fde047;border:1px solid #eab308;border-radius:6px;padding:1px 7px;font-size:12px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:var(--ok-soft);border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .lbl{font-size:13px;color:var(--muted);}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher .read{font-weight:600;color:var(--warm);}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  .mine{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 10px;font-size:13.5px;margin-bottom:8px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 1 · 을/를 자동화 <span class="sub">Object particles, made automatic</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">한국어를 공부하다 보면, <b>조사를 고르는 문제는 잘 풀어도 막상 말하거나 글을 쓸 때 을/를을 자주 빠뜨리게 돼요.</b> 이번 레슨은 규칙을 새로 배우는 게 아니라, 이미 아는 을/를이 <b>입과 손에서 자동으로 나오도록</b> 만드는 연습이에요. (You already know the rule — this lesson makes it automatic when you speak and write.)</p>
+    <div class="note">
+      ✓ 목적어 뒤 <b>을/를</b>을 자동으로 붙이기<br>
+      ✓ 일·현장 어휘로 "무엇을 ~하다" 문장 만들기<br>
+      ✓ 자주 빠뜨리는 문장을 직접 고쳐 보기
+    </div>
+  </div>
+
+  <section>
+    <h2>1. 원리 <span class="en">The rule (quick)</span></h2>
+    <div class="rule">
+      목적어(=동작의 대상) 뒤에 붙여요. <b>받침 있으면 을</b>, <b>받침 없으면 를</b>.<br>
+      밥<span class="chip">을</span> 먹어요 · 커피<span class="chip">를</span> 마셔요 · 건물<span class="chip">을</span> 지어요 · 다리<span class="chip">를</span> 만들어요
+    </div>
+    <p class="lead">💡 회화에서 가끔 생략되기도 하지만, <b>분명하게 말하거나 글로 쓸 때는 꼭 필요해요.</b> 우리 목표는 빠뜨리지 않는 습관을 들이는 거예요.</p>
+  </section>
+
+  <section>
+    <h2>2. 받침 → 을/를 빠르게 <span class="en">Warm-up · 입력 즉시 채점</span></h2>
+    <p class="lead">단어를 보고 <b>을</b> 또는 <b>를</b>만 입력하세요. 입력하면 바로 채점돼요.</p>
+    <div id="warm"></div>
+  </section>
+
+  <section>
+    <h2>3. 핵심 어휘 <span class="en">Vocabulary · 일상 + 건설/인프라</span></h2>
+    <p class="lead">아래 단어로 다음 연습을 해요. 색이 있는 글자가 그 단어에 붙는 조사예요.</p>
+    <table class="vocab"><tr><th>단어</th><th>뜻</th><th>조사</th><th>단어</th><th>뜻</th><th>조사</th></tr>
+      <tbody id="vtable"></tbody></table>
+  </section>
+
+  <section>
+    <h2>4. 문장에 을/를 넣기 <span class="en">Fill in · auto-checked</span></h2>
+    <p class="lead">빈칸에 <b>을/를</b>만 입력하세요.</p>
+    <div id="fill"></div>
+  </section>
+
+  <section>
+    <h2>5. 직접 만들기 <span class="en">Produce the chunk</span></h2>
+    <p class="lead">주어진 <b>명사 + 동사</b>로 「명사 + <b>을/를</b> + 동사」 <b>평서문</b>을 쓰세요 (예: 책을 읽어요.). 조사(을/를)가 맞는지 자동 채점하고, 동사가 <b>평서문 형태가 아니거나 어색하면 노란색</b>으로 알려줘요.</p>
+    <div id="make"></div>
+  </section>
+
+  <section>
+    <h2>6. 내 문장 고치기 <span class="en">Fix your own sentences</span></h2>
+    <p class="lead">아래는 <b>자유 작문에서 자주 빠뜨리는 문장</b>이에요. 빠진 <b>을/를</b>을 넣어 다시 써 보세요.</p>
+    <div id="mine"></div>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 자동화 + 과제</span></h2>
+    <h3 style="border-color:var(--warm);color:var(--warm)">말하기 속사포 드릴 (3~5분)</h3>
+    <p class="lead">선생님이 명사를 던지면, 학습자가 <b>"___을/를 V"</b>로 즉답. 멈추지 말고 리듬 타기. 조사 빠뜨리면 살짝 손짓으로 신호만.</p>
+    <ul>
+      <li>오늘 뭐 먹었어요? / 뭐 샀어요? / 뭐 마셔요?</li>
+      <li>현장에서 뭐 봤어요? 뭐 검사했어요? (건물·도로·도면·자재…)</li>
+      <li>명사 던지기: 빵 → "빵을 먹어요" / 영화 → "영화를 봐요" / 도면 → "도면을 봐요"</li>
+    </ul>
+    <h3 style="border-color:var(--warm);color:var(--warm)">과제 <span class="en">Homework</span></h3>
+    <ul>
+      <li>오늘 한 일(현장·업무 포함)을 <b>5문장</b>으로. 매 문장에 <b>목적어 + 을/를</b>을 꼭 넣기.</li>
+      <li>예: "오늘 현장에서 도면을 확인했어요. 그리고 자재를 주문했어요…"</li>
+    </ul>
+    <p class="lead" style="color:var(--warm)">평가 포인트: 조사를 <b>맞게 골랐는지</b>보다, <b>빠뜨리지 않고 매번 붙였는지</b>를 봅니다. 목적어마다 을/를이 붙었는지 세어, <b>누락이 0에 가까워지면</b> 자동화가 된 것입니다. 다음 레슨에서는 이 글을 출발점으로 어휘를 확장합니다.</p>
+  </div>
+
+  <footer>Lesson 1 / 을·를 · 다음: 받아쓰기 결과 반영 + 묘사·도메인 어휘 확장</footer>
+</div>
+
+<script>
+/* 받침 판정: 한글 음절의 종성이 있으면 true */
+function hasBatchim(word){
+  const c=word.charCodeAt(word.length-1);
+  if(c<0xAC00||c>0xD7A3) return false;
+  return (c-0xAC00)%28!==0;
+}
+function par(word){ return hasBatchim(word)?"을":"를"; }
+
+const VOCAB=[
+  ["밥","rice/meal"],["커피","coffee"],["책","book"],["영화","movie"],["친구","friend"],["시험","exam"],
+  ["건물","building"],["도로","road"],["다리","bridge"],["현장","site"],["도면","drawings"],["자재","materials"]
+];
+const WARM=["밥","커피","책","영화","건물","도로","자재","도면"];
+const FILL=[
+  ["저는 매일 아침 ","밥"," 먹어요."],
+  ["어제 ","영화"," 봤어요."],
+  ["현장에서 ","건물"," 검사해요."],
+  ["오늘 ","도면"," 확인했어요."],
+  ["점심에 ","커피"," 마셔요."],
+  ["주말에 ","친구"," 만나요."]
+];
+const MAKE=[
+  ["시험","보다","봐요",["봐요","봤어요","볼거예요","봅니다","봤습니다","보겠어요","보고있어요"]],
+  ["커피","마시다","마셔요",["마셔요","마셨어요","마실거예요","마십니다","마셨습니다","마시겠어요","마시고있어요"]],
+  ["다리","건설하다","건설해요",["건설해요","건설했어요","건설할거예요","건설합니다","건설했습니다","건설하겠어요","건설하고있어요"]],
+  ["자재","사다","사요",["사요","샀어요","살거예요","삽니다","샀습니다","사겠어요","사고있어요"]],
+  ["도로","검사하다","검사해요",["검사해요","검사했어요","검사할거예요","검사합니다","검사했습니다","검사하겠어요","검사하고있어요"]]
+];
+const MINE=[
+  ["햄하고 계란 샀어요.","햄하고 계란을 샀어요.",["계란을"]],
+  ["한국어 시험 보고 있어요.","한국어 시험을 보고 있어요.",["시험을"]],
+  ["어제 친구 만나고 영화 봤어요.","어제 친구를 만나고 영화를 봤어요.",["친구를","영화를"]]
+];
+
+/* ---- build ---- */
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((v,i)=>{ if(i%2===0){const r=document.createElement("tr"); r.id="vr"+i; el("vtable").appendChild(r);} });
+VOCAB.forEach((v,i)=>{
+  const r=document.getElementById("vr"+(i%2===0?i:i-1));
+  r.insertAdjacentHTML("beforeend",`<td>${v[0]}</td><td>${v[1]}</td><td class="p">${par(v[0])}</td>`);
+});
+
+WARM.forEach((w,i)=>{
+  el("warm").insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${w}</span>
+     <input class="ans tiny" data-type="par" data-ans="${par(w)}" data-k="w${i}" maxlength="1">
+     <span class="fb" id="fb_w${i}"></span></div></div>`);
+});
+
+FILL.forEach((f,i)=>{
+  const a=par(f[1]);
+  el("fill").insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span>
+     <span class="ko">${f[0]}<b>${f[1]}</b><input class="ans tiny" data-type="par" data-ans="${a}" data-k="f${i}" maxlength="1">${f[2]}</span>
+     <span class="fb" id="fb_f${i}"></span></div></div>`);
+});
+
+MAKE.forEach((m,i)=>{
+  const need=m[0]+par(m[0]);
+  el("make").insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">(${m[0]} / ${m[1]})</span>
+     <input class="ans full" data-type="make" data-need="${need}" data-verbs="${m[3].join(",")}" data-k="m${i}" placeholder="문장을 쓰세요">
+     <span class="fb" id="fb_m${i}"></span></div>
+     <button class="hintbtn" onclick="toggleModel('mm${i}')">예시 보기</button>
+     <div class="model" id="mm${i}">예시: ${m[0]}${par(m[0])} ${m[2]} <span style="color:var(--muted)">— 시제는 자유 (과거·미래도 정답)</span></div></div>`);
+});
+
+MINE.forEach((m,i)=>{
+  el("mine").insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="mine">원래 문장: ${m[0]}</div>
+     <div class="row"><span class="num">${i+1}.</span>
+     <input class="ans full" data-type="incall" data-need="${m[2].join(",")}" data-k="mn${i}" placeholder="을/를을 넣어 다시 쓰세요">
+     <span class="fb" id="fb_mn${i}"></span></div>
+     <button class="hintbtn" onclick="toggleModel('mnm${i}')">정답 보기</button>
+     <div class="model" id="mnm${i}">${m[1]}</div></div>`);
+});
+
+/* ---- check + persist ---- */
+const KEY="lesson1_eulreul";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const t=elm.dataset.type, v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  if(v===""){ fb.textContent=""; fb.className="fb"; store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store)); updateScore(); return; }
+  const flat=v.replace(/\s/g,"");
+  let state="no";
+  if(t==="par") state = v===elm.dataset.ans ? "ok":"no";
+  else if(t==="inc") state = flat.includes(elm.dataset.need) ? "ok":"no";
+  else if(t==="incall") state = elm.dataset.need.split(",").every(n=>flat.includes(n)) ? "ok":"no";
+  else if(t==="make"){
+    const pOk=flat.includes(elm.dataset.need);
+    const vOk=elm.dataset.verbs.split(",").some(x=>flat.includes(x));
+    state = !pOk ? "no" : (vOk ? "ok" : "warn");
+  }
+  fb.textContent = state==="ok" ? "✓" : state==="warn" ? "조사 ✓ · 동사 확인" : (t==="make" ? "조사 ✗" : "✗");
+  fb.className = "fb "+state;
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  updateScore();
+}
+function updateScore(){
+  const all=document.querySelectorAll("[data-type]");
+  let done=0,ok=0;
+  all.forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k);
+    if(e.value.trim()!==""){done++; if(fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 문제 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY);
+  document.querySelectorAll("[data-type]").forEach(e=>{e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); fb.textContent="";fb.className="fb";});
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.type) check(e.target); });
+/* restore */
+document.querySelectorAll("[data-type]").forEach(e=>{ if(store[e.dataset.k]!==undefined){e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>

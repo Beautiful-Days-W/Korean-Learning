@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한국어 배치고사 · Korean Placement Assessment</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#1f2328; --muted:#6b7280;
+    --line:#e5e7eb; --accent:#2563eb; --accent-soft:#eff4ff;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;
+    line-height:1.65; font-size:16px;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding:24px 18px 120px;}
+  .bar{
+    position:sticky; top:0; z-index:50; background:rgba(246,247,249,.92);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+    padding:12px 18px; margin:0 -18px 22px;
+  }
+  .bar h1{font-size:17px; margin:0; flex:1; min-width:160px;}
+  .bar .sub{font-size:12px; color:var(--muted); font-weight:400;}
+  .btn{font:inherit; font-size:13px; cursor:pointer; background:var(--card);
+    border:1px solid var(--line); padding:7px 12px; border-radius:999px; color:var(--ink);}
+  .btn:hover{border-color:var(--accent); color:var(--accent);}
+  .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent);}
+  #saved{font-size:12px; color:#0f766e; opacity:0; transition:opacity .3s;}
+  #saved.show{opacity:1;}
+  .head{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin-bottom:18px;}
+  .head .note{background:var(--accent-soft); border-radius:10px; padding:12px 14px; font-size:13.5px; color:#334155; margin-top:10px;}
+  .meta{display:flex; flex-wrap:wrap; gap:12px; margin-top:14px;}
+  .meta label{font-size:13px; color:var(--muted); display:flex; flex-direction:column; gap:4px;}
+  .meta input{font:inherit; padding:6px 9px; border:1px solid var(--line); border-radius:8px; width:150px;}
+  section{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; margin-bottom:18px;}
+  h2{font-size:20px; margin:0 0 4px; display:flex; align-items:baseline; gap:8px;}
+  h2 .en{font-size:13px; color:var(--muted); font-weight:500;}
+  h3{font-size:15px; margin:22px 0 8px; color:#374151; border-left:3px solid var(--accent); padding-left:9px;}
+  .instr{font-size:13.5px; color:var(--muted); margin:0 0 12px;}
+  .q{padding:11px 0; border-top:1px dashed var(--line);}
+  .q:first-of-type{border-top:none;}
+  .q .num{font-weight:700; color:var(--accent); margin-right:6px;}
+  .ko{font-size:16.5px;}
+  .row{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:6px;}
+  .row .lbl{font-size:14px; color:var(--muted);}
+  input.ans{font:inherit; padding:7px 10px; border:1px solid var(--line); border-radius:8px; min-width:120px; flex:1;}
+  input.ans:focus{outline:none; border-color:var(--accent); background:var(--accent-soft);}
+  input.short{flex:0 0 90px; min-width:90px;}
+  textarea.ans{font:inherit; width:100%; padding:9px 11px; border:1px solid var(--line); border-radius:8px; resize:vertical; min-height:70px; margin-top:6px;}
+  textarea.ans:focus{outline:none; border-color:var(--accent); background:var(--accent-soft);}
+  .choices{display:flex; gap:14px; margin-top:6px;}
+  .choices label{display:inline-flex; gap:6px; align-items:center; font-size:15px; cursor:pointer;
+    border:1px solid var(--line); padding:6px 14px; border-radius:8px;}
+  .passage{background:#fafafa; border-left:3px solid #cbd5e1; padding:12px 14px; border-radius:0 8px 8px 0;
+    font-size:15.5px; margin:4px 0 10px; white-space:pre-line;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px 18px;}
+  @media(max-width:560px){.grid2{grid-template-columns:1fr;}}
+  .readaloud{display:flex; flex-wrap:wrap; gap:10px; margin:6px 0;}
+  .readaloud .tile{display:inline-flex; align-items:center; gap:8px; font-size:24px;
+    background:#fafafa; border:1px solid var(--line); border-radius:10px; padding:10px 16px;}
+  .readaloud .tile .num{font-size:13px; color:var(--accent); font-weight:700;}
+  .pill{font-size:11px; background:#6b7280; color:#fff; padding:2px 8px; border-radius:999px; vertical-align:middle;}
+  .hint{font-size:12.5px; color:var(--muted); margin-top:3px;}
+  footer{text-align:center; color:var(--muted); font-size:13px; margin-top:24px;}
+  @media print{ .bar{display:none;} body{background:#fff;} section,.head{border-color:#ccc;} }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>한국어 배치고사 <span class="sub">Korean Placement Assessment</span></h1>
+  <span id="saved">✓ 저장됨</span>
+  <button class="btn primary" onclick="copyAnswers()">📤 답안 보내기 (복사)</button>
+  <button class="btn" onclick="downloadAnswers()">💾 HTML로 저장</button>
+  <button class="btn" onclick="clearAll()">↺ 지우기</button>
+</div>
+
+<div class="wrap">
+
+  <div class="head">
+    <h2 style="margin:0">시작하기 전에 <span class="en">Before you begin</span></h2>
+    <div class="note">
+      This is not a pass/fail test — it finds where to start.<br>
+      합격/불합격이 아니라 <b>어디서부터 공부할지</b> 정하는 거예요.<br><br>
+      • Do as much as you can. Too hard? Type <b>"skip"</b> and move on. / 어려우면 "skip" 쓰고 넘어가세요.<br>
+      • No dictionary or translator, please. / 사전·번역기는 쓰지 마세요.<br>
+      • When done, press <b>📤 답안 보내기</b> and paste into the chat. / 다 하면 답안을 복사해 보내주세요.
+    </div>
+    <div class="meta">
+      <label>이름 / Name<input class="ans" data-k="name"></label>
+      <label>날짜 / Date<input class="ans" data-k="date"></label>
+      <label>걸린 시간 / Time<input class="ans short" data-k="time"></label>
+    </div>
+  </div>
+
+  <!-- PART A -->
+  <section>
+    <h2>PART A. 읽기 <span class="en">Reading</span></h2>
+
+    <h3>A-1. 단어 읽고 뜻 쓰기 <span class="en">Word → English meaning</span></h3>
+    <div id="a2"></div>
+
+    <h3>A-2. 문장 읽고 답하기 <span class="en">Read, answer briefly in English</span></h3>
+    <div id="a3"></div>
+
+    <h3>A-3. 짧은 글 독해 <span class="en">Short passage</span></h3>
+    <div class="passage">민수 씨는 작년에 한국 회사에 들어갔어요. 처음에는 한국어를 잘 못해서 회의 시간이 제일 힘들었어요. 그래서 매일 저녁에 한 시간씩 공부했어요. 요즘은 동료들과 농담도 할 수 있어서 회사 생활이 훨씬 즐거워요.</div>
+    <div id="a4"></div>
+
+    <h3>A-4. 도전 문제 <span class="en">Stretch — 안 되면 skip</span></h3>
+    <div class="passage">한국 사회에서는 나이에 따라 말투가 달라집니다. 처음 만난 사람에게는 보통 존댓말을 쓰고, 친해진 후에 반말로 바꾸기도 합니다. 그래서 외국인에게는 언제 말투를 바꿔야 하는지가 어려운 문제가 되기도 합니다.</div>
+    <div class="q"><span class="ko"><span class="num">16</span>In your own English words, what is this about? (1–2 sentences)</span>
+      <textarea class="ans" data-k="q25"></textarea></div>
+  </section>
+
+  <!-- PART B -->
+  <section>
+    <h2>PART B. 쓰기 <span class="en">Writing</span></h2>
+
+    <h3>B-1. 받아쓰기 <span class="en">Dictation — 선생님이 읽어줍니다</span></h3>
+    <p class="instr">선생님이 읽어주는 문장을 한글로 쓰세요. / Write what the teacher reads, in Korean.</p>
+    <div id="b1"></div>
+
+    <h3>B-2. 조사·어미 채우기 <span class="en">Particles & endings</span></h3>
+    <div id="b2"></div>
+
+    <h3>B-3. 문장 만들기 <span class="en">Make full sentences</span></h3>
+    <p class="instr">주어진 단어로 문장을 만드세요. <b>알맞은 조사를 넣고, 시제(현재·과거)에 맞게</b> 쓰세요. (시간을 나타내는 단어를 보면 시제를 알 수 있어요.)<br>
+      Add the right particles and use the correct tense — the time word tells you which.</p>
+    <div id="b3"></div>
+
+    <h3>B-4. 자유 작문 <span class="en">Free writing · 5–6 sentences</span></h3>
+    <p class="instr">"나의 하루(My day)" 또는 "내가 한국어를 배우는 이유(Why I study Korean)" 중 하나를 고르세요.</p>
+    <input class="ans" data-k="b4topic" placeholder="주제 / Topic" style="margin-bottom:8px; flex:0 0 100%;">
+    <textarea class="ans" data-k="b4" style="min-height:130px;"></textarea>
+  </section>
+
+  <!-- PART C -->
+  <section>
+    <h2>PART C. 듣기 <span class="en">Listening</span> <span class="pill">선생님과 함께</span></h2>
+    <p class="instr">선생님이 읽어주면 듣고 답하세요. / Your teacher will read aloud — just listen and answer.</p>
+
+    <h3>C-1. 들은 단어 고르기 <span class="en">Choose the meaning you heard</span></h3>
+    <div id="c1"></div>
+
+    <h3>C-2. 문장 듣고 이해 <span class="en">Listen, give the gist in English</span></h3>
+    <div id="c2"></div>
+
+    <h3>C-3. 짧은 대화 듣고 답하기 <span class="en">Short dialogue</span></h3>
+    <div id="c3"></div>
+  </section>
+
+  <!-- PART D -->
+  <section>
+    <h2>PART D. 말하기 <span class="en">Speaking</span> <span class="pill">선생님과 함께</span></h2>
+    <p class="instr">말로 답합니다. 여기에는 쓰지 않아도 돼요. 선생님이 듣고 평가해요. / Spoken — your teacher listens. Nothing to type.</p>
+
+    <h3>D-1. 글자 소리 내어 읽기 <span class="en">Read the letters aloud</span></h3>
+    <p class="instr">다음 글자를 소리 내어 읽으세요. / Read each one aloud.</p>
+    <div class="readaloud" id="a1"></div>
+  </section>
+
+  <footer>끝났습니다. 수고하셨어요! · Done — great job!</footer>
+</div>
+
+<script>
+const A1=["바","토","규","산","닭","읽","꽃","의자","외국"];
+A1.forEach((x)=>add("a1",`<span class="tile">${x}</span>`));
+
+const A2=["학교","친구","시간","회사","어렵다","준비하다","그러나","갑자기"];
+A2.forEach((x,i)=>add("a2",`<div class="q"><span class="num">${i+1}</span><span class="ko">${x}</span> → <input class="ans" data-k="a2_${i}"></div>`));
+
+const A3=[["저는 매일 아침 일곱 시에 일어나요.","What time does the person get up?"],
+["어제는 비가 와서 집에 있었어요.","Why did they stay home?"],
+["이 음식은 조금 맵지만 정말 맛있어요.","How does it taste, and the small problem?"]];
+A3.forEach((x,i)=>add("a3",`<div class="q"><span class="ko"><span class="num">${i+9}</span>${x[0]}</span><div class="row"><span class="lbl">Q: ${x[1]}</span></div><input class="ans" data-k="a3_${i}"></div>`));
+
+const A4=["When did Minsu join the company?","What was hardest at first, and why?","What did he do to improve?","How does he feel now?"];
+A4.forEach((x,i)=>add("a4",`<div class="q"><span class="ko"><span class="num">${i+12}</span>${x}</span><input class="ans" data-k="a4_${i}"></div>`));
+
+for(let i=0;i<3;i++) add("b1",`<div class="q"><span class="num">${i+17}</span><input class="ans" data-k="b1_${i}" placeholder="한글로 쓰세요"></div>`);
+
+const B2=[["동생___ 회사에 다녀요.","은 / 는"],["선생님___ 같이 영화를 봤어요.","와 / 과"],["어제 도서관___ 갔어요.","에 / 에서"],["밥을 먹___ 텔레비전을 봐요.","-고 / -어서"],["내일 비가 오___ 집에 있을 거예요.","-면 / -니까"]];
+B2.forEach((x,i)=>add("b2",`<div class="q"><span class="ko"><span class="num">${i+20}</span>${x[0]}</span><div class="row"><input class="ans short" data-k="b2_${i}"><span class="hint">${x[1]}</span></div></div>`));
+
+const B3=["주말 / 보통 / 뭐 / 하다","어제 / 친구 / 만나다 / 영화 / 보다"];
+B3.forEach((x,i)=>add("b3",`<div class="q"><span class="ko"><span class="num">${i+25}</span>(${x})</span><input class="ans" data-k="b3_${i}"></div>`));
+
+const C1=[[27,"fire 불","horn 뿔"],[28,"room 방","bread 빵"],[29,"to buy 사다","to live 살다"]];
+C1.forEach(x=>add("c1",`<div class="q"><span class="num">${x[0]}</span><div class="choices"><label><input type="radio" name="c1_${x[0]}" data-k="c1_${x[0]}" value="a">a) ${x[1]}</label><label><input type="radio" name="c1_${x[0]}" data-k="c1_${x[0]}" value="b">b) ${x[2]}</label></div></div>`));
+
+for(let i=30;i<=31;i++) add("c2",`<div class="q"><span class="num">${i}</span><input class="ans" data-k="c2_${i}" placeholder="gist in English"></div>`);
+[["32","What did 민호 do on the weekend?"],["33","Why did 민호 come down early?"]].forEach(x=>add("c3",`<div class="q"><span class="num">${x[0]}</span><span class="lbl">${x[1]}</span><input class="ans" data-k="c3_${x[0]}"></div>`));
+
+function add(id,html){document.getElementById(id).insertAdjacentHTML("beforeend",html);}
+
+const KEY="korean_placement_student_v1";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+let timer;
+function restore(){
+  document.querySelectorAll("[data-k]").forEach(el=>{
+    const k=el.dataset.k, v=store[k];
+    if(v===undefined) return;
+    if(el.type==="radio"){ if(el.value===v) el.checked=true; }
+    else el.value=v;
+  });
+}
+function save(el){
+  const k=el.dataset.k;
+  if(el.type==="radio"){ if(el.checked) store[k]=el.value; }
+  else store[k]=el.value;
+  localStorage.setItem(KEY,JSON.stringify(store));
+  const s=document.getElementById("saved"); s.classList.add("show");
+  clearTimeout(timer); timer=setTimeout(()=>s.classList.remove("show"),1200);
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) save(e.target); });
+document.addEventListener("change",e=>{ if(e.target.dataset.k) save(e.target); });
+restore();
+
+function collectAnswers(){
+  const seen=new Set(), items=[];
+  document.querySelectorAll("[data-k]").forEach(el=>{
+    const k=el.dataset.k;
+    if(["name","date","time"].includes(k)) return;
+    let val="";
+    if(el.type==="radio"){ if(seen.has(k))return; seen.add(k);
+      const chosen=document.querySelector(`[name="${el.name}"]:checked`);
+      if(!chosen) return; val=chosen.parentElement.innerText.trim();
+    } else { val=(el.value||"").trim(); if(!val) return; }
+    const box=el.closest(".q")||el.closest("label")||el.closest(".row");
+    let label = box ? box.innerText.replace(val,"").replace(/\s+/g," ").trim() : k;
+    if(label.length>90) label=label.slice(0,90)+"…";
+    items.push({k,label,val});
+  });
+  return {name:store.name||"", date:store.date||"", time:store.time||"", items};
+}
+function buildReport(){
+  const d=collectAnswers(), lines=[];
+  lines.push("=== 한국어 배치고사 답안 ===");
+  lines.push(`이름: ${d.name}   날짜: ${d.date}   시간: ${d.time}`);
+  lines.push("");
+  d.items.forEach(it=>lines.push(`[${it.k}] ${it.label}\n   → ${it.val}`));
+  return lines.join("\n");
+}
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function copyAnswers(){
+  const txt=buildReport();
+  navigator.clipboard.writeText(txt).then(
+    ()=>alert("답안이 복사됐어요!\n카톡/메일 대화창에 '붙여넣기' 하세요.\n\nAnswers copied — paste into the chat."),
+    ()=>{ prompt("아래 내용을 복사해서 보내세요 / Copy this and send:", txt); }
+  );
+}
+function downloadAnswers(){
+  const d=collectAnswers();
+  const rows=d.items.map(it=>`<tr><td class="k">${esc(it.k)}</td><td class="q">${esc(it.label)}</td><td class="a">${esc(it.val)}</td></tr>`).join("");
+  const html=`<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>한국어 배치고사 답안 — ${esc(d.name)}</title>
+<style>body{font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;background:#f6f7f9;color:#1f2328;margin:0;padding:28px;}
+.card{max-width:760px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:24px;}
+h1{font-size:20px;margin:0 0 4px;} .meta{color:#6b7280;font-size:14px;margin-bottom:16px;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;} th,td{border:1px solid #e5e7eb;padding:8px 10px;text-align:left;vertical-align:top;}
+th{background:#f3f4f6;} td.k{color:#2563eb;font-weight:700;white-space:nowrap;width:48px;} td.q{color:#374151;} td.a{font-weight:600;white-space:pre-wrap;}</style></head>
+<body><div class="card"><h1>한국어 배치고사 답안</h1>
+<div class="meta">이름 ${esc(d.name)} · 날짜 ${esc(d.date)} · 걸린 시간 ${esc(d.time)}</div>
+<table><tr><th>#</th><th>문항</th><th>답</th></tr>${rows}</table></div></body></html>`;
+  const fn=`한국어배치고사_${(d.name||"답안").replace(/\s/g,"")}.html`;
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([html],{type:"text/html;charset=utf-8"}));
+  a.download=fn; a.click(); URL.revokeObjectURL(a.href);
+}
+function clearAll(){
+  if(!confirm("입력한 답안을 모두 지울까요? / Clear all answers?")) return;
+  localStorage.removeItem(KEY);
+  for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(el=>{ if(el.type==="radio") el.checked=false; else el.value=""; });
+}
+</script>
+</body>
+</html>

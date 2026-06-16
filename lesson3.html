@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 3 · 비교하고 의견 말하기 — Comparing & opinions</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:19px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;}
+  h2 .en{font-size:13px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;margin:10px 0;}
+  .rule b{color:var(--accent);}
+  .chip{display:inline-block;background:var(--accent-soft);border-radius:6px;padding:1px 7px;font-weight:700;color:var(--accent);}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.tiny{width:64px;text-align:center;font-size:18px;}
+  input.mid{width:180px;}
+  input.full{flex:1;min-width:220px;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .fb.warn{color:#854d0e;background:#fde047;border:1px solid #eab308;border-radius:6px;padding:1px 7px;font-size:12px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .wordcard{display:none;font-size:13px;color:#374151;background:#fff;border:1px dashed #fdba74;border-radius:8px;padding:10px 13px;margin-top:8px;line-height:2;}
+  .wordcard.show{display:block;}
+  .lbl{font-size:13px;color:var(--muted);}
+  textarea.ans{font:inherit;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;resize:vertical;min-height:90px;margin-top:6px;}
+  textarea.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  .teacher .read{font-weight:600;color:var(--warm);}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 3 · 비교하고 의견 말하기 <span class="sub">Comparing &amp; giving opinions</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">두 가지를 <b>비교</b>하고 <b>내 생각·전망</b>을 말해 봐요 — 한국·캐나다·전세계 증시, 투자처럼 <b>가족과 함께 이야기할 만한 주제</b>로요. (This lesson is about <b>comparing</b> things and giving your <b>opinion</b>, using markets &amp; investing as a family conversation topic.)</p>
+    <div class="note">
+      ✓ 비교: <b>A는 B보다 (더/덜) [형용사]</b> <span class="en">Compare with 보다 ("than")</span><br>
+      ✓ 추측·의견: <b>-(으)ㄹ 것 같아요</b> <span class="en">Say what you think will happen</span><br>
+      ✓ 이유 대기: <b>-기 때문에</b> <span class="en">Give a reason</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (비교·의견)</span></h2>
+    <div class="rule">
+      <b>① 비교 — A는 B보다 (더/덜) [형용사]:</b> <span class="chip">보다</span> = "than". 비교 대상 뒤에 붙여요.<br>
+      한국 시장<span class="chip">은</span> 캐나다 시장<span class="chip">보다</span> 더 위험해요.<br><br>
+      <b>② 추측·의견 — 동사/형용사 + -(으)ㄹ 것 같아요:</b> 받침 없거나 ㄹ이면 <b>-ㄹ</b>, 받침 있으면 <b>-을</b>.<br>
+      오르다 → 오<b>를</b> 것 같아요 · 좋다 → 좋<b>을</b> 것 같아요 <span style="color:var(--muted)">(어렵다처럼 ㅂ불규칙은 어려울 것 같아요)</span><br><br>
+      <b>③ 이유 — [이유]-기 때문에, [결과]:</b> 이유를 앞에 대요. (-아서/-어서도 비슷해요)<br>
+      금리가 오르<b>기 때문에</b> 시장이 어려워요.
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 증시·투자</span></h2>
+    <p class="lead">아래 표현으로 다음 연습을 해요.</p>
+    <table class="vocab"><tr><th>용어</th><th>뜻</th><th>용어</th><th>뜻</th></tr><tbody id="vtable"></tbody></table>
+  </section>
+
+  <section>
+    <h2>3. 추측 만들기 <span class="en">-(으)ㄹ 것 같아요 · 입력 즉시 채점</span></h2>
+    <p class="lead">기본형을 <b>「-(으)ㄹ 것 같아요」</b> 추측형으로 바꿔 쓰세요 (예: 오르다 → 오를 것 같아요). 받침 규칙에 주의!</p>
+    <div id="conj"></div>
+  </section>
+
+  <section>
+    <h2>4. 비교 문장 만들기 <span class="en">Compare two things</span></h2>
+    <p class="lead">주어진 두 가지를 <b>「A는 B보다 더 [형용사]-아/어요.」</b> <b>해요체</b>로 비교하세요. <b>보다는 초록/빨강으로 채점</b>하고, 형용사가 <b>해요체 정답 형태</b>면 ✓, 아니면 <b>노란색 “형용사 확인”</b>으로 알려줘요 (철자·불규칙은 선생님과).</p>
+    <div id="make"></div>
+  </section>
+
+  <section>
+    <h2>5. 내 의견 쓰기 <span class="en">Give your opinion</span></h2>
+    <p class="lead">증시·투자에 대해 <b>내 생각</b>을 <b>2~3문장</b>으로 써 보세요. <b>비교(보다)</b> 또는 <b>이유(-기 때문에)</b>에 <b>추측(-(으)ㄹ 것 같아요)</b>을 섞으면 좋아요. — 내용 채점은 없어요(형식만 신호). 선생님과 함께 다듬어요.</p>
+    <textarea class="ans" data-type="free" data-k="free" placeholder="예: 한국 증시는 미국 증시보다 더 위험해요. 그래서 저는 장기 투자가 좋을 것 같아요."></textarea>
+    <span class="fb" id="fb_free"></span>
+    <button class="hintbtn" onclick="toggleModel('freemodel')">예시 보기</button>
+    <div class="model" id="freemodel">예: 금리가 내리기 때문에 시장이 오를 것 같아요. 그래서 저는 지금 장기 투자가 단기 투자보다 더 좋다고 생각해요.</div>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기·듣기 + 과제</span></h2>
+
+    <button class="hintbtn" onclick="toggleModel('wordbank')">🗂️ 드릴용 단어 카드 보기 (①·② 공용)</button>
+    <div class="wordcard" id="wordbank">
+      비교 짝을 던지면 학습자가 「A는 B보다 더 ~」로 말해요. 무거우면 가벼운 주제로 시작.<br>
+      <b>증시·경제 짝:</b> 한국 증시 ↔ 미국 증시 · 주식 ↔ 예금 · 장기 투자 ↔ 단기 투자 · 올해 ↔ 작년 · 금리 ↔ 환율<br>
+      <b>가벼운 짝:</b> 영화 ↔ 드라마 · 한국 음악 ↔ 팝 · 축구 ↔ 야구 · 봄 ↔ 가을
+    </div>
+
+    <h3>① 비교 즉답 드릴 — 빠른 즉답 (3분)</h3>
+    <p class="lead"><b>통제된 자동화 연습.</b> 두 가지를 <b>빠르게 던지면</b> 학습자가 <b>"A는 B보다 더 [형용사]-아/어요"</b> 한 문장으로 즉답해요. 목표는 <b>속도 + 정확성</b>. (이유·전망 확장은 ②에서.)</p>
+    <ul>
+      <li>한국 증시 / 미국 증시 → "한국 증시는 미국 증시보다 더 위험해요"</li>
+      <li>주식 / 예금 → "주식은 예금보다 더 위험해요" / 영화 / 드라마 → "영화는 드라마보다 더 재미있어요"</li>
+    </ul>
+
+    <h3>② 듣고 길게 말하기 — 의견 대화 (듣기 + 말하기)</h3>
+    <p class="lead"><b>선생님은 짧게, 학습자가 길게.</b> 짧은 질문·맞장구로 학습자가 <b>의견을 계속 말하게</b> 해요. 목표 발화 비중 <b>학습자 80% · 선생님 20%</b>. 단답이면 바로 추임새로 더 끌어내고, <b>침묵을 선생님이 채우지 마세요</b>.</p>
+    <p class="lead">의견 질문을 던지면, 학습자가 <b>비교(보다) + 이유(-기 때문에) + 추측(-(으)ㄹ 것 같아요)</b>을 섞어 <b>3문장 이상</b> 말하게 해요.</p>
+    <p class="lead" style="margin-bottom:4px"><b>여는 질문</b> (하나 골라 말로 던지기):</p>
+    <ul>
+      <li><span class="read">"요즘 한국 증시 어때요? 왜 그럴까요?"</span></li>
+      <li><span class="read">"한국 시장하고 캐나다 시장 중에 어디가 더 좋아요?"</span></li>
+      <li><span class="read">"앞으로 경제가 어떻게 될 것 같아요?"</span></li>
+      <li><span class="read">"장기 투자에 대해 어떻게 생각해요?"</span></li>
+    </ul>
+    <p class="lead" style="margin-bottom:4px"><b>이어가게 하는 짧은 말</b> (선생님은 이것만):</p>
+    <ul>
+      <li><span class="read">"왜요?"</span> · <span class="read">"그래서요?"</span> · <span class="read">"정말요?"</span> · <span class="read">"더 자세히요?"</span> · <span class="read">"예를 들면요?"</span> · <span class="read">"그다음은요?"</span></li>
+    </ul>
+    <p class="lead"><b>듣기 포인트</b>(강점 영역 유지): 선생님이 의견을 한 문장 던지고(<span class="read">"저는 금리가 더 오를 것 같아요."</span>) 학습자가 듣고 <b>동의·반대 + 이유</b>로 받아치게 해요(예: "저도요. 금리가 높기 때문에…" / "글쎄요, 저는 내릴 것 같아요").</p>
+    <p class="lead" style="color:var(--warm)">성공 기준: 한 주제로 학습자가 <b>5문장 이상 이어서</b> 말하고, 비교·이유·추측이 한 번씩 나오면 잘된 거예요.</p>
+
+    <h3>③ 과제 <span class="en">Homework</span></h3>
+    <ul>
+      <li><b>가족과 나눌 만한 "증시·투자에 대한 내 의견"</b>을 3~4문장으로 쓰기. <b>비교(보다)</b> 또는 <b>이유(-기 때문에)</b> + <b>추측(-(으)ㄹ 것 같아요)</b>을 꼭 한 번씩 사용.</li>
+    </ul>
+    <p class="lead" style="color:var(--warm)">평가 포인트: ① 비교 「A는 B보다」가 맞는가 ② 추측 「-(으)ㄹ 것 같다」 형태가 맞는가 ③ 이유를 대는가. 유창성·발화량도 함께 관찰.</p>
+  </div>
+
+  <footer>Lesson 3 / 비교·의견 · 주제: 증시·투자 (가족 공통 화제) · 다음: 간접화법으로 남의 의견 전하기</footer>
+</div>
+
+<script>
+function hasBatchim(w){ const c=w.charCodeAt(w.length-1); if(c<0xAC00||c>0xD7A3) return false; return (c-0xAC00)%28!==0; }
+function josa(w){ return hasBatchim(w)?"은":"는"; }       // 은/는
+function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
+
+const VOCAB=[
+  ["주식","stock"],["시장","market"],["투자","investment"],["경제","economy"],
+  ["오르다","to rise / go up"],["내리다","to fall / go down"],["금리","interest rate"],["환율","exchange rate"],
+  ["위험하다","(to be) risky"],["장기","long-term"]
+];
+const CONJ=[ // 기본형 → -(으)ㄹ 것 같아요 (정답)
+  ["오르다","오를 것 같아요"],["내리다","내릴 것 같아요"],["좋다","좋을 것 같아요"],
+  ["비싸다","비쌀 것 같아요"],["힘들다","힘들 것 같아요"]
+];
+const MAKE=[ // [A, B, 형용사기본형, 형용사해요체]
+  ["한국 시장","캐나다 시장","위험하다","위험해요"],
+  ["주식","예금","위험하다","위험해요"],
+  ["올해 경제","작년","어렵다","어려워요"],
+  ["장기 투자","단기 투자","좋다","좋아요"]
+];
+
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((v,i)=>{ if(i%2===0){const r=document.createElement("tr");r.id="vr"+i;el("vtable").appendChild(r);} });
+VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjacentHTML("beforeend",`<td><b>${v[0]}</b></td><td>${v[1]}</td>`); });
+
+CONJ.forEach((c,i)=>el("conj").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${c[0]}</span> →
+   <input class="ans full" data-type="exact" data-ans="${c[1]}" data-k="c${i}">
+   <span class="fb" id="fb_c${i}"></span></div></div>`));
+
+MAKE.forEach((m,i)=>{
+  el("make").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">(${m[0]} vs ${m[1]} / ${m[2]})</span>
+   <input class="ans full" data-type="make" data-need="보다" data-adj="${m[3]}" data-k="m${i}" placeholder="비교 문장을 쓰세요">
+   <span class="fb" id="fb_m${i}"></span></div>
+   <button class="hintbtn" onclick="toggleModel('mm${i}')">예시 보기</button>
+   <div class="model" id="mm${i}">예시: ${m[0]}${josa(m[0])} ${m[1]}보다 더 ${m[3]}.</div></div>`); });
+
+const KEY="lesson3_opinion";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const t=elm.dataset.type, v=elm.value.trim(), fb=elm.dataset.k?document.getElementById("fb_"+elm.dataset.k):null;
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) { return; }
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const flat=v.replace(/\s/g,"");
+  let state="no";
+  if(t==="exact") state = norm(v)===norm(elm.dataset.ans) ? "ok":"no";
+  else if(t==="make"){
+    const pOk=flat.includes(elm.dataset.need);
+    const aOk=flat.includes(elm.dataset.adj);
+    state = !pOk ? "no" : (aOk ? "ok" : "warn");
+  }
+  else if(t==="free"){
+    const n=(v.match(/[.?!]/g)||[]).length;             // 문장 수
+    const guess=flat.includes("것같");                   // 추측 -(으)ㄹ 것 같-
+    const reason=flat.includes("보다")||/(기때문|아서|어서|여서)/.test(flat); // 비교 또는 이유
+    state = (n>=2 && guess && reason) ? "ok" : "warn";
+  }
+  // 피드백 메시지 (타입별)
+  let okSym="✓", warnSym="", noSym=(t==="make"?"보다 ✗":"✗");
+  if(t==="make"){ warnSym="보다 ✓ · 형용사 확인"; }
+  else if(t==="free"){
+    okSym="형식 OK · 내용은 선생님과";
+    const tips=[];
+    if((v.match(/[.?!]/g)||[]).length<2) tips.push("문장 2개 이상");
+    if(!flat.includes("것같")) tips.push("추측(-(으)ㄹ 것 같아요)");
+    if(!(flat.includes("보다")||/(기때문|아서|어서|여서)/.test(flat))) tips.push("비교(보다)나 이유(-기 때문에)");
+    warnSym="더: "+tips.join(" · ");
+  }
+  fb.textContent = state==="ok" ? okSym : state==="warn" ? warnSym : noSym;
+  fb.className = "fb "+state;
+  updateScore();
+}
+function updateScore(){
+  const all=document.querySelectorAll("[data-type]"); let done=0,ok=0;
+  all.forEach(e=>{ if(e.dataset.type==="free") return; const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 문제 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>

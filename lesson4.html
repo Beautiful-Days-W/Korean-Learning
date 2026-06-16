@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 4 · 들은 말 전하기 — Reporting what others say</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:19px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;}
+  h2 .en{font-size:13px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;margin:10px 0;}
+  .rule b{color:var(--accent);}
+  .chip{display:inline-block;background:var(--accent-soft);border-radius:6px;padding:1px 7px;font-weight:700;color:var(--accent);}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.tiny{width:64px;text-align:center;font-size:18px;}
+  input.mid{width:180px;}
+  input.full{flex:1;min-width:220px;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .fb.warn{color:#854d0e;background:#fde047;border:1px solid #eab308;border-radius:6px;padding:1px 7px;font-size:12px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .wordcard{display:none;font-size:13px;color:#374151;background:#fff;border:1px dashed #fdba74;border-radius:8px;padding:10px 13px;margin-top:8px;line-height:2;}
+  .wordcard.show{display:block;}
+  .lbl{font-size:13px;color:var(--muted);}
+  textarea.ans{font:inherit;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;resize:vertical;min-height:90px;margin-top:6px;}
+  textarea.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  .teacher .read{font-weight:600;color:var(--warm);}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 4 · 들은 말 전하기 <span class="sub">Reporting what others say</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">다른 사람이 한 말을 <b>전해 봐요</b> — "삼촌이 증시가 위험하다고 했어요", "뉴스에서 금리가 오른다고 해요"처럼요. <b>가족·뉴스의 의견을 전하고</b> 내 생각도 보태는 연습이에요. (This lesson is about <b>reporting</b> what someone else said, then adding your own view.)</p>
+    <div class="note">
+      ✓ 들은 말 전하기: <b>-다고 / -(이)라고 하다</b> <span class="en">Report a statement</span><br>
+      ✓ 동사·형용사·명사 <b>인용 형태</b> 구별 <span class="en">Verb / adjective / noun quote forms</span><br>
+      ✓ 전한 뒤 <b>내 의견</b> 보태기 <span class="en">Add your own opinion after reporting</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (간접화법)</span></h2>
+    <div class="rule">
+      <b>① 형용사·명사 — -다고 / -(이)라고 하다:</b> 형용사는 그대로 <span class="chip">-다고</span>, 명사는 <span class="chip">-(이)라고</span>.<br>
+      좋다 → 좋<b>다고</b> 해요 · 학생 → 학생<b>이라고</b> 해요 · 의사 → 의사<b>라고</b> 해요<br><br>
+      <b>② 동사 현재 — 받침 없으면 -ㄴ다고, 있으면 -는다고:</b><br>
+      오르다 → 오<b>른다고</b> 해요 · 먹다 → 먹<b>는다고</b> 해요<br><br>
+      <b>③ 과거 — -았/었다고 하다 (동사·형용사 공통):</b><br>
+      좋았다 → 좋<b>았다고</b> 해요 · 갔다 → 갔<b>다고</b> 해요<br><br>
+      <b>전하는 동사:</b> -다고 <b>해요/했어요</b>(말하다) · -다고 <b>생각해요</b>(생각하다) · -다고 <b>들었어요</b>(듣다)
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 전하기</span></h2>
+    <p class="lead">아래 표현으로 다음 연습을 해요.</p>
+    <table class="vocab"><tr><th>용어</th><th>뜻</th><th>용어</th><th>뜻</th></tr><tbody id="vtable"></tbody></table>
+  </section>
+
+  <section>
+    <h2>3. 간접화법으로 바꾸기 <span class="en">-다고/-(이)라고 해요 · 입력 즉시 채점</span></h2>
+    <p class="lead">단어를 <b>「~다고/~(이)라고 해요」</b> 형태로 바꿔 쓰세요. 〈 〉 안의 품사에 맞는 규칙을 써요 (형용사 -다고 / 동사 -ㄴ다고·-는다고 / 명사 -(이)라고).</p>
+    <div id="conj"></div>
+  </section>
+
+  <section>
+    <h2>4. 들은 말 전하기 <span class="en">Report a quote</span></h2>
+    <p class="lead">누가 한 말(따옴표)을 <b>「(사람)은/는 [내용]다고/라고 했어요.」</b>로 전하세요. <b>-다고/-라고 인용 형태</b>가 맞으면 초록, 빠지면 빨강. <b>전하는 동사(했어요/해요/생각해요)</b>가 빠지면 노란색으로 알려줘요.</p>
+    <div id="make"></div>
+  </section>
+
+  <section>
+    <h2>5. 전하고 내 의견 쓰기 <span class="en">Report &amp; react</span></h2>
+    <p class="lead">가족이나 뉴스에서 들은 의견을 <b>전하고</b>, 거기에 <b>내 생각</b>을 보태 <b>2~3문장</b>으로 써 보세요. (<b>간접화법 -다고/-라고</b> + <b>전하는 동사</b>를 꼭 써요.) — 내용 채점은 없어요(형식만 신호). 선생님과 함께 다듬어요.</p>
+    <textarea class="ans" data-type="free" data-k="free" placeholder=""></textarea>
+    <span class="fb" id="fb_free"></span>
+    <button class="hintbtn" onclick="toggleModel('freemodel')">예시 보기</button>
+    <div class="model" id="freemodel">예: 삼촌은 한국 증시가 위험하다고 했어요. 그렇지만 저는 장기적으로는 오를 것 같다고 생각해요.</div>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기·듣기 + 과제</span></h2>
+
+    <button class="hintbtn" onclick="toggleModel('wordbank')">🗂️ 드릴용 단어 카드 보기 (①·② 공용)</button>
+    <div class="wordcard" id="wordbank">
+      "(사람): '…'"을 던지면 학습자가 「(사람)은/는 …다고/라고 했어요」로 전해요.<br>
+      <b>화자·출처:</b> 삼촌 · 엄마 · 친구 · 선생님 · 뉴스에서<br>
+      <b>전할 말(짧게):</b> "증시가 위험해요" · "금리가 올라요" · "장기 투자가 좋아요" · "주식이 비싸요" · "그 영화가 재미있어요"
+    </div>
+
+    <h3>① 전하기 즉답 드릴 — 빠른 즉답 (3분)</h3>
+    <p class="lead"><b>통제된 자동화 연습.</b> "(사람): '…'"을 <b>빠르게 던지면</b> 학습자가 <b>"(사람)은/는 …다고/라고 했어요"</b> 한 문장으로 즉답해요. 목표는 <b>속도 + 인용 형태 정확성</b>. (의견 확장은 ②에서.)</p>
+    <ul>
+      <li>삼촌: "증시가 위험해요" → "삼촌은 증시가 위험하다고 했어요"</li>
+      <li>뉴스: "금리가 올라요" → "뉴스에서 금리가 오른다고 해요" / 친구: "그 영화 재미있어요" → "친구는 그 영화가 재미있다고 했어요"</li>
+    </ul>
+
+    <h3>② 듣고 길게 말하기 — 전하기 대화 (듣기 + 말하기)</h3>
+    <p class="lead"><b>선생님은 짧게, 학습자가 길게.</b> 짧은 질문·맞장구로 학습자가 <b>들은 말을 전하고 의견을 보태게</b> 해요. 목표 발화 비중 <b>학습자 80% · 선생님 20%</b>. 단답이면 추임새로 더 끌어내고, <b>침묵을 선생님이 채우지 마세요</b>.</p>
+    <p class="lead">의견 질문을 던지면, 학습자가 <b>간접화법(-다고/-라고) + 내 의견(-(으)ㄹ 것 같다·-기 때문에)</b>을 섞어 <b>3문장 이상</b> 말하게 해요.</p>
+    <p class="lead" style="margin-bottom:4px"><b>여는 질문</b> (하나 골라 말로 던지기):</p>
+    <ul>
+      <li><span class="read">"가족이 요즘 뭐라고 해요?"</span></li>
+      <li><span class="read">"뉴스에서 경제에 대해 뭐라고 해요?"</span></li>
+      <li><span class="read">"친구는 그것에 대해 뭐라고 했어요?"</span></li>
+      <li><span class="read">"그 말에 동의해요? 왜요?"</span></li>
+    </ul>
+    <p class="lead" style="margin-bottom:4px"><b>이어가게 하는 짧은 말</b> (선생님은 이것만):</p>
+    <ul>
+      <li><span class="read">"그래서요?"</span> · <span class="read">"또요?"</span> · <span class="read">"왜 그렇게 말했어요?"</span> · <span class="read">"동의해요?"</span> · <span class="read">"그다음은요?"</span></li>
+    </ul>
+    <p class="lead"><b>듣기 포인트</b>(강점 영역 유지): 선생님이 누군가의 의견을 들려주고(<span class="read">"삼촌은 지금이 위험하다고 했어요."</span>) 학습자가 <b>전하며 자기 의견을 보태게</b> 해요(예: "삼촌은 위험하다고 했는데, 저는 괜찮을 것 같다고 생각해요").</p>
+    <p class="lead" style="color:var(--warm)">성공 기준: 한 주제로 학습자가 <b>5문장 이상 이어서</b> 말하고, 간접화법 + 자기 의견이 함께 나오면 잘된 거예요.</p>
+
+    <h3>③ 과제 <span class="en">Homework</span></h3>
+    <ul>
+      <li><b>가족이나 뉴스에서 들은 의견</b> 하나를 3~4문장으로 <b>전하고</b>(간접화법) 거기에 <b>내 생각</b>을 보태기. 주제는 증시·투자·일상 무엇이든.</li>
+    </ul>
+    <p class="lead" style="color:var(--warm)">평가 포인트: ① -다고/-(이)라고 인용 형태가 맞는가 ② 전하는 동사(했어요/생각해요)를 쓰는가 ③ 자기 의견으로 연결하는가. 유창성·발화량도 함께 관찰.</p>
+  </div>
+
+  <footer>Lesson 4 / 간접화법 · 주제: 가족·뉴스 의견 전하기 · 다음: 높임말로 어른께 말하기</footer>
+</div>
+
+<script>
+function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
+
+const VOCAB=[
+  ["-다고 하다","to say that ~ (statement)"],["-(이)라고 하다","to say that ~ (noun)"],
+  ["생각하다","to think"],["말하다","to say"],
+  ["듣다","to hear"],["전하다","to convey / relay"],
+  ["뉴스","news"],["의견","opinion"],
+  ["오르다","to rise"],["위험하다","(to be) risky"]
+];
+const CONJ=[ // [표시어, 품사, 정답]
+  ["좋다","형용사","좋다고 해요"],
+  ["위험하다","형용사","위험하다고 해요"],
+  ["오르다","동사","오른다고 해요"],
+  ["먹다","동사","먹는다고 해요"],
+  ["학생","명사","학생이라고 해요"],
+  ["의사","명사","의사라고 해요"]
+];
+const MAKE=[ // [사람, 직접인용(따옴표), 간접화법어미, 전체예시]
+  ["삼촌","한국 증시가 위험해요","위험하다고","삼촌은 한국 증시가 위험하다고 했어요."],
+  ["뉴스","금리가 올라요","오른다고","뉴스에서 금리가 오른다고 해요."],
+  ["엄마","장기 투자가 좋아요","좋다고","엄마는 장기 투자가 좋다고 했어요."],
+  ["친구","요즘 주식이 비싸요","비싸다고","친구는 요즘 주식이 비싸다고 했어요."]
+];
+
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((v,i)=>{ if(i%2===0){const r=document.createElement("tr");r.id="vr"+i;el("vtable").appendChild(r);} });
+VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjacentHTML("beforeend",`<td><b>${v[0]}</b></td><td>${v[1]}</td>`); });
+
+CONJ.forEach((c,i)=>el("conj").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${c[0]} <span class="lbl">〈${c[1]}〉</span></span> →
+   <input class="ans full" data-type="exact" data-ans="${c[2]}" data-k="c${i}">
+   <span class="fb" id="fb_c${i}"></span></div></div>`));
+
+MAKE.forEach((m,i)=>{
+  el("make").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">(${m[0]} / "${m[1]}")</span>
+   <input class="ans full" data-type="make" data-need="${m[2]}" data-k="m${i}" placeholder="전해 보세요 (…다고/라고 했어요)">
+   <span class="fb" id="fb_m${i}"></span></div>
+   <button class="hintbtn" onclick="toggleModel('mm${i}')">예시 보기</button>
+   <div class="model" id="mm${i}">예시: ${m[3]}</div></div>`); });
+
+const KEY="lesson4_reported";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const t=elm.dataset.type, v=elm.value.trim(), fb=elm.dataset.k?document.getElementById("fb_"+elm.dataset.k):null;
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) { return; }
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const flat=v.replace(/\s/g,"");
+  let state="no";
+  if(t==="exact") state = norm(v)===norm(elm.dataset.ans) ? "ok":"no";
+  else if(t==="make"){
+    const pOk=flat.includes(elm.dataset.need);            // 간접화법 어미 (…다고/…라고)
+    const rOk=/(했|해요|생각|대요|들었)/.test(flat);       // 전하는 동사
+    state = !pOk ? "no" : (rOk ? "ok" : "warn");
+  }
+  else if(t==="free"){
+    const n=(v.match(/[.?!]/g)||[]).length;               // 문장 수
+    const report=/(다고|라고|냐고)/.test(flat);            // 간접화법
+    const rverb=/(했|해요|생각|대요|들었)/.test(flat);     // 전하는 동사
+    state = (n>=2 && report && rverb) ? "ok" : "warn";
+  }
+  // 피드백 메시지 (타입별)
+  let okSym="✓", warnSym="", noSym=(t==="make"?"인용형 ✗":"✗");
+  if(t==="make"){ warnSym="인용형 ✓ · 전하는 동사 확인"; }
+  else if(t==="free"){
+    okSym="형식 OK · 내용은 선생님과";
+    const tips=[];
+    if((v.match(/[.?!]/g)||[]).length<2) tips.push("문장 2개 이상");
+    if(!/(다고|라고|냐고)/.test(flat)) tips.push("간접화법(-다고/-라고)");
+    if(!/(했|해요|생각|대요|들었)/.test(flat)) tips.push("전하는 동사(했어요/생각해요)");
+    warnSym="더: "+tips.join(" · ");
+  }
+  fb.textContent = state==="ok" ? okSym : state==="warn" ? warnSym : noSym;
+  fb.className = "fb "+state;
+  updateScore();
+}
+function updateScore(){
+  const all=document.querySelectorAll("[data-type]"); let done=0,ok=0;
+  all.forEach(e=>{ if(e.dataset.type==="free") return; const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 문제 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
