@@ -26,11 +26,19 @@
   .btn:disabled{opacity:.5;cursor:default;}
   .msg{margin-top:12px;font-size:14px;font-weight:600;}
   .msg.ok{color:var(--ok);} .msg.no{color:#dc2626;}
-  .sub{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:12px;}
-  .sub .top{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;}
+  .sub{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden;}
+  .subhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:13px 16px;cursor:pointer;user-select:none;}
+  .subhead:hover{background:#fafbff;}
+  .subhead .caret{color:var(--muted);font-size:12px;width:12px;display:inline-block;transition:transform .15s;}
+  .sub.open .subhead .caret{transform:rotate(90deg);}
   .sub .ttl{font-size:15px;font-weight:700;}
   .sub .when{font-size:12.5px;color:var(--muted);margin-left:auto;}
-  .sub .text{white-space:pre-wrap;font-size:14.5px;margin:10px 0 0;padding:10px 12px;background:#fafafa;border-radius:8px;}
+  .badge{font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap;}
+  .badge.done{color:#fff;background:var(--warm);}
+  .badge.wait{color:#6b7280;background:#eef0f2;}
+  .subbody{display:none;padding:0 16px 14px;}
+  .sub.open .subbody{display:block;}
+  .sub .text{white-space:pre-wrap;font-size:14.5px;margin:2px 0 0;padding:10px 12px;background:#fafafa;border-radius:8px;}
   .fb{margin-top:12px;border-left:3px solid var(--warm);background:var(--warm-soft);border-radius:0 8px 8px 0;padding:10px 14px;}
   .fb .lab{font-size:12px;font-weight:700;color:var(--warm);margin-bottom:4px;}
   .fb .body{white-space:pre-wrap;font-size:14px;color:#3f2a1d;}
@@ -101,16 +109,27 @@ async function load(){
     if(!res.ok){ list.innerHTML=`<div class="empty">불러오기 실패: ${res.status}</div>`; return; }
     const rows=await res.json();
     if(!rows.length){ list.innerHTML=`<div class="empty">아직 제출한 숙제가 없어요.</div>`; return; }
-    list.innerHTML=rows.map(r=>{
+    list.innerHTML=rows.map((r,i)=>{
       const p=r.payload||{};
       const fb=r.feedback;
-      const fbHtml = fb && fb.comment
+      const done = !!(fb && fb.comment);
+      const badge = done
+        ? `<span class="badge done">✍️ 첨삭</span>`
+        : `<span class="badge wait">⏳ 대기</span>`;
+      const fbHtml = done
         ? `<div class="fb"><div class="lab">✍️ 선생님 첨삭</div><div class="body">${esc(fb.comment)}</div><div class="meta">${esc(fb.by||"teacher")} · ${esc(fmtWhen(fb.at))}</div></div>`
         : `<div class="nofb">⏳ 아직 첨삭 전이에요.</div>`;
-      return `<div class="sub">
-        <div class="top"><span class="ttl">${esc(r.title||"숙제")}</span><span class="when">${esc(fmtWhen(r.created_at))}</span></div>
-        <div class="text">${esc(p.text||"")}</div>
-        ${fbHtml}
+      return `<div class="sub${i===0?" open":""}">
+        <div class="subhead" onclick="this.closest('.sub').classList.toggle('open')">
+          <span class="caret">▶</span>
+          <span class="ttl">${esc(r.title||"숙제")}</span>
+          <span class="when">${esc(fmtWhen(r.created_at))}</span>
+          ${badge}
+        </div>
+        <div class="subbody">
+          <div class="text">${esc(p.text||"")}</div>
+          ${fbHtml}
+        </div>
       </div>`;
     }).join("");
   }catch(e){ list.innerHTML=`<div class="empty">${esc(e)}</div>`; }
