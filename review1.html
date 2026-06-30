@@ -146,7 +146,7 @@ CONJ.forEach((c,i)=>el("conj").insertAdjacentHTML("beforeend",
    <span class="fb" id="fb_c${i}"></span></div></div>`));
 
 const HON=[ // 평이 문장 → 높임 일치 (께서 + 서술어 -(으)세요)
-  ["할아버지께서 배고파요","할아버지께서 배고프세요"],
+  ["할아버지께서 배고파요","할아버지께서 배고프세요|할아버지께서 시장하세요"],
   ["어머니께서 책을 좋아해요","어머니께서 책을 좋아하세요"],
   ["선생님께서 가요","선생님께서 가세요"],
   ["할머니께서 신문을 읽어요","할머니께서 신문을 읽으세요"]
@@ -164,7 +164,7 @@ function check(elm){
   if(!fb) return;
   if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
   let state="no";
-  if(t==="exact") state = norm(v)===norm(elm.dataset.ans) ? "ok":"no";
+  if(t==="exact") state = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a)) ? "ok":"no";
   else if(t==="free"){ state = (v.match(/[.?!]/g)||[]).length>=2 ? "ok":"warn"; }
   let okSym = t==="free" ? "형식 OK · 내용은 선생님과" : "✓";
   let warnSym = "문장 2개 이상 써 보세요", noSym="✗";
