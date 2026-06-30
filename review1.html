@@ -56,7 +56,7 @@
 <body>
 
 <div class="bar">
-  <h1>복습 · 추측 -(으)ㄹ 것 같아요 <span class="sub">Saying what will probably happen</span></h1>
+  <h1>복습 · 추측 + 높임 보강 <span class="sub">Review: guessing &amp; honorifics</span></h1>
   <span id="score"></span>
   <button class="btn" onclick="window.print()">🖨 인쇄</button>
   <button class="btn" onclick="resetAll()">↺ 초기화</button>
@@ -64,10 +64,11 @@
 
 <div class="wrap">
   <div class="head">
-    <h2>목표 <span class="en">Goal</span></h2>
-    <p class="lead">어떤 일이 <b>어떻게 될지 추측</b>해서 말해요 — "오를 것 같아요", "좋을 것 같아요"처럼요. (평가에서 이 부분을 비워서, 기본형에서 만드는 연습을 짧게 해요.) (Quick practice building <b>-(으)ㄹ 것 같아요</b> from the base form.)</p>
+    <h2>목표 <span class="en">Goals</span></h2>
+    <p class="lead">평가에서 약했던 <b>두 가지</b>를 짧게 보강해요 — ① <b>추측 -(으)ㄹ 것 같아요</b> ② <b>높임</b>(어휘 + 께서면 서술어도 높이기). (Quick review of two weak spots: the guessing form & honorifics.)</p>
     <div class="note">
-      ✓ 기본형 → <b>-(으)ㄹ 것 같아요</b> 정확히 만들기 <span class="en">Build the guessing form from the dictionary form</span>
+      ✓ 기본형 → <b>-(으)ㄹ 것 같아요</b> 만들기 <span class="en">Build the guessing form</span><br>
+      ✓ 주어가 <b>께서</b>면 서술어도 <b>-(으)세요</b>로 + 높임 어휘 <span class="en">Match honorific subject with honorific predicate</span>
     </div>
   </div>
 
@@ -98,6 +99,22 @@
     <div class="model" id="fm">예: 내일 비가 올 것 같아요. 그래서 사람이 적을 것 같아요.</div>
   </section>
 
+  <section>
+    <h2>4. 높임 어휘 빠른 점검 <span class="en">Honorific words</span></h2>
+    <p class="lead">보통말 → 높임말. 웃어른 이야기할 때 써요.</p>
+    <div class="rule">
+      먹다 → <b>드시다</b>(드세요) · 자다 → <b>주무시다</b>(주무세요) · 있다 → <b>계시다</b>(계세요) · 말하다 → <b>말씀하시다</b> · 주다 → <b>드리다</b><br><br>
+      배고프다 → <b>시장하다</b> · 아프다 → <b>편찮으시다</b> · 나이 → <b>연세</b> · 집 → <b>댁</b> · 이름 → <b>성함</b><br>
+      <span class="lbl">※ 시장하다(hungry)는 시장(market)과 소리만 같고 뜻은 무관!</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. 높임 일치 — 께서면 서술어도 높이기 <span class="en">Match the predicate · 입력 즉시 채점</span></h2>
+    <p class="lead">주어에 <b>께서</b>가 있으면 서술어도 <b>-(으)세요</b>로! 아래 문장을 높임말로 고쳐 쓰세요.</p>
+    <div id="hon"></div>
+  </section>
+
   <div class="teacher">
     <h2>👩‍🏫 선생님 카드 <span class="en">말하기 드릴</span></h2>
     <h3>추측 즉답 드릴 (빠른 즉답)</h3>
@@ -106,7 +123,11 @@
       <li>오르다 → "오를 것 같아요" / 좋다 → "좋을 것 같아요" / 살다 → "살 것 같아요"</li>
       <li>이어서: "왜 그렇게 생각해요?" 하고 이유(-기 때문에)까지 말하게</li>
     </ul>
-  </div>
+    <h3>높임 일치 즉답 드릴</h3>
+    <p class="lead">"할아버지께서 + 배고프다"처럼 던지면 학습자가 <b>"할아버지께서 배고프세요"</b>로 즉답. <b>께서면 서술어도 높이는</b> 습관을 들이기.</p>
+    <ul>
+      <li>어머니께서 / 좋아하다 → "어머니께서 좋아하세요" · 선생님께서 / 가다 → "선생님께서 가세요"</li>
+    </ul>
 
   <footer>복습 · 추측 -(으)ㄹ 것 같아요 · 다음: Lesson 6</footer>
 </div>
@@ -123,6 +144,17 @@ CONJ.forEach((c,i)=>el("conj").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${c[0]}</span> →
    <input class="ans full" data-type="exact" data-ans="${c[1]}" data-k="c${i}">
    <span class="fb" id="fb_c${i}"></span></div></div>`));
+
+const HON=[ // 평이 문장 → 높임 일치 (께서 + 서술어 -(으)세요)
+  ["할아버지께서 배고파요","할아버지께서 배고프세요"],
+  ["어머니께서 책을 좋아해요","어머니께서 책을 좋아하세요"],
+  ["선생님께서 가요","선생님께서 가세요"],
+  ["할머니께서 신문을 읽어요","할머니께서 신문을 읽으세요"]
+];
+HON.forEach((h,i)=>el("hon").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${h[0]}</span> →
+   <input class="ans full" data-type="exact" data-ans="${h[1]}" data-k="h${i}">
+   <span class="fb" id="fb_h${i}"></span></div></div>`));
 
 const KEY="review1_guess";
 const store=JSON.parse(localStorage.getItem(KEY)||"{}");
