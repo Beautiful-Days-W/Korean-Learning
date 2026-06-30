@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>복습 · 추측 -(으)ㄹ 것 같아요 — Guessing</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:19px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;}
+  h2 .en{font-size:13px;color:var(--muted);font-weight:500;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;margin:10px 0;}
+  .rule b{color:var(--accent);}
+  .chip{display:inline-block;background:var(--accent-soft);border-radius:6px;padding:1px 7px;font-weight:700;color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.full{flex:1;min-width:220px;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .fb.warn{color:#854d0e;background:#fde047;border:1px solid #eab308;border-radius:6px;padding:1px 7px;font-size:12px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  textarea.ans{font:inherit;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;resize:vertical;min-height:80px;margin-top:6px;}
+  textarea.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  .teacher .read{font-weight:600;color:var(--warm);}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>복습 · 추측 -(으)ㄹ 것 같아요 <span class="sub">Saying what will probably happen</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>목표 <span class="en">Goal</span></h2>
+    <p class="lead">어떤 일이 <b>어떻게 될지 추측</b>해서 말해요 — "오를 것 같아요", "좋을 것 같아요"처럼요. (평가에서 이 부분을 비워서, 기본형에서 만드는 연습을 짧게 해요.) (Quick practice building <b>-(으)ㄹ 것 같아요</b> from the base form.)</p>
+    <div class="note">
+      ✓ 기본형 → <b>-(으)ㄹ 것 같아요</b> 정확히 만들기 <span class="en">Build the guessing form from the dictionary form</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works</span></h2>
+    <div class="rule">
+      <b>동사·형용사 + -(으)ㄹ 것 같아요</b> = "~할 것 같다 / ~일 것 같다"(추측).<br><br>
+      <b>① 받침 없음 → -ㄹ 것 같아요:</b> 오르다 → 오<b>를</b> 것 같아요 · 가다 → 갈 것 같아요<br>
+      <b>② 받침 있음 → -을 것 같아요:</b> 좋다 → 좋<b>을</b> 것 같아요 · 먹다 → 먹<b>을</b> 것 같아요<br>
+      <b>③ ㄹ받침 → 그대로 -ㄹ 것:</b> 살다 → 살 것 같아요 (을 안 붙임)<br>
+      <b>④ ㅂ불규칙:</b> 어렵다 → 어려<b>울</b> 것 같아요<br><br>
+      💡 핵심은 "기본형에서 -다를 떼고 받침 규칙대로 (으)ㄹ 붙이기".
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 추측 만들기 <span class="en">Make a guess · 입력 즉시 채점</span></h2>
+    <p class="lead">기본형을 <b>「-(으)ㄹ 것 같아요」</b>로 바꿔 쓰세요. 받침 규칙·불규칙에 주의!</p>
+    <div id="conj"></div>
+  </section>
+
+  <section>
+    <h2>3. 짧게 추측 쓰기 <span class="en">Write a short guess</span></h2>
+    <p class="lead">날씨·시장·주말 등 무엇이든, <b>-(으)ㄹ 것 같아요</b>로 <b>2문장</b> 추측해 보세요. — 점수엔 안 들어가고 선생님이 봐요.</p>
+    <textarea class="ans" data-type="free" data-k="free" placeholder=""></textarea>
+    <span class="fb" id="fb_free"></span>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 내일 비가 올 것 같아요. 그래서 사람이 적을 것 같아요.</div>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 드릴</span></h2>
+    <h3>추측 즉답 드릴 (빠른 즉답)</h3>
+    <p class="lead">기본형을 <b>빠르게 던지면</b> 학습자가 <b>"…-(으)ㄹ 것 같아요"</b>로 즉답. 받침 규칙을 입에 붙이는 게 목표예요.</p>
+    <ul>
+      <li>오르다 → "오를 것 같아요" / 좋다 → "좋을 것 같아요" / 살다 → "살 것 같아요"</li>
+      <li>이어서: "왜 그렇게 생각해요?" 하고 이유(-기 때문에)까지 말하게</li>
+    </ul>
+  </div>
+
+  <footer>복습 · 추측 -(으)ㄹ 것 같아요 · 다음: Lesson 6</footer>
+</div>
+
+<script>
+function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
+const CONJ=[ // 기본형 → -(으)ㄹ 것 같아요
+  ["오르다","오를 것 같아요"],["내리다","내릴 것 같아요"],["좋다","좋을 것 같아요"],
+  ["가다","갈 것 같아요"],["먹다","먹을 것 같아요"],["살다","살 것 같아요"],
+  ["비싸다","비쌀 것 같아요"],["어렵다","어려울 것 같아요"]
+];
+function el(id){return document.getElementById(id);}
+CONJ.forEach((c,i)=>el("conj").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${c[0]}</span> →
+   <input class="ans full" data-type="exact" data-ans="${c[1]}" data-k="c${i}">
+   <span class="fb" id="fb_c${i}"></span></div></div>`));
+
+const KEY="review1_guess";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const t=elm.dataset.type, v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  let state="no";
+  if(t==="exact") state = norm(v)===norm(elm.dataset.ans) ? "ok":"no";
+  else if(t==="free"){ state = (v.match(/[.?!]/g)||[]).length>=2 ? "ok":"warn"; }
+  let okSym = t==="free" ? "형식 OK · 내용은 선생님과" : "✓";
+  let warnSym = "문장 2개 이상 써 보세요", noSym="✗";
+  fb.textContent = state==="ok"?okSym : state==="warn"?warnSym : noSym;
+  fb.className="fb "+state;
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ if(e.dataset.type==="free")return; const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
