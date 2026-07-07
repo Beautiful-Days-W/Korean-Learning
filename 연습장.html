@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>복습 연습장 · Practice Room</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:19px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;}
+  h2 .en{font-size:13px;color:var(--muted);font-weight:500;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;margin:10px 0;}
+  .rule b{color:var(--accent);}
+  .drill{padding:9px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:140px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .grid2{display:grid;grid-template-rows:repeat(6,auto);grid-auto-flow:column;column-gap:26px;}
+  .grid2 .drill:nth-child(7){border-top:none;}
+  @media(max-width:560px){.grid2{display:block;} .grid2 .drill:nth-child(7){border-top:1px dashed var(--line);}}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>복습 연습장 <span class="sub">Practice Room — anytime, as often as you like</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 다시 풀기</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>쓰는 법 <span class="en">How to use</span></h2>
+    <p class="lead">수업과 별도로, <b>틈날 때마다</b> 와서 반복 연습하는 곳이에요. 입력하면 바로 채점되고, 「↺ 다시 풀기」로 몇 번이든 다시 할 수 있어요. (Come back anytime — instant checking, repeat as often as you like.)</p>
+    <div class="note">지금 있는 연습: <b>높임말</b> · <b>상대 시간</b> — 앞으로 계속 늘어나요.</div>
+  </div>
+
+  <section>
+    <h2>1. 높임말 <span class="en">Honorific words</span></h2>
+    <div class="rule">
+      어른께 말할 때 바뀌는 단어들이에요. (Words that change when speaking to elders.)<br>
+      이름→<b>성함</b> · 나이→<b>연세</b> · 집→<b>댁</b> · 먹다/마시다→<b>드시다</b> · 있다→<b>계시다</b> · 말→<b>말씀</b> · 자다→<b>주무시다</b> · 생일→<b>생신</b> · 주다→<b>드리다</b> · 묻다→<b>여쭤보다</b> · 사람→<b>분</b> · 한테→<b>께</b>
+    </div>
+    <p class="lead">보통 말 → <b>높임말</b>로 바꿔 쓰세요. (위 표를 먼저 가리고 해 보세요!)</p>
+    <div class="grid2" id="hon"></div>
+  </section>
+
+  <section>
+    <h2>2. 상대 시간 <span class="en">Relative time — from today</span></h2>
+    <div class="rule">
+      <b>날:</b> 그저께 ← 어제 ← <b>오늘</b> → 내일 → 모레 → 글피<br>
+      <b>주·달·년:</b> 지난주 · 이번 주 · 다음 주 / 지난달 · 이번 달 · 다음 달 / 작년 · 올해 · 내년 (last / this / next)
+    </div>
+    <p class="lead">오늘을 기준으로, 알맞은 말을 쓰세요.</p>
+    <div id="rel"></div>
+  </section>
+
+  <footer>복습 연습장 · 높임말 + 상대 시간 (계속 추가 예정)</footer>
+</div>
+
+<script>
+function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
+const HON=[ // [보통말, 높임말(| 허용)]
+  ["이름","성함"],["나이","연세"],["집","댁"],["먹다","드시다|드세요"],["있다","계시다|계세요"],["말","말씀"],
+  ["자다","주무시다|주무세요"],["생일","생신"],["주다","드리다"],["묻다","여쭤보다|여쭙다"],["사람","분"],["한테","께"]
+];
+const REL=[ // [질문, 정답(|)]
+  ["오늘의 1일 뒤 →","내일"],
+  ["오늘의 2일 뒤 →","모레"],
+  ["오늘의 3일 뒤 →","글피"],
+  ["오늘의 1일 전 →","어제"],
+  ["오늘의 2일 전 →","그저께"],
+  ["이번 주의 다음 →","다음 주"],
+  ["이번 달의 전 →","지난달"],
+  ["올해의 다음 →","내년"],
+  ["올해의 전 →","작년"]
+];
+
+function el(id){return document.getElementById(id);}
+HON.forEach((h,i)=>el("hon").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${h[0]}</span> →
+   <input class="ans mid" data-type="exact" data-ans="${h[1]}" data-k="h${i}">
+   <span class="fb" id="fb_h${i}"></span></div></div>`));
+REL.forEach((r,i)=>el("rel").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${r[0]}</span>
+   <input class="ans mid" data-type="exact" data-ans="${r[1]}" data-k="r${i}">
+   <span class="fb" id="fb_r${i}"></span></div></div>`));
+
+const KEY="practice_room";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function resetAll(){
+  if(!confirm("답을 지우고 다시 풀까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>

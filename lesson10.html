@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 10 · 가요? 와요? — Coming and going in Korean</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:19px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;}
+  h2 .en{font-size:13px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;margin:10px 0;}
+  .rule b{color:var(--accent);}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .scene{font-size:13.5px;color:var(--muted);margin:0 0 4px;}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:130px;text-align:center;}
+  input.tiny{width:86px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .fb.warn{color:#854d0e;background:#fde047;border:1px solid #eab308;border-radius:6px;padding:1px 7px;font-size:12px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .wordcard{display:none;font-size:13px;color:#374151;background:#fff;border:1px dashed #fdba74;border-radius:8px;padding:10px 13px;margin-top:8px;line-height:2;}
+  .wordcard.show{display:block;}
+  .lbl{font-size:13px;color:var(--muted);}
+  textarea.ans{font:inherit;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;resize:vertical;min-height:90px;margin-top:6px;}
+  textarea.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  .teacher .read{font-weight:600;color:var(--warm);}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 10 · 가요? 와요? <span class="sub">Coming and going in Korean</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">영어의 come/go와 한국어의 <b>오다/가다</b>는 기준이 달라요. 그래서 "I'm coming!"을 그대로 옮기면 틀려요 — 한국어로는 <b>"지금 가요!"</b>. 오늘은 이 감각을 <b>연습으로</b> 몸에 붙여요. (Korean 가다/오다 is anchored on the <b>speaker</b> — practice until it's automatic.)</p>
+    <div class="note">
+      ✓ <b>오다/가다</b>를 내(화자) 위치 기준으로 고르기 <span class="en">speaker-anchored come/go</span><br>
+      ✓ 합성 방향 동사: <b>들어가다/들어오다</b> 등 <span class="en">same rule in compound verbs</span><br>
+      ✓ <b>다녀오다</b> — 가족 일상 인사 <span class="en">go &amp; come back (daily greetings)</span><br>
+      ✓ 짚고 가기: <b>못</b>(불능) vs <b>안</b>(의지) <span class="en">can't vs won't</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · 9과</span></h2>
+    <p class="lead">지난 과 복습 네 개만! (높임말·상대 시간은 <b>연습장</b>에서 계속 연습해요.)</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (오다/가다)</span></h2>
+    <div class="rule">
+      <b>① 기준은 언제나 '나'(화자)예요 (the anchor is always the speaker):</b><br>
+      <b>오다</b> = 내가 있는 곳<b>으로</b> (movement toward where I am) · <b>가다</b> = 내가 있는 곳에서 <b>다른 곳으로</b> (away to somewhere else)<br>
+      영어는 듣는 사람 쪽으로 가도 "I'm <b>coming</b>!"이지만, 한국어는 내가 움직여 가니까 <b>"지금 가요!"</b> (English anchors on the listener; Korean doesn't.)<br><br>
+      <b>② 전화·문자에서 (on the phone):</b> 상대방이 있는 곳으로 갈 때도 <b>가요/갈게요</b>.<br>
+      집에 있는 사람이 물어요: "언제 <b>와요</b>?" → 밖에 있는 내가 답해요: "지금 <b>가요</b>!"<br><br>
+      <b>③ 합성 방향 동사도 같은 원리 (compound verbs follow the same rule):</b><br>
+      들어<b>가다</b>/들어<b>오다</b> (go in / come in) · 나<b>가다</b>/나<b>오다</b> (go out / come out) · 올라·내려<b>가다/오다</b> (up / down) · 가져<b>가다</b>/가져<b>오다</b> (take / bring)<br><br>
+      <b>④ 다녀오다 (go and come back)</b> — 가족 인사로 매일 써요:<br>
+      나갈 때: <b>다녀올게요!</b> (I'll be back!) · 배웅할 때: <b>다녀오세요!</b> · 돌아와서: <b>다녀왔습니다!</b> (I'm home!)<br><br>
+      <b>⑤ 짚고 가기 — 못 vs 안 (can't vs won't):</b> <b>못</b> = 할 수 없어서 (inability) · <b>안</b> = 하지 않기로 해서 (choice).<br>
+      "약속에 <b>못</b> 갈 수도 있어요." (I might not be able to make it — 사정이 있어서.)
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 방향 동사</span></h2>
+    <p class="lead">거의 다 아는 단어의 조합이에요 — 새로 외울 건 적어요!</p>
+    <table class="vocab"><tr><th>표현</th><th>뜻</th><th>표현</th><th>뜻</th></tr><tbody id="vtable"></tbody></table>
+  </section>
+
+  <section>
+    <h2>3. 가요? 와요? <span class="en">Pick by the speaker's location · 입력 즉시 채점</span></h2>
+    <p class="lead">상황을 읽고 빈칸에 <b>가요 또는 와요</b>(부탁이면 갈게요/올게요·와/가도 좋아요)를 쓰세요. <b>내가 어디에 있는지</b>가 기준!</p>
+    <div id="goCome"></div>
+  </section>
+
+  <section>
+    <h2>4. 들어가요? 들어와요? <span class="en">Compound direction verbs</span></h2>
+    <p class="lead">같은 원리예요. 빈칸에 <b>가요 또는 와요</b>만 쓰세요.</p>
+    <div id="compound"></div>
+  </section>
+
+  <section>
+    <h2>5. 못? 안? <span class="en">can't vs won't</span></h2>
+    <p class="lead">빈칸에 <b>못</b> 또는 <b>안</b>을 쓰세요.</p>
+    <div id="motAn"></div>
+  </section>
+
+  <section>
+    <h2>6. 전화 대화 쓰기 <span class="en">Write a phone exchange</span></h2>
+    <p class="lead">집에 있는 가족과 통화하는 상황이에요. <b>가다·오다·다녀오다</b>를 써서 <b>2~3문장</b>의 대화를 만들어 보세요. — 점수엔 안 들어가고 선생님이 봐요.</p>
+    <textarea class="ans" data-type="free" data-k="free" placeholder=""></textarea>
+    <span class="fb" id="fb_free"></span>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 엄마, 저 마트에 들렀다가 갈게요. 일곱 시까지 집에 가요. — 알겠어, 조심히 와.</div>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기·듣기 + 과제</span></h2>
+
+    <button class="hintbtn" onclick="toggleModel('wordbank')">🗂️ 드릴용 단어 카드 보기</button>
+    <div class="wordcard" id="wordbank">
+      <b>상황 큐 (나/상대 위치 → 즉답):</b> 회사→집 · 학교→집 · 친구 집으로 · 마트 들렀다가 · 집(나)에 친구가 옴 · 방 안(나)에 동생이 옴<br>
+      <b>다녀오다 인사:</b> 나갈 때 · 배웅 · 돌아와서<br>
+      <b>복습(9과):</b> 3일 · 15일 · 모레 · "약속을 미루다" 활용
+    </div>
+
+    <h3>⓪ 복습 즉답 — 9과 (1~2분)</h3>
+    <p class="lead">카드의 복습 큐로 짧게: 날짜(<span class="read">"3일!"</span>→"사흘") + 미루다 한 번. 연습장(높임·상대 시간) 풀어 봤는지 확인.</p>
+
+    <h3>① 가요/와요 속사포 (3분)</h3>
+    <p class="lead"><b>통제된 자동화.</b> 위치를 짧게 던지고 즉답: <span class="read">"너 회사, 엄마 집. 전화!"</span> → "엄마, 지금 가요!" / <span class="read">"너 집. 친구가 출발!"</span> → "친구가 와요." 틀리면 "기준은 누구?"라고만 묻고 다시.</p>
+
+    <h3>② 듣고 길게 말하기 — 전화 롤플레이 (듣기 + 말하기)</h3>
+    <p class="lead"><b>선생님은 짧게, 학습자가 길게.</b> 선생님 = 집에 있는 가족 역. 발화 비중 <b>학습자 80%</b>.</p>
+    <ul>
+      <li><span class="read">"언제 와?"</span> → 학습자가 길게: 어디 들렀다가, 몇 시까지 가는지, 뭘 가져가는지</li>
+      <li>나갈 때/돌아올 때 인사 실연: <span class="read">"지금 나가지?"</span> → "다녀올게요!" / (돌아와서) "다녀왔습니다!"</li>
+      <li><b>듣기 변별</b>: 선생님이 <span class="read">"형이 지금 와."</span> / <span class="read">"형이 지금 가."</span>를 섞어 말하면, 형이 <b>이쪽으로 오는지 딴 데로 가는지</b> 영어로 확인하게</li>
+    </ul>
+    <p class="lead" style="color:var(--warm)">성공 기준: 위치가 바뀌는 상황 5개 이상에서 가요/와요를 멈칫 없이 고르고, 다녀오다 인사 세 가지를 자연스럽게.</p>
+
+    <h3>③ 과제 <span class="en">Homework</span></h3>
+    <ul>
+      <li>가족과 실제로 쓸 법한 <b>전화·문자 대화 4문장</b> 쓰기 — <b>가다·오다·다녀오다 중 두 가지 이상</b> 사용.</li>
+      <li>+ 연습장(높임말·상대 시간) 1회 풀기.</li>
+    </ul>
+    <p class="lead" style="color:var(--warm)">평가 포인트: ① 가다/오다 기준(화자)이 맞는가 ② 다녀오다를 상황에 맞게 쓰는가 ③ 못/안 구분("못 갈 수도 있어요" 재점검).</p>
+  </div>
+
+  <footer>Lesson 10 / 가요? 와요? · 9과 수업 후기 반영(영어식 come/go 교정) · 다음 후보: 시간 말하기 / 요리법·조리법 / 격식체</footer>
+</div>
+
+<script>
+function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
+const VOCAB=[
+  ["다녀오다","to go and come back"],
+  ["다녀올게요 / 다녀왔습니다","I'll be back! / I'm home!"],
+  ["들어가다 / 들어오다","to go in / to come in"],
+  ["나가다 / 나오다","to go out / to come out"],
+  ["올라가다 / 올라오다","to go up / to come up"],
+  ["내려가다 / 내려오다","to go down / to come down"],
+  ["가져가다 / 가져오다","to take / to bring (things)"],
+  ["못 / 안","can't (inability) / won't (choice)"]
+];
+const REVIEW=[ // [힌트, 문장앞, 정답(|), 문장뒤]
+  ["9과 · 날짜","3일 = ","사흘",""],
+  ["9과 · 날짜","15일 = ","보름",""],
+  ["9과 · 미루다","약속을 모레로 ","미뤄"," 주시겠어요?"],
+  ["표기","저녁은 불고기를 생각했","는데"," 바꾸고 싶어요."]
+];
+const GOCOME=[ // [상황, 문장앞, 정답(|), 문장뒤]
+  ["나는 회사에 있어요. 집에 있는 엄마와 통화해요.","엄마, 지금 집에 ","가요|갈게요","!"],
+  ["나는 집에 있어요. 친구가 우리 집으로 출발했어요.","친구가 지금 우리 집에 ","와요","."],
+  ["친구 집 파티에 초대받았어요. 친구에게 문자를 보내요.","7시까지 ","갈게요|가요","!"],
+  ["나는 집 안에 있어요. 동생은 밖에 있어요. 동생에게 전화해요.","춥다, 빨리 집에 ","와|와요","!"],
+  ["나는 밖에 있어요. 가족은 집에 있어요. 문자를 보내요.","저녁까지 집에 ","갈게요|가요","."]
+];
+const COMPOUND=[ // [상황, 문장앞, 정답, 문장뒤]
+  ["나는 방 안에 있어요. 동생이 방으로 들어와요.","동생이 방에 들어","와요","."],
+  ["나는 건물 밖에서 기다려요. 친구가 건물 안으로 들어가요.","친구가 건물에 들어","가요","."],
+  ["나는 1층에 있어요. 형이 2층으로 올라가요.","형이 2층으로 올라","가요","."],
+  ["나는 2층에 있어요. 형이 2층으로 올라와요.","형이 2층으로 올라","와요","."],
+  ["도서관에 책을 반납하러 나가요.","책을 가져","가요","."],
+  ["나는 집에 있어요. 친구가 게임을 갖고 우리 집에 와요.","친구가 게임을 가져","와요","."]
+];
+const MOTAN=[ // [문장앞, 정답, 문장뒤]
+  ["다리를 다쳐서 축구를 ","못"," 해요."],
+  ["저는 커피를 ","안"," 마셔요. 안 좋아해서요."],
+  ["일이 생겨서 약속에 ","못"," 갈 수도 있어요."],
+  ["다이어트 중이라서 케이크를 ","안"," 먹어요."]
+];
+
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((v,i)=>{ if(i%2===0){const r=document.createElement("tr");r.id="vr"+i;el("vtable").appendChild(r);} });
+VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjacentHTML("beforeend",`<td><b>${v[0]}</b></td><td>${v[1]}</td>`); });
+
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span><input class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+
+GOCOME.forEach((g,i)=>el("goCome").insertAdjacentHTML("beforeend",
+  `<div class="drill"><p class="scene">${g[0]}</p>
+   <div class="row"><span class="num">${i+1}.</span><span class="ko">${g[1]}</span>
+   <input class="ans tiny" data-type="exact" data-ans="${g[2]}" data-k="g${i}">
+   <span class="ko">${g[3]}</span><span class="fb" id="fb_g${i}"></span></div></div>`));
+
+COMPOUND.forEach((c,i)=>el("compound").insertAdjacentHTML("beforeend",
+  `<div class="drill"><p class="scene">${c[0]}</p>
+   <div class="row"><span class="num">${i+1}.</span><span class="ko">${c[1]}</span>
+   <input class="ans tiny" data-type="exact" data-ans="${c[2]}" data-k="c${i}">
+   <span class="ko">${c[3]}</span><span class="fb" id="fb_c${i}"></span></div></div>`));
+
+MOTAN.forEach((m,i)=>el("motAn").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${m[0]}</span>
+   <input class="ans tiny" data-type="exact" data-ans="${m[1]}" data-k="m${i}" maxlength="1">
+   <span class="ko">${m[2]}</span><span class="fb" id="fb_m${i}"></span></div></div>`));
+
+const KEY="lesson10_gocome";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const t=elm.dataset.type, v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  let state="no";
+  if(t==="exact") state = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a)) ? "ok":"no";
+  else if(t==="free"){ state = (v.match(/[.?!]/g)||[]).length>=2 ? "ok":"warn"; }
+  let okSym = t==="free" ? "형식 OK · 내용은 선생님과" : "✓";
+  let warnSym = "문장 2개 이상 써 보세요", noSym="✗";
+  fb.textContent = state==="ok"?okSym : state==="warn"?warnSym : noSym;
+  fb.className="fb "+state;
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ if(e.dataset.type==="free")return; const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
