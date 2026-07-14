@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>복습 · 달라고 vs 주라고 — Reporting "do it for me / for them"</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;
+    --me:#2563eb;--them:#b45309;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  p.lead{font-size:14px;color:#374151;margin:4px 0 8px;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:13px 15px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .me{color:var(--me);font-weight:700;} .them{color:var(--them);font-weight:700;}
+  .card2{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;}
+  .card2.blue{background:#eff6ff;border-color:#bfdbfe;} .card2.amber{background:#fff7ed;border-color:#fed7aa;}
+  .card2 .en{color:#475569;font-size:13px;font-style:italic;}
+  table.ref{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px;}
+  table.ref th,table.ref td{border:1px solid var(--line);padding:8px 10px;text-align:left;}
+  table.ref th{background:#f3f4f6;}
+  table.ref .h1c{color:var(--me);} table.ref .h2c{color:var(--them);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .scene{font-size:13.5px;color:var(--muted);margin:0 0 4px;}
+  .tagme{font-size:11px;color:#fff;background:var(--me);border-radius:999px;padding:1px 8px;}
+  .tagthem{font-size:11px;color:#fff;background:var(--them);border-radius:999px;padding:1px 8px;}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:170px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .wordcard{display:none;font-size:13px;color:#374151;background:#fff;border:1px dashed #fdba74;border-radius:8px;padding:10px 13px;margin-top:8px;line-height:2;}
+  .wordcard.show{display:block;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:14px 0 6px;}
+  .teacher .read{font-weight:600;color:var(--warm);}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>복습 · 달라고 vs 주라고 <span class="sub">Reporting requests: "for me" vs "for them"</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 다시 풀기</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goal</span></h2>
+    <p class="lead">남의 부탁("~해 줘")을 전할 때 <b>달라고</b>와 <b>주라고</b> 중 무엇을 쓸지 정확히 고르는 연습이에요. 평가에서 어려웠던 부분을 콕 짚어 봐요. (When you report a "please do X for ~" request, Korean picks the verb by <b>who gets the favor</b>.)</p>
+    <div class="note"><span class="me">달라고</span> = 부탁한 사람이 <b>자기</b>가 받으려고 (for the asker) · <span class="them">주라고</span> = <b>다른 사람</b>에게 해 주라고 (for someone else)</div>
+  </div>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works — read carefully</span></h2>
+    <p class="lead">When you <b>report</b> a request someone made, the verb <b>주다</b> ("give / do a favor") splits into two, depending on <b>who receives the favor</b>:</p>
+
+    <div class="card2 blue">
+      <b>① <span class="me">-아/어 달라고 하다</span></b> — the favor is for the <b>asker themselves</b> ("give/do it for ME").<br>
+      <span class="en">주다 turns into the special verb <b>달다</b> ("give to me/us"). Use it when the person asking wants it for themselves.</span><br>
+      동생: "물 줘." → 동생이 물을 <span class="me">달라고</span> 해요. <span class="en">(My brother asks for water — for himself.)</span><br>
+      친구: "도와줘." → 친구가 <span class="me">도와 달라고</span> 해요. <span class="en">(My friend asks me to help him.)</span>
+    </div>
+
+    <div class="card2 amber">
+      <b>② <span class="them">-아/어 주라고 하다</span></b> — the favor is for <b>someone else</b> ("give/do it for THEM").<br>
+      <span class="en">주다 stays as 주다. Use it when the favor is for a third person.</span><br>
+      엄마: "동생한테 물 줘." → 엄마가 동생한테 물을 <span class="them">주라고</span> 하세요. <span class="en">(Mom tells me to give my brother water.)</span><br>
+      선생님: "친구를 도와줘." → 선생님이 친구를 <span class="them">도와 주라고</span> 하세요. <span class="en">(The teacher tells me to help my friend.)</span>
+    </div>
+
+    <div class="rule">
+      💡 <b>한 줄 기억법 (memory trick):</b><br>
+      자기가 받으면 → <span class="me">달라고</span> ("give <b>ME</b>") · 남이 받으면 → <span class="them">주라고</span> ("give <b>THEM</b>")<br>
+      <span class="en">Ask yourself: who gets it? The asker → 달라고. Somebody else → 주라고.</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 빠른 참조 <span class="en">Quick reference</span></h2>
+    <table class="ref"><tr><th>원래 부탁 (request)</th><th class="h1c">자기가 받음 → 달라고</th><th class="h2c">남이 받음 → 주라고</th></tr>
+      <tr><td>물 줘 (give water)</td><td>물을 <b>달라고</b></td><td>물을 <b>주라고</b></td></tr>
+      <tr><td>도와줘 (help)</td><td><b>도와 달라고</b></td><td><b>도와 주라고</b></td></tr>
+      <tr><td>읽어 줘 (read)</td><td><b>읽어 달라고</b></td><td><b>읽어 주라고</b></td></tr>
+      <tr><td>사 줘 (buy)</td><td><b>사 달라고</b></td><td><b>사 주라고</b></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>3. 달라고 — 자기가 받아요 <span class="en">for the asker</span></h2>
+    <p class="lead">전부 <b>부탁한 사람이 자기가 받는</b> 경우예요. 빈칸을 <b>달라고</b> 형태로 채우세요.</p>
+    <div id="dalla"></div>
+  </section>
+
+  <section>
+    <h2>4. 주라고 — 남이 받아요 <span class="en">for someone else</span></h2>
+    <p class="lead">전부 <b>다른 사람</b>에게 해 주라는 경우예요. 빈칸을 <b>주라고</b> 형태로 채우세요.</p>
+    <div id="jula"></div>
+  </section>
+
+  <section>
+    <h2>5. 골라 쓰기 <span class="en">Choose! 달라고 or 주라고</span></h2>
+    <p class="lead">이번엔 섞여 있어요. <span class="tagme">나에게</span>면 <b>달라고</b>, <span class="tagthem">남에게</span>면 <b>주라고</b>! 누가 받는지 보고 고르세요.</p>
+    <div id="mix"></div>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 드릴</span></h2>
+    <button class="hintbtn" onclick="toggleCard()">🗂️ 드릴용 카드 보기</button>
+    <div class="wordcard" id="wordbank">
+      <b>동사 큐:</b> 주다(줘) · 도와주다 · 읽어 주다 · 사 주다 · 갖다 주다 · 빌려주다 · 전해 주다 · 찍어 주다<br>
+      <b>수혜자 큐:</b> (나에게 → 달라고) / (동생·친구·형에게 → 주라고)
+    </div>
+    <h3>① 달라고/주라고 즉답</h3>
+    <p class="lead">동사 + 수혜자를 던지면 학습자가 즉답. <span class="read">"도와줘 · 나에게"</span> → "도와 달라고 해요." / <span class="read">"도와줘 · 친구에게"</span> → "친구를 도와 주라고 해요."</p>
+    <h3>② 같은 동사, 방향만 바꾸기</h3>
+    <p class="lead">한 동사로 둘 다: <span class="read">"사 줘 → 나에게?"</span> "사 달라고." → <span class="read">"동생에게?"</span> "사 주라고." (누가 받는지가 전부!)</p>
+    <p class="lead" style="color:var(--warm)">성공 기준: 수혜자만 듣고 달라고/주라고를 멈칫 없이 6개 이상.</p>
+  </div>
+
+  <footer>복습 · 달라고 vs 주라고 · L6 보강 (평가 오답 기반) · 규칙: 받는 사람이 자기면 달라고, 남이면 주라고</footer>
+</div>
+
+<script>
+function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
+
+const DALLA=[ // [따옴표, 문장앞, 정답, 문장뒤]
+  ['동생: "물 좀 줘."','동생이 물을 ','달라고',' 해요.'],
+  ['친구: "좀 도와줘."','친구가 ','도와 달라고',' 해요.'],
+  ['아이: "책 좀 읽어 줘."','아이가 책을 ','읽어 달라고',' 해요.'],
+  ['손님: "물 좀 갖다 줘."','손님이 물을 ','갖다 달라고',' 해요.'],
+  ['동생: "사진 좀 찍어 줘."','동생이 사진을 ','찍어 달라고',' 해요.']
+];
+const JULA=[
+  ['엄마: "동생한테 물 좀 줘."','엄마가 동생한테 물을 ','주라고',' 하세요.'],
+  ['누나: "동생한테 우유 좀 사 줘."','누나가 동생한테 우유를 ','사 주라고',' 해요.'],
+  ['형: "친구한테 이거 전해 줘."','형이 친구한테 이것을 ','전해 주라고',' 해요.'],
+  ['선생님: "친구를 좀 도와줘."','선생님이 친구를 ','도와 주라고',' 하세요.'],
+  ['아빠: "동생한테 책 좀 읽어 줘."','아빠가 동생한테 책을 ','읽어 주라고',' 하세요.']
+];
+const MIX=[ // [수혜자태그(me/them), 따옴표, 문장앞, 정답, 문장뒤]
+  ['me','친구: "펜 좀 빌려줘."','친구가 펜을 ','빌려 달라고',' 해요.'],
+  ['them','엄마: "동생 좀 도와줘."','엄마가 동생을 ','도와 주라고',' 하세요.'],
+  ['me','동생: "물 좀 줘."','동생이 물을 ','달라고',' 해요.'],
+  ['them','형: "친구한테 전화 좀 해 줘."','형이 친구한테 ','전화해 주라고',' 해요.'],
+  ['me','손님: "메뉴 좀 갖다 줘."','손님이 메뉴를 ','갖다 달라고',' 해요.'],
+  ['them','선생님: "친구한테 설명 좀 해 줘."','선생님이 친구한테 ','설명해 주라고',' 하세요.']
+];
+
+function el(id){return document.getElementById(id);}
+function plainDrill(listId, arr){
+  arr.forEach((a,i)=>el(listId).insertAdjacentHTML("beforeend",
+    `<div class="drill"><p class="scene">${a[0]}</p>
+     <div class="row"><span class="num">${i+1}.</span><span class="ko">${a[1]}</span>
+     <input class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="${listId}${i}">
+     <span class="ko">${a[3]}</span><span class="fb" id="fb_${listId}${i}"></span></div></div>`));
+}
+plainDrill("dalla", DALLA);
+plainDrill("jula", JULA);
+MIX.forEach((a,i)=>el("mix").insertAdjacentHTML("beforeend",
+  `<div class="drill"><p class="scene"><span class="tag${a[0]}">${a[0]==='me'?'나에게':'남에게'}</span> ${a[1]}</p>
+   <div class="row"><span class="num">${i+1}.</span><span class="ko">${a[2]}</span>
+   <input class="ans mid" data-type="exact" data-ans="${a[3]}" data-k="mix${i}">
+   <span class="ko">${a[4]}</span><span class="fb" id="fb_mix${i}"></span></div></div>`));
+
+const KEY="review3_dalla_jula";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleCard(){ el("wordbank").classList.toggle("show"); }
+function resetAll(){
+  if(!confirm("답을 지우고 다시 풀까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
