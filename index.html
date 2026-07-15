@@ -5,25 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>한국어 수업 · Korean Lessons</title>
 <style>
-  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;--accent:#2563eb;--accent-soft:#eff4ff;}
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;--accent:#2563eb;--accent-soft:#eff4ff;
+    --teal:#0d9488;--purple:#7c3aed;--brown:#9a3412;}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;
     font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
-  .wrap{max-width:680px;margin:0 auto;padding:48px 20px 80px;}
-  header{text-align:center;margin-bottom:34px;}
-  header h1{font-size:28px;margin:0 0 6px;}
-  header p{color:var(--muted);font-size:15px;margin:0;}
-  .card{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;
-    padding:20px 22px;margin-bottom:14px;text-decoration:none;color:inherit;transition:.15s;}
+  .wrap{max-width:900px;margin:0 auto;padding:32px 20px 80px;}
+  header{text-align:center;margin-bottom:16px;}
+  header h1{font-size:26px;margin:0 0 6px;}
+  header p{color:var(--muted);font-size:14px;margin:0;}
+
+  .nav{position:sticky;top:0;z-index:30;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:12px 0;margin:0 -20px 8px;border-bottom:1px solid var(--line);}
+  .nav a{font-size:13px;font-weight:600;text-decoration:none;color:var(--ink);background:var(--card);
+    border:1px solid var(--line);padding:6px 15px;border-radius:999px;transition:.15s;}
+  .nav a:hover{border-color:var(--accent);color:var(--accent);}
+
+  .sec{margin-top:30px;scroll-margin-top:66px;}
+  .seclabel{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;
+    margin:0 0 12px;display:flex;align-items:baseline;gap:8px;}
+  .seclabel .count{font-size:12px;font-weight:500;text-transform:none;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;}
+  .card{position:relative;display:block;background:var(--card);border:1px solid var(--line);border-radius:13px;
+    padding:15px 17px;text-decoration:none;color:inherit;transition:.15s;}
   .card:hover{border-color:var(--accent);box-shadow:0 4px 14px rgba(37,99,235,.08);transform:translateY(-1px);}
-  .card .tag{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:var(--accent);
-    padding:2px 9px;border-radius:999px;margin-bottom:8px;}
-  .card h2{font-size:18px;margin:0 0 4px;}
-  .card p{margin:0;color:var(--muted);font-size:14px;}
-  .card .arrow{float:right;color:var(--accent);font-size:20px;}
-  .soon{opacity:.55;}
-  .soon .tag{background:var(--muted);}
-  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:30px;}
+  .card .tag{display:inline-block;font-size:10.5px;font-weight:700;color:#fff;background:var(--accent);
+    padding:2px 9px;border-radius:999px;margin-bottom:7px;}
+  .card h2{font-size:15.5px;margin:0 0 4px;padding-right:16px;line-height:1.4;}
+  .card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .card .arrow{position:absolute;top:14px;right:15px;color:var(--accent);font-size:17px;}
+
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
+  @media (max-width:560px){.wrap{padding:24px 16px 60px;} .grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -33,145 +48,148 @@
     <p>읽기 · 쓰기 · 듣기 · 말하기 · Korean lessons</p>
   </header>
 
-  <a class="card" href="숙제.html">
-    <span class="arrow">→</span>
-    <span class="tag" style="background:#9a3412">숙제</span>
-    <h2>숙제 제출 · Homework</h2>
-    <p>숙제를 제출하고, 선생님 첨삭을 다시 볼 수 있어요. 기록이 쌓여요.</p>
-  </a>
+  <nav class="nav">
+    <a href="#tools">🧰 도구</a>
+    <a href="#lessons">📚 레슨</a>
+    <a href="#reviews">🔁 복습</a>
+    <a href="#tests">📝 평가·진단</a>
+  </nav>
 
-  <a class="card" href="평가시험.html">
-    <span class="arrow">→</span>
-    <span class="tag" style="background:#0d9488">평가시험</span>
-    <h2>평가시험 · Lessons 1–5 Review</h2>
-    <p>1~5과(을/를·형용사·비교/추측·간접화법·높임말) 종합 점검. 입력 즉시 채점 + 결과 제출.</p>
-  </a>
+  <section class="sec" id="tools">
+    <div class="seclabel">🧰 학습 도구 <span class="count">자주 쓰는 것</span></div>
+    <div class="grid">
+      <a class="card" href="숙제.html">
+        <span class="arrow">→</span>
+        <span class="tag" style="background:var(--brown)">숙제</span>
+        <h2>숙제 제출 · Homework</h2>
+        <p>숙제를 제출하고, 선생님 첨삭을 다시 볼 수 있어요. 기록이 쌓여요.</p>
+      </a>
+      <a class="card" href="연습장.html">
+        <span class="arrow">→</span>
+        <span class="tag" style="background:var(--purple)">연습장</span>
+        <h2>복습 연습장 · Practice Room</h2>
+        <p>틈날 때마다 반복 연습 — 높임말 · 상대 시간. 입력 즉시 채점, 몇 번이든 다시 풀기.</p>
+      </a>
+    </div>
+  </section>
 
-  <a class="card" href="평가시험2.html">
-    <span class="arrow">→</span>
-    <span class="tag" style="background:#0d9488">평가시험</span>
-    <h2>평가시험 · Lessons 6–10 Review</h2>
-    <p>6~10과(전하기·정중 부탁·일정 조율·기간·가다/오다) 종합 점검. 입력 즉시 채점 + 결과 제출.</p>
-  </a>
+  <section class="sec" id="lessons">
+    <div class="seclabel">📚 레슨 <span class="count">Lessons 1–12</span></div>
+    <div class="grid">
+      <a class="card" href="lesson1.html">
+        <span class="arrow">→</span><span class="tag">Lesson 1</span>
+        <h2>을/를 자동화 · Object Particles</h2>
+        <p>목적어 뒤 을/를을 자동으로 붙이는 연습. 입력하면 바로 채점돼요.</p>
+      </a>
+      <a class="card" href="lesson2.html">
+        <span class="arrow">→</span><span class="tag">Lesson 2</span>
+        <h2>형용사로 묘사하기 · Describing</h2>
+        <p>좋아하는 것(영화·음악·음식 등)을 형용사로 묘사하기. 입력하면 바로 채점돼요.</p>
+      </a>
+      <a class="card" href="lesson3.html">
+        <span class="arrow">→</span><span class="tag">Lesson 3</span>
+        <h2>비교하고 의견 말하기 · Comparing &amp; opinions</h2>
+        <p>증시·투자 같은 주제로 비교하고 내 생각·전망을 말하기. 가족과 나눌 대화 연습.</p>
+      </a>
+      <a class="card" href="lesson4.html">
+        <span class="arrow">→</span><span class="tag">Lesson 4</span>
+        <h2>들은 말 전하기 · Reported speech</h2>
+        <p>가족·뉴스가 한 말을 간접화법(-다고/-라고)으로 전하고 내 의견 보태기.</p>
+      </a>
+      <a class="card" href="lesson5.html">
+        <span class="arrow">→</span><span class="tag">Lesson 5</span>
+        <h2>높임말로 어른께 말하기 · Honorifics</h2>
+        <p>-(으)세요·께서/께·특수 높임 어휘로 가족 어른께 공손하게 말하기.</p>
+      </a>
+      <a class="card" href="lesson6.html">
+        <span class="arrow">→</span><span class="tag">Lesson 6</span>
+        <h2>부탁·명령 전하기 + 누구를 높일까 · Reporting requests</h2>
+        <p>-(으)라고/-아 달라고/-아 주라고 하다 + 윗사람은 께서…하세요, 손아래는 …해요.</p>
+      </a>
+      <a class="card" href="lesson7.html">
+        <span class="arrow">→</span><span class="tag">Lesson 7</span>
+        <h2>정중하게 부탁·권유하기 · Polite requests</h2>
+        <p>-아/어 주세요 / 주시겠어요? + 권하다·청하다·식사하다. 정중도 올리기.</p>
+      </a>
+      <a class="card" href="lesson8.html">
+        <span class="arrow">→</span><span class="tag">Lesson 8</span>
+        <h2>약속·일정 조율하기 · Changing plans</h2>
+        <p>당기다/미루다 + N(으)로 할까요? + 정확한 동사로 부탁하기. 6·7과 미니 복습 포함.</p>
+      </a>
+      <a class="card" href="lesson9.html">
+        <span class="arrow">→</span><span class="tag">Lesson 9</span>
+        <h2>기간 세기와 기한 연장 · Counting time</h2>
+        <p>하루·이틀·사흘…열흘 + 한 달·석 달 + 미루다 활용 + N보다 더 미룰 수 있어요?</p>
+      </a>
+      <a class="card" href="lesson10.html">
+        <span class="arrow">→</span><span class="tag">Lesson 10</span>
+        <h2>가요? 와요? · Coming and going</h2>
+        <p>오다/가다는 내(화자) 기준! + 들어가다/들어오다 + 다녀오다 인사 + 못/안.</p>
+      </a>
+      <a class="card" href="lesson11.html">
+        <span class="arrow">→</span><span class="tag">Lesson 11</span>
+        <h2>문장 잇기 · Linking your day</h2>
+        <p>-았다가(갔다가·들렀다가) + 들르다 + 하루 동선을 한 문장으로. 단문 나열 탈피.</p>
+      </a>
+      <a class="card" href="lesson12.html">
+        <span class="arrow">→</span><span class="tag">Lesson 12</span>
+        <h2>여행 이야기 · Talking about travel</h2>
+        <p>-아/어 보다(가 봤어요/가 보고 싶어요) + 여행 회화·롤플레이. 말하기 중심 · 뉴욕 여행 대비.</p>
+      </a>
+    </div>
+  </section>
 
-  <a class="card" href="연습장.html">
-    <span class="arrow">→</span>
-    <span class="tag" style="background:#7c3aed">연습장</span>
-    <h2>복습 연습장 · Practice Room</h2>
-    <p>틈날 때마다 반복 연습 — 높임말 · 상대 시간. 입력 즉시 채점, 몇 번이든 다시 풀기.</p>
-  </a>
+  <section class="sec" id="reviews">
+    <div class="seclabel">🔁 복습 <span class="count">Review</span></div>
+    <div class="grid">
+      <a class="card" href="review1.html">
+        <span class="arrow">→</span><span class="tag" style="background:var(--teal)">복습</span>
+        <h2>Lessons 1–5 복습 · Review</h2>
+        <p>평가에서 약했던 두 가지 — 추측 -(으)ㄹ 것 같아요 + 높임(어휘·께서 일치) 짧은 보강.</p>
+      </a>
+      <a class="card" href="review2.html">
+        <span class="arrow">→</span><span class="tag" style="background:var(--teal)">복습</span>
+        <h2>Lessons 6–10 복습 · Review</h2>
+        <p>평가시험 기반 — 명령 전하기·권유vs부탁·사물 높임(약점) 집중 + 일정·가다오다 점검.</p>
+      </a>
+      <a class="card" href="review3.html">
+        <span class="arrow">→</span><span class="tag" style="background:var(--teal)">복습</span>
+        <h2>달라고 vs 주라고 · Reporting requests</h2>
+        <p>"~해 줘" 전하기 — 자기가 받으면 달라고, 남이 받으면 주라고. 영어 설명 + 대조 드릴.</p>
+      </a>
+      <a class="card" href="review4.html">
+        <span class="arrow">→</span><span class="tag" style="background:var(--teal)">복습</span>
+        <h2>-다가 ↔ -았다가 · Mid-action vs completed</h2>
+        <p>가다가(도중)와 갔다가(완료 후) 구별. 핵심은 앞 행동의 완료 여부! L11(-았다가) 보강.</p>
+      </a>
+    </div>
+  </section>
 
-  <a class="card" href="questionnaire.html">
-    <span class="arrow">→</span>
-    <span class="tag">배경 질문지</span>
-    <h2>학습 배경 질문지 · Getting to know you</h2>
-    <p>수업을 맞춤화하기 위한 짧은 질문지예요. 영어로 답해도 돼요.</p>
-  </a>
-
-  <a class="card" href="assessment.html">
-    <span class="arrow">→</span>
-    <span class="tag">배치고사</span>
-    <h2>레벨 테스트 · Placement Test</h2>
-    <p>읽기·쓰기·듣기·말하기 진단. 다 풀면 답안을 복사/저장해서 보내주세요.</p>
-  </a>
-
-  <a class="card" href="lesson1.html">
-    <span class="arrow">→</span>
-    <span class="tag">Lesson 1</span>
-    <h2>을/를 자동화 · Object Particles</h2>
-    <p>목적어 뒤 을/를을 자동으로 붙이는 연습. 입력하면 바로 채점돼요.</p>
-  </a>
-
-  <a class="card" href="lesson2.html">
-    <span class="arrow">→</span>
-    <span class="tag">Lesson 2</span>
-    <h2>형용사로 묘사하기 · Describing</h2>
-    <p>좋아하는 것(영화·음악·음식 등)을 형용사로 묘사하기. 입력하면 바로 채점돼요.</p>
-  </a>
-
-  <a class="card" href="lesson3.html">
-    <span class="arrow">→</span>
-    <span class="tag">Lesson 3</span>
-    <h2>비교하고 의견 말하기 · Comparing &amp; opinions</h2>
-    <p>증시·투자 같은 주제로 비교하고 내 생각·전망을 말하기. 가족과 나눌 대화 연습.</p>
-  </a>
-
-  <a class="card" href="lesson4.html">
-    <span class="arrow">→</span>
-    <span class="tag">Lesson 4</span>
-    <h2>들은 말 전하기 · Reported speech</h2>
-    <p>가족·뉴스가 한 말을 간접화법(-다고/-라고)으로 전하고 내 의견 보태기.</p>
-  </a>
-
-  <a class="card" href="lesson5.html">
-    <span class="arrow">→</span>
-    <span class="tag">Lesson 5</span>
-    <h2>높임말로 어른께 말하기 · Honorifics</h2>
-    <p>-(으)세요·께서/께·특수 높임 어휘로 가족 어른께 공손하게 말하기.</p>
-  </a>
-
-  <a class="card" href="review1.html">
-    <span class="arrow">→</span>
-    <span class="tag" style="background:#0d9488">복습</span>
-    <h2>추측 + 높임 보강 · Review</h2>
-    <p>평가에서 약했던 두 가지 — 추측 -(으)ㄹ 것 같아요 + 높임(어휘·께서 일치) 짧은 보강.</p>
-  </a>
-
-  <a class="card" href="review2.html">
-    <span class="arrow">→</span>
-    <span class="tag" style="background:#0d9488">복습</span>
-    <h2>Lessons 6–10 복습 · Review</h2>
-    <p>평가시험 기반 — 명령 전하기·권유vs부탁·사물 높임(약점) 집중 + 일정·가다오다 점검.</p>
-  </a>
-
-  <a class="card" href="review3.html">
-    <span class="arrow">→</span>
-    <span class="tag" style="background:#0d9488">복습</span>
-    <h2>달라고 vs 주라고 · Reporting requests</h2>
-    <p>"~해 줘" 전하기 — 자기가 받으면 달라고, 남이 받으면 주라고. 영어 설명 + 대조 드릴.</p>
-  </a>
-
-  <a class="card" href="lesson6.html">
-    <span class="arrow">→</span>
-    <span class="tag">Lesson 6</span>
-    <h2>부탁·명령 전하기 + 누구를 높일까 · Reporting requests</h2>
-    <p>-(으)라고/-아 달라고/-아 주라고 하다 + 윗사람은 께서…하세요, 친구·형제·손아래는 …해요.</p>
-  </a>
-
-  <a class="card" href="lesson7.html">
-    <span class="arrow">→</span>
-    <span class="tag">Lesson 7</span>
-    <h2>정중하게 부탁·권유하기 · Polite requests</h2>
-    <p>-아/어 주세요 / 주시겠어요? + 권하다·청하다·식사하다. 정중도 올리기.</p>
-  </a>
-
-  <a class="card" href="lesson8.html">
-    <span class="arrow">→</span>
-    <span class="tag">Lesson 8</span>
-    <h2>약속·일정 조율하기 · Changing plans</h2>
-    <p>당기다/미루다 + N(으)로 할까요? + 정확한 동사로 부탁하기. 6·7과 미니 복습 포함.</p>
-  </a>
-
-  <a class="card" href="lesson9.html">
-    <span class="arrow">→</span>
-    <span class="tag">Lesson 9</span>
-    <h2>기간 세기와 기한 연장 · Counting time</h2>
-    <p>하루·이틀·사흘…열흘 + 한 달·석 달 + 미루다 활용 + N보다 더 미룰 수 있어요?</p>
-  </a>
-
-  <a class="card" href="lesson10.html">
-    <span class="arrow">→</span>
-    <span class="tag">Lesson 10</span>
-    <h2>가요? 와요? · Coming and going</h2>
-    <p>오다/가다는 내(화자) 기준! + 들어가다/들어오다 + 다녀오다 인사 + 못/안.</p>
-  </a>
-
-  <a class="card" href="lesson11.html">
-    <span class="arrow">→</span>
-    <span class="tag">Lesson 11</span>
-    <h2>문장 잇기 · Linking your day</h2>
-    <p>-았다가(갔다가·들렀다가) + 들르다 + 하루 동선을 한 문장으로. 단문 나열 탈피.</p>
-  </a>
+  <section class="sec" id="tests">
+    <div class="seclabel">📝 평가·진단 <span class="count">Tests</span></div>
+    <div class="grid">
+      <a class="card" href="평가시험.html">
+        <span class="arrow">→</span><span class="tag" style="background:var(--teal)">평가시험</span>
+        <h2>평가시험 · Lessons 1–5</h2>
+        <p>1~5과(을/를·형용사·비교/추측·간접화법·높임말) 종합 점검. 입력 즉시 채점 + 결과 제출.</p>
+      </a>
+      <a class="card" href="평가시험2.html">
+        <span class="arrow">→</span><span class="tag" style="background:var(--teal)">평가시험</span>
+        <h2>평가시험 · Lessons 6–10</h2>
+        <p>6~10과(전하기·정중 부탁·일정 조율·기간·가다/오다) 종합 점검. 입력 즉시 채점 + 결과 제출.</p>
+      </a>
+      <a class="card" href="assessment.html">
+        <span class="arrow">→</span><span class="tag">배치고사</span>
+        <h2>레벨 테스트 · Placement Test</h2>
+        <p>읽기·쓰기·듣기·말하기 진단. 다 풀면 답안을 복사/저장해서 보내주세요.</p>
+      </a>
+      <a class="card" href="questionnaire.html">
+        <span class="arrow">→</span><span class="tag">배경 질문지</span>
+        <h2>학습 배경 질문지 · Getting to know you</h2>
+        <p>수업을 맞춤화하기 위한 짧은 질문지예요. 영어로 답해도 돼요.</p>
+      </a>
+    </div>
+  </section>
 
   <footer>songfamily.work · 수업용 페이지</footer>
 </div>

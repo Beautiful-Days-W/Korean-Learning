@@ -33,12 +33,15 @@
   .ko{font-size:16px;}
   input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
   input.mid{width:140px;text-align:center;}
+  input.wide{width:185px;text-align:center;}
   input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
   .fb{font-size:14px;font-weight:700;min-width:22px;}
   .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
   .grid2{display:grid;grid-template-rows:repeat(6,auto);grid-auto-flow:column;column-gap:26px;}
   .grid2 .drill:nth-child(7){border-top:none;}
-  @media(max-width:560px){.grid2{display:block;} .grid2 .drill:nth-child(7){border-top:1px dashed var(--line);}}
+  .grid2b{display:grid;grid-template-rows:repeat(5,auto);grid-auto-flow:column;column-gap:26px;}
+  .grid2b .drill:nth-child(6){border-top:none;}
+  @media(max-width:560px){.grid2,.grid2b{display:block;} .grid2 .drill:nth-child(7),.grid2b .drill:nth-child(6){border-top:1px dashed var(--line);}}
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
   @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}}
 </style>
@@ -56,7 +59,7 @@
   <div class="head">
     <h2>쓰는 법 <span class="en">How to use</span></h2>
     <p class="lead">수업과 별도로, <b>틈날 때마다</b> 와서 반복 연습하는 곳이에요. 입력하면 바로 채점되고, 「↺ 다시 풀기」로 몇 번이든 다시 할 수 있어요. (Come back anytime — instant checking, repeat as often as you like.)</p>
-    <div class="note">지금 있는 연습: <b>높임말</b> · <b>상대 시간</b> — 앞으로 계속 늘어나요.</div>
+    <div class="note">지금 있는 연습: <b>높임말</b> · <b>상대 시간</b> · <b>추측</b> · <b>달라고/주라고</b> · <b>있다/계시다</b> · <b>가요/와요</b> · <b>-다가/-았다가</b> — 복습 레슨에서 다룬 내용이에요.</div>
   </div>
 
   <section>
@@ -75,11 +78,55 @@
       <b>날:</b> 그저께 ← 어제 ← <b>오늘</b> → 내일 → 모레 → 글피<br>
       <b>주·달·년:</b> 지난주 · 이번 주 · 다음 주 / 지난달 · 이번 달 · 다음 달 / 작년 · 올해 · 내년 (last / this / next)
     </div>
-    <p class="lead">오늘을 기준으로, 알맞은 말을 쓰세요.</p>
-    <div id="rel"></div>
+    <div class="grid2b" id="rel"></div>
   </section>
 
-  <footer>복습 연습장 · 높임말 + 상대 시간 (계속 추가 예정)</footer>
+  <section>
+    <h2>3. 추측 <span class="en">Guessing · -(으)ㄹ 것 같아요</span></h2>
+    <div class="rule">
+      확실하지 않은 짐작. 받침 있으면 <b>-을 것 같아요</b>, 없으면 <b>-ㄹ 것 같아요</b>. (a guess — not certain)
+    </div>
+    <p class="lead">기본형을 <b>-(으)ㄹ 것 같아요</b>로 바꿔 쓰세요.</p>
+    <div id="sup"></div>
+  </section>
+
+  <section>
+    <h2>4. 달라고 vs 주라고 <span class="en">Reporting requests</span></h2>
+    <div class="rule">
+      부탁을 전할 때 — <b>내가</b> 받으면 <b>달라고</b>, <b>남이</b> 받으면 <b>주라고</b>. (for me → 달라고, for someone else → 주라고)
+    </div>
+    <p class="lead">따옴표 속 말을 보고 <b>누가 받는지</b> 판단해서, 전달 문장을 <b>달라고</b>/<b>주라고</b>로 완성하세요.</p>
+    <div id="dal"></div>
+  </section>
+
+  <section>
+    <h2>5. 있다 / 계시다 <span class="en">Things vs people</span></h2>
+    <div class="rule">
+      <b>사물</b>엔 높임 없이 <b>있어요</b>, <b>사람(어른)</b>의 존재는 <b>계세요</b>. (things → 있어요, a person → 계세요)
+    </div>
+    <p class="lead">사물이면 <b>있어요</b>, 사람이면 <b>계세요</b>로 채우세요.</p>
+    <div id="hb"></div>
+  </section>
+
+  <section>
+    <h2>6. 가요? 와요? <span class="en">Coming and going</span></h2>
+    <div class="rule">
+      한국어는 <b>말하는 사람(나) 기준</b>! 내 쪽으로 오면 <b>와요</b>, 다른 곳으로 가면 <b>가요</b>. 상대에게 다가갈 땐 "지금 <b>가요</b>!" (English "I'm coming" = 지금 가요)
+    </div>
+    <p class="lead">상황을 보고 <b>가요</b> 또는 <b>와요</b>(허용형 포함)를 쓰세요.</p>
+    <div id="gw"></div>
+  </section>
+
+  <section>
+    <h2>7. -다가 ↔ -았다가 <span class="en">Mid-action vs completed</span></h2>
+    <div class="rule">
+      <b>[도중]</b> 아직 하는 중 → <b>-다가</b>(가다가) · <b>[완료]</b> 다 하고 나서 → <b>-았/었다가</b>(갔다가). 핵심은 앞 행동의 완료 여부!
+    </div>
+    <p class="lead">태그(도중/완료)를 보고, 괄호 속 동사를 알맞은 형태로 쓰세요.</p>
+    <div id="dg"></div>
+  </section>
+
+  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가</footer>
 </div>
 
 <script>
@@ -109,6 +156,76 @@ REL.forEach((r,i)=>el("rel").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${r[0]}</span>
    <input class="ans mid" data-type="exact" data-ans="${r[1]}" data-k="r${i}">
    <span class="fb" id="fb_r${i}"></span></div></div>`));
+
+// 복습 레슨 내용 — [앞, 정답(|), 뒤]
+const SUP=[ // 추측 (복습1)
+  ["(비가) 오다 →","올 것 같아요",""],
+  ["(음식이) 맛있다 →","맛있을 것 같아요",""],
+  ["(차가) 막히다 →","막힐 것 같아요",""],
+  ["(값이) 비싸다 →","비쌀 것 같아요",""],
+  ["(오늘) 늦다 →","늦을 것 같아요",""],
+  ["(날씨가) 좋다 →","좋을 것 같아요",""],
+  ["(내일) 바쁘다 →","바쁠 것 같아요",""],
+  ["(사람이) 많다 →","많을 것 같아요",""],
+  ["(곧) 끝나다 →","끝날 것 같아요",""],
+  ["(내일) 쉬다 →","쉴 것 같아요",""]
+];
+const DAL=[ // 달라고/주라고 (복습3) — 따옴표 속 '누가 받나'로 스스로 판단
+  ['친구가 "나 돈 좀 빌려줘." → 돈을 빌려','달라고','했어요.'],
+  ['친구가 "동생 돈 좀 빌려줘." → 동생한테 빌려','주라고','했어요.'],
+  ['아이가 "나 우유 사 줘." → 우유를 사','달라고','했어요.'],
+  ['아이가 "친구도 사 줘." → 친구 것도 사','주라고','했어요.'],
+  ['손님이 "저 물 좀 주세요." → 물을','달라고','했어요.'],
+  ['손님이 "옆 사람 물 좀 주세요." → 옆 사람한테 물을','주라고','했어요.'],
+  ['동생이 "나 좀 도와줘." → 도와','달라고','했어요.'],
+  ['동생이 "친구 좀 도와줘." → 친구를 도와','주라고','했어요.'],
+  ['엄마가 "나한테 사진 보내 줘." → 사진을 보내','달라고','했어요.'],
+  ['엄마가 "삼촌한테 보내 줘." → 삼촌한테 보내','주라고','했어요.']
+];
+const HB=[ // 있다/계시다 (복습2) — 사물/사람 태그 없이, 명사로 스스로 판단
+  ["표가","있어요","?"],
+  ["사장님","계세요","?"],
+  ["빈자리","있어요","?"],
+  ["할아버지께서 방에","계세요","."],
+  ["질문","있어요","?"],
+  ["선생님","계세요","?"],
+  ["화장실이 어디","있어요","?"],
+  ["어머니 지금 집에","계세요","?"],
+  ["혹시 펜","있어요","?"],
+  ["부장님 자리에","계세요","?"]
+];
+const GW=[ // 가요/와요 (복습2·L10)
+  ['친구가 "우리 집에 와" → 나: 지금','가요|갈게요','!'],
+  ['엄마가 지금 우리 집으로','와요|오고 있어요','.'],
+  ['나는 이따 학교에','가요','.'],
+  ['동생이 내 방으로','와요','.'],
+  ['(전화) "빨리 와!" → 알겠어, 지금','가요|갈게요','.'],
+  ['손님이 우리 가게에','와요|오세요','.'],
+  ['나는 내일 부산에','가요|갈 거예요','.'],
+  ['친구가 우리 집에 놀러','와요','.'],
+  ['내가 이따 너희 집에','갈게요|가요','.'],
+  ['아빠가 회사에서 집으로','와요|오세요','.']
+];
+const DG=[ // -다가/-았다가 (복습4)
+  ["[도중] 밥을","먹다가","전화를 받았어요. (먹다)"],
+  ["[완료] 우체국에","갔다가","은행에도 들렀어요. (가다)"],
+  ["[도중] 학교에","가다가","친구를 만났어요. (가다)"],
+  ["[완료] 창문을","열었다가","닫았어요. (열다)"],
+  ["[도중] 텔레비전을","보다가","잠이 들었어요. (보다)"],
+  ["[완료] 불을","켰다가","바로 껐어요. (켜다)"],
+  ["[도중] 공부를","하다가","잠깐 쉬었어요. (하다)"],
+  ["[완료] 밖에","나갔다가","추워서 들어왔어요. (나가다)"],
+  ["[도중] 길을","걷다가","넘어졌어요. (걷다)"],
+  ["[완료] 옷을","입었다가","다시 벗었어요. (입다)"]
+];
+function renderBA(arr,key,cid){
+  arr.forEach((a,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${a[0]}</span>
+     <input class="ans wide" data-type="exact" data-ans="${a[1]}" data-k="${key}${i}">
+     <span class="ko">${a[2]}</span><span class="fb" id="fb_${key}${i}"></span></div></div>`));
+}
+renderBA(SUP,"sup","sup"); renderBA(DAL,"dal","dal"); renderBA(HB,"hb","hb");
+renderBA(GW,"gw","gw"); renderBA(DG,"dg","dg");
 
 const KEY="practice_room";
 const store=JSON.parse(localStorage.getItem(KEY)||"{}");
