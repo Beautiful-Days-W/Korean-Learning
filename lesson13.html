@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 13 · 관광·표 예매 — Sightseeing & tickets</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.8;}
+  .rule b{color:var(--accent);}
+  .chip{display:inline-block;background:var(--accent-soft);border-radius:6px;padding:1px 7px;font-weight:700;color:var(--accent);}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:150px;text-align:center;}
+  input.tiny{width:74px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .scene{font-size:12.5px;color:var(--muted);font-style:italic;margin:12px 0 2px;}
+  .scene:first-child{margin-top:0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 13 · 관광·표 예매 <span class="sub">Sightseeing & tickets</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">관광지에서 <b>표를 사고, 시간을 묻고, 해도 되는지 물어보기</b>. 뉴욕 여행에서 박물관·공연·관광지를 다닐 때 그대로 써요! (Buy tickets, ask hours, ask permission at tourist spots.)</p>
+    <div class="note">
+      ✓ <b>-아/어도 돼요?</b> = 해도 될까요? <span class="en">May I ~? / Is it OK to ~? (permission)</span><br>
+      ✓ 관광 회화 틀: <b>표 ~장 주세요 · 얼마예요? · 몇 시에 열어요/닫아요?</b> <span class="en">tickets · price · hours</span><br>
+      ✓ 실전 대화 ①②: 매표소 · 공연/전시 관람 <span class="en">ticket office · a show/exhibition</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review</span></h2>
+    <p class="lead">지난 과들에서 짧게 — -아/어 보다·-았다가·조사·가/와. <b>답은 모두 해요체로</b> 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (-아/어도 돼요?)</span></h2>
+    <div class="rule">
+      <b>① -아/어도 돼요? = "May I ~?"</b> — 허락을 물어봐요. 동사에 -아/어도 돼요?를 붙여요.<br>
+      찍다 → 사진(을) <b>찍어도 돼요?</b> · 들어가다 → <b>들어가도 돼요?</b> · 앉다 → <b>앉아도 돼요?</b><br>
+      대답: 네, <b>돼요</b>. (OK) / 아니요, <b>안 돼요</b>. (not allowed)<br><br>
+      <b>② 관광 회화 틀 (frames):</b><br>
+      「표 두 <b>장</b> 주세요.」 Two tickets, please. · 「<b>얼마예요?</b>」 How much? · 「몇 시에 <b>열어요/닫아요?</b>」 What time does it open/close?<br><br>
+      <b>③ 세는 말:</b> 표는 <b>장</b>(표 두 장), 사람은 <b>명/분</b>(어른 두 명·두 분). <span class="en">counters: tickets = 장, people = 명/분</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 관광</span></h2>
+    <table class="vocab"><tr><th>단어</th><th>뜻</th><th>단어</th><th>뜻</th></tr><tbody id="vtable"></tbody></table>
+  </section>
+
+  <section>
+    <h2>3. -아/어도 돼요? 만들기 <span class="en">Make the permission form · 입력 즉시 채점</span></h2>
+    <p class="lead">동사를 <b>-아/어도 돼요?</b>로 바꿔 쓰세요 (예: 쉬다 → 쉬어도 돼요?).</p>
+    <div id="perm"></div>
+  </section>
+
+  <section>
+    <h2>4. 에? 에서? <span class="en">Particles · 관광</span></h2>
+    <p class="lead">빈칸에 <b>에</b> 또는 <b>에서</b>만 쓰세요. (가는 곳·시각=에, 하는 곳=에서!)</p>
+    <div id="josa"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 ① — 매표소 <span class="en">Ticket office — buy, hours, permission</span></h2>
+    <p class="lead">선생님과 <b>번갈아 소리 내어</b> 읽어요 (우성 ↔ 직원). 표 사기 → 시간 묻기 → 허락 구하기가 이어져요.</p>
+    <div class="dlg">
+      <div class="scene">🎟️ 매표소에서 — 표 사기·할인</div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">안녕하세요. 어른 한 장, 학생 한 장 주세요.</span></div>
+      <div class="turn b"><span class="who">🧑 직원</span><span class="say">학생증 있으세요?</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">네, 여기 있어요. 학생 <b>할인</b> 돼요?</span></div>
+      <div class="turn b"><span class="who">🧑 직원</span><span class="say">네, 어른은 이십 달러, 학생은 십오 달러예요. 모두 삼십오 달러입니다.</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">카드로 <b>계산해도 돼요</b>?</span></div>
+      <div class="turn b"><span class="who">🧑 직원</span><span class="say">네, 여기 카드 주세요. … 표 여기 있습니다.</span></div>
+
+      <div class="scene">⏰ 시간·사진·재입장 물어보기</div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">감사합니다. 몇 시에 문을 <b>닫아요</b>?</span></div>
+      <div class="turn b"><span class="who">🧑 직원</span><span class="say">저녁 여섯 시에 닫아요. 다섯 시 반에 입장 마감이에요.</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">안에서 사진을 <b>찍어도 돼요</b>?</span></div>
+      <div class="turn b"><span class="who">🧑 직원</span><span class="say">네, 찍어도 돼요. 그런데 특별 전시실에서는 <b>안 돼요</b>.</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">잠깐 나갔다가 다시 <b>들어와도 돼요</b>?</span></div>
+      <div class="turn b"><span class="who">🧑 직원</span><span class="say">네, 표를 보여 주시면 재입장 돼요.</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">안내도도 한 장 <b>주시겠어요</b>?</span></div>
+      <div class="turn b"><span class="who">🧑 직원</span><span class="say">여기요. 즐거운 관람 되세요!</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">감사합니다!</span></div>
+    </div>
+    <div class="subh">빈칸 채우기 <span class="en" style="font-weight:400;color:var(--muted)">Fill in — from the dialogue</span></div>
+    <p class="lead">대화를 떠올리며 빈칸을 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section class="big">
+    <h2>6. 🎬 실전 대화 ② — 공연·전시 관람 <span class="en">A show / exhibition — line, entry, seats</span></h2>
+    <p class="lead">줄 서기 → 입장(가지고 들어가도 돼요?) → 자리 확인. 허락 표현 <b>-아/어도 돼요?</b>가 계속 나와요.</p>
+    <div class="dlg">
+      <div class="scene">🎭 공연장 입구에서 — 줄·반입·자리</div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">여기서 <b>줄을</b> 서는 거예요?</span></div>
+      <div class="turn b"><span class="who">🧑 안내원</span><span class="say">네, 여기부터 서시면 돼요.</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">안에 음료수를 가지고 <b>들어가도 돼요</b>?</span></div>
+      <div class="turn b"><span class="who">🧑 안내원</span><span class="say">죄송해요, 음료수는 <b>안 돼요</b>. 물은 괜찮아요.</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">자리는 아무 데나 <b>앉아도 돼요</b>?</span></div>
+      <div class="turn b"><span class="who">🧑 안내원</span><span class="say">아니요, 표에 자리 번호가 있어요. A열 5번이요.</span></div>
+
+      <div class="scene">🎬 공연 시간·촬영·재입장</div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">공연 중에 사진을 <b>찍어도 돼요</b>?</span></div>
+      <div class="turn b"><span class="who">🧑 안내원</span><span class="say">아니요, 공연 중에는 촬영이 <b>안 돼요</b>.</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">공연은 몇 시에 끝나요? 중간에 쉬는 시간이 있어요?</span></div>
+      <div class="turn b"><span class="who">🧑 안내원</span><span class="say">두 시간이에요. 중간에 십오 분 쉬는 시간이 있어요.</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">그때 잠깐 나갔다가 다시 <b>들어와도 돼요</b>?</span></div>
+      <div class="turn b"><span class="who">🧑 안내원</span><span class="say">네, 쉬는 시간에는 나갔다가 들어오셔도 돼요.</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">프로그램도 하나 받을 수 있어요?</span></div>
+      <div class="turn b"><span class="who">🧑 안내원</span><span class="say">네, 입구에서 받으시면 돼요. 즐겁게 보세요!</span></div>
+      <div class="turn"><span class="who">🧳 우성</span><span class="say">감사합니다!</span></div>
+    </div>
+    <div class="subh">빈칸 채우기 <span class="en" style="font-weight:400;color:var(--muted)">Fill in — from the dialogue</span></div>
+    <p class="lead">허락 표현(-아/어도 돼요?)에 집중해서 채우세요.</p>
+    <div id="dlgblank2"></div>
+  </section>
+
+  <footer>Lesson 13 / 관광·표 예매 · 실전 대화(매표소 / 공연·전시) · 뉴욕 여행 대비</footer>
+</div>
+
+<script>
+function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
+
+const VOCAB=[
+  ["관광(지)","sightseeing (spot)"],["표를 사다 / 예매하다","to buy / book tickets"],
+  ["입장료","admission fee"],["매표소","ticket office"],
+  ["줄을 서다","to line up"],["공연","a show / performance"],
+  ["전시(회)","exhibition"],["박물관 / 미술관","museum / art gallery"],
+  ["문을 열다 / 닫다","to open / close"],["기념품","souvenir"],
+  ["안내소","information desk"],["자리 / 좌석","seat"],
+  ["어른 / 어린이","adult / child"],["할인","discount"]
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['-아/어 보다 · 경험','뉴욕에 가 ','봤어요',' ?'],
+  ['에/에서 · 동작 장소','매표소','에서',' 표를 사요.'],
+  ['가다/오다 · "I\'m coming!"','(전화) 지금 ','가요',' !'],
+  ['-았다가 · 완료 후 · 맡기다','짐을 ','맡겼다가',' 찾았어요.']
+];
+const PERM=[ // [기본형, 정답]
+  ['(사진을) 찍다','찍어도 돼요'],
+  ['들어가다','들어가도 돼요'],
+  ['앉다','앉아도 돼요'],
+  ['만지다','만져도 돼요'],
+  ['먹다','먹어도 돼요'],
+  ['보다','봐도 돼요']
+];
+const JOSA=[ // [앞, 정답(|), 뒤] — 에/에서만 (을/를은 생략 가능해 혼란 → 제외)
+  ['매표소','에서',' 표를 사요.'],
+  ['박물관','에',' 가요.'],
+  ['공연장','에',' 도착했어요.'],
+  ['몇 시','에',' 열어요?'],
+  ['안내소','에서',' 물어봐요.'],
+  ['여기','에서',' 사진을 찍어요.']
+];
+const DLG=[ // 실전 대화 ① 매표소 [앞, 정답(|), 뒤, 힌트]
+  ['어른 한 장, 학생 한 장 ','주세요',' .','정중 요청 (주다)'],
+  ['학생 ','할인',' 돼요?','discount'],
+  ['카드로 ','계산해도 돼요',' ?','-아/어도 되다 (계산하다)'],
+  ['몇 시에 문을 ','닫아요',' ?','닫다'],
+  ['안에서 사진을 ','찍어도 돼요',' ?','-아/어도 되다 (찍다)'],
+  ['잠깐 나갔다가 다시 ','들어와도 돼요',' ?','-아/어도 되다·재입장 (들어오다)']
+];
+const DLG2=[ // 실전 대화 ② 공연·전시 [앞, 정답(|), 뒤, 힌트]
+  ['여기서 ','줄을',' 서는 거예요?','줄(을) 서다'],
+  ['안에 음료수를 가지고 ','들어가도 돼요',' ?','-아/어도 되다 (들어가다)'],
+  ['자리는 아무 데나 ','앉아도 돼요',' ?','-아/어도 되다 (앉다)'],
+  ['공연 중에 사진을 ','찍어도 돼요',' ?','-아/어도 되다 (찍다)'],
+  ['쉬는 시간에 잠깐 나갔다가 ','들어와도 돼요',' ?','-아/어도 되다·재입장 (들어오다)'],
+  ['음료수는 ','안 돼요',' .','허락 거절']
+];
+
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((v,i)=>{ if(i%2===0){const r=document.createElement("tr");r.id="vr"+i;el("vtable").appendChild(r);} });
+VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjacentHTML("beforeend",`<td><b>${v[0]}</b></td><td>${v[1]}</td>`); });
+
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span><input class="ans tiny" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+PERM.forEach((p,i)=>el("perm").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${p[0]}</span> →
+   <input class="ans mid" data-type="exact" data-ans="${p[1]}" data-k="p${i}">
+   <span class="ko">?</span><span class="fb" id="fb_p${i}"></span></div></div>`));
+JOSA.forEach((j,i)=>el("josa").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${j[0]}</span>
+   <input class="ans tiny" data-type="exact" data-ans="${j[1]}" data-k="j${i}">
+   <span class="ko">${j[2]}</span><span class="fb" id="fb_j${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   <input class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+DLG2.forEach((d,i)=>el("dlgblank2").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   <input class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d2_${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d2_${i}"></span></div></div>`));
+
+const KEY="lesson13_tour";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
