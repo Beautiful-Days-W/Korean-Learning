@@ -184,7 +184,7 @@ VOCAB.forEach((v,i)=>{
 WARM.forEach((w,i)=>{
   el("warm").insertAdjacentHTML("beforeend",
     `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${w}</span>
-     <input class="ans tiny" data-type="par" data-ans="${par(w)}" data-k="w${i}" maxlength="1">
+     <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="par" data-ans="${par(w)}" data-k="w${i}" maxlength="1">
      <span class="fb" id="fb_w${i}"></span></div></div>`);
 });
 
@@ -192,7 +192,7 @@ FILL.forEach((f,i)=>{
   const a=par(f[1]);
   el("fill").insertAdjacentHTML("beforeend",
     `<div class="drill"><div class="row"><span class="num">${i+1}.</span>
-     <span class="ko">${f[0]}<b>${f[1]}</b><input class="ans tiny" data-type="par" data-ans="${a}" data-k="f${i}" maxlength="1">${f[2]}</span>
+     <span class="ko">${f[0]}<b>${f[1]}</b><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="par" data-ans="${a}" data-k="f${i}" maxlength="1">${f[2]}</span>
      <span class="fb" id="fb_f${i}"></span></div></div>`);
 });
 
@@ -200,7 +200,7 @@ MAKE.forEach((m,i)=>{
   const need=m[0]+par(m[0]);
   el("make").insertAdjacentHTML("beforeend",
     `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">(${m[0]} / ${m[1]})</span>
-     <input class="ans full" data-type="make" data-need="${need}" data-verbs="${m[3].join(",")}" data-k="m${i}" placeholder="문장을 쓰세요">
+     <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="make" data-need="${need}" data-verbs="${m[3].join(",")}" data-k="m${i}" placeholder="문장을 쓰세요">
      <span class="fb" id="fb_m${i}"></span></div>
      <button class="hintbtn" onclick="toggleModel('mm${i}')">예시 보기</button>
      <div class="model" id="mm${i}">예시: ${m[0]}${par(m[0])} ${m[2]} <span style="color:var(--muted)">— 시제는 자유 (과거·미래도 정답)</span></div></div>`);
@@ -210,7 +210,7 @@ MINE.forEach((m,i)=>{
   el("mine").insertAdjacentHTML("beforeend",
     `<div class="drill"><div class="mine">원래 문장: ${m[0]}</div>
      <div class="row"><span class="num">${i+1}.</span>
-     <input class="ans full" data-type="incall" data-need="${m[2].join(",")}" data-k="mn${i}" placeholder="을/를을 넣어 다시 쓰세요">
+     <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="incall" data-need="${m[2].join(",")}" data-k="mn${i}" placeholder="을/를을 넣어 다시 쓰세요">
      <span class="fb" id="fb_mn${i}"></span></div>
      <button class="hintbtn" onclick="toggleModel('mnm${i}')">정답 보기</button>
      <div class="model" id="mnm${i}">${m[1]}</div></div>`);

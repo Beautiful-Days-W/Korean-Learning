@@ -183,12 +183,12 @@ VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjac
 
 ASK.forEach((a,i)=>el("ask").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${a[0]}</span> →
-   <input class="ans full" data-type="exact" data-ans="${a[1]}" data-k="a${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="exact" data-ans="${a[1]}" data-k="a${i}">
    <span class="fb" id="fb_a${i}"></span></div></div>`));
 
 POLITE.forEach((p,i)=>el("polite").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${p[0]}</span> →
-   <input class="ans full" data-type="exact" data-ans="${p[1]}" data-k="p${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="exact" data-ans="${p[1]}" data-k="p${i}">
    <span class="fb" id="fb_p${i}"></span></div></div>`));
 
 const KEY="lesson7_request";

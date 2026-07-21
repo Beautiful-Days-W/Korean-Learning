@@ -189,12 +189,12 @@ VOCAB.forEach(v=>el("vtable").insertAdjacentHTML("beforeend",`<tr><td><b>${v[0]}
 
 CONJ.forEach((c,i)=>el("conj").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${c[0]} <span class="lbl">〈${c[1]}〉</span></span> →
-   <input class="ans full" data-type="exact" data-ans="${c[2]}" data-k="c${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="exact" data-ans="${c[2]}" data-k="c${i}">
    <span class="fb" id="fb_c${i}"></span></div></div>`));
 
 FILL.forEach((f,i)=>el("fill").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span>
-   <span class="ko">${f[0]}<input class="ans tiny" data-type="par" data-ans="${f[1]}" data-k="f${i}">${f[2]}<span class="lbl">${f[3]}</span></span>
+   <span class="ko">${f[0]}<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="par" data-ans="${f[1]}" data-k="f${i}">${f[2]}<span class="lbl">${f[3]}</span></span>
    <span class="fb" id="fb_f${i}"></span></div></div>`));
 
 const KEY="lesson6_report";

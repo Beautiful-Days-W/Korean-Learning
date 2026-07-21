@@ -191,13 +191,13 @@ VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjac
 
 CONJ.forEach((c,i)=>el("conj").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${c[0]}</span> →
-   <input class="ans full" data-type="exact" data-ans="${c[1]}" data-k="c${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="exact" data-ans="${c[1]}" data-k="c${i}">
    <span class="fb" id="fb_c${i}"></span></div></div>`));
 
 MAKE.forEach((m,i)=>{
   el("make").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">(${m[0]} vs ${m[1]} / ${m[2]})</span>
-   <input class="ans full" data-type="make" data-need="보다" data-adj="${m[3]}" data-k="m${i}" placeholder="비교 문장을 쓰세요">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="make" data-need="보다" data-adj="${m[3]}" data-k="m${i}" placeholder="비교 문장을 쓰세요">
    <span class="fb" id="fb_m${i}"></span></div>
    <button class="hintbtn" onclick="toggleModel('mm${i}')">예시 보기</button>
    <div class="model" id="mm${i}">예시: ${m[0]}${josa(m[0])} ${m[1]}보다 더 ${m[3]}.</div></div>`); });

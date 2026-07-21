@@ -91,9 +91,9 @@
       • When done, press <b>📤 답안 보내기</b> and paste into the chat. / 다 하면 답안을 복사해 보내주세요.
     </div>
     <div class="meta">
-      <label>이름 / Name<input class="ans" data-k="name"></label>
-      <label>날짜 / Date<input class="ans" data-k="date"></label>
-      <label>걸린 시간 / Time<input class="ans short" data-k="time"></label>
+      <label>이름 / Name<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" data-k="name"></label>
+      <label>날짜 / Date<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" data-k="date"></label>
+      <label>걸린 시간 / Time<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans short" data-k="time"></label>
     </div>
   </div>
 
@@ -135,7 +135,7 @@
 
     <h3>B-4. 자유 작문 <span class="en">Free writing · 5–6 sentences</span></h3>
     <p class="instr">"나의 하루(My day)" 또는 "내가 한국어를 배우는 이유(Why I study Korean)" 중 하나를 고르세요.</p>
-    <input class="ans" data-k="b4topic" placeholder="주제 / Topic" style="margin-bottom:8px; flex:0 0 100%;">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" data-k="b4topic" placeholder="주제 / Topic" style="margin-bottom:8px; flex:0 0 100%;">
     <textarea class="ans" data-k="b4" style="min-height:130px;"></textarea>
   </section>
 
@@ -172,29 +172,29 @@ const A1=["바","토","규","산","닭","읽","꽃","의자","외국"];
 A1.forEach((x)=>add("a1",`<span class="tile">${x}</span>`));
 
 const A2=["학교","친구","시간","회사","어렵다","준비하다","그러나","갑자기"];
-A2.forEach((x,i)=>add("a2",`<div class="q"><span class="num">${i+1}</span><span class="ko">${x}</span> → <input class="ans" data-k="a2_${i}"></div>`));
+A2.forEach((x,i)=>add("a2",`<div class="q"><span class="num">${i+1}</span><span class="ko">${x}</span> → <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" data-k="a2_${i}"></div>`));
 
 const A3=[["저는 매일 아침 일곱 시에 일어나요.","What time does the person get up?"],
 ["어제는 비가 와서 집에 있었어요.","Why did they stay home?"],
 ["이 음식은 조금 맵지만 정말 맛있어요.","How does it taste, and the small problem?"]];
-A3.forEach((x,i)=>add("a3",`<div class="q"><span class="ko"><span class="num">${i+9}</span>${x[0]}</span><div class="row"><span class="lbl">Q: ${x[1]}</span></div><input class="ans" data-k="a3_${i}"></div>`));
+A3.forEach((x,i)=>add("a3",`<div class="q"><span class="ko"><span class="num">${i+9}</span>${x[0]}</span><div class="row"><span class="lbl">Q: ${x[1]}</span></div><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" data-k="a3_${i}"></div>`));
 
 const A4=["When did Minsu join the company?","What was hardest at first, and why?","What did he do to improve?","How does he feel now?"];
-A4.forEach((x,i)=>add("a4",`<div class="q"><span class="ko"><span class="num">${i+12}</span>${x}</span><input class="ans" data-k="a4_${i}"></div>`));
+A4.forEach((x,i)=>add("a4",`<div class="q"><span class="ko"><span class="num">${i+12}</span>${x}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" data-k="a4_${i}"></div>`));
 
-for(let i=0;i<3;i++) add("b1",`<div class="q"><span class="num">${i+17}</span><input class="ans" data-k="b1_${i}" placeholder="한글로 쓰세요"></div>`);
+for(let i=0;i<3;i++) add("b1",`<div class="q"><span class="num">${i+17}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" data-k="b1_${i}" placeholder="한글로 쓰세요"></div>`);
 
 const B2=[["동생___ 회사에 다녀요.","은 / 는"],["선생님___ 같이 영화를 봤어요.","와 / 과"],["어제 도서관___ 갔어요.","에 / 에서"],["밥을 먹___ 텔레비전을 봐요.","-고 / -어서"],["내일 비가 오___ 집에 있을 거예요.","-면 / -니까"]];
-B2.forEach((x,i)=>add("b2",`<div class="q"><span class="ko"><span class="num">${i+20}</span>${x[0]}</span><div class="row"><input class="ans short" data-k="b2_${i}"><span class="hint">${x[1]}</span></div></div>`));
+B2.forEach((x,i)=>add("b2",`<div class="q"><span class="ko"><span class="num">${i+20}</span>${x[0]}</span><div class="row"><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans short" data-k="b2_${i}"><span class="hint">${x[1]}</span></div></div>`));
 
 const B3=["주말 / 보통 / 뭐 / 하다","어제 / 친구 / 만나다 / 영화 / 보다"];
-B3.forEach((x,i)=>add("b3",`<div class="q"><span class="ko"><span class="num">${i+25}</span>(${x})</span><input class="ans" data-k="b3_${i}"></div>`));
+B3.forEach((x,i)=>add("b3",`<div class="q"><span class="ko"><span class="num">${i+25}</span>(${x})</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" data-k="b3_${i}"></div>`));
 
 const C1=[[27,"fire 불","horn 뿔"],[28,"room 방","bread 빵"],[29,"to buy 사다","to live 살다"]];
 C1.forEach(x=>add("c1",`<div class="q"><span class="num">${x[0]}</span><div class="choices"><label><input type="radio" name="c1_${x[0]}" data-k="c1_${x[0]}" value="a">a) ${x[1]}</label><label><input type="radio" name="c1_${x[0]}" data-k="c1_${x[0]}" value="b">b) ${x[2]}</label></div></div>`));
 
-for(let i=30;i<=31;i++) add("c2",`<div class="q"><span class="num">${i}</span><input class="ans" data-k="c2_${i}" placeholder="gist in English"></div>`);
-[["32","What did 민호 do on the weekend?"],["33","Why did 민호 come down early?"]].forEach(x=>add("c3",`<div class="q"><span class="num">${x[0]}</span><span class="lbl">${x[1]}</span><input class="ans" data-k="c3_${x[0]}"></div>`));
+for(let i=30;i<=31;i++) add("c2",`<div class="q"><span class="num">${i}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" data-k="c2_${i}" placeholder="gist in English"></div>`);
+[["32","What did 민호 do on the weekend?"],["33","Why did 민호 come down early?"]].forEach(x=>add("c3",`<div class="q"><span class="num">${x[0]}</span><span class="lbl">${x[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" data-k="c3_${x[0]}"></div>`));
 
 function add(id,html){document.getElementById(id).insertAdjacentHTML("beforeend",html);}
 

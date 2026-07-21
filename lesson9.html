@@ -229,22 +229,22 @@ VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjac
 
 REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
-   <span class="ko">${r[1]}</span><input class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
    <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
 
 DAYS.forEach((d,i)=>el("days").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span> →
-   <input class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
    <span class="fb" id="fb_d${i}"></span></div></div>`));
 
 MONTHS.forEach((m,i)=>el("months").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${m[0]}</span> →
-   <input class="ans mid" data-type="exact" data-ans="${m[1]}" data-k="m${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${m[1]}" data-k="m${i}">
    <span class="fb" id="fb_m${i}"></span></div></div>`));
 
 MIREU.forEach((v,i)=>el("mireu").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${v[0]}</span>
-   <input class="ans mid" data-type="exact" data-ans="${v[1]}" data-k="mr${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${v[1]}" data-k="mr${i}">
    <span class="ko">${v[2]}</span><span class="fb" id="fb_mr${i}"></span></div></div>`));
 
 const KEY="lesson9_extend";

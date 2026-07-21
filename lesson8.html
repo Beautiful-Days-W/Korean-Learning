@@ -223,24 +223,24 @@ VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjac
 
 REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
-   <span class="ko">${r[1]}</span><input class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
    <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
 
 MOVE.forEach((m,i)=>el("move").insertAdjacentHTML("beforeend",
   `<div class="drill"><p class="lead" style="margin:0 0 4px">"${m[0]}"</p>
    <div class="row"><span class="num">${i+1}.</span><span class="ko">${m[1]}</span>
-   <input class="ans mid" data-type="exact" data-ans="${m[2]}" data-k="mv${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${m[2]}" data-k="mv${i}">
    <span class="ko">${m[3]}</span><span class="fb" id="fb_mv${i}"></span></div></div>`));
 
 RO.forEach((r,i)=>el("ro").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span>
-   <span class="ko"><b>${r[0]}</b><input class="ans tiny" data-type="exact" data-ans="${r[1]}" data-k="ro${i}" maxlength="2"> 할까요?</span>
+   <span class="ko"><b>${r[0]}</b><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${r[1]}" data-k="ro${i}" maxlength="2"> 할까요?</span>
    <span class="fb" id="fb_ro${i}"></span></div></div>`));
 
 VERB.forEach((v,i)=>el("verb").insertAdjacentHTML("beforeend",
   `<div class="drill"><p class="lead" style="margin:0 0 4px">"${v[0]}"</p>
    <div class="row"><span class="num">${i+1}.</span><span class="ko">${v[1]}</span>
-   <input class="ans mid" data-type="exact" data-ans="${v[2]}" data-k="vb${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${v[2]}" data-k="vb${i}">
    <span class="ko">${v[3]}</span><span class="lbl">(${v[4]})</span><span class="fb" id="fb_vb${i}"></span></div></div>`));
 
 const KEY="lesson8_schedule";

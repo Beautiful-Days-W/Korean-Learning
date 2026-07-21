@@ -176,7 +176,7 @@ function plainDrill(listId, arr){
   arr.forEach((a,i)=>el(listId).insertAdjacentHTML("beforeend",
     `<div class="drill"><p class="scene">${a[0]}</p>
      <div class="row"><span class="num">${i+1}.</span><span class="ko">${a[1]}</span>
-     <input class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="${listId}${i}">
+     <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="${listId}${i}">
      <span class="ko">${a[3]}</span><span class="fb" id="fb_${listId}${i}"></span></div></div>`));
 }
 plainDrill("dalla", DALLA);
@@ -184,7 +184,7 @@ plainDrill("jula", JULA);
 MIX.forEach((a,i)=>el("mix").insertAdjacentHTML("beforeend",
   `<div class="drill"><p class="scene"><span class="tag${a[0]}">${a[0]==='me'?'나에게':'남에게'}</span> ${a[1]}</p>
    <div class="row"><span class="num">${i+1}.</span><span class="ko">${a[2]}</span>
-   <input class="ans mid" data-type="exact" data-ans="${a[3]}" data-k="mix${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${a[3]}" data-k="mix${i}">
    <span class="ko">${a[4]}</span><span class="fb" id="fb_mix${i}"></span></div></div>`));
 
 const KEY="review3_dalla_jula";

@@ -160,12 +160,12 @@ SECTIONS.forEach((s,si)=>{
   s.items.forEach((it,ii)=>{
     const k=`s${si}_${ii}`;
     if(it.kind==="par"){
-      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.pre}<input class="ans tiny" data-type="par" data-ans="${it.ans}" data-k="${k}" data-q="${it.q}">${it.post}</span><span class="fb" id="fb_${k}"></span></div></div>`;
+      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.pre}<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="par" data-ans="${it.ans}" data-k="${k}" data-q="${it.q}">${it.post}</span><span class="fb" id="fb_${k}"></span></div></div>`;
     } else if(it.kind==="exact"){
-      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.cue}</span> <input class="ans mid" data-type="exact" data-ans="${it.ans}" data-k="${k}" data-q="${it.q}"><span class="fb" id="fb_${k}"></span></div></div>`;
+      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.cue}</span> <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${it.ans}" data-k="${k}" data-q="${it.q}"><span class="fb" id="fb_${k}"></span></div></div>`;
     } else if(it.kind==="make"){
       const mid="m"+(mc++);
-      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.label}</span> <input class="ans full" data-type="make" data-need="${it.need}" data-adj="${it.adj}" data-k="${k}" data-q="${it.q}" placeholder="문장을 쓰세요"><span class="fb" id="fb_${k}"></span></div>
+      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.label}</span> <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="make" data-need="${it.need}" data-adj="${it.adj}" data-k="${k}" data-q="${it.q}" placeholder="문장을 쓰세요"><span class="fb" id="fb_${k}"></span></div>
         <button class="hintbtn" onclick="toggleModel('${mid}')">예시 보기</button>
         <div class="model" id="${mid}">예시: ${it.ex}</div></div>`;
     }

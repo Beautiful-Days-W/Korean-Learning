@@ -194,19 +194,19 @@ VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjac
 
 CONJ.forEach((c,i)=>el("conj").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${c[0]}</span> →
-   <input class="ans mid" data-type="exact" data-ans="${c[1]}" data-k="c${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${c[1]}" data-k="c${i}">
    <span class="fb" id="fb_c${i}"></span></div></div>`));
 
 FILL.forEach((f,i)=>{ const a=josa(f[1]);
   el("fill").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span>
-   <span class="ko">${f[0]}<b>${f[1]}</b><input class="ans tiny" data-type="par" data-ans="${a}" data-k="f${i}" maxlength="1">${f[2]}</span>
+   <span class="ko">${f[0]}<b>${f[1]}</b><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="par" data-ans="${a}" data-k="f${i}" maxlength="1">${f[2]}</span>
    <span class="fb" id="fb_f${i}"></span></div></div>`); });
 
 MAKE.forEach((m,i)=>{ const need=m[0]+josa(m[0]);
   el("make").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">(${m[0]} / ${m[1]})</span>
-   <input class="ans full" data-type="make" data-need="${need}" data-adj="${m[2]}" data-k="m${i}" placeholder="문장을 쓰세요">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="make" data-need="${need}" data-adj="${m[2]}" data-k="m${i}" placeholder="문장을 쓰세요">
    <span class="fb" id="fb_m${i}"></span></div>
    <button class="hintbtn" onclick="toggleModel('mm${i}')">예시 보기</button>
    <div class="model" id="mm${i}">예시: ${m[0]}${josa(m[0])} ${m[2]}</div></div>`); });

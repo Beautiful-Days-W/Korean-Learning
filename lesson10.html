@@ -222,24 +222,24 @@ VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjac
 
 REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
-   <span class="ko">${r[1]}</span><input class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
    <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
 
 GOCOME.forEach((g,i)=>el("goCome").insertAdjacentHTML("beforeend",
   `<div class="drill"><p class="scene">${g[0]}</p>
    <div class="row"><span class="num">${i+1}.</span><span class="ko">${g[1]}</span>
-   <input class="ans tiny" data-type="exact" data-ans="${g[2]}" data-k="g${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${g[2]}" data-k="g${i}">
    <span class="ko">${g[3]}</span><span class="fb" id="fb_g${i}"></span></div></div>`));
 
 COMPOUND.forEach((c,i)=>el("compound").insertAdjacentHTML("beforeend",
   `<div class="drill"><p class="scene">${c[0]}</p>
    <div class="row"><span class="num">${i+1}.</span><span class="ko">${c[1]}</span>
-   <input class="ans tiny" data-type="exact" data-ans="${c[2]}" data-k="c${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${c[2]}" data-k="c${i}">
    <span class="ko">${c[3]}</span><span class="fb" id="fb_c${i}"></span></div></div>`));
 
 MOTAN.forEach((m,i)=>el("motAn").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${m[0]}</span>
-   <input class="ans tiny" data-type="exact" data-ans="${m[1]}" data-k="m${i}" maxlength="1">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${m[1]}" data-k="m${i}" maxlength="1">
    <span class="ko">${m[2]}</span><span class="fb" id="fb_m${i}"></span></div></div>`));
 
 const KEY="lesson10_gocome";

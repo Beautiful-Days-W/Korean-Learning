@@ -202,23 +202,23 @@ VOCAB.forEach(v=>el("vtable").insertAdjacentHTML("beforeend",`<tr><td><b>${v[0]}
 
 REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
-   <span class="ko">${r[1]}</span><input class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
    <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
 
 DAGA.forEach((d,i)=>el("daga").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span> →
-   <input class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
    <span class="fb" id="fb_d${i}"></span></div></div>`));
 
 JOIN.forEach((j,i)=>el("join").insertAdjacentHTML("beforeend",
   `<div class="drill"><p class="scene">"${j[0]}"</p>
    <div class="row"><span class="num">${i+1}.</span><span class="ko">${j[1]}</span>
-   <input class="ans mid" data-type="exact" data-ans="${j[2]}" data-k="j${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${j[2]}" data-k="j${i}">
    <span class="ko">${j[3]}</span><span class="lbl">(${j[4]})</span><span class="fb" id="fb_j${i}"></span></div></div>`));
 
 DEUL.forEach((d,i)=>el("deul").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
-   <input class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="dl${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="dl${i}">
    <span class="ko">${d[2]}</span><span class="fb" id="fb_dl${i}"></span></div></div>`));
 
 const KEY="lesson11_linking";

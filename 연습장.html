@@ -43,23 +43,36 @@
   .grid2b .drill:nth-child(6){border-top:none;}
   @media(max-width:560px){.grid2,.grid2b{display:block;} .grid2 .drill:nth-child(7),.grid2b .drill:nth-child(6){border-top:1px dashed var(--line);}}
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
-  @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}}
+  .dots{flex-basis:100%;display:flex;gap:3px;align-items:center;margin-top:4px;}
+  .dots i{width:8px;height:8px;border-radius:50%;background:#e5e7eb;display:inline-block;}
+  .dots i.on{background:var(--ok);}
+  .mbadge{font-size:11px;color:var(--ok);font-weight:700;margin-left:4px;white-space:nowrap;}
+  .drill.mastered{opacity:.55;}
+  #mcount{font-size:12px;color:var(--muted);font-weight:600;}
+  #msg{font-size:12px;color:var(--ok);font-weight:600;}
+  .bar label.tg{font-size:12.5px;color:var(--ink);display:inline-flex;align-items:center;gap:4px;cursor:pointer;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}.dots{display:none;}}
 </style>
 </head>
 <body>
 
 <div class="bar">
-  <h1>복습 연습장 <span class="sub">Practice Room — anytime, as often as you like</span></h1>
+  <h1>복습 연습장 <span class="sub">Practice Room</span></h1>
+  <span id="mcount"></span>
   <span id="score"></span>
+  <span id="msg"></span>
+  <button class="btn" onclick="nextRound()">✅ 채점·다음 회차</button>
+  <label class="tg"><input type="checkbox" id="toggleM" onchange="toggleMastered(this)"> 익힌 문제 보기</label>
   <button class="btn" onclick="window.print()">🖨 인쇄</button>
-  <button class="btn" onclick="resetAll()">↺ 다시 풀기</button>
+  <button class="btn" onclick="resetProgress()">↺ 진도 초기화</button>
 </div>
 
 <div class="wrap">
   <div class="head">
     <h2>쓰는 법 <span class="en">How to use</span></h2>
-    <p class="lead">수업과 별도로, <b>틈날 때마다</b> 와서 반복 연습하는 곳이에요. 입력하면 바로 채점되고, 「↺ 다시 풀기」로 몇 번이든 다시 할 수 있어요. (Come back anytime — instant checking, repeat as often as you like.)</p>
-    <div class="note">지금 있는 연습: <b>높임말</b> · <b>상대 시간</b> · <b>추측</b> · <b>달라고/주라고</b> · <b>있다/계시다</b> · <b>가요/와요</b> · <b>-다가/-았다가</b> — 복습 레슨에서 다룬 내용이에요.</div>
+    <p class="lead">수업과 별도로, <b>틈날 때마다</b> 와서 반복 연습하는 곳이에요. 입력하면 바로 ✓/✗ 채점돼요.</p>
+    <p class="lead">문제를 풀고 <b>「✅ 채점·다음 회차」</b>를 누르면 맞은 문제에 진도 점(●)이 하나씩 차요. <b>연속 5번 맞히면 그 문제는 사라져요</b>(익힘 완료) — 아직 약한 것만 남아 페이지가 깔끔해져요. <b>「👁 익힌 문제 보기」</b>로 다시 보고, <b>「↺ 진도 초기화」</b>로 처음부터 할 수 있어요. <span class="en">Answer 5 rounds correctly → the item is mastered and hidden.</span></p>
+    <div class="note">지금 있는 연습: <b>높임말</b> · <b>상대 시간</b> · <b>추측</b> · <b>달라고/주라고</b> · <b>있다/계시다</b> · <b>가요/와요</b> · <b>-다가/-았다가</b> · <b>관광 단어</b> · <b>교통 단어</b> — 복습 레슨에서 다룬 내용이에요.</div>
   </div>
 
   <section>
@@ -127,7 +140,19 @@
     <div id="dg"></div>
   </section>
 
-  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가</footer>
+  <section>
+    <h2>8. 관광 단어 <span class="en">Sightseeing vocabulary · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
+    <div id="tour"></div>
+  </section>
+
+  <section>
+    <h2>9. 교통 단어 <span class="en">Transportation vocabulary · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
+    <div id="trans"></div>
+  </section>
+
+  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 단어 · 교통 단어</footer>
 </div>
 
 <script>
@@ -151,11 +176,11 @@ const REL=[ // [질문, 정답(|)]
 function el(id){return document.getElementById(id);}
 HON.forEach((h,i)=>el("hon").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${h[0]}</span> →
-   <input class="ans mid" data-type="exact" data-ans="${h[1]}" data-k="h${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${h[1]}" data-k="h${i}">
    <span class="fb" id="fb_h${i}"></span></div></div>`));
 REL.forEach((r,i)=>el("rel").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${r[0]}</span>
-   <input class="ans mid" data-type="exact" data-ans="${r[1]}" data-k="r${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${r[1]}" data-k="r${i}">
    <span class="fb" id="fb_r${i}"></span></div></div>`));
 
 // 복습 레슨 내용 — [앞, 정답(|), 뒤]
@@ -219,17 +244,79 @@ const DG=[ // -다가/-았다가 (복습4)
   ["[도중] 길을","걷다가","넘어졌어요. (걷다)"],
   ["[완료] 옷을","입었다가","다시 벗었어요. (입다)"]
 ];
+const TOUR=[ // 관광 단어 (레슨13 어휘 + 재입장·입장마감·특별전시실·관람·안내도·촬영·입구)
+  ['sightseeing spot →','관광지',''],
+  ['ticket office →','매표소',''],
+  ['admission fee →','입장료',''],
+  ['discount →','할인',''],
+  ['seat →','자리|좌석',''],
+  ['exhibition →','전시회|전시',''],
+  ['performance / show →','공연',''],
+  ['museum →','박물관',''],
+  ['art gallery →','미술관',''],
+  ['souvenir →','기념품',''],
+  ['information desk →','안내소',''],
+  ['adult →','어른',''],
+  ['child →','어린이',''],
+  ['to line up →','줄을 서다|줄 서다|줄서다',''],
+  ['to book tickets →','예매하다|표를 예매하다|표 예매하다',''],
+  ['(a place) open / close →','열다|닫다',''],
+  ['entrance →','입구',''],
+  ['re-entry →','재입장',''],
+  ['last entry →','입장 마감|입장마감',''],
+  ['special exhibition room →','특별 전시실|특별전시실',''],
+  ['viewing (a show) →','관람',''],
+  ['floor map / guide →','안내도',''],
+  ['photography →','촬영','']
+];
+const TRANS=[ // 교통 단어 (레슨14 어휘)
+  ['airplane →','비행기',''],
+  ['train →','기차',''],
+  ['subway →','지하철',''],
+  ['bus →','버스',''],
+  ['ferry / boat →','페리|배',''],
+  ['(bus/subway) stop →','정거장|정류장',''],
+  ['station →','역',''],
+  ['to get on →','타다',''],
+  ['to get off →','내리다',''],
+  ['to transfer →','갈아타다',''],
+  ['one-way →','편도',''],
+  ['round-trip →','왕복',''],
+  ['departure →','출발',''],
+  ['arrival →','도착',''],
+  ['fare →','요금',''],
+  ['transit card →','교통카드',''],
+  ['ferry terminal →','선착장|여객선 터미널',''],
+  ['to check baggage →','짐을 부치다|수하물을 부치다|부치다',''],
+  ['boarding pass →','탑승권',''],
+  ['(boarding) gate →','탑승구',''],
+  ['security check →','보안 검색|보안검색',''],
+  ['sightseeing cruise →','유람선',''],
+  ['to board (a boat) →','승선하다|승선',''],
+  ['personal details →','인적사항',''],
+  ['life jacket →','구명조끼',''],
+  ['to book (in advance) →','예매하다|예매',''],
+  ['harbor / port →','항구',''],
+  ['lighthouse →','등대',''],
+  ['island →','섬',''],
+  ['in an emergency →','비상시',''],
+  ['crew / attendant →','승무원',''],
+  ['railing →','난간','']
+];
 function renderBA(arr,key,cid){
   arr.forEach((a,i)=>el(cid).insertAdjacentHTML("beforeend",
     `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${a[0]}</span>
-     <input class="ans wide" data-type="exact" data-ans="${a[1]}" data-k="${key}${i}">
+     <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans wide" data-type="exact" data-ans="${a[1]}" data-k="${key}${i}">
      <span class="ko">${a[2]}</span><span class="fb" id="fb_${key}${i}"></span></div></div>`));
 }
 renderBA(SUP,"sup","sup"); renderBA(DAL,"dal","dal"); renderBA(HB,"hb","hb");
-renderBA(GW,"gw","gw"); renderBA(DG,"dg","dg");
+renderBA(GW,"gw","gw"); renderBA(DG,"dg","dg"); renderBA(TOUR,"tw","tour"); renderBA(TRANS,"kt","trans");
 
-const KEY="practice_room";
+const KEY="practice_room", MKEY="practice_master", TARGET=5;
 const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+const master=JSON.parse(localStorage.getItem(MKEY)||"{}");
+let showMastered=false;
+
 function check(elm){
   const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
   store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
@@ -241,18 +328,66 @@ function check(elm){
 }
 function updateScore(){
   let done=0,ok=0;
-  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  document.querySelectorAll("[data-k]").forEach(e=>{ const dr=e.closest(".drill"); if(dr&&dr.style.display==="none")return;
+    const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
   el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
 }
-function resetAll(){
-  if(!confirm("답을 지우고 다시 풀까요?")) return;
-  localStorage.removeItem(KEY); for(const k in store) delete store[k];
-  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
-  el("score").textContent="";
+function updateDots(k){
+  const d=document.getElementById("dots_"+k); if(!d) return;
+  const n=Math.min(master[k]||0,TARGET); let s="";
+  for(let j=0;j<TARGET;j++) s+=`<i class="${j<n?'on':''}"></i>`;
+  d.innerHTML=s+(n>=TARGET?' <span class="mbadge">✓ 익힘</span>':'');
 }
+function updateMasterCount(){
+  const all=document.querySelectorAll("[data-k]"); let m=0;
+  all.forEach(e=>{ if((master[e.dataset.k]||0)>=TARGET) m++; });
+  el("mcount").textContent=`익힘 ${m} / 전체 ${all.length}`;
+}
+function applyMastery(){
+  document.querySelectorAll("[data-k]").forEach(e=>{
+    const k=e.dataset.k, dr=e.closest(".drill"), done=(master[k]||0)>=TARGET;
+    if(dr){ dr.style.display=(done&&!showMastered)?"none":""; dr.classList.toggle("mastered",done); }
+    updateDots(k);
+  });
+  document.querySelectorAll("section").forEach(sec=>{
+    const ds=sec.querySelectorAll(".drill"); if(!ds.length) return;
+    sec.style.display=[...ds].some(d=>d.style.display!=="none")?"":"none";
+  });
+  updateMasterCount(); updateScore();
+}
+function clearInputs(){
+  for(const k in store) delete store[k]; localStorage.setItem(KEY,JSON.stringify(store));
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+}
+function nextRound(){
+  let round=0,rok=0;
+  document.querySelectorAll("[data-k]").forEach(e=>{
+    const k=e.dataset.k, v=e.value.trim();
+    if((master[k]||0)>=TARGET) return;   // 이미 익힘
+    if(v==="") return;                    // 미응답: 변화 없음
+    round++;
+    const ok=e.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+    if(ok){ master[k]=(master[k]||0)+1; rok++; } else { master[k]=0; }
+  });
+  localStorage.setItem(MKEY,JSON.stringify(master));
+  clearInputs(); applyMastery();
+  el("msg").textContent = round? `이번 회차 ${rok}/${round} 정답 · 진도 반영` : "채점할 답이 없어요";
+}
+function resetProgress(){
+  if(!confirm("진도(익힘 표시)를 모두 지우고 처음부터 할까요?")) return;
+  for(const k in master) delete master[k]; localStorage.removeItem(MKEY);
+  showMastered=false; const t=el("toggleM"); if(t) t.checked=false;
+  clearInputs(); applyMastery(); el("msg").textContent="";
+}
+function toggleMastered(cb){ showMastered=cb.checked; applyMastery(); }
+
+document.querySelectorAll("[data-k]").forEach(e=>{   // 진도 점 주입
+  const row=e.closest(".row"); if(!row) return;
+  const d=document.createElement("span"); d.className="dots"; d.id="dots_"+e.dataset.k; row.appendChild(d);
+});
 document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
 document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
-updateScore();
+applyMastery();
 </script>
 </body>
 </html>

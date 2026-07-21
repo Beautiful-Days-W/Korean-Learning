@@ -233,22 +233,22 @@ fillVocab(VPAIR,"vpair"); fillVocab(VACT,"vact");
 
 REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
-   <span class="ko">${r[1]}</span><input class="ans tiny" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
    <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
 
 FORM.forEach((f,i)=>el("form").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko"><b>${f[0]}</b></span> →
-   <span class="cue mid">도중</span><input class="ans mid" data-type="exact" data-ans="${f[1]}" data-k="fa${i}"><span class="fb" id="fb_fa${i}"></span>
-   &nbsp; <span class="cue done">완료</span><input class="ans mid" data-type="exact" data-ans="${f[2]}" data-k="fb${i}"><span class="fb" id="fb_fb${i}"></span></div></div>`));
+   <span class="cue mid">도중</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${f[1]}" data-k="fa${i}"><span class="fb" id="fb_fa${i}"></span>
+   &nbsp; <span class="cue done">완료</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${f[2]}" data-k="fb${i}"><span class="fb" id="fb_fb${i}"></span></div></div>`));
 
 PICK.forEach((p,i)=>el("pick").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="cue ${p[0]}">${p[0]==='mid'?'도중':'완료'}</span>
-   <span class="ko">${p[1]}</span><input class="ans mid" data-type="exact" data-ans="${p[2]}" data-k="pk${i}">
+   <span class="ko">${p[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${p[2]}" data-k="pk${i}">
    <span class="ko">${p[3]}</span><span class="lbl">(${p[4]})</span><span class="fb" id="fb_pk${i}"></span></div></div>`));
 
 STORY.forEach((s,i)=>el("story").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${s[0]}</span>
-   <input class="ans mid" data-type="exact" data-ans="${s[1]}" data-k="st${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${s[1]}" data-k="st${i}">
    <span class="ko">${s[2]}</span><span class="lbl">[${s[3]}]</span><span class="fb" id="fb_st${i}"></span></div></div>`));
 
 const KEY="lesson13_dagacontrast";

@@ -191,23 +191,23 @@ function el(id){return document.getElementById(id);}
 REPORT.forEach((a,i)=>el("report").insertAdjacentHTML("beforeend",
   `<div class="drill"><p class="lead" style="margin:0 0 4px">${a[0]}</p>
    <div class="row"><span class="num">${i+1}.</span><span class="ko">${a[1]}</span>
-   <input class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="report${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="report${i}">
    <span class="ko">${a[3]}</span><span class="fb" id="fb_report${i}"></span></div></div>`));
 SUGREQ.forEach((a,i)=>el("sugreq").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
-   <span class="ko">${a[1]}</span><input class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="sr${i}">
+   <span class="ko">${a[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="sr${i}">
    <span class="ko">${a[3]}</span><span class="fb" id="fb_sr${i}"></span></div></div>`));
 HONOR.forEach((a,i)=>el("honor").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
-   <span class="ko">${a[1]}</span><input class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="hn${i}">
+   <span class="ko">${a[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="hn${i}">
    <span class="ko">${a[3]}</span><span class="fb" id="fb_hn${i}"></span></div></div>`));
 PLAN.forEach((a,i)=>el("plan").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${a[0]}</span>
-   <input class="ans tiny" data-type="exact" data-ans="${a[1]}" data-k="pl${i}">
+   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${a[1]}" data-k="pl${i}">
    <span class="ko">${a[2]}</span>${a[3]?`<span class="lbl">(${a[3]})</span>`:''}<span class="fb" id="fb_pl${i}"></span></div></div>`));
 GOCOME.forEach((a,i)=>el("gocome").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">${a[0]}</span>
-   <span class="ko">${a[1]}</span><input class="ans tiny" data-type="exact" data-ans="${a[2]}" data-k="gc${i}">
+   <span class="ko">${a[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${a[2]}" data-k="gc${i}">
    <span class="ko">${a[3]}</span><span class="fb" id="fb_gc${i}"></span></div></div>`));
 
 const KEY="review2_6_10";
