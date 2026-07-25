@@ -179,11 +179,9 @@ function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
 const VOCAB=[
   ["관광(지)","sightseeing (spot)"],["표를 사다 / 예매하다","to buy / book tickets"],
   ["입장료","admission fee"],["매표소","ticket office"],
-  ["줄을 서다","to line up"],["공연","a show / performance"],
-  ["전시(회)","exhibition"],["박물관 / 미술관","museum / art gallery"],
-  ["문을 열다 / 닫다","to open / close"],["기념품","souvenir"],
-  ["안내소","information desk"],["자리 / 좌석","seat"],
-  ["어른 / 어린이","adult / child"],["할인","discount"]
+  ["공연","a show"],["전시(회)","exhibition"],
+  ["자리 / 좌석","seat"],["어른 / 어린이","adult / child"],
+  ["할인","discount"],["-아/어도 되다","to be allowed to"]
 ];
 const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
   ['-아/어 보다 · 경험','뉴욕에 가 ','봤어요',' ?'],
@@ -230,23 +228,23 @@ VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjac
 
 REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
-   <span class="ko">${r[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[1]}</span><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
    <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
 PERM.forEach((p,i)=>el("perm").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${p[0]}</span> →
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${p[1]}" data-k="p${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${p[1]}" data-k="p${i}">
    <span class="ko">?</span><span class="fb" id="fb_p${i}"></span></div></div>`));
 JOSA.forEach((j,i)=>el("josa").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${j[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${j[1]}" data-k="j${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${j[1]}" data-k="j${i}">
    <span class="ko">${j[2]}</span><span class="fb" id="fb_j${i}"></span></div></div>`));
 DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
    <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
 DLG2.forEach((d,i)=>el("dlgblank2").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d2_${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d2_${i}">
    <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d2_${i}"></span></div></div>`));
 
 const KEY="lesson13_tour";

@@ -226,18 +226,8 @@ const VOCAB=[
   ["비행기","airplane"],["기차","train"],
   ["지하철","subway"],["버스","bus"],
   ["페리 / 배","ferry / boat"],["정거장 / 정류장","(bus/subway) stop"],
-  ["역","station"],["타다 / 내리다","get on / off"],
-  ["갈아타다","to transfer"],["편도 / 왕복","one-way / round-trip"],
-  ["출발 / 도착","departure / arrival"],["요금","fare"],
-  ["교통카드","transit card"],["여객선 터미널 / 선착장","ferry terminal"],
-  ["수하물 / 짐을 부치다","to check baggage"],["탑승권","boarding pass"],
-  ["탑승구","(boarding) gate"],["보안 검색(대)","security check"],
-  ["유람선","sightseeing cruise"],["승선(하다)","boarding / to board"],
-  ["인적사항","personal details"],["구명조끼","life jacket"],
-  ["예매(하다)","to book (in advance)"],["항구","harbor / port"],
-  ["등대","lighthouse"],["섬","island"],
-  ["비상시","in an emergency"],["승무원","crew / attendant"],
-  ["난간","railing"]
+  ["타다 / 내리다","get on / off"],["갈아타다","to transfer"],
+  ["편도 / 왕복","one-way / round-trip"],["요금","fare"]
 ];
 const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
   ['-아/어도 되다 · 찍다','사진을 ','찍어도 돼요',' ?'],
@@ -300,31 +290,31 @@ VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjac
 
 REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
-   <span class="ko">${r[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[1]}</span><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
    <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
 TRV.forEach((t,i)=>el("trv").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${t[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${t[1]}" data-k="t${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${t[1]}" data-k="t${i}">
    <span class="ko">${t[2]}</span><span class="lbl">(${t[3]})</span><span class="fb" id="fb_t${i}"></span></div></div>`));
 JOSA.forEach((j,i)=>el("josa").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${j[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${j[1]}" data-k="j${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${j[1]}" data-k="j${i}">
    <span class="ko">${j[2]}</span><span class="fb" id="fb_j${i}"></span></div></div>`));
 DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
    <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
 DLG2.forEach((d,i)=>el("dlgblank2").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d2_${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d2_${i}">
    <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d2_${i}"></span></div></div>`));
 DLG3.forEach((d,i)=>el("dlgblank3").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d3_${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d3_${i}">
    <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d3_${i}"></span></div></div>`));
 DLG4.forEach((d,i)=>el("dlgblank4").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d4_${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d4_${i}">
    <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d4_${i}"></span></div></div>`));
 
 const KEY="lesson14_transport";

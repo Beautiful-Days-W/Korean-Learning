@@ -206,12 +206,10 @@
 function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
 
 const VOCAB=[
-  ["여행(을) 가다","to go on a trip"],["비행기","airplane"],
-  ["공항","airport"],["표 / 티켓","ticket"],
+  ["여행(을) 가다","to go on a trip"],["표 / 티켓","ticket"],
   ["예약하다","to book / reserve"],["호텔","hotel"],
-  ["짐","luggage"],["구경하다","to look around / sightsee"],
-  ["타다","to ride / take (transport)"],["유명하다","to be famous"],
-  ["-아/어 보다","to try / have done"],["며칠 동안","for a few days"]
+  ["짐","luggage"],["구경하다","to look around"],
+  ["유명하다","to be famous"],["-아/어 보다","to try / have done"]
 ];
 const REVIEW=[ // [힌트, 문장앞, 정답(|), 문장뒤]
   ['에/에서 · 목적지','뉴욕','에',' 가요.'],
@@ -253,23 +251,23 @@ VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjac
 
 REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
-   <span class="ko">${r[1]}</span><input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[1]}</span><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
    <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
 BWA.forEach((b,i)=>el("bwa").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${b[0]}</span> →
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${b[1]}" data-k="b${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${b[1]}" data-k="b${i}">
    <span class="fb" id="fb_b${i}"></span></div></div>`));
 ESE.forEach((e,i)=>el("ese").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
    <span class="ko">${e[2]}</span><span class="fb" id="fb_e${i}"></span></div></div>`));
 DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
    <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
 DLG2.forEach((d,i)=>el("dlgblank2").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d2_${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d2_${i}">
    <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d2_${i}"></span></div></div>`));
 
 const KEY="lesson12_travel";

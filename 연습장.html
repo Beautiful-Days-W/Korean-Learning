@@ -176,11 +176,11 @@ const REL=[ // [질문, 정답(|)]
 function el(id){return document.getElementById(id);}
 HON.forEach((h,i)=>el("hon").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${h[0]}</span> →
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${h[1]}" data-k="h${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${h[1]}" data-k="h${i}">
    <span class="fb" id="fb_h${i}"></span></div></div>`));
 REL.forEach((r,i)=>el("rel").insertAdjacentHTML("beforeend",
   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${r[0]}</span>
-   <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${r[1]}" data-k="r${i}">
+   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${r[1]}" data-k="r${i}">
    <span class="fb" id="fb_r${i}"></span></div></div>`));
 
 // 복습 레슨 내용 — [앞, 정답(|), 뒤]
@@ -306,7 +306,7 @@ const TRANS=[ // 교통 단어 (레슨14 어휘)
 function renderBA(arr,key,cid){
   arr.forEach((a,i)=>el(cid).insertAdjacentHTML("beforeend",
     `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${a[0]}</span>
-     <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans wide" data-type="exact" data-ans="${a[1]}" data-k="${key}${i}">
+     <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans wide" data-type="exact" data-ans="${a[1]}" data-k="${key}${i}">
      <span class="ko">${a[2]}</span><span class="fb" id="fb_${key}${i}"></span></div></div>`));
 }
 renderBA(SUP,"sup","sup"); renderBA(DAL,"dal","dal"); renderBA(HB,"hb","hb");
