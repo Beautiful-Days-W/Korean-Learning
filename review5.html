@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>복습 · Lessons 11–15</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;--teal:#0d9488;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:17px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  h2 .tag{font-size:11px;font-weight:700;color:#fff;background:var(--teal);border-radius:999px;padding:2px 9px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:150px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>복습 · Lessons 11–15 <span class="sub">Review</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>복습 목표 <span class="en">What we practice</span></h2>
+    <p class="lead">11~15과 핵심 문형을 <b>한 번에 다시</b>. 반복해서 손에 익히는 페이지예요 (점수만, 자유작문 없음).</p>
+    <div class="note">
+      L11 <b>-았다가</b>(완료 후 다른 행동) · L12 <b>-아/어 봤어요</b>(경험)+에/에서 · L13 <b>-아/어도 돼요?</b>(허락) · L14 <b>N(으)로</b>+타다/내리다/갈아타다 · L15 <b>형용사 -(으)ㄴ 거</b>+이걸로
+    </div>
+  </div>
+
+  <section>
+    <h2><span class="tag">L11</span> 문장 잇기 <span class="en">-았다가 (완료 후 다른 행동)</span></h2>
+    <p class="lead">기본형을 <b>-았/었다가</b>로 바꿔 채우세요.</p>
+    <div id="s11"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L12</span> 여행 경험 <span class="en">-아/어 봤어요 · 에/에서</span></h2>
+    <p class="lead">경험은 <b>-아/어 봤어요</b>, 조사는 상황에 맞게.</p>
+    <div id="s12"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L13</span> 허락 구하기 <span class="en">-아/어도 돼요?</span></h2>
+    <p class="lead">기본형을 <b>-아/어도 돼요?</b>로 바꿔 채우세요.</p>
+    <div id="s13"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L14</span> 교통 <span class="en">N(으)로 · 타다/내리다/갈아타다</span></h2>
+    <p class="lead">수단은 <b>(으)로</b>, 동사는 해요체로.</p>
+    <div id="s14"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L15</span> 쇼핑 <span class="en">형용사 -(으)ㄴ 거 · 이걸로</span></h2>
+    <p class="lead">형용사는 <b>-(으)ㄴ 거</b>, 결정은 <b>이걸로</b>.</p>
+    <div id="s15"></div>
+  </section>
+</div>
+
+<script>
+function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
+
+const S11=[ // [힌트, 앞, 정답(|), 뒤]
+  ['가다 → -았다가','은행에 ','갔다가',' 친구를 만났어요.'],
+  ['들르다 → -았다가 (르 불규칙)','시장에 ','들렀다가',' 집에 왔어요.'],
+  ['앉다 → -았다가','자리에 ','앉았다가',' 다시 일어났어요.'],
+  ['사다 → -았다가','기차표를 ','샀다가',' 취소했어요.'],
+  ['입다 → -았다가','코트를 ','입었다가',' 더워서 벗었어요.']
+];
+const S12=[
+  ['가다 + -아/어 봤어요','제주도에 ','가 봤어요',' ?'],
+  ['먹다 + -아/어 봤어요','평양냉면을 ','먹어 봤어요',' ?'],
+  ['타다 + -아/어 봤어요','케이블카를 ','타 봤어요',' ?'],
+  ['장소 조사 (목적지)','공항','에',' 도착했어요.'],
+  ['장소 조사 (동작 장소)','식당','에서',' 밥을 먹었어요.']
+];
+const S13=[
+  ['찍다 + -아/어도 돼요?','여기서 사진 ','찍어도 돼요',' ?'],
+  ['들어가다 + -아/어도 돼요?','지금 ','들어가도 돼요',' ?'],
+  ['앉다 + -아/어도 돼요?','여기 ','앉아도 돼요',' ?'],
+  ['만지다 + -아/어도 돼요?','이거 ','만져도 돼요',' ?']
+];
+const S14=[
+  ['N(으)로 (수단)','지하철','로',' 가요.'],
+  ['N(으)로 (수단)','버스','로',' 왔어요.'],
+  ['N(으)로 (받침 뒤)','젓가락','으로',' 먹어요.'],
+  ['내리다 (하차)','다음 역에서 ','내려요',' .'],
+  ['갈아타다 (환승)','시청역에서 ','갈아타요',' .']
+];
+const S15=[
+  ['형용사 -(으)ㄴ 거 · 크다','더 ','큰 거',' 있어요?'],
+  ['형용사 -(으)ㄴ 거 · 싸다','더 ','싼 거',' 없어요?'],
+  ['형용사 -(으)ㄴ 거 · 작다','너무 커요. 더 ','작은 거',' 주세요.'],
+  ['형용사 -(으)ㄴ 거 · 다르다 (르 불규칙)','색깔이 ','다른 거',' 보여 주세요.'],
+  ['이거 + 로 (결정)','그럼 ','이걸로',' 할게요.']
+];
+
+function el(id){return document.getElementById(id);}
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+function renderFill(arr, cid, kp){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+     <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="${kp}${i}">
+     <span class="ko">${r[3]}</span><span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+renderFill(S11,"s11","a");
+renderFill(S12,"s12","b");
+renderFill(S13,"s13","c");
+renderFill(S14,"s14","d");
+renderFill(S15,"s15","e");
+
+const KEY="review5_1115";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function resetAll(){
+  if(!confirm("복습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
