@@ -152,7 +152,37 @@
     <div id="trans"></div>
   </section>
 
-  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 단어 · 교통 단어</footer>
+  <section>
+    <h2>10. 쇼핑 단어 <span class="en">Souvenir shopping · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
+    <div id="shop"></div>
+  </section>
+
+  <section>
+    <h2>11. 식당 단어 <span class="en">Restaurant · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
+    <div id="rest"></div>
+  </section>
+
+  <section>
+    <h2>12. 요리 단어 <span class="en">Cooking · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
+    <div id="cook"></div>
+  </section>
+
+  <section>
+    <h2>13. 여행 후기 단어 <span class="en">Travel review · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
+    <div id="revw"></div>
+  </section>
+
+  <section>
+    <h2>14. 운동 단어 <span class="en">Exercise · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
+    <div id="exer"></div>
+  </section>
+
+  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 · 교통 · 쇼핑 · 식당 · 요리 · 여행 후기 · 운동 단어</footer>
 </div>
 
 <script>
@@ -303,6 +333,64 @@ const TRANS=[ // 교통 단어 (레슨14 어휘)
   ['crew / attendant →','승무원',''],
   ['railing →','난간','']
 ];
+const SHOP=[ // 쇼핑 단어 (레슨15 어휘)
+  ['postcard →','엽서',''],
+  ['keychain →','열쇠고리',''],
+  ['fridge magnet →','냉장고 자석|자석',''],
+  ['mug →','머그컵|머그잔',''],
+  ['receipt →','영수증',''],
+  ['(shopping) bag →','봉투',''],
+  ['to exchange →','교환하다|교환',''],
+  ['to refund →','환불하다|환불',''],
+  ['to wrap / pack →','포장하다|포장',''],
+  ['to knock the price down →','깎다|깎아 주세요','']
+];
+const REST=[ // 식당 단어 (레슨16 어휘)
+  ['reservation →','예약|예약하다',''],
+  ['to order →','주문하다|주문',''],
+  ['menu →','메뉴',''],
+  ['side dishes →','반찬',''],
+  ['serving of a shared dish →','인분',''],
+  ['to pay the bill →','계산하다|계산',''],
+  ['to split the bill →','나눠 내다|따로 계산하다|따로 내다',''],
+  ['to add (an extra item) →','추가하다|추가',''],
+  ['to leave out (an ingredient) →','빼다|빼 주세요','']
+];
+const COOK=[ // 요리 단어 (레슨17 어휘)
+  ['ingredients →','재료',''],
+  ['to slice / cut →','썰다',''],
+  ['to mince (finely) →','다지다',''],
+  ['to stir-fry →','볶다',''],
+  ['to boil (something) →','끓이다',''],
+  ['to put in / add →','넣다',''],
+  ['to mix →','섞다',''],
+  ['to grill / roast →','굽다',''],
+  ['to taste (check seasoning) →','간을 보다|간 보다','']
+];
+const REVW=[ // 여행 후기 단어 (레슨18 어휘)
+  ['travel review →','여행 후기|후기',''],
+  ['(fond) memory →','추억',''],
+  ['to be impressive →','인상 깊다|인상적이다',''],
+  ['to be memorable →','기억에 남다',''],
+  ['the best →','최고',''],
+  ['to recommend →','추천하다|추천',''],
+  ['to be crowded →','붐비다',''],
+  ['prices / cost of living →','물가',''],
+  ['to feel it is a pity →','아쉽다',''],
+  ['not so great →','별로|별로예요','']
+];
+const EXER=[ // 운동 단어 (레슨19 어휘)
+  ['to exercise / work out →','운동하다|운동',''],
+  ['gym →','헬스장',''],
+  ['to walk →','걷다',''],
+  ['to run →','뛰다|달리다',''],
+  ['to swim →','수영하다|수영',''],
+  ['to stretch →','스트레칭하다|스트레칭',''],
+  ['to ride a bike →','자전거를 타다|자전거 타다',''],
+  ['to sweat →','땀이 나다|땀나다',''],
+  ['to be out of breath →','숨이 차다|숨차다',''],
+  ['how often →','얼마나 자주','']
+];
 function renderBA(arr,key,cid){
   arr.forEach((a,i)=>el(cid).insertAdjacentHTML("beforeend",
     `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${a[0]}</span>
@@ -311,6 +399,8 @@ function renderBA(arr,key,cid){
 }
 renderBA(SUP,"sup","sup"); renderBA(DAL,"dal","dal"); renderBA(HB,"hb","hb");
 renderBA(GW,"gw","gw"); renderBA(DG,"dg","dg"); renderBA(TOUR,"tw","tour"); renderBA(TRANS,"kt","trans");
+renderBA(SHOP,"sh","shop"); renderBA(REST,"rt","rest"); renderBA(COOK,"ck","cook"); renderBA(REVW,"rv","revw");
+renderBA(EXER,"ex","exer");
 
 const KEY="practice_room", MKEY="practice_master", TARGET=5;
 const store=JSON.parse(localStorage.getItem(KEY)||"{}");
