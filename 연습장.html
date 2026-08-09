@@ -182,7 +182,13 @@
     <div id="exer"></div>
   </section>
 
-  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 · 교통 · 쇼핑 · 식당 · 요리 · 여행 후기 · 운동 단어</footer>
+  <section>
+    <h2>15. 옷 쇼핑 단어 <span class="en">Clothes shopping · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
+    <div id="cloth"></div>
+  </section>
+
+  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 · 교통 · 쇼핑 · 식당 · 요리 · 여행 후기 · 운동 · 옷 쇼핑 단어</footer>
 </div>
 
 <script>
@@ -393,6 +399,17 @@ const EXER=[ // 운동 단어 (레슨19 어휘)
   ['cardio →','유산소 운동|유산소운동',''],
   ['how often →','얼마나 자주','']
 ];
+const CLOTH=[ // 옷 쇼핑 단어 (레슨20 어휘)
+  ['size →','사이즈',''],
+  ['to try on (clothes) →','입어 보다|입어보다',''],
+  ['to try on (shoes) →','신어 보다|신어보다',''],
+  ['to suit / look good on →','어울리다',''],
+  ['fitting room →','탈의실',''],
+  ['to fit perfectly →','딱 맞다|딱맞다',''],
+  ['to be (too) tight →','끼다',''],
+  ['to be (too) loose →','헐렁하다',''],
+  ['color →','색깔','']
+];
 function renderBA(arr,key,cid){
   arr.forEach((a,i)=>el(cid).insertAdjacentHTML("beforeend",
     `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${a[0]}</span>
@@ -402,7 +419,7 @@ function renderBA(arr,key,cid){
 renderBA(SUP,"sup","sup"); renderBA(DAL,"dal","dal"); renderBA(HB,"hb","hb");
 renderBA(GW,"gw","gw"); renderBA(DG,"dg","dg"); renderBA(TOUR,"tw","tour"); renderBA(TRANS,"kt","trans");
 renderBA(SHOP,"sh","shop"); renderBA(REST,"rt","rest"); renderBA(COOK,"ck","cook"); renderBA(REVW,"rv","revw");
-renderBA(EXER,"ex","exer");
+renderBA(EXER,"ex","exer"); renderBA(CLOTH,"cl","cloth");
 
 const KEY="practice_room", MKEY="practice_master", TARGET=5;
 const store=JSON.parse(localStorage.getItem(KEY)||"{}");
