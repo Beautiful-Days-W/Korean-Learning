@@ -47,6 +47,19 @@
   .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
   .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
   .model.show{display:block;}
+  .scriptcard{border:1px solid #fed7aa;border-radius:10px;margin:10px 0;background:var(--warm-soft);}
+  .scriptcard summary{cursor:pointer;padding:11px 14px;font-weight:700;color:var(--warm);font-size:14px;list-style:none;}
+  .scriptcard summary::-webkit-details-marker{display:none;}
+  .scriptcard summary::before{content:"▸ ";}
+  .scriptcard[open] summary::before{content:"▾ ";}
+  .scriptcard[open] summary{border-bottom:1px solid #fed7aa;}
+  .scriptcard .sbody{padding:12px 14px;font-size:15px;line-height:1.8;}
+  .scriptcard .sbody p{margin:4px 0;}
+  .exbubble{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:14.5px;line-height:1.75;margin:8px 0;color:#334155;}
+  .oxq{padding:6px 0;font-size:15px;}
+  .cchip{display:inline-block;width:13px;height:13px;border-radius:50%;border:1px solid #bbb;margin-right:3px;vertical-align:middle;}
+  .colorwrap{line-height:2.4;font-size:14.5px;}
+  .colorwrap span.nm{margin-right:12px;white-space:nowrap;}
   .submitlink{font-size:13px;margin-top:10px;}
   .submitlink a{color:var(--accent);font-weight:600;}
   .big{background:#fffdf5;border:2px solid #fed7aa;}
@@ -103,13 +116,37 @@
       <b>★ -아/어 <span style="color:var(--warm)">보다</span> (try) vs -아/어 <span style="color:var(--warm)">보이다</span> (look)</b><br>
       「이 옷 <b>입어 봐도</b> 돼요?」 <span class="en">= May I TRY it on? (action)</span> · 「이 옷 좀 <b>커 보여요</b>.」 <span class="en">= It LOOKS big. (appearance)</span><br>
       <span class="en">보다 = you do the action to test; 보이다 = it appears that way to your eyes.</span><br><br>
-      <b>② 옷 쇼핑 회화 <span class="en">(handy phrases)</span>:</b> 「<b>입어 봐도 돼요?</b>」<span class="en">= May I try it on?</span> · 「<b>탈의실</b> 어디예요?」 · 「저한테 <b>잘 어울려요?</b>」<span class="en">= Does it suit me?</span> · 「<b>딱 맞아요</b> / <b>껴요</b>(too tight) / <b>헐렁해요</b>(too loose)」
+      <b>② A 말고 B <span class="en">(not A — B instead)</span>:</b> 앞의 것을 거절하고 뒤의 것을 골라요. 「파란색 <b>말고</b> 하얀색 주세요.」 · 「이거 <b>말고</b> 저거요.」<br><br>
+      <b>③ 옷 쇼핑 회화 <span class="en">(handy phrases)</span>:</b> 「<b>입어 봐도 돼요?</b>」<span class="en">= May I try it on?</span> · 「<b>탈의실</b> 어디예요?」 · 「저한테 <b>잘 어울려요?</b>」<span class="en">= Does it suit me?</span> · 「<b>딱 맞아요</b> / <b>껴요</b>(too tight) / <b>헐렁해요</b>(too loose)」
     </div>
   </section>
 
   <section>
     <h2>2. 핵심 어휘 <span class="en">Vocabulary · 옷 쇼핑 (9)</span></h2>
     <table class="vocab"><tr><th>단어</th><th>뜻</th><th>단어</th><th>뜻</th></tr><tbody id="vtable"></tbody></table>
+
+    <div class="subh">🎨 색깔 <span class="en" style="font-weight:400;color:var(--muted)">colors</span></div>
+    <p class="colorwrap">
+      <span class="nm"><span class="cchip" style="background:#e02424"></span>빨간색</span>
+      <span class="nm"><span class="cchip" style="background:#f97316"></span>주황색</span>
+      <span class="nm"><span class="cchip" style="background:#facc15"></span>노란색</span>
+      <span class="nm"><span class="cchip" style="background:#22a745"></span>초록색</span>
+      <span class="nm"><span class="cchip" style="background:#2563eb"></span>파란색</span>
+      <span class="nm"><span class="cchip" style="background:#1e3a8a"></span>남색</span>
+      <span class="nm"><span class="cchip" style="background:#8b5cf6"></span>보라색</span>
+      <span class="nm"><span class="cchip" style="background:#ffffff"></span>흰색(하얀색)</span>
+      <span class="nm"><span class="cchip" style="background:#222"></span>검은색</span>
+      <span class="nm"><span class="cchip" style="background:#9ca3af"></span>회색</span>
+      <span class="nm"><span class="cchip" style="background:#f9a8d4"></span>분홍색</span>
+      <span class="nm"><span class="cchip" style="background:#8b5a2b"></span>갈색</span>
+      <span class="nm"><span class="cchip" style="background:#7dd3fc"></span>하늘색</span>
+      <span class="nm"><span class="cchip" style="background:#a3e635"></span>연두색</span>
+      <span class="nm"><span class="cchip" style="background:#e7d8b5"></span>베이지색</span>
+    </p>
+    <div class="subh">🔲 무늬 <span class="en" style="font-weight:400;color:var(--muted)">patterns</span></div>
+    <p class="lead">줄무늬(stripes) · 물방울무늬(polka-dot) · 꽃무늬(floral) · 체크무늬(check) · 무늬가 없는(plain)</p>
+    <div class="subh">👍 물건 평가 <span class="en" style="font-weight:400;color:var(--muted)">evaluating things</span></div>
+    <p class="lead">마음에 들다(like it) · 세련되다(stylish) · 촌스럽다(tacky/dated) · 화려하다(fancy·flashy) · 유행하다(be in style)</p>
   </section>
 
   <section>
@@ -152,12 +189,79 @@
   </section>
 
   <section>
-    <h2>6. 쓰기 숙제 <span class="en">Homework · write &amp; submit</span></h2>
-    <p class="lead">옷 가게에서 옷을 사는 상황을 <b>대화체</b>로 써 보세요 (손님 ↔ 점원, 10~14줄). 입어 보기 → 사이즈·색·핏 → 계산/교환 흐름으로.</p>
-    <p class="lead">✅ <b>-아/어 보이다</b>(커 보여요 등), <b>입어 봐도 돼요?</b>, <b>딱 맞다/끼다/헐렁하다</b>, <b>어울리다</b>를 넣어요.</p>
+    <h2>6. 듣고 답하기 <span class="en">Listen &amp; answer</span></h2>
+    <p class="lead">재민 씨와 주노 씨가 가게에 갔어요. <b>선생님이 읽어 주는 대화</b>를 잘 듣고 답하세요. <span class="en">(책은 덮고 들어요!)</span></p>
+    <details class="scriptcard">
+      <summary>🔊 듣기 대본 — 선생님이 읽어 주세요 (학습자는 열지 마세요!)</summary>
+      <div class="sbody">
+        <p><b>재민:</b> 주노 씨, 뭐 사려고 해요?</p>
+        <p><b>주노:</b> 저는 운동화를 사고 싶어요. 가벼운 신발이 좋아요.</p>
+        <p><b>재민:</b> 이 하얀색 운동화는 어때요?</p>
+        <p><b>주노:</b> 예쁘네요. 그런데 하얀색 운동화는 가격이 너무 비싸요. 그래서 검은색 운동화를 살 거예요.</p>
+        <p><b>재민:</b> 그렇군요. 저는 가방을 하나 사고 싶어요.</p>
+        <p><b>주노:</b> 무슨 색 가방이요?</p>
+        <p><b>재민:</b> 파란색 가방이요. 파란색을 제일 좋아해요.</p>
+      </div>
+    </details>
+
+    <div class="subh">1) 주노 씨는 무엇을 살 거예요? <span class="en" style="font-weight:400;color:var(--muted)">번호 또는 낱말로</span></div>
+    <p class="lead">① 하얀색 운동화 &nbsp; ② 검은색 운동화 &nbsp; ③ 빨간색 가방 &nbsp; ④ 검은색 구두</p>
+    <div class="row"><span class="lbl">정답:</span>
+      <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:150px;text-align:center" data-type="exact" data-ans="②|2|검은색 운동화" data-k="ls1">
+      <span class="fb" id="fb_ls1"></span></div>
+
+    <div class="subh">2) 같으면 O, 다르면 X</div>
+    <div class="oxq">① 주노 씨는 가벼운 신발을 좋아해요.
+      <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:56px;text-align:center" data-type="exact" data-ans="O|o|ㅇ" data-k="ls2a">
+      <span class="fb" id="fb_ls2a"></span></div>
+    <div class="oxq">② 하얀색 운동화는 가격이 너무 비싸요.
+      <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:56px;text-align:center" data-type="exact" data-ans="O|o|ㅇ" data-k="ls2b">
+      <span class="fb" id="fb_ls2b"></span></div>
+    <div class="oxq">③ 재민 씨는 빨간색이나 노란색 가방을 사고 싶어 해요.
+      <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:56px;text-align:center" data-type="exact" data-ans="X|x" data-k="ls2c">
+      <span class="fb" id="fb_ls2c"></span></div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">※ ③ 재민 씨는 파란색 가방을 원해요 → 빨간색·노란색이 아니라서 X!</p>
+  </section>
+
+  <section>
+    <h2>7. 필요한 물건 말하기 <span class="en">What do you need &amp; why? (speaking)</span></h2>
+    <p class="lead">지금 필요한 물건이 뭐예요? 왜 필요해요? 아래 예처럼 <b>말해</b> 보세요. (표는 메모용 — 색·디자인·가격까지 이야기해요.)</p>
+    <div class="exbubble">요즘 날씨가 많이 추워졌어요. 그래서 <b>따뜻한 코트</b>를 사고 싶어요. 색은 <b>어두운 색</b>이 좋고, 디자인은 <b>단순하면</b> 좋겠어요. 가격은 <b>너무 비싸지 않으면</b> 좋겠어요.</div>
+    <table class="vocab">
+      <tr><th></th><th>필요한 물건</th><th>색</th><th>모양·디자인</th><th>가격</th></tr>
+      <tr><td>예</td><td>따뜻한 코트</td><td>어두운 색</td><td>단순하다</td><td>비싸지 않다</td></tr>
+      <tr><td>1)</td><td>&nbsp;</td><td></td><td></td><td></td></tr>
+      <tr><td>2)</td><td>&nbsp;</td><td></td><td></td><td></td></tr>
+      <tr><td>3)</td><td>&nbsp;</td><td></td><td></td><td></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>8. 읽고 답하기 (숙제) <span class="en">Read &amp; answer</span></h2>
+    <p class="lead">다음 쇼핑몰 상품 설명을 잘 읽고 답하세요.</p>
+    <div class="exbubble">
+      🛍️ <b>온라인 쇼핑몰</b><br>
+      <b>꽃무늬 원피스</b><br>
+      · 판매가: 48,000원 &nbsp; · 회원 할인가: 43,000원<br>
+      · 색깔: 분홍색, 하늘색 &nbsp; · 사이즈: S · M · L<br>
+      · 봄에 입기 좋은 시원하고 세련된 원피스예요. 무늬가 화려해서 인기가 많아요.
+    </div>
+    <div class="subh">읽고 O(맞다) / X(틀리다)</div>
+    <div class="oxq">① 회원은 이 원피스를 더 싸게 살 수 있어요.
+      <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:56px;text-align:center" data-type="exact" data-ans="O|o|ㅇ" data-k="rd1">
+      <span class="fb" id="fb_rd1"></span></div>
+    <div class="oxq">② 이 원피스는 검은색도 있어요.
+      <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:56px;text-align:center" data-type="exact" data-ans="X|x" data-k="rd2">
+      <span class="fb" id="fb_rd2"></span></div>
+    <div class="oxq">③ 이 원피스는 봄에 입기 좋아요.
+      <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:56px;text-align:center" data-type="exact" data-ans="O|o|ㅇ" data-k="rd3">
+      <span class="fb" id="fb_rd3"></span></div>
+
+    <div class="subh">쓰기 (제출) <span class="en" style="font-weight:400;color:var(--muted)">write your opinion</span></div>
+    <p class="lead">이 원피스가 마음에 들어요? 왜요? <b>색·무늬·가격</b>에 대해 <b>2~3문장</b>으로 써서 제출하세요. (<b>-아/어 보여요</b>, <b>말고</b>, <b>세련되다</b> 등을 넣어요.)</p>
     <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
-    <div class="model" id="fm">예 — 손님: 이 바지 입어 봐도 돼요? / 점원: 네, 탈의실은 저쪽이에요. / 손님: 좀 껴요. 한 사이즈 큰 거 있어요? / 점원: 여기요. / 손님: 이건 딱 맞아요. 색깔도 잘 어울려 보여요. 이걸로 할게요.</div>
-    <p class="lead submitlink">✍️ <a href="숙제.html">숙제 제출 페이지</a>로 가서 <b>"Lesson 20 · 옷 쇼핑"</b>을 골라 써서 제출하세요.</p>
+    <div class="model" id="fm">예: 저는 하늘색이 시원해 보여서 마음에 들어요. 분홍색 말고 하늘색으로 사고 싶어요. 세련돼 보이고 가격도 비싸지 않아요.</div>
+    <p class="lead submitlink">✍️ <a href="숙제.html">숙제 제출 페이지</a>로 가서 <b>"Lesson 20 · 옷 쇼핑"</b>을 골라 위 의견을 써서 제출하세요.</p>
   </section>
 
   <div class="teacher">
@@ -212,7 +316,9 @@ const EXP=[ // [앞, 정답(|), 뒤, 힌트]
   ['거울로 보니까 좀 ','커 보여요|커보여요',' .','크다 → -아/어 보이다'],
   ['','탈의실',' 이 어디예요?','fitting room'],
   ['이 바지는 좀 ','껴요',' .','끼다 (too tight)'],
-  ['한 사이즈 ','작은 거',' 있어요?','형용사 -(으)ㄴ 거 · 작다 (L15)']
+  ['한 사이즈 ','작은 거',' 있어요?','형용사 -(으)ㄴ 거 · 작다 (L15)'],
+  ['파란색 ','말고',' 하얀색 주세요.','A 말고 B (not A, B instead)'],
+  ['이 티셔츠 ','말고',' 저 셔츠 보여 주세요.','A 말고 B']
 ];
 const DLG=[ // 실전 대화 [앞, 정답(|), 뒤, 힌트]
   ['이거 ','입어 봐도 돼요|입어봐도 돼요',' ?','입다 + -아/어도 돼요?'],

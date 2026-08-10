@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 21 · 발음 ② — 비음화·된소리</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.8;}
+  .rule b{color:var(--accent);}
+  .snd{color:var(--warm);font-weight:700;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:150px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .submitlink{font-size:13px;margin-top:10px;}
+  .submitlink a{color:var(--accent);font-weight:600;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .read-p{font-size:16px;line-height:2.1;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  .teacher .read{font-weight:600;color:var(--warm);}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 21 · 발음 ② <span class="sub">비음화·된소리</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">발음 규칙 2편 — <b>소리 나는 대로 쓰지 않기</b>. 소리는 바뀌어도, <b>쓸 때는 원래 받침</b>을 살려요. (L18의 후속: 연음·ㅎ·두음 → 오늘은 비음화·된소리.)</p>
+    <div class="note">
+      ✓ <b>비음(ㄴ·ㅁ·ㅇ)으로 바뀜</b>: 감사합니다 <span class="snd">[감사함니다]</span> · 국물 <span class="snd">[궁물]</span> <span class="en">nasal sound</span><br>
+      ✓ <b>센소리(된소리)로 바뀜</b>: 학교 <span class="snd">[학꾜]</span> · 먹다 <span class="snd">[먹따]</span> · 물가 <span class="snd">[물까]</span> <span class="en">tense sound</span><br>
+      ✓ 하지만 <b>쓸 때는 그대로</b>: 합니다 · 국물 · 학교 · 먹다 · 물가 <span class="en">— spelling keeps the original 받침!</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L18</span></h2>
+    <p class="lead">지난 발음 과에서 짧게. 화살표 왼쪽을 보고 <b>소리대로</b>(또는 바르게) 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (sound changes, spelling stays)</span></h2>
+    <div class="rule">
+      <b>① 비음(ㄴ·ㅁ·ㅇ)으로 바뀜 <span class="en">(nasal)</span></b><br>
+      <span class="en">When a final ㄱ/ㄷ/ㅂ meets ㄴ or ㅁ, the final sound becomes a nasal.</span><br>
+      ㄱ + ㄴ/ㅁ → <b>ㅇ</b>: 국물 <span class="snd">[궁물]</span> · 작년 <span class="snd">[장년]</span><br>
+      ㄷ류(ㄷ·ㅅ·ㅆ·ㅈ·ㅌ) + ㄴ → <b>ㄴ</b>: 있는 <span class="snd">[인는]</span> · 받는 <span class="snd">[반는]</span><br>
+      ㅂ + ㄴ/ㅁ → <b>ㅁ</b>: 감사합니다 <span class="snd">[감사함니다]</span> · 입맛 <span class="snd">[임맏]</span><br>
+      <span class="en">★ It sounds like [함니다], but you WRITE it 합니다 (keep the ㅂ).</span><br><br>
+      <b>② 센소리(된소리)로 바뀜 <span class="en">(tense)</span></b><br>
+      <span class="en">After a final ㄱ/ㄷ/ㅂ, a following ㄱ/ㄷ/ㅂ/ㅅ/ㅈ becomes tense (ㄲ/ㄸ/ㅃ/ㅆ/ㅉ).</span><br>
+      학교 <span class="snd">[학꾜]</span> · 먹다 <span class="snd">[먹따]</span> · 국밥 <span class="snd">[국빱]</span> · 옷장 <span class="snd">[옫짱]</span><br>
+      <span class="en">Also after -(으)ㄹ:</span> 갈 거예요 <span class="snd">[갈꺼예요]</span> · 물가 <span class="snd">[물까]</span><br>
+      <span class="en">★ It sounds like [먹따], but you WRITE it 먹다.</span><br><br>
+      <b>③ 핵심 <span class="en">(the point)</span>:</b> 소리는 바뀌어도 <b>쓸 때는 원래 받침을 살려서</b> 써요. <span class="en">These rules change the SOUND only — the spelling never changes. So don't write [함니다] → always 합니다.</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 자주 틀리는 발음 <span class="en">Watch these · 표기 → [소리]</span></h2>
+    <p class="lead">왼쪽처럼 <b>쓰고</b>, 오른쪽처럼 <b>읽어요</b>.</p>
+    <table class="vocab"><tr><th>표기 (쓰기)</th><th>소리 (읽기)</th><th>표기 (쓰기)</th><th>소리 (읽기)</th></tr><tbody id="vtable"></tbody></table>
+  </section>
+
+  <section>
+    <h2>3. 소리대로 읽기 <span class="en">Write the SOUND · 입력 즉시 채점</span></h2>
+    <p class="lead">글자를 보고 <b>소리 나는 대로</b> 쓰세요 (예: 국민 → 궁민).</p>
+    <div id="read"></div>
+  </section>
+
+  <section class="big">
+    <h2>4. ⭐ 바르게 쓰기 <span class="en">Sound → correct spelling (don't write phonetically!)</span></h2>
+    <p class="lead"><b>[소리]</b>를 듣고/보고, <b>바른 표기(원래 받침)</b>로 쓰세요 (예: [궁민] → 국민).</p>
+    <div id="spell"></div>
+  </section>
+
+  <section>
+    <h2>5. 🔊 소리 내어 읽기 <span class="en">Read aloud with the sounds</span></h2>
+    <p class="lead">선생님과 <b>소리 내어</b> 읽어요. 대괄호 <span class="snd">[소리]</span>에 맞게 발음하되, <b>쓸 때는 원래대로</b>인 걸 기억해요.</p>
+    <div class="read-p">
+      안녕하세요? 저는 매일 아침에 운동을 <b>합니다</b><span class="snd">[함니다]</span>.<br>
+      그다음에 <b>학교</b><span class="snd">[학꾜]</span>에 가요. 점심에는 <b>국물</b><span class="snd">[궁물]</span>이 <b>있는</b><span class="snd">[인는]</span> 음식을 먹어요.<br>
+      저녁에는 책을 <b>읽다가</b><span class="snd">[익따가]</span> 일찍 자요. 오늘도 <b>좋은</b><span class="snd">[조은]</span> 하루 보내세요!
+    </div>
+  </section>
+
+  <section>
+    <h2>6. 읽기 숙제 — 소리 찾기 <span class="en">Homework · find the sounds in a real text</span></h2>
+    <p class="lead">① <b>소리 내어</b> 읽기 (오늘 배운 비음·된소리에 주의)<br>② 그 문단에서 <b>비음(ㄴ·ㅁ·ㅇ)으로 바뀌는 낱말</b>(예: 국물→[궁물])과 <b>된소리로 바뀌는 낱말</b>(예: 학교→[학꾜])을 각각 <b>2~3개</b> 찾아 <span class="snd">[소리]</span>를 적기</p>
+    <div class="subh">지문 (바로 쓰기) <span class="en" style="font-weight:400;color:var(--muted)">pick one &amp; find the sounds</span></div>
+    <div class="read-p"><b>①</b> 저는 요즘 아침마다 공원에서 운동을 합니다. 운동을 하고 나서 국밥을 먹어요. 국물이 뜨겁고 맛있어요. 점심에는 친구하고 학교 앞 식당에 가요. 그 식당은 값도 싸고 음식도 좋아요. 밥을 먹고 나서 도서관에서 책을 읽어요. 저녁에는 집에서 드라마를 봅니다. 그리고 일찍 잡니다.</div>
+    <div class="read-p"><b>②</b> 어제 친구하고 백화점에 갔어요. 옷이 많고 예뻤어요. 저는 검은색 티셔츠를 샀어요. 디자인이 단순하고 색깔도 마음에 들었어요. 값도 비싸지 않아서 기분이 좋았어요. 점원이 친절해서 편하게 구경했어요. 다음 주에 친구하고 또 갈 거예요. 이번에는 신발을 살 거예요.</div>
+    <div class="read-p"><b>③</b> 우리 가족은 주말마다 같이 밥을 먹습니다. 어머니는 요리를 잘하십니다. 특히 된장국이 정말 맛있습니다. 국물이 진하고 따뜻해서 좋아요. 밥을 먹고 나서 우리는 공원에 산책하러 갑니다. 날씨가 좋으면 자전거도 탑니다. 저녁에는 집에서 같이 영화를 봅니다.</div>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예 — 고른 문단에서 이렇게 찾아 적어요: 국물 → [궁물](비음) · 작년 → [장년](비음) / 학교 → [학꾜](된소리) · 먹고 → [먹꼬](된소리)</div>
+    <p class="lead submitlink">✍️ <a href="숙제.html">숙제 제출 페이지</a>로 가서 <b>"Lesson 21 · 발음 ②"</b>를 골라, 고른 문단과 찾은 낱말(<span class="snd">[소리]</span>)을 써서 제출하세요.</p>
+  </section>
+
+  <footer>Lesson 21 / 발음 ② · 비음화·된소리 · 소리 ≠ 표기 (원래 받침 살려 쓰기)</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[ // [표기, 소리]
+  ["감사합니다","[감사함니다]"],["-습니다","[씀니다]"],
+  ["국물","[궁물]"],["학교","[학꾜]"],
+  ["먹다","[먹따]"],["있다","[읻따]"],
+  ["물가","[물까]"],["갈 거예요","[갈꺼예요]"]
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]  — L18 복습(소리대로/바르게)
+  ['연음 (소리대로) · 꽃이','꽃이 → ','꼬치',''],
+  ['ㅎ 격음화 (소리대로) · 넣다','넣다 → ','너타',''],
+  ['ㅎ 탈락 (소리대로) · 많이','많이 → ','마니',''],
+  ['두음법칙 (바르게) · 로인','로인 → ','노인','']
+];
+const READ=[ // 소리대로 읽기 [글자, 소리] — 비음화·된소리·겹받침
+  ['국물','궁물'],['감사합니다','감사함니다'],['작년','장년'],['앞문','암문'],['있는','인는'],
+  ['학교','학꾜'],['먹다','먹따'],['물가','물까'],['식당','식땅'],['잡지','잡찌'],
+  ['읽다','익따'],['앉다','안따'],['값도','갑또']
+];
+const SPELL=[ // 바르게 쓰기 [소리, 바른 표기] — 소리대로 쓰지 않기
+  ['[감사함니다]','감사합니다'],['[이써요]','있어요'],['[갇따]','갖다'],['[끄리세요]','끓이세요'],
+  ['[궁물]','국물'],['[먹따]','먹다'],['[학꾜]','학교'],['[장년]','작년'],['[식땅]','식당']
+];
+
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((v,i)=>{ if(i%2===0){const r=document.createElement("tr");r.id="vr"+i;el("vtable").appendChild(r);} });
+VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjacentHTML("beforeend",`<td><b>${v[0]}</b></td><td class="snd">${v[1]}</td>`); });
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+function renderPairs(arr, cid, kp){
+  arr.forEach((a,i)=>el(cid).insertAdjacentHTML("beforeend",
+   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko"><b>${a[0]}</b></span> →
+    ${IN} class="ans mid" data-type="exact" data-ans="${a[1]}" data-k="${kp}${i}">
+    <span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+renderPairs(READ,"read","rd");
+renderPairs(SPELL,"spell","sp");
+
+const KEY="lesson21_pronunciation2";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
