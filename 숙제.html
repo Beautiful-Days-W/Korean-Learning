@@ -86,6 +86,8 @@
       <option>Lesson 19 · 운동(-(으)면서·빈도)</option>
       <option>Lesson 20 · 옷 쇼핑(-아/어 보이다)</option>
       <option>Lesson 21 · 발음 ②(비음화·된소리)</option>
+      <option>Lesson 22 · 도서관(규칙·의무·순서)</option>
+      <option>Lesson 23 · 도서관 ②(-는지)</option>
       <option>기타 · Other</option>
     </select>
     <label for="text">숙제 내용 <span style="font-weight:400;color:var(--muted)">Your homework</span></label>
@@ -167,6 +169,20 @@ if(location.hostname.endsWith("github.io")){
 } else {
   load();
 }
+
+// 레슨 링크에서 넘어온 파라미터: 레슨 자동 선택 + 숙제 안내 프롬프트 표시
+(function(){
+  const p=new URLSearchParams(location.search);
+  const L=p.get('lesson');
+  if(L){ const sel=document.getElementById('lesson');
+    for(const o of sel.options){ if(o.value===L || o.value.startsWith(L+' ')){ sel.value=o.value; break; } } }
+  const q=p.get('q');
+  if(q){ const ta=document.getElementById('text'); const box=document.createElement('div');
+    box.style.cssText='background:var(--accent-soft);border:1px solid #d6e0ff;border-radius:9px;padding:11px 13px;margin:10px 0 4px;font-size:13.5px;color:#334155;white-space:pre-wrap;line-height:1.6';
+    box.textContent='📝 '+q; ta.parentNode.insertBefore(box, ta);
+    try{ ta.focus(); }catch(e){}
+  }
+})();
 </script>
 </body>
 </html>

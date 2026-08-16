@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 23 · 도서관 ② — 책 찾기·문의</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.8;}
+  .rule b{color:var(--accent);}
+  .chip{display:inline-block;background:var(--accent-soft);border-radius:6px;padding:1px 7px;font-weight:700;color:var(--accent);}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:170px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  textarea.ans{font:inherit;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;resize:vertical;min-height:90px;margin-top:6px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .submitlink{font-size:13px;margin-top:10px;}
+  .submitlink a{color:var(--accent);font-weight:600;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .scene{font-size:12.5px;color:var(--muted);font-style:italic;margin:12px 0 2px;}
+  .scene:first-child{margin-top:0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  .teacher .read{font-weight:600;color:var(--warm);}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 23 · 도서관 ② <span class="sub">책 찾기·문의</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">도서관에서 <b>책을 찾고, 추천·예약받고, 이용 방법을 물어보기</b> — 정보를 <b>정중하게 묻는 법</b>을 익혀요. (Find books and ask the librarian for information.)</p>
+    <div class="note">
+      ✓ <b>-(으)ㄴ/는지</b> = 간접 질문 <span class="en">(embedded question)</span>: 이 책이 <b>있는지</b> 아세요? · 어디 <b>있는지</b> 몰라요<br>
+      ✓ 자주 쓰는 짝: <b>~는지 + 아세요? / 몰라요 / 궁금해요 / 알려 주세요</b> · 의문사와 함께: 어디·언제·어떻게 <b>~는지</b>
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L19–22</span></h2>
+    <p class="lead">지난 과들에서 짧게. 답은 <b>해요체</b>로 쓰세요 (기본형은 [ ] 안에).</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (-(으)ㄴ/는지)</span></h2>
+    <div class="rule">
+      <b>① -는지 = 질문을 문장 속에 넣기</b> <span class="en">— put a question inside a sentence.</span><br>
+      「이 책이 <b>있어요?</b>」 (질문) → 「이 책이 <b>있는지</b> 아세요?」 (Do you know <b>whether</b> this book is here?)<br>
+      동사·있다/없다(현재) + <b>-는지</b>: 있다 → <b>있는지</b> · 하다 → <b>하는지</b> · 열다 → <b>여는지</b> <span class="en">(ㄹ drops!)</span><br><br>
+      <b>② 자주 쓰는 짝 <span class="en">(what follows -는지)</span></b><br>
+      ~는지 + <b>아세요?</b>(do you know) · <b>몰라요</b>(I don't know) · <b>궁금해요</b>(I wonder) · <b>알려 주세요</b>(please tell me) · <b>확인해 주세요</b>(please check).<br><br>
+      <b>③ 의문사와 함께 <span class="en">(with question words)</span></b><br>
+      <b>어디</b> 있는지 · <b>언제</b> 여는지 · <b>어떻게</b> 예약하는지 · <b>무슨</b> 책인지 · <b>얼마나</b> 걸리는지.<br>
+      「화장실이 <b>어디 있는지</b> 아세요?」 · 「몇 시에 <b>문을 여는지</b> 궁금해요.」<br>
+      <span class="en">(Adjectives use -(으)ㄴ지: 좋은지, 비싼지 — just FYI.)</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 도서관 ② (9)</span></h2>
+    <table class="vocab"><tr><th>단어</th><th>뜻</th><th>단어</th><th>뜻</th></tr><tbody id="vtable"></tbody></table>
+  </section>
+
+  <section>
+    <h2>3. -는지 만들기 <span class="en">Make the -는지 form · 입력 즉시 채점</span></h2>
+    <p class="lead">동사를 <b>-는지</b>로 바꿔 쓰세요 (예: 찾다 → 찾는지).</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문의 표현 채우기 <span class="en">Asking for information</span></h2>
+    <p class="lead">상황에 맞는 <b>한국어</b>를 쓰세요 (-는지 + 아세요?/몰라요/궁금해요/알려 주세요).</p>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 — 도서관에서 묻기 <span class="en">Finding a book · recommendation &amp; hold · using the library</span></h2>
+    <p class="lead">선생님과 <b>번갈아 소리 내어</b> 읽어요 (손님 ↔ 사서, 해요체). 그다음 대본을 덮고 <b>내 상황으로</b> 바꿔 말해 봐요.</p>
+    <div class="dlg">
+      <div class="scene">🔎 ① 책 찾기</div>
+      <div class="turn"><span class="who">📚 손님</span><span class="say">저기요, 책을 하나 찾고 있는데요.</span></div>
+      <div class="turn b"><span class="who">🧑 사서</span><span class="say">네, 제목이 뭐예요?</span></div>
+      <div class="turn"><span class="who">📚 손님</span><span class="say">'어린 왕자'예요. 이 책이 <b>있는지</b> 아세요?</span></div>
+      <div class="turn b"><span class="who">🧑 사서</span><span class="say">잠시만요, 검색해 볼게요. (잠시 후) 네, 있어요. 소설 책장에 있어요.</span></div>
+      <div class="turn"><span class="who">📚 손님</span><span class="say">어디에 <b>있는지</b> 잘 모르겠어요.</span></div>
+      <div class="turn b"><span class="who">🧑 사서</span><span class="say">저쪽 3번 책장이에요. 제가 안내해 드릴게요.</span></div>
+
+      <div class="scene">⭐ ② 추천·예약</div>
+      <div class="turn"><span class="who">📚 손님</span><span class="say">요즘 인기 있는 책도 추천해 주세요.</span></div>
+      <div class="turn b"><span class="who">🧑 사서</span><span class="say">이 신간이 인기가 많아요. 그런데 지금 대출 중이에요.</span></div>
+      <div class="turn"><span class="who">📚 손님</span><span class="say">그럼 언제 <b>반납되는지</b> 아세요?</span></div>
+      <div class="turn b"><span class="who">🧑 사서</span><span class="say">다음 주에 반납돼요. 예약하시겠어요?</span></div>
+      <div class="turn"><span class="who">📚 손님</span><span class="say">네, 어떻게 <b>예약하는지</b> 알려 주세요.</span></div>
+      <div class="turn b"><span class="who">🧑 사서</span><span class="say">회원증만 있으면 돼요. 책이 들어오면 문자로 연락드릴게요.</span></div>
+
+      <div class="scene">ℹ️ ③ 이용 문의</div>
+      <div class="turn"><span class="who">📚 손님</span><span class="say">하나 더요. 도서관이 몇 시에 문을 <b>여는지</b> 궁금해요.</span></div>
+      <div class="turn b"><span class="who">🧑 사서</span><span class="say">아침 아홉 시에 열어요. 저녁 아홉 시에 닫아요.</span></div>
+      <div class="turn"><span class="who">📚 손님</span><span class="say">여기서 프린트할 수 <b>있는지</b>도 알고 싶어요.</span></div>
+      <div class="turn b"><span class="who">🧑 사서</span><span class="say">네, 1층에 복사기가 있어요. 와이파이도 무료예요.</span></div>
+      <div class="turn"><span class="who">📚 손님</span><span class="say">감사합니다. 큰 도움이 됐어요!</span></div>
+    </div>
+    <div class="subh">빈칸 채우기 <span class="en" style="font-weight:400;color:var(--muted)">Fill in — from the dialogue</span></div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 쓰기 숙제 <span class="en">Homework · write &amp; submit</span></h2>
+    <p class="lead">도서관(또는 가게·병원 등)에서 <b>물어보고 싶은 것 3가지</b>를 <b>-는지</b>로 써 보세요. (아세요? / 궁금해요 / 알려 주세요와 함께!)</p>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 이 책이 있는지 아세요? 화장실이 어디 있는지 궁금해요. 몇 시에 문을 여는지 알려 주세요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요 <span class="en" style="font-weight:400;color:var(--muted)">write &amp; submit right here</span></div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="예) 이 책이 있는지 아세요? 어디 있는지 궁금해요. 어떻게 예약하는지 알려 주세요."></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw23()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 정보 묻기 롤플레이 (선생님=사서)</h3>
+    <p class="lead">학습자가 <b>-는지</b>로 정중하게 물어요. 상황을 바꿔 던지세요.</p>
+    <ul>
+      <li>"이 책 있어요?" → "이 책이 <b>있는지</b> 아세요?"</li>
+      <li>책이 대출 중 → "언제 <b>반납되는지</b> 아세요?" · "어떻게 <b>예약하는지</b> 알려 주세요."</li>
+      <li>이용 문의 → "몇 시에 <b>여는지</b>", "와이파이가 <b>있는지</b>", "프린트할 수 <b>있는지</b>"</li>
+    </ul>
+
+    <h3>② 다른 장소로 확장 (가게·병원·식당)</h3>
+    <p class="lead">도서관 밖에서도 -는지로 물어보게 하세요.</p>
+    <ul>
+      <li>가게: "이거 <b>더 큰 사이즈가 있는지</b> 아세요?"</li>
+      <li>병원: "얼마나 <b>기다려야 하는지</b> 궁금해요."</li>
+      <li>식당: "예약을 <b>어떻게 하는지</b> 알려 주세요."</li>
+    </ul>
+
+    <p class="lead" style="color:var(--warm)">성공 기준: <b>-는지 + 아세요?/궁금해요/알려 주세요</b>를 멈칫 없이, 도서관과 다른 장소에서 정보를 대본 없이 물어보기. (숙제 = 위 6번 쓰기 → 제출)</p>
+  </div>
+
+  <footer>Lesson 23 / 도서관 ② · 간접 질문 -(으)ㄴ/는지 · 실전 대화(책 찾기·추천·이용 문의)</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[
+  ["찾다","to look for"],["제목","title"],
+  ["검색(하다)","to search (the catalog)"],["책장","bookshelf"],
+  ["예약(하다)","to reserve / put on hold"],["대출 중","checked out (now borrowed)"],
+  ["신간","new release"],["여는 시간 / 문 여는 시간","opening hours"],
+  ["연락(하다)","to contact / get in touch"]
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['-기 전에 · 자다','','자기 전에',' 이를 닦아요.'],
+  ['-아/어야 해요 · 반납하다','책을 ','반납해야 해요|반납해야 돼요',' .'],
+  ['-(으)면서 · 듣다','음악을 ','들으면서',' 걸어요.'],
+  ['소리대로 쓰기 · 학교','학교는 ','학꾜',' 로 읽어요.']
+];
+const ADV=[ // [동사, -는지]
+  ['있다','있는지'],['하다','하는지'],['열다','여는지'],
+  ['찾다','찾는지'],['예약하다','예약하는지'],['반납되다','반납되는지']
+];
+const EXP=[ // [앞, 정답(|), 뒤, 힌트]
+  ['이 책이 ','있는지',' 아세요?','있다 → -는지'],
+  ['몇 시에 문을 ','여는지',' 궁금해요.','열다 → -는지 (ㄹ 탈락)'],
+  ['어떻게 ','검색하는지',' 알려 주세요.','검색하다 → -는지'],
+  ['이 책을 어떻게 ','예약하는지',' 몰라요.','예약하다 → -는지'],
+  ['그 책이 언제 ','반납되는지',' 확인해 주세요.','반납되다 → -는지']
+];
+const DLG=[ // 실전 대화 [앞, 정답(|), 뒤, 힌트]
+  ['이 책이 ','있는지',' 아세요?','있다 → -는지 (오늘 문형!)'],
+  ['언제 ','반납되는지',' 아세요?','반납되다 → -는지'],
+  ['어떻게 ','예약하는지',' 알려 주세요.','예약하다 → -는지'],
+  ['몇 시에 문을 ','여는지',' 궁금해요.','열다 → -는지 (ㄹ 탈락!)'],
+  ['프린트할 수 ','있는지',' 알고 싶어요.','있다 → -는지'],
+  ['어디에 ','있는지',' 잘 모르겠어요.','있다 → -는지']
+];
+
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((v,i)=>{ if(i%2===0){const r=document.createElement("tr");r.id="vr"+i;el("vtable").appendChild(r);} });
+VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjacentHTML("beforeend",`<td><b>${v[0]}</b></td><td>${v[1]}</td>`); });
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko"><b>${a[0]}</b></span> →
+   ${IN} class="ans mid" data-type="exact" data-ans="${a[1]}" data-k="a${i}">
+   <span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson23_library2";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw23(){
+  const ta=document.getElementById("hwtext"), msg=document.getElementById("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 23 · 도서관 ② 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 23 · 도서관 ②(-는지)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>

@@ -49,6 +49,10 @@
   .submitlink a{color:var(--accent);font-weight:600;}
   .big{background:#fffdf5;border:2px solid #fed7aa;}
   .read-p{font-size:16px;line-height:2.1;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.7;}
+  .turn .who{flex:0 0 76px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
   .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
   .teacher h2{color:var(--warm);}
   .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
@@ -131,7 +135,23 @@
   </section>
 
   <section>
-    <h2>6. 읽기 숙제 — 소리 찾기 <span class="en">Homework · find the sounds in a real text</span></h2>
+    <h2>6. 🎬 실전 대화 — 독서 <span class="en">A light chat about reading</span></h2>
+    <p class="lead">선생님과 <b>소리 내어</b> 읽어요 (해요체). 대괄호 <span class="snd">[소리]</span>에 맞게 발음하되, <b>쓸 때는 원래대로</b>!</p>
+    <div class="dlg">
+      <div class="turn"><span class="who">🙂 친구</span><span class="say">지호 씨, 요즘 무슨 책 <b>읽어요</b><span class="snd">[일거요]</span>?</span></div>
+      <div class="turn b"><span class="who">🧑 지호</span><span class="say"><b>소설을</b><span class="snd">[소서를]</span> <b>읽고</b><span class="snd">[일꼬]</span> <b>있어요</b><span class="snd">[이써요]</span>. 주말마다 <b>도서관에</b><span class="snd">[도서과네]</span> 가요.</span></div>
+      <div class="turn"><span class="who">🙂 친구</span><span class="say"><b>재미있어요</b><span class="snd">[재미이써요]</span>?</span></div>
+      <div class="turn b"><span class="who">🧑 지호</span><span class="say">네, 정말 <b>재미있어요</b><span class="snd">[재미이써요]</span>. <b>밤늦게</b><span class="snd">[밤늗께]</span>까지 <b>읽을</b><span class="snd">[일글]</span> 때도 <b>있어요</b><span class="snd">[이써요]</span>.</span></div>
+      <div class="turn"><span class="who">🙂 친구</span><span class="say">저는 <b>책을</b><span class="snd">[채글]</span> <b>읽으면</b><span class="snd">[일그면]</span> 금방 졸려요.</span></div>
+      <div class="turn b"><span class="who">🧑 지호</span><span class="say">저도 그래요. 그럴 때는 소리 내어 <b>읽으면</b><span class="snd">[일그면]</span> 안 졸려요.</span></div>
+      <div class="turn"><span class="who">🙂 친구</span><span class="say">아, <b>좋은</b><span class="snd">[조은]</span> <b>방법이네요</b><span class="snd">[방버비네요]</span>! 무슨 <b>책을</b><span class="snd">[채글]</span> 추천해요?</span></div>
+      <div class="turn b"><span class="who">🧑 지호</span><span class="say">이 <b>작가</b><span class="snd">[작까]</span> <b>책이</b><span class="snd">[채기]</span> <b>읽기</b><span class="snd">[일끼]</span> <b>쉽고</b><span class="snd">[쉽꼬]</span> <b>재미있어요</b><span class="snd">[재미이써요]</span>. 한번 <b>읽어</b><span class="snd">[일거]</span> 보세요.</span></div>
+      <div class="turn"><span class="who">🙂 친구</span><span class="say">고마워요. 저도 이번 <b>주말에</b><span class="snd">[주마레]</span> <b>도서관에</b><span class="snd">[도서과네]</span> 가 <b>볼게요</b><span class="snd">[볼께요]</span>.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>7. 읽기 숙제 — 소리 찾기 <span class="en">Homework · find the sounds in a real text</span></h2>
     <p class="lead">① <b>소리 내어</b> 읽기 (오늘 배운 비음·된소리에 주의)<br>② 그 문단에서 <b>비음(ㄴ·ㅁ·ㅇ)으로 바뀌는 낱말</b>(예: 국물→[궁물])과 <b>된소리로 바뀌는 낱말</b>(예: 학교→[학꾜])을 각각 <b>2~3개</b> 찾아 <span class="snd">[소리]</span>를 적기</p>
     <div class="subh">지문 (바로 쓰기) <span class="en" style="font-weight:400;color:var(--muted)">pick one &amp; find the sounds</span></div>
     <div class="read-p"><b>①</b> 저는 요즘 아침마다 공원에서 운동을 합니다. 운동을 하고 나서 국밥을 먹어요. 국물이 뜨겁고 맛있어요. 점심에는 친구하고 학교 앞 식당에 가요. 그 식당은 값도 싸고 음식도 좋아요. 밥을 먹고 나서 도서관에서 책을 읽어요. 저녁에는 집에서 드라마를 봅니다. 그리고 일찍 잡니다.</div>
@@ -139,7 +159,13 @@
     <div class="read-p"><b>③</b> 우리 가족은 주말마다 같이 밥을 먹습니다. 어머니는 요리를 잘하십니다. 특히 된장국이 정말 맛있습니다. 국물이 진하고 따뜻해서 좋아요. 밥을 먹고 나서 우리는 공원에 산책하러 갑니다. 날씨가 좋으면 자전거도 탑니다. 저녁에는 집에서 같이 영화를 봅니다.</div>
     <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
     <div class="model" id="fm">예 — 고른 문단에서 이렇게 찾아 적어요: 국물 → [궁물](비음) · 작년 → [장년](비음) / 학교 → [학꾜](된소리) · 먹고 → [먹꼬](된소리)</div>
-    <p class="lead submitlink">✍️ <a href="숙제.html">숙제 제출 페이지</a>로 가서 <b>"Lesson 21 · 발음 ②"</b>를 골라, 고른 문단과 찾은 낱말(<span class="snd">[소리]</span>)을 써서 제출하세요.</p>
+    <div class="subh">여기에 찾은 낱말을 적고 바로 제출하세요 <span class="en" style="font-weight:400;color:var(--muted)">write &amp; submit right here</span></div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="예) 국물 → [궁물], 학교 → [학꾜], 먹고 → [먹꼬] …"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw21()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">지문이 바로 위에 있으니 왔다 갔다 안 해도 돼요! 제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
   </section>
 
   <footer>Lesson 21 / 발음 ② · 비음화·된소리 · 소리 ≠ 표기 (원래 받침 살려 쓰기)</footer>
@@ -165,9 +191,9 @@ const READ=[ // 소리대로 읽기 [글자, 소리] — 비음화·된소리·�
   ['학교','학꾜'],['먹다','먹따'],['물가','물까'],['식당','식땅'],['잡지','잡찌'],
   ['읽다','익따'],['앉다','안따'],['값도','갑또']
 ];
-const SPELL=[ // 바르게 쓰기 [소리, 바른 표기] — 소리대로 쓰지 않기
-  ['[감사함니다]','감사합니다'],['[이써요]','있어요'],['[갇따]','갖다'],['[끄리세요]','끓이세요'],
-  ['[궁물]','국물'],['[먹따]','먹다'],['[학꾜]','학교'],['[장년]','작년'],['[식땅]','식당']
+const SPELL=[ // 바르게 쓰기 [소리, 바른 표기] — 소리만으로 표기가 하나로 정해지게(문맥 포함)
+  ['[감사함니다]','감사합니다'],['[이써요]','있어요'],['[갇따드릴께요]','갖다드릴게요|갖다 드릴게요'],['[끄리세요]','끓이세요'],
+  ['[궁물]','국물'],['[먹따]','먹다'],['[학꾜]','학교'],['[궁민]','국민'],['[식땅]','식당']
 ];
 
 function el(id){return document.getElementById(id);}
@@ -205,6 +231,19 @@ function updateScore(){
   el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
 }
 function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw21(){
+  const ta=document.getElementById("hwtext"), msg=document.getElementById("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 21 · 발음 ② 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 21 · 발음 ②(비음화·된소리)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
 function resetAll(){
   if(!confirm("연습 답을 모두 지울까요?")) return;
   localStorage.removeItem(KEY); for(const k in store) delete store[k];

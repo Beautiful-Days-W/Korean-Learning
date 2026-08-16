@@ -146,7 +146,7 @@
     <div class="subh">🔲 무늬 <span class="en" style="font-weight:400;color:var(--muted)">patterns</span></div>
     <p class="lead">줄무늬(stripes) · 물방울무늬(polka-dot) · 꽃무늬(floral) · 체크무늬(check) · 무늬가 없는(plain)</p>
     <div class="subh">👍 물건 평가 <span class="en" style="font-weight:400;color:var(--muted)">evaluating things</span></div>
-    <p class="lead">마음에 들다(like it) · 세련되다(stylish) · 촌스럽다(tacky/dated) · 화려하다(fancy·flashy) · 유행하다(be in style)</p>
+    <p class="lead">마음에 들다(like it) · 세련되다(stylish) · 화려하다(fancy·flashy) · 유행하다(be in style) · 유행이 지나다(out of style · outdated)</p>
   </section>
 
   <section>
@@ -230,9 +230,21 @@
     <table class="vocab">
       <tr><th></th><th>필요한 물건</th><th>색</th><th>모양·디자인</th><th>가격</th></tr>
       <tr><td>예</td><td>따뜻한 코트</td><td>어두운 색</td><td>단순하다</td><td>비싸지 않다</td></tr>
-      <tr><td>1)</td><td>&nbsp;</td><td></td><td></td><td></td></tr>
-      <tr><td>2)</td><td>&nbsp;</td><td></td><td></td><td></td></tr>
-      <tr><td>3)</td><td>&nbsp;</td><td></td><td></td><td></td></tr>
+      <tr><td>1)</td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m1a"></td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m1b"></td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m1c"></td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m1d"></td></tr>
+      <tr><td>2)</td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m2a"></td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m2b"></td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m2c"></td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m2d"></td></tr>
+      <tr><td>3)</td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m3a"></td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m3b"></td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m3c"></td>
+        <td><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans" style="width:100%;padding:5px 6px" data-k="m3d"></td></tr>
     </table>
   </section>
 
@@ -261,7 +273,12 @@
     <p class="lead">이 원피스가 마음에 들어요? 왜요? <b>색·무늬·가격</b>에 대해 <b>2~3문장</b>으로 써서 제출하세요. (<b>-아/어 보여요</b>, <b>말고</b>, <b>세련되다</b> 등을 넣어요.)</p>
     <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
     <div class="model" id="fm">예: 저는 하늘색이 시원해 보여서 마음에 들어요. 분홍색 말고 하늘색으로 사고 싶어요. 세련돼 보이고 가격도 비싸지 않아요.</div>
-    <p class="lead submitlink">✍️ <a href="숙제.html">숙제 제출 페이지</a>로 가서 <b>"Lesson 20 · 옷 쇼핑"</b>을 골라 위 의견을 써서 제출하세요.</p>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="예) 저는 하늘색이 시원해 보여서 마음에 들어요. 분홍색 말고 하늘색으로 사고 싶어요. 세련돼 보이고 가격도 비싸지 않아요."></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw20()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">지문이 바로 위에 있으니 왔다 갔다 안 해도 돼요! 제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
   </section>
 
   <div class="teacher">
@@ -312,7 +329,7 @@ const ADV=[ // [형용사, -아/어 보여요] — 보조용언이라 띄어/붙
   ['따뜻하다','따뜻해 보여요|따뜻해보여요'],['비싸다','비싸 보여요|비싸보여요'],['어울리다','어울려 보여요|어울려보여요']
 ];
 const EXP=[ // [앞, 정답(|), 뒤, 힌트]
-  ['이 셔츠 ','입어 봐도 돼요|입어봐도 돼요',' ?','입다 + -아/어도 돼요? (try on)'],
+  ['이 셔츠 ','입어 봐도 돼요|입어봐도 돼요',' ?','입어 보다 + -아/어도 돼요? (try on)'],
   ['거울로 보니까 좀 ','커 보여요|커보여요',' .','크다 → -아/어 보이다'],
   ['','탈의실',' 이 어디예요?','fitting room'],
   ['이 바지는 좀 ','껴요',' .','끼다 (too tight)'],
@@ -321,7 +338,7 @@ const EXP=[ // [앞, 정답(|), 뒤, 힌트]
   ['이 티셔츠 ','말고',' 저 셔츠 보여 주세요.','A 말고 B']
 ];
 const DLG=[ // 실전 대화 [앞, 정답(|), 뒤, 힌트]
-  ['이거 ','입어 봐도 돼요|입어봐도 돼요',' ?','입다 + -아/어도 돼요?'],
+  ['이거 ','입어 봐도 돼요|입어봐도 돼요',' ?','입어 보다 + -아/어도 돼요?'],
   ['음… 좀 ','커 보여요|커보여요',' .','크다 → -아/어 보이다 (오늘 문형!)'],
   ['이건 ','딱 맞아요',' !','딱 맞다 (해요체)'],
   ['이 색이 저한테 잘 ','어울려요',' ?','어울리다 (해요체)'],
@@ -368,6 +385,19 @@ function updateScore(){
   el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
 }
 function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw20(){
+  const ta=document.getElementById("hwtext"), msg=document.getElementById("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 20 · 옷 쇼핑 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 20 · 옷 쇼핑(-아/어 보이다)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
 function resetAll(){
   if(!confirm("연습 답을 모두 지울까요?")) return;
   localStorage.removeItem(KEY); for(const k in store) delete store[k];
