@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>복습 · Lessons 16–20</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;--teal:#0d9488;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:17px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  h2 .tag{font-size:11px;font-weight:700;color:#fff;background:var(--teal);border-radius:999px;padding:2px 9px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:170px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>복습 · Lessons 21–25 <span class="sub">Review</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>복습 목표 <span class="en">What we practice</span></h2>
+    <p class="lead">21~25과 핵심 문형을 <b>한 번에 다시</b>. 반복해서 손에 익히는 페이지예요 (점수만, 자유작문 없음).</p>
+    <div class="note">
+      L21 <b>발음 ②</b>(비음화·된소리) · L22 <b>-기 전에/-(으)ㄴ 후에</b>+규칙·의무 · L23 <b>-(으)ㄴ/는지</b> · L24 <b>-(으)ㄴ 적이 있다</b> · L25 <b>-(으)ㄴ/는 것 같다</b><br>
+      ✎ 띄어쓰기는 정확히! (커 보여요 = 커보여요 OK, 하지만 <b>작은 거</b>는 꼭 띄어요)
+    </div>
+  </div>
+
+  <section>
+    <h2><span class="tag">L21</span> 발음 ② <span class="en">비음화·된소리 (소리대로/바르게)</span></h2>
+    <p class="lead">글자를 보고 <b>소리 나는 대로</b>(또는 바른 표기로) 쓰세요.</p>
+    <div id="s21"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L22</span> 도서관 <span class="en">순서 + 규칙·의무</span></h2>
+    <p class="lead">순서는 <b>-기 전에/-(으)ㄴ 후에</b>, 규칙은 <b>해야 해요/(으)면 안 돼요/-지 마세요</b>.</p>
+    <div id="s22"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L23</span> 도서관 ② <span class="en">간접 질문 -(으)ㄴ/는지</span></h2>
+    <p class="lead">정보를 물을 땐 <b>-는지</b> + 아세요?/궁금해요/알려 주세요.</p>
+    <div id="s23"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L24</span> 독서 모임 <span class="en">경험 -(으)ㄴ 적이 있다/없다</span></h2>
+    <p class="lead">경험은 <b>-(으)ㄴ 적이 있다/없다</b>로.</p>
+    <div id="s24"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L25</span> 의견 <span class="en">-(으)ㄴ/는 것 같다</span></h2>
+    <p class="lead">부드러운 의견은 <b>-(으)ㄴ/는 것 같다</b>로 (형용사/동사·시제 주의!).</p>
+    <div id="s25"></div>
+  </section>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const S21=[ // 발음 (소리대로/바르게)
+  ['비음화 (소리대로) · 국물','국물 → ','궁물',''],
+  ['된소리 (소리대로) · 학교','학교 → ','학꾜',''],
+  ['비음화 (소리대로) · 감사합니다','감사합니다 → ','감사함니다',''],
+  ['바르게 쓰기 · [이써요]','[이써요] → ','있어요',''],
+  ['바르게 쓰기 · [궁물]','[궁물] → ','국물','']
+];
+const S22=[
+  ['-기 전에 · 자다','','자기 전에',' 이를 닦아요.'],
+  ['-(으)ㄴ 후에 · 먹다','','먹은 후에',' 이를 닦아요.'],
+  ['-아/어야 해요 · 반납하다','책을 ','반납해야 해요|반납해야 돼요',' .'],
+  ['(으)면 안 되다 · 먹다','여기서 음식을 ','먹으면 안 돼요',' .'],
+  ['-지 마세요 · 찍다','사진을 ','찍지 마세요',' .']
+];
+const S23=[
+  ['-는지 · 있다','이 책이 ','있는지',' 아세요?'],
+  ['-는지 · 열다(ㄹ 탈락)','몇 시에 문을 ','여는지',' 궁금해요.'],
+  ['-는지 · 예약하다','어떻게 ','예약하는지',' 알려 주세요.'],
+  ['-는지 · 반납되다','언제 ','반납되는지',' 아세요?'],
+  ['-는지 · 하다','몇 시까지 ','하는지',' 궁금해요.']
+];
+const S24=[
+  ['-(으)ㄴ 적이 있다 · 가다','제주도에 ','간 적이 있어요',' ?'],
+  ['-(으)ㄴ 적이 있다 · 읽다','그 책을 ','읽은 적이 있어요',' ?'],
+  ['-(으)ㄴ 적이 있다 · 만들다(ㄹ)','김치를 ','만든 적이 있어요',' ?'],
+  ['-(으)ㄴ 적이 없다 · 듣다(ㄷ)','그 노래를 ','들은 적이 없어요',' .'],
+  ['-(으)ㄴ 적이 없다 · 보다','그 영화를 ','본 적이 없어요',' .']
+];
+const S25=[ // 보조: 것 은 띄어쓰기 필수
+  ['형용사 -(으)ㄴ · 좋다','이게 더 ','좋은 것 같아요',' .'],
+  ['-는(있다) · 재미있다','이 영화 ','재미있는 것 같아요',' .'],
+  ['-는(동사 지금) · 오다','밖에 비가 ','오는 것 같아요',' .'],
+  ['-(으)ㄴ(동사 과거) · 가다','그 사람은 벌써 ','간 것 같아요',' .'],
+  ['-(으)ㄹ(추측) · 오다','오후에는 비가 ','올 것 같아요',' .']
+];
+
+function el(id){return document.getElementById(id);}
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+function renderFill(arr, cid, kp){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+     <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="${kp}${i}">
+     <span class="ko">${r[3]}</span><span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+renderFill(S21,"s21","a");
+renderFill(S22,"s22","b");
+renderFill(S23,"s23","c");
+renderFill(S24,"s24","d");
+renderFill(S25,"s25","e");
+
+const KEY="review7_2125";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function resetAll(){
+  if(!confirm("복습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>

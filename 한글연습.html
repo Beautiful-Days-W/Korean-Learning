@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한글 읽고 쓰기 · Hangul reading &amp; writing</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:860px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  a.home{display:inline-block;margin-bottom:8px;color:var(--accent);text-decoration:none;font-size:13.5px;}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 8px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0 10px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;}
+  .cell{border:1px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center;background:#fafafa;}
+  .cell .big{font-size:26px;font-weight:700;line-height:1.2;}
+  .cell .nm{font-size:12px;color:var(--muted);margin-top:2px;}
+  .cell .snd{font-size:11.5px;color:var(--accent);}
+  .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:8px;}
+  table.chart{border-collapse:collapse;width:100%;font-size:15px;}
+  table.chart td,table.chart th{border:1px solid var(--line);text-align:center;padding:5px 2px;}
+  table.chart th{background:#f3f4f6;font-size:12.5px;color:var(--muted);}
+  table.chart td.syl{font-size:16px;}
+  .chartwrap{overflow-x:auto;}
+  .drill{padding:9px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);min-width:22px;}
+  .cue{font-size:24px;font-weight:700;min-width:64px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;width:110px;text-align:center;font-size:18px;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .colwrap{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;}
+  @media (max-width:620px){.colwrap{grid-template-columns:1fr;}}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>한글 읽고 쓰기 <span class="sub">Hangul reading &amp; writing</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <a class="home" href="index.html">← 수업 홈</a>
+  <div class="head">
+    <h2>자음·모음 체계적으로 익히기 <span class="en">Learn the alphabet in order</span></h2>
+    <p class="lead">읽기는 잘하지만 <b>순서와 이름</b>을 확실히 다지는 페이지예요. 자음·모음을 <b>순서대로</b>(ㄱㄴㄷㄹ… / ㅏㅑㅓㅕ…) 읽고 <b>이름</b>을 익힌 다음, 아래 연습에서 확인해요. (Solidify the order &amp; names of the letters.)</p>
+  </div>
+
+  <section>
+    <h2>1. 자음 <span class="en">Consonants (14) · 글자 · 이름 · 소리</span></h2>
+    <p class="lead">글자를 보고 <b>이름</b>을 소리 내어 읽어요. (ㄱ = 기역)</p>
+    <div class="grid" id="cons"></div>
+    <p class="lead" style="margin-top:12px">➕ 쌍자음 <span class="lbl">(된소리)</span>: <b>ㄲ</b>(쌍기역) · <b>ㄸ</b>(쌍디귿) · <b>ㅃ</b>(쌍비읍) · <b>ㅆ</b>(쌍시옷) · <b>ㅉ</b>(쌍지읒)</p>
+  </section>
+
+  <section>
+    <h2>2. 모음 <span class="en">Vowels (10) · 글자 · 소리</span></h2>
+    <p class="lead">모음은 <b>ㅇ</b>과 함께 소리 내요. (ㅏ = 아)</p>
+    <div class="vgrid" id="vowel"></div>
+    <p class="lead" style="margin-top:12px">➕ 복모음 <span class="lbl">(combined)</span>: <b>ㅐ</b>(애) · <b>ㅔ</b>(에) · <b>ㅚ</b>(외) · <b>ㅟ</b>(위) · <b>ㅢ</b>(의) · <b>ㅘ</b>(와) · <b>ㅝ</b>(워)</p>
+  </section>
+
+  <section>
+    <h2>3. 가나다 표 <span class="en">Syllable chart · 소리 내어 읽기</span></h2>
+    <p class="lead">자음(세로) + 모음(가로)을 합쳐 읽어요. 한 줄씩 <b>소리 내어</b> 읽어 보세요.</p>
+    <div class="chartwrap"><table class="chart" id="chart"></table></div>
+  </section>
+
+  <section>
+    <h2>4. 쓰기 연습 ① — 자음 이름 <span class="en">Write the letter's name · 입력 즉시 채점</span></h2>
+    <p class="lead">글자를 보고 <b>이름</b>을 쓰세요 (예: ㄱ → 기역).</p>
+    <div class="colwrap" id="d_name"></div>
+  </section>
+
+  <section>
+    <h2>5. 쓰기 연습 ② — 모음 소리 <span class="en">Write the vowel's sound</span></h2>
+    <p class="lead">모음을 보고 <b>소리</b>를 글자로 쓰세요 (예: ㅏ → 아).</p>
+    <div class="colwrap" id="d_vowel"></div>
+  </section>
+
+  <section>
+    <h2>6. 순서 익히기 — 빈칸 채우기 <span class="en">Fill in the missing letter (order)</span></h2>
+    <p class="lead">자음 순서(ㄱㄴㄷㄹ…)를 생각하며 <b>빠진 글자</b>를 쓰세요 (예: ㄱ ㄴ [ ] ㄹ → ㄷ).</p>
+    <div class="colwrap" id="d_order"></div>
+  </section>
+
+  <section>
+    <h2>7. 이름 보고 글자 쓰기 <span class="en">Name → letter</span></h2>
+    <p class="lead">이름을 보고 <b>자음</b>을 쓰세요 (예: 기역 → ㄱ). 이름과 글자를 확실히 연결해요.</p>
+    <div class="colwrap" id="d_rev"></div>
+  </section>
+
+  <footer>songfamily.work · 한글 읽고 쓰기 연습</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); }
+
+const CONS=[ // [글자, 이름, 소리]
+  ["ㄱ","기역","g/k"],["ㄴ","니은","n"],["ㄷ","디귿","d/t"],["ㄹ","리을","r/l"],
+  ["ㅁ","미음","m"],["ㅂ","비읍","b/p"],["ㅅ","시옷","s"],["ㅇ","이응","-/ng"],
+  ["ㅈ","지읒","j"],["ㅊ","치읓","ch"],["ㅋ","키읔","k"],["ㅌ","티읕","t"],
+  ["ㅍ","피읖","p"],["ㅎ","히읗","h"]
+];
+const VOW=[ // [글자, 소리(글자)]
+  ["ㅏ","아"],["ㅑ","야"],["ㅓ","어"],["ㅕ","여"],["ㅗ","오"],
+  ["ㅛ","요"],["ㅜ","우"],["ㅠ","유"],["ㅡ","으"],["ㅣ","이"]
+];
+// 가나다 표: 자음(초성) × 모음 → 완성형 글자
+const CHART_CONS=["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+const CHART_VOW=["ㅏ","ㅑ","ㅓ","ㅕ","ㅗ","ㅛ","ㅜ","ㅠ","ㅡ","ㅣ"];
+const V_INDEX={"ㅏ":0,"ㅐ":1,"ㅑ":2,"ㅒ":3,"ㅓ":4,"ㅔ":5,"ㅕ":6,"ㅖ":7,"ㅗ":8,"ㅘ":9,"ㅙ":10,"ㅚ":11,"ㅛ":12,"ㅜ":13,"ㅝ":14,"ㅞ":15,"ㅟ":16,"ㅠ":17,"ㅡ":18,"ㅢ":19,"ㅣ":20};
+const L_INDEX={"ㄱ":0,"ㄲ":1,"ㄴ":2,"ㄷ":3,"ㄸ":4,"ㄹ":5,"ㅁ":6,"ㅂ":7,"ㅃ":8,"ㅅ":9,"ㅆ":10,"ㅇ":11,"ㅈ":12,"ㅉ":13,"ㅊ":14,"ㅋ":15,"ㅌ":16,"ㅍ":17,"ㅎ":18};
+function syl(cons,vow){ return String.fromCharCode(0xAC00 + (L_INDEX[cons]*21 + V_INDEX[vow])*28); }
+
+const D_NAME=CONS.map(c=>[c[0],c[1]]); // 자음 → 이름
+const D_VOWEL=VOW.map(v=>[v[0],v[1]]); // 모음 → 소리
+const D_ORDER=[ // [순서 표시, 빠진 글자] — 자음 순서 익히기
+  ["ㄱ ㄴ [ ] ㄹ","ㄷ"],["ㄷ ㄹ [ ] ㅂ","ㅁ"],["ㅁ ㅂ [ ] ㅇ","ㅅ"],
+  ["ㅅ ㅇ [ ] ㅊ","ㅈ"],["ㅈ ㅊ [ ] ㅌ","ㅋ"],["ㅋ ㅌ [ ] ㅎ","ㅍ"],
+  ["[ ] ㄴ ㄷ ㄹ","ㄱ"],["ㅂ ㅅ ㅇ [ ]","ㅈ"]
+];
+const D_REV=CONS.map(c=>[c[1],c[0]]); // 이름 → 글자 (기역 → ㄱ)
+
+function el(id){return document.getElementById(id);}
+// 표 렌더
+CONS.forEach(c=>el("cons").insertAdjacentHTML("beforeend",
+  `<div class="cell"><div class="big">${c[0]}</div><div class="nm">${c[1]}</div><div class="snd">${c[2]}</div></div>`));
+VOW.forEach(v=>el("vowel").insertAdjacentHTML("beforeend",
+  `<div class="cell"><div class="big">${v[0]}</div><div class="nm">${v[1]}</div></div>`));
+// 가나다 표
+let ch="<tr><th></th>"+CHART_VOW.map(v=>`<th>${v}</th>`).join("")+"</tr>";
+CHART_CONS.forEach(c=>{ ch+=`<tr><th>${c}</th>`+CHART_VOW.map(v=>`<td class="syl">${syl(c,v)}</td>`).join("")+"</tr>"; });
+el("chart").innerHTML=ch;
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+function renderDrill(arr, cid, kp, cueFn){
+  arr.forEach((a,i)=>el(cid).insertAdjacentHTML("beforeend",
+   `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="cue">${cueFn(a)}</span> →
+    ${IN} class="ans" data-type="exact" data-ans="${a[a.length-1]}" data-k="${kp}${i}">
+    <span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+renderDrill(D_NAME,"d_name","nm",a=>a[0]);
+renderDrill(D_VOWEL,"d_vowel","vw",a=>a[0]);
+renderDrill(D_ORDER,"d_order","od",a=>a[0]);
+renderDrill(D_REV,"d_rev","rv",a=>a[0]);
+
+const KEY="hangul_practice";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>

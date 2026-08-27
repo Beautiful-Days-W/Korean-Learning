@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>평가시험 · Lessons 16–20 Review Test</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  a.home{display:inline-block;margin-bottom:8px;color:var(--accent);text-decoration:none;font-size:13.5px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 4px;display:flex;align-items:baseline;gap:8px;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  p.lead{font-size:14px;color:#374151;margin:4px 0 8px;}
+  .drill{padding:9px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.tiny{width:96px;text-align:center;font-size:17px;}
+  input.mid{width:220px;}
+  input.full{flex:1;min-width:220px;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .fb.warn{color:#854d0e;background:#fde047;border:1px solid #eab308;border-radius:6px;padding:1px 7px;font-size:12px;}
+  .fb.open{color:var(--muted);font-weight:500;font-size:12px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .passage{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:15px 17px;font-size:15.5px;line-height:1.95;}
+  .trans{display:none;font-size:13.5px;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:11px 14px;margin-top:8px;line-height:1.7;}
+  .trans.show{display:block;}
+  .q{font-size:14.5px;margin:0 0 2px;font-weight:600;}
+  textarea.ans{font:inherit;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;resize:vertical;margin-top:4px;}
+  textarea.short{min-height:46px;}
+  textarea.long{min-height:90px;}
+  textarea.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .submitbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center;}
+  .submitbox label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;}
+  .submitbox input{font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:9px;width:200px;}
+  .bigbtn{font:inherit;font-size:15px;font-weight:700;cursor:pointer;border:none;border-radius:999px;padding:13px 26px;margin-top:14px;background:var(--accent);color:#fff;}
+  .bigbtn:disabled{opacity:.5;}
+  .msg{margin-top:12px;font-size:14px;font-weight:600;}
+  .msg.ok{color:var(--ok);} .msg.no{color:#dc2626;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>평가시험 · Lessons 16–20 <span class="sub">Review test</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <a class="home" href="index.html">← 수업 홈</a>
+  <div class="head">
+    <h2>Lessons 16–20 종합 평가 <span class="en">Comprehensive review</span></h2>
+    <p class="lead">16~20과를 한 번에 점검해요. <b>① 문법 확인(과당 5문제, 자동채점)</b> → <b>② 읽기 지문 + 이해 문항</b> → <b>③ 자유 작문</b>. 입력하면 바로 채점되고, 맨 아래에서 결과를 선생님께 제출할 수 있어요.</p>
+  </div>
+
+  <div id="test"></div>
+
+  <section>
+    <h2>6. 읽기 <span class="en">Reading · 이해 문항은 선생님이 봐요</span></h2>
+    <p class="lead">지문을 읽고 아래 질문에 <b>한국어 문장으로</b> 답하세요. 어려우면 영어 번역을 펼쳐 봐도 돼요.</p>
+    <div class="passage" id="passage">저는 요즘 건강해지고 싶어서 일주일에 세 번 운동해요. 음악을 들으면서 공원에서 걷고, 집에 와서 저녁을 만들어요. 어제는 김치볶음밥을 만들었어요. 먼저 김치를 썰고 나서 볶았어요. 간을 봤는데 좀 싱거워서 소금을 넣었어요. 그때 친구가 왔어요. 친구가 제 음식을 보고 "정말 맛있어 보여요!" 하고 말했어요. 우리는 같이 맛있게 먹었어요.</div>
+    <button class="hintbtn" onclick="toggleModel('eng')">🔁 영어로 보기 (English)</button>
+    <div class="trans" id="eng">These days I want to get healthier, so I work out three times a week. I walk in the park while listening to music, then come home and make dinner. Yesterday I made kimchi fried rice. First I cut the kimchi, and then stir-fried it. I tasted it — it was a little bland, so I added salt. Just then a friend came over. Looking at my food, my friend said, "It really looks delicious!" We ate together and enjoyed it.</div>
+    <div id="comp" style="margin-top:6px"></div>
+  </section>
+
+  <section>
+    <h2>7. 자유 작문 <span class="en">Free writing · 선생님이 봐요</span></h2>
+    <p class="lead">내 하루 일과나 요리 순서를 <b>3문장 이상</b> 써 보세요. (형용사 -게 · -고 나서 · 순서(먼저/마지막에) · -(으)면서 · -아/어 보이다 등 자유롭게) — 점수에는 안 들어가고 선생님이 봐요.</p>
+    <textarea class="ans long" data-type="free" data-k="free" data-q="자유 작문" placeholder=""></textarea>
+    <span class="fb" id="fb_free"></span>
+  </section>
+
+  <div class="submitbox">
+    <label for="name">이름 <span style="font-weight:400;color:var(--muted)">Name</span></label>
+    <input id="name" value="" placeholder="이름">
+    <div><button class="bigbtn" id="submitBtn" onclick="submitTest()">✅ 제출하고 점수 보내기</button></div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <footer>songfamily.work · 평가시험 (Lessons 16–20)</footer>
+</div>
+
+<script>
+const API_BASE="https://korean.songfamily.work";
+function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
+
+const SECTIONS=[
+  {t:"1. Lesson 16 · 식당 형용사 -게", en:"At a restaurant", items:[
+    {kind:"exact",cue:"맵다 → -게 (덜 ~ 해 주세요):",ans:"맵게",q:"L16-1 맵게"},
+    {kind:"exact",cue:"짜다 → -게:",ans:"짜게",q:"L16-2 짜게"},
+    {kind:"exact",cue:"따뜻하다 → -게:",ans:"따뜻하게",q:"L16-3 따뜻하게"},
+    {kind:"par",pre:"반찬 좀 ",ans:"더",post:" 주세요.",q:"L16-4 더(리필)"},
+    {kind:"par",pre:"",ans:"따로",post:" 계산해 주세요.",q:"L16-5 따로"},
+  ]},
+  {t:"2. Lesson 17 · 요리 -고 나서 + 순서", en:"Cooking", items:[
+    {kind:"exact",cue:"썰다 → -고 나서:",ans:"썰고 나서",q:"L17-1 썰고 나서"},
+    {kind:"exact",cue:"볶다 → -고 나서:",ans:"볶고 나서",q:"L17-2 볶고 나서"},
+    {kind:"exact",cue:"끓다 → -(으)면 (when):",ans:"끓으면",q:"L17-3 끓으면"},
+    {kind:"par",pre:"",ans:"먼저",post:" 재료를 준비해요.",q:"L17-4 먼저"},
+    {kind:"par",pre:"",ans:"마지막에",post:" 간을 봐요.",q:"L17-5 마지막에"},
+  ]},
+  {t:"3. Lesson 18 · 발음 (소리대로/바르게 쓰기)", en:"Pronunciation", items:[
+    {kind:"exact",cue:"연음: 옷을 → [소리]:",ans:"오슬",q:"L18-1 오슬"},
+    {kind:"exact",cue:"ㅎ 격음화: 좋다 → [소리]:",ans:"조타",q:"L18-2 조타"},
+    {kind:"exact",cue:"ㅎ 탈락: 좋아 → [소리]:",ans:"조아",q:"L18-3 조아"},
+    {kind:"exact",cue:"된소리: 학교 → [소리]:",ans:"학꾜",q:"L18-4 학꾜"},
+    {kind:"exact",cue:"바르게 쓰기: [함니다] → 표기:",ans:"합니다",q:"L18-5 합니다"},
+  ]},
+  {t:"4. Lesson 19 · 운동 -(으)면서 + 빈도", en:"Exercise", items:[
+    {kind:"exact",cue:"듣다 → -(으)면서:",ans:"들으면서",q:"L19-1 들으면서"},
+    {kind:"exact",cue:"보다 → -(으)면서:",ans:"보면서",q:"L19-2 보면서"},
+    {kind:"exact",cue:"먹다 → -(으)면서:",ans:"먹으면서",q:"L19-3 먹으면서"},
+    {kind:"par",pre:"일주일에 세 ",ans:"번",post:" 운동해요.",q:"L19-4 번(빈도)"},
+    {kind:"exact",cue:"걷다(ㄷ) → 해요체:",ans:"걸어요",q:"L19-5 걸어요"},
+  ]},
+  {t:"5. Lesson 20 · 옷 쇼핑 -아/어 보이다", en:"Clothes shopping", items:[
+    {kind:"exact",cue:"크다 → -아/어 보여요:",ans:"커 보여요",q:"L20-1 커 보여요"},
+    {kind:"exact",cue:"작다 → -아/어 보여요:",ans:"작아 보여요",q:"L20-2 작아 보여요"},
+    {kind:"exact",cue:"비싸다 → -아/어 보여요:",ans:"비싸 보여요",q:"L20-3 비싸 보여요"},
+    {kind:"exact",cue:"try on: 입다 → -아/어 봐도 돼요?:",ans:"입어 봐도 돼요",q:"L20-4 입어봐도돼요"},
+    {kind:"exact",cue:"A 말고 B: 파란색 ~ 하얀색 주세요:",ans:"말고",q:"L20-5 말고"},
+  ]},
+];
+
+const COMP=[
+  {q:"얼마나 자주 운동해요?", ex:"(예시) 일주일에 세 번 운동해요.", k:"q1"},
+  {q:"김치볶음밥을 어떻게 만들었어요?", ex:"(예시) 먼저 김치를 썰고 나서 볶았어요.", k:"q2"},
+  {q:"친구가 음식을 보고 뭐라고 했어요?", ex:"(예시) \"정말 맛있어 보여요!\" 하고 말했어요.", k:"q3"},
+];
+
+function el(id){return document.getElementById(id);}
+let mc=0;
+const test=el("test");
+SECTIONS.forEach((s,si)=>{
+  let html=`<section><h2>${s.t} <span class="en">${s.en}</span></h2>`;
+  s.items.forEach((it,ii)=>{
+    const k=`s${si}_${ii}`;
+    if(it.kind==="par"){
+      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.pre}<input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="par" data-ans="${it.ans}" data-k="${k}" data-q="${it.q}">${it.post}</span><span class="fb" id="fb_${k}"></span></div></div>`;
+    } else if(it.kind==="exact"){
+      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.cue}</span> <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${it.ans}" data-k="${k}" data-q="${it.q}"><span class="fb" id="fb_${k}"></span></div></div>`;
+    } else if(it.kind==="make"){
+      const mid="m"+(mc++);
+      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.label}</span> <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="make" data-need="${it.need}" data-adj="${it.adj}" data-k="${k}" data-q="${it.q}" placeholder="문장을 쓰세요"><span class="fb" id="fb_${k}"></span></div>
+        <button class="hintbtn" onclick="toggleModel('${mid}')">예시 보기</button>
+        <div class="model" id="${mid}">예시: ${it.ex}</div></div>`;
+    }
+  });
+  html+=`</section>`;
+  test.insertAdjacentHTML("beforeend",html);
+});
+
+const comp=el("comp");
+COMP.forEach((c,i)=>{
+  const mid="cex"+i;
+  comp.insertAdjacentHTML("beforeend",
+  `<div class="drill"><p class="q">${i+1}. ${c.q}</p>
+    <textarea class="ans short" data-type="open" data-k="${c.k}" data-q="이해 ${i+1}: ${c.q}" placeholder="한국어 문장으로 답하세요"></textarea>
+    <span class="fb open" id="fb_${c.k}"></span>
+    <button class="hintbtn" onclick="toggleModel('${mid}')">예시 답 보기</button>
+    <div class="model" id="${mid}">${c.ex}</div></div>`);
+});
+
+const KEY="review_test_16_20_v1";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const t=elm.dataset.type, v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"+(t==="open"?" open":""); updateScore(); return; }
+  if(t==="open"){ fb.textContent="✎ 선생님이 봐요"; fb.className="fb open"; return; }
+  const flat=v.replace(/\s/g,"");
+  let state="no";
+  if(t==="par") state = v===elm.dataset.ans ? "ok":"no";
+  else if(t==="exact") state = norm(v)===norm(elm.dataset.ans) ? "ok":"no";
+  else if(t==="make"){
+    const pOk=flat.includes(elm.dataset.need.replace(/\s/g,""));
+    const aOk=flat.includes(elm.dataset.adj.replace(/\s/g,""));
+    state = !pOk ? "no" : (aOk ? "ok" : "warn");
+  }
+  else if(t==="free"){
+    const n=(v.match(/[.?!]/g)||[]).length;
+    state = n>=2 ? "ok" : "warn";
+  }
+  let okSym="✓", warnSym="확인", noSym="✗";
+  if(t==="make"){ noSym="핵심어 ✗"; warnSym="핵심어 ✓ · 형태 확인"; }
+  else if(t==="free"){ okSym="형식 OK · 내용은 선생님과"; warnSym="문장 2개 이상 써 보세요"; }
+  fb.textContent = state==="ok" ? okSym : state==="warn" ? warnSym : noSym;
+  fb.className = "fb "+state;
+  updateScore();
+}
+function scored(){
+  let total=0, done=0, ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{
+    if(e.dataset.type==="free"||e.dataset.type==="open") return;
+    total++;
+    const fb=document.getElementById("fb_"+e.dataset.k);
+    if(e.value.trim()!==""){ done++; if(fb&&fb.classList.contains("ok")) ok++; }
+  });
+  return {total,done,ok};
+}
+function updateScore(){
+  const {total,done,ok}=scored();
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done} (총 ${total})` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+function resetAll(){
+  if(!confirm("시험 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb"+(e.dataset.type==="open"?" open":"");} });
+  el("score").textContent=""; el("msg").textContent="";
+}
+async function submitTest(){
+  const name=el("name").value.trim(), msg=el("msg"), btn=el("submitBtn");
+  const {total,ok}=scored();
+  const payload={ "점수(문법)": `정답 ${ok} / 총 ${total}` };
+  document.querySelectorAll("[data-k]").forEach(e=>{ payload[e.dataset.q||e.dataset.k]=e.value.trim(); });
+  btn.disabled=true; msg.className="msg"; msg.textContent="제출 중…";
+  try{
+    const res=await fetch(API_BASE+"/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"assessment", title:"Lessons 16–20 평가시험", learner_name:name||null, payload })});
+    if(res.ok){ msg.className="msg ok"; msg.textContent=`✅ 제출됐어요! (${payload["점수(문법)"]}) 읽기·작문은 선생님이 봐요.`; }
+    else { msg.className="msg no"; msg.textContent="제출 실패: "+res.status; }
+  }catch(e){ msg.className="msg no"; msg.textContent="오류: "+e; }
+  btn.disabled=false;
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>

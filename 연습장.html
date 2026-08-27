@@ -212,7 +212,19 @@
     <div id="opin"></div>
   </section>
 
-  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 · 교통 · 쇼핑 · 식당 · 요리 · 여행 후기 · 운동 · 옷 쇼핑 · 도서관 · 도서관 ② · 독서 모임 · 의견 단어</footer>
+  <section>
+    <h2>20. 고민·조언 단어 <span class="en">Advice · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
+    <div id="advc"></div>
+  </section>
+
+  <section>
+    <h2>21. 자동사↔타동사 짝 <span class="en">Verb pairs · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 동사</b>를 쓰세요 (자동사=저절로, 타동사=사람이 함).</p>
+    <div id="pair"></div>
+  </section>
+
+  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 · 교통 · 쇼핑 · 식당 · 요리 · 여행 후기 · 운동 · 옷 쇼핑 · 도서관 · 도서관 ② · 독서 모임 · 의견 · 고민조언 · 자타동사 짝</footer>
 </div>
 
 <script>
@@ -478,6 +490,31 @@ const OPIN=[ // 의견 단어 (레슨25 어휘)
   ["hmm, I'm not sure →",'글쎄요',''],
   ['to be right / correct →','맞다','']
 ];
+const ADVC=[ // 고민·조언 단어 (레슨26 어휘)
+  ["a worry / what's on one's mind →",'고민',''],
+  ['to consult / talk it over →','상담하다|상담',''],
+  ['to be stressed →','스트레스를 받다|스트레스 받다',''],
+  ['to overdo it / push too hard →','무리하다',''],
+  ['to rest well →','푹 쉬다',''],
+  ['to endure / hold it in →','참다',''],
+  ['honestly / frankly →','솔직하게',''],
+  ['relationship (between people) →','사이',''],
+  ['to give advice →','조언하다|조언','']
+];
+const PAIR=[ // 자동사↔타동사 짝 (레슨27)
+  ['(물이) boils [자동사] →','끓다',''],
+  ['to boil (water) [타동사] →','끓이다',''],
+  ['(meat) gets cooked [자동사] →','익다',''],
+  ['to cook (meat) [타동사] →','익히다',''],
+  ['(soup) cools down [자동사] →','식다',''],
+  ['to cool (soup) down [타동사] →','식히다',''],
+  ['(light) turns off [자동사] →','꺼지다',''],
+  ['to turn off (light) [타동사] →','끄다',''],
+  ['(door) opens [자동사] →','열리다',''],
+  ['to open (door) [타동사] →','열다',''],
+  ['(car) stops [자동사] →','서다',''],
+  ['to park/stop (car) [타동사] →','세우다','']
+];
 function renderBA(arr,key,cid){
   arr.forEach((a,i)=>el(cid).insertAdjacentHTML("beforeend",
     `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${a[0]}</span>
@@ -487,7 +524,7 @@ function renderBA(arr,key,cid){
 renderBA(SUP,"sup","sup"); renderBA(DAL,"dal","dal"); renderBA(HB,"hb","hb");
 renderBA(GW,"gw","gw"); renderBA(DG,"dg","dg"); renderBA(TOUR,"tw","tour"); renderBA(TRANS,"kt","trans");
 renderBA(SHOP,"sh","shop"); renderBA(REST,"rt","rest"); renderBA(COOK,"ck","cook"); renderBA(REVW,"rv","revw");
-renderBA(EXER,"ex","exer"); renderBA(CLOTH,"cl","cloth"); renderBA(LIBR,"lb","libr"); renderBA(LIBR2,"l2","libr2"); renderBA(BOOK,"bk","book"); renderBA(OPIN,"op","opin");
+renderBA(EXER,"ex","exer"); renderBA(CLOTH,"cl","cloth"); renderBA(LIBR,"lb","libr"); renderBA(LIBR2,"l2","libr2"); renderBA(BOOK,"bk","book"); renderBA(OPIN,"op","opin"); renderBA(ADVC,"ad","advc"); renderBA(PAIR,"pr","pair");
 
 const KEY="practice_room", MKEY="practice_master", TARGET=5;
 const store=JSON.parse(localStorage.getItem(KEY)||"{}");

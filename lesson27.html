@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 27 · 자동사↔타동사 — Intransitive vs transitive pairs</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.9;}
+  .rule b{color:var(--accent);}
+  .pill-i{display:inline-block;background:#ecfdf5;color:var(--ok);border:1px solid #a7f3d0;border-radius:6px;padding:0 7px;font-weight:700;font-size:13px;}
+  .pill-t{display:inline-block;background:var(--accent-soft);color:var(--accent);border:1px solid #c7d7fe;border-radius:6px;padding:0 7px;font-weight:700;font-size:13px;}
+  .mp{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0;font-size:15px;line-height:2;}
+  .mp .ga{color:var(--ok);font-weight:700;} .mp .reul{color:var(--accent);font-weight:700;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:top;}
+  table.vocab th{background:#f3f4f6;}
+  table.vocab th.i{background:#ecfdf5;color:var(--ok);} table.vocab th.t{background:var(--accent-soft);color:var(--accent);}
+  table.vocab .ex{color:var(--muted);font-size:13px;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:160px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  textarea.ans{font:inherit;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;resize:vertical;min-height:90px;margin-top:6px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .submitlink{font-size:13px;margin-top:10px;}
+  .submitlink a{color:var(--accent);font-weight:600;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  .teacher .read{font-weight:600;color:var(--warm);}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 27 · 자동사↔타동사 <span class="sub">Intransitive ↔ Transitive</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">「물<b>이</b> 끓어요」와 「물<b>을</b> 끓여요」의 차이를 확실히! — <b>저절로 일어나는 동사(자동사)</b>와 <b>사람이 하는 동사(타동사)</b>를 조사로 골라 써요. (Master pairs like 끓다/끓이다 — choose by the particle 이/가 vs 을/를.)</p>
+    <div class="note">
+      <span class="pill-i">자동사</span> 저절로 일어나요 · 주어 + <b>이/가</b> · 목적어 없음 → 물<b>이</b> <b>끓어요</b><br>
+      <span class="pill-t">타동사</span> 사람이 무엇을 해요 · 목적어 + <b>을/를</b> → (제가) 물<b>을</b> <b>끓여요</b>
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L22–26</span></h2>
+    <p class="lead">지난 과들에서 짧게. 답은 <b>해요체</b>로 쓰세요 (기본형은 [ ] 안에).</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (choose by the particle!)</span></h2>
+    <div class="rule">
+      <b>① 한국어에는 짝을 이루는 동사가 많아요.</b> 하나는 <span class="pill-i">자동사</span>(저절로 되다), 하나는 <span class="pill-t">타동사</span>(무엇을 ~하다).<br>
+      <span class="en">Many Korean verbs come in pairs: one for "X happens by itself" and one for "someone does it to X."</span><br><br>
+
+      <b>② 고르는 법 = 조사를 보세요! <span class="en">(the key: look at the particle)</span></b><br>
+      • 주어 + <span class="ga" style="color:var(--ok);font-weight:700">이/가</span> → <span class="pill-i">자동사</span> (저절로) · 목적어 없음<br>
+      • 목적어 + <span class="reul" style="color:var(--accent);font-weight:700">을/를</span> → <span class="pill-t">타동사</span> (사람이 함)<br>
+      <span class="en">Ask: "Is someone doing it TO something?" → transitive (을/를). "Does it happen by itself?" → intransitive (이/가).</span><br><br>
+
+      <b>③ 최소 대립쌍 <span class="en">(same meaning, different subject)</span></b>
+      <div class="mp">물<span class="ga">이</span> <b>끓어요</b>. <span class="en">The water boils.</span> &nbsp;↔&nbsp; (제가) 물<span class="reul">을</span> <b>끓여요</b>. <span class="en">I boil the water.</span></div>
+      <div class="mp">불<span class="ga">이</span> <b>꺼졌어요</b>. <span class="en">The light went off.</span> &nbsp;↔&nbsp; (제가) 불<span class="reul">을</span> <b>껐어요</b>. <span class="en">I turned off the light.</span></div>
+      <div class="mp">문<span class="ga">이</span> <b>열려요</b>. <span class="en">The door opens.</span> &nbsp;↔&nbsp; (제가) 문<span class="reul">을</span> <b>열어요</b>. <span class="en">I open the door.</span></div>
+      <span class="en">Tip: You don't need to memorize the endings (이/히/리/기/우). Just learn each PAIR and pick by the particle.</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 짝 10 <span class="en">10 key pairs</span></h2>
+    <p class="lead"><b>왼쪽 = 저절로(자동사, 이/가)</b>, <b>오른쪽 = 사람이 함(타동사, 을/를)</b>.</p>
+    <table class="vocab">
+      <tr><th class="i">자동사 (저절로)</th><th class="i">예</th><th class="t">타동사 (~하다)</th><th class="t">예</th></tr>
+      <tbody id="ptable"></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>3. 조사 보고 고르기 <span class="en">Choose by the particle · 입력 즉시 채점</span></h2>
+    <p class="lead">괄호의 두 동사 중 <b>조사에 맞는 것</b>을 골라 <b>해요체</b>로 쓰세요.</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 완성하기 <span class="en">Complete the sentence</span></h2>
+    <p class="lead">상황에 맞는 <b>한국어</b>를 쓰세요 (자동사인지 타동사인지 조사를 보고!).</p>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 — 스카보로 블러프 다녀온 이야기 <span class="en">A trip to Scarborough Bluffs</span></h2>
+    <p class="lead">선생님과 <b>번갈아 소리 내어</b> 읽어요 (친구 A ↔ B, 해요체). 자동사·타동사가 어디에 쓰였는지 보면서 읽어요.</p>
+    <div class="dlg">
+      <div class="turn b"><span class="who">🙂 친구 B</span><span class="say">주말에 뭐 했어요?</span></div>
+      <div class="turn"><span class="who">🧳 친구 A</span><span class="say">스카보로 블러프에 다녀왔어요. 호수 옆에 높은 절벽이 있는 공원이에요.</span></div>
+      <div class="turn b"><span class="who">🙂 친구 B</span><span class="say">아, 거기 경치가 좋다고 들었어요. 어떻게 갔어요?</span></div>
+      <div class="turn"><span class="who">🧳 친구 A</span><span class="say">차로 갔어요. 주차장에 차를 <b>세우고</b> 공원을 걸었어요. 절벽 위에는 펜스가 있어서 호수를 보기는 좀 어려웠어요. 낙하 위험이 있거든요.</span></div>
+      <div class="turn b"><span class="who">🙂 친구 B</span><span class="say">아, 위험하니까요. 그럼 주로 뭐 했어요?</span></div>
+      <div class="turn"><span class="who">🧳 친구 A</span><span class="say">물가를 따라 걷다가 비치에서도 좀 놀았어요. 카약이나 윈드서핑을 하는 사람들도 봤어요.</span></div>
+      <div class="turn b"><span class="who">🙂 친구 B</span><span class="say">재미있었겠어요. 뭐 먹었어요?</span></div>
+      <div class="turn"><span class="who">🧳 친구 A</span><span class="say">도시락을 싸 가서 비치에서 먹었어요. 작은 버너로 물을 <b>끓여서</b> 라면도 먹었어요.</span></div>
+      <div class="turn b"><span class="who">🙂 친구 B</span><span class="say">밖에서 끓여 먹으면 더 맛있죠.</span></div>
+      <div class="turn"><span class="who">🧳 친구 A</span><span class="say">맞아요. 그런데 바람이 세게 불어서 불이 자꾸 <b>꺼졌어요</b>. 그래서 다시 <b>켜느라고</b> 힘들었어요.</span></div>
+      <div class="turn b"><span class="who">🙂 친구 B</span><span class="say">하하. 고기도 구웠어요?</span></div>
+      <div class="turn"><span class="who">🧳 친구 A</span><span class="say">네, 고기를 <b>익혀서</b> 먹었어요. 잘 <b>익어서</b> 정말 맛있었어요.</span></div>
+      <div class="turn b"><span class="who">🙂 친구 B</span><span class="say">사진도 많이 찍었어요?</span></div>
+      <div class="turn"><span class="who">🧳 친구 A</span><span class="say">그럼요. 예쁜 곳이라서 사진을 많이 <b>남겼어요</b>. 다음에 같이 가요!</span></div>
+      <div class="turn b"><span class="who">🙂 친구 B</span><span class="say">좋아요. 그런데 주차장이 몇 시에 <b>닫혀요</b>?</span></div>
+      <div class="turn"><span class="who">🧳 친구 A</span><span class="say">저녁 아홉 시에 <b>닫아요</b>. 그러니까 너무 늦지 않게 가는 게 좋겠어요.</span></div>
+    </div>
+    <div class="subh">빈칸 채우기 <span class="en" style="font-weight:400;color:var(--muted)">Fill in — from the dialogue</span></div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 쓰기 숙제 <span class="en">Homework · write &amp; submit</span></h2>
+    <p class="lead">다녀온 곳(또는 소풍·나들이)을 <b>3~5문장</b>으로 써 보세요. 오늘 배운 <b>자동사·타동사 짝</b>을 <b>2쌍 이상</b> 넣어요 (예: 물이 끓다/물을 끓이다, 불이 꺼지다/불을 끄다).</p>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 지난 주말에 공원에 소풍을 갔어요. 버너로 물을 끓여서 라면을 먹었어요. 바람이 불어서 불이 자꾸 꺼졌어요. 고기도 익혀서 먹었는데 잘 익어서 맛있었어요. 예쁜 사진을 많이 남겼어요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요 <span class="en" style="font-weight:400;color:var(--muted)">write &amp; submit right here</span></div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="예) 주말에 스카보로 블러프에 갔어요. 주차장에 차를 세우고 걸었어요. 물을 끓여서 커피를 마셨어요. 사진을 많이 남겼어요."></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw27()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 짝 속사포 (자동사 ↔ 타동사)</h3>
+    <p class="lead">선생님이 <b>주어+조사</b>를 던지면 학습자가 알맞은 동사로 즉답. 같은 짝을 두 방향으로!</p>
+    <ul>
+      <li>"물이 ~?" → 끓어요 / "물을 ~?" → 끓여요</li>
+      <li>"불이 ~?" → 꺼져요·켜져요 / "불을 ~?" → 꺼요·켜요</li>
+      <li>"문이 ~?" → 열려요·닫혀요 / "문을 ~?" → 열어요·닫아요</li>
+      <li>"고기가 ~?" → 익어요 / "고기를 ~?" → 익혀요</li>
+      <li>"차가 ~?" → 서요 / "차를 ~?" → 세워요</li>
+    </ul>
+
+    <h3>② 상황 묘사 (무엇이 저절로 vs 내가 함)</h3>
+    <p class="lead">선생님이 상황을 말하면 학습자가 자동사/타동사로 문장을 만들어요.</p>
+    <ul>
+      <li>"방이 어두워요." → 불을 켜요 → (잠시 후) 불이 켜졌어요</li>
+      <li>"국이 너무 뜨거워요." → 국을 식혀요 → 국이 식었어요</li>
+      <li>"바람이 불어요." → 창문을 닫아요 → 문이 닫혔어요</li>
+    </ul>
+
+    <p class="lead" style="color:var(--warm)">성공 기준: 조사(이/가 ↔ 을/를)만 듣고 자동사·타동사를 바로 골라 말하기, 스카보로 블러프 이야기를 대본 없이 이어 말하기. (숙제 = 위 6번 쓰기 → 제출)</p>
+  </div>
+
+  <footer>Lesson 27 / 자동사↔타동사 짝 · 조사로 고르기(이/가 ↔ 을/를) · 실전 대화(스카보로 블러프)</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+// 핵심 짝 10 [자동사, 자동사 예, 타동사, 타동사 예]
+const PAIRS=[
+  ["끓다","물이 끓어요","끓이다","물을 끓여요"],
+  ["익다","고기가 익어요","익히다","고기를 익혀요"],
+  ["식다","국이 식어요","식히다","국을 식혀요"],
+  ["켜지다","불이 켜져요","켜다","불을 켜요"],
+  ["꺼지다","불이 꺼져요","끄다","불을 꺼요"],
+  ["열리다","문이 열려요","열다","문을 열어요"],
+  ["닫히다","문이 닫혀요","닫다","문을 닫아요"],
+  ["붙다","스티커가 붙어요","붙이다","스티커를 붙여요"],
+  ["남다","시간이 남아요","남기다","음식을 남겨요"],
+  ["서다","차가 서요","세우다","차를 세워요"]
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤] — L22~26
+  ['-는 게 좋겠어요 · 쉬다','피곤하면 푹 ','쉬는 게 좋겠어요',' .'],
+  ['-(으)ㄴ/는 것 같다 · 좋다','이게 더 ','좋은 것 같아요',' .'],
+  ['-(으)ㄴ 적이 있다 · 가다','제주도에 ','간 적이 있어요',' ?'],
+  ['-는지 · 있다','이 책이 ','있는지',' 아세요?'],
+  ['-기 전에 · 자다','','자기 전에',' 이를 닦아요.']
+];
+const ADV=[ // [문장(괄호 자/타), 정답 해요체]
+  ['물이 (끓다/끓이다)','끓어요'],['물을 (끓다/끓이다)','끓여요'],
+  ['고기가 (익다/익히다)','익어요'],['고기를 (익다/익히다)','익혀요'],
+  ['불이 (켜지다/켜다)','켜져요'],['불을 (켜지다/켜다)','켜요'],
+  ['문이 (열리다/열다)','열려요'],['문을 (열리다/열다)','열어요']
+];
+const EXP=[ // [앞, 정답(|), 뒤, 힌트]
+  ['물이 ','끓으면',' 라면을 넣으세요.','끓다(자동사) → -(으)면'],
+  ['제가 물을 ','끓일게요',' .','끓이다(타동사) → -(으)ㄹ게요'],
+  ['바람 때문에 불이 갑자기 ','꺼졌어요',' .','꺼지다(자동사, 과거)'],
+  ['자기 전에 불을 ','꺼요',' .','끄다(타동사)'],
+  ['여기에 차를 ','세워도 돼요',' ?','세우다(타동사) → -아/어도 돼요?'],
+  ['버스가 정류장에 ','섰어요',' .','서다(자동사, 과거)']
+];
+const DLG=[ // 실전 대화 [앞, 정답(|), 뒤, 힌트]
+  ['주차장에 차를 ','세우고',' 공원을 걸었어요.','세우다(타동사) → -고 (오늘 문형!)'],
+  ['작은 버너로 물을 ','끓여서',' 라면도 먹었어요.','끓이다(타동사) → -아/어서'],
+  ['바람이 세게 불어서 불이 자꾸 ','꺼졌어요',' .','꺼지다(자동사, 과거)'],
+  ['고기를 ','익혀서',' 먹었어요.','익히다(타동사) → -아/어서'],
+  ['예쁜 곳이라서 사진을 많이 ','남겼어요',' .','남기다(타동사, 과거)'],
+  ['주차장이 몇 시에 ','닫혀요',' ?','닫히다(자동사)']
+];
+
+function el(id){return document.getElementById(id);}
+PAIRS.forEach((p,i)=>el("ptable").insertAdjacentHTML("beforeend",
+  `<tr><td><b>${p[0]}</b></td><td class="ex">${p[1]}</td><td><b>${p[2]}</b></td><td class="ex">${p[3]}</td></tr>`));
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko"><b>${a[0]}</b></span> →
+   ${IN} class="ans mid" data-type="exact" data-ans="${a[1]}" data-k="a${i}">
+   <span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson27_verbpairs";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw27(){
+  const ta=document.getElementById("hwtext"), msg=document.getElementById("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 27 · 자동사↔타동사 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 27 · 자동사↔타동사(끓다/끓이다)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
