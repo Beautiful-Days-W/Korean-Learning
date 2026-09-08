@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>복습 · Lessons 26–30</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;--teal:#0d9488;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:17px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  h2 .tag{font-size:11px;font-weight:700;color:#fff;background:var(--teal);border-radius:999px;padding:2px 9px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:210px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>복습 · Lessons 26–30 <span class="sub">Review</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>복습 목표 <span class="en">What we practice</span></h2>
+    <p class="lead">26~30과 핵심 문형을 <b>한 번에 다시</b>. 반복해서 손에 익히는 페이지예요 (점수만, 자유작문 없음).</p>
+    <div class="note">
+      L26 <b>-는 게 좋겠어요</b>(조언) · L27 <b>자동사↔타동사</b>(조사로 고르기) · L28 <b>-(으)ㄹ 줄 알다/모르다</b> · L29 <b>-(으)ㄴ 지 됐어요</b>+-곤 했다·-(으)ㄹ수록 · L30 <b>-(으)려고 하다 / -기로 하다</b><br>
+      ✎ 띄어쓰기 정확히! (쉬<b>는 게</b> · 칠 <b>줄</b> · 배운 <b>지</b> · 가<b>려고 해요</b> — 다 띄어요)
+    </div>
+  </div>
+
+  <section>
+    <h2><span class="tag">L26</span> 조언·제안 <span class="en">-는 게 좋겠어요 / -지 않는 게 좋겠어요 / -는 게 어때요?</span></h2>
+    <p class="lead">부드러운 조언은 <b>-는 게 좋겠어요</b>, 하지 말라는 조언은 <b>-지 않는 게 좋겠어요</b>, 제안은 <b>-는 게 어때요?</b></p>
+    <div id="s26"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L27</span> 자동사↔타동사 <span class="en">조사로 고르기 (이/가 → 자동사, 을/를 → 타동사)</span></h2>
+    <p class="lead">조사를 보고 <b>짝 중 알맞은 동사</b>를 고르세요. 시제도 맞춰서!</p>
+    <div id="s27"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L28</span> 악기 연주 <span class="en">-(으)ㄹ 줄 알다/모르다 (치다·켜다·불다)</span></h2>
+    <p class="lead">기술이 있으면 <b>-(으)ㄹ 줄 알아요</b>, 없으면 <b>-(으)ㄹ 줄 몰라요</b>. 악기 동사도 골라서!</p>
+    <div id="s28"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L29</span> 악기 심화 <span class="en">-(으)ㄴ 지 됐어요 · -곤 했다 · -(으)ㄹ수록</span></h2>
+    <p class="lead">얼마나 오래됐는지 <b>-(으)ㄴ 지 됐어요</b>, 예전 습관 <b>-곤 했다</b>, 정도 <b>-(으)ㄹ수록</b>.</p>
+    <div id="s29"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L30</span> 로드트립 <span class="en">-(으)려고 하다(계획) / -기로 하다(결정)</span></h2>
+    <p class="lead">내 계획은 <b>-(으)려고 해요</b>, 함께 정한 결정은 <b>-기로 했어요</b>(과거).</p>
+    <div id="s30"></div>
+  </section>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const S26=[ // 조언·제안
+  ['-는 게 좋겠어요 · 쉬다','피곤하면 푹 ','쉬는 게 좋겠어요',' .'],
+  ['-지 않는 게 좋겠어요 · 무리하다','너무 ','무리하지 않는 게 좋겠어요',' .'],
+  ['-는 게 좋겠어요 · 줄이다','커피를 ','줄이는 게 좋겠어요',' .'],
+  ['-는 게 어때요? · 연락하다','친구한테 먼저 ','연락하는 게 어때요',' ?'],
+  ['-는 게 좋겠어요 · 만들다(ㄹ 탈락)','직접 ','만드는 게 좋겠어요',' .']
+];
+const S27=[ // 자동사↔타동사 (조사로 고르기)
+  ['끓다/끓이다 중 · 현재','물이 ','끓어요',' .'],
+  ['끓다/끓이다 중 · 현재','물을 ','끓여요',' .'],
+  ['끄다/꺼지다 중 · 과거','바람에 불이 ','꺼졌어요',' .'],
+  ['서다/세우다 중 · 과거','휴게소에 차를 ','세웠어요',' .'],
+  ['열다/열리다 중 · 과거','문이 저절로 ','열렸어요',' .']
+];
+const S28=[ // -(으)ㄹ 줄 알다/모르다
+  ['치다 → -(으)ㄹ 줄 알다','피아노를 ','칠 줄 알아요',' ?'],
+  ['켜다 → -(으)ㄹ 줄 모르다','바이올린을 ','켤 줄 몰라요',' .'],
+  ['불다 → -(으)ㄹ 줄 알다','플루트를 ','불 줄 알아요',' .'],
+  ['치다 → -(으)ㄹ 줄 모르다','드럼을 ','칠 줄 몰라요',' .'],
+  ['악기 동사 고르기 · 첼로 → -(으)ㄹ 줄 알다','첼로를 ','켤 줄 알아요',' ?']
+];
+const S29=[ // -(으)ㄴ 지 · -곤 했다 · -(으)ㄹ수록
+  ['-(으)ㄴ 지 · 배우다','한국어를 ','배운 지',' 2년 됐어요.'],
+  ['-(으)ㄴ 지 · 불다(ㄹ 탈락)','클라리넷을 ','분 지',' 15년 됐어요.'],
+  ['-곤 했다 · 연습하다','예전엔 매일 ','연습하곤 했어요',' .'],
+  ['-(으)ㄹ수록 · 연습하다','','연습할수록',' 실력이 늘어요.'],
+  ['-(으)ㄴ 지 · 살다(ㄹ 탈락)','여기 ','산 지',' 얼마나 됐어요?']
+];
+const S30=[ // -(으)려고 하다 / -기로 하다
+  ['-(으)려고 하다 · 가다','이번 가을에 퀘벡에 ','가려고 해요',' .'],
+  ['-기로 하다(과거) · 가다','우리는 10월에 ','가기로 했어요',' .'],
+  ['-(으)려고 하다(받침) · 먹다','휴게소에서 뭘 좀 ','먹으려고 해요',' .'],
+  ['-기로 하다(과거) · 예약하다','숙소를 미리 ','예약하기로 했어요',' .'],
+  ['-(으)려고 하다 · 들르다','몬트리올에도 ','들르려고 해요',' .']
+];
+
+function el(id){return document.getElementById(id);}
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+function renderFill(arr, cid, kp){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+     <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="${kp}${i}">
+     <span class="ko">${r[3]}</span><span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+renderFill(S26,"s26","a");
+renderFill(S27,"s27","b");
+renderFill(S28,"s28","c");
+renderFill(S29,"s29","d");
+renderFill(S30,"s30","e");
+
+const KEY="review9_2630";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function resetAll(){
+  if(!confirm("복습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
