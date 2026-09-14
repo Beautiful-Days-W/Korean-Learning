@@ -254,7 +254,13 @@
     <div id="wish"></div>
   </section>
 
-  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 · 교통 · 쇼핑 · 식당 · 요리 · 여행 후기 · 운동 · 옷 쇼핑 · 도서관 · 도서관 ② · 독서 모임 · 의견 · 고민조언 · 자타동사 짝 · 악기 · 로드트립 · 헷갈리는 동사 · 여행 소망</footer>
+  <section>
+    <h2>27. 올드퀘벡·여행 후기 단어 <span class="en">Old Quebec sights · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
+    <div id="qbc"></div>
+  </section>
+
+  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 · 교통 · 쇼핑 · 식당 · 요리 · 여행 후기 · 운동 · 옷 쇼핑 · 도서관 · 도서관 ② · 독서 모임 · 의견 · 고민조언 · 자타동사 짝 · 악기 · 로드트립 · 헷갈리는 동사 · 여행 소망 · 올드퀘벡</footer>
 </div>
 
 <script>
@@ -600,6 +606,17 @@ const WISH=[ // 여행 소망 단어 (레슨32)
   ['to be relaxed / leisurely →','여유롭다',''],
   ['souvenir →','기념품','']
 ];
+const QBC=[ // 올드퀘벡·여행 후기 단어 (레슨33)
+  ['castle →','성',''],
+  ['city wall(s) →','성벽',''],
+  ['view (vista) →','전망',''],
+  ['cobblestone street →','돌길',''],
+  ['alley, narrow street →','골목',''],
+  ['atmosphere, vibe →','분위기',''],
+  ['waterfall →','폭포',''],
+  ['night view →','야경',''],
+  ['to be impressive / striking →','인상적이다|인상적','']
+];
 function renderBA(arr,key,cid){
   arr.forEach((a,i)=>el(cid).insertAdjacentHTML("beforeend",
     `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${a[0]}</span>
@@ -609,7 +626,7 @@ function renderBA(arr,key,cid){
 renderBA(SUP,"sup","sup"); renderBA(DAL,"dal","dal"); renderBA(HB,"hb","hb");
 renderBA(GW,"gw","gw"); renderBA(DG,"dg","dg"); renderBA(TOUR,"tw","tour"); renderBA(TRANS,"kt","trans");
 renderBA(SHOP,"sh","shop"); renderBA(REST,"rt","rest"); renderBA(COOK,"ck","cook"); renderBA(REVW,"rv","revw");
-renderBA(EXER,"ex","exer"); renderBA(CLOTH,"cl","cloth"); renderBA(LIBR,"lb","libr"); renderBA(LIBR2,"l2","libr2"); renderBA(BOOK,"bk","book"); renderBA(OPIN,"op","opin"); renderBA(ADVC,"ad","advc"); renderBA(PAIR,"pr","pair"); renderBA(INST,"it","inst"); renderBA(INST2,"i2","inst2"); renderBA(TRIP,"tp","trip"); renderBA(CONF,"cf","conf"); renderBA(WISH,"ws","wish");
+renderBA(EXER,"ex","exer"); renderBA(CLOTH,"cl","cloth"); renderBA(LIBR,"lb","libr"); renderBA(LIBR2,"l2","libr2"); renderBA(BOOK,"bk","book"); renderBA(OPIN,"op","opin"); renderBA(ADVC,"ad","advc"); renderBA(PAIR,"pr","pair"); renderBA(INST,"it","inst"); renderBA(INST2,"i2","inst2"); renderBA(TRIP,"tp","trip"); renderBA(CONF,"cf","conf"); renderBA(WISH,"ws","wish"); renderBA(QBC,"qb","qbc");
 
 const KEY="practice_room", MKEY="practice_master", TARGET=5;
 const store=JSON.parse(localStorage.getItem(KEY)||"{}");
