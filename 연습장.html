@@ -260,7 +260,13 @@
     <div id="qbc"></div>
   </section>
 
-  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 · 교통 · 쇼핑 · 식당 · 요리 · 여행 후기 · 운동 · 옷 쇼핑 · 도서관 · 도서관 ② · 독서 모임 · 의견 · 고민조언 · 자타동사 짝 · 악기 · 로드트립 · 헷갈리는 동사 · 여행 소망 · 올드퀘벡</footer>
+  <section>
+    <h2>28. 추석 단어 <span class="en">Chuseok · type the Korean</span></h2>
+    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
+    <div id="chu"></div>
+  </section>
+
+  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 · 교통 · 쇼핑 · 식당 · 요리 · 여행 후기 · 운동 · 옷 쇼핑 · 도서관 · 도서관 ② · 독서 모임 · 의견 · 고민조언 · 자타동사 짝 · 악기 · 로드트립 · 헷갈리는 동사 · 여행 소망 · 올드퀘벡 · 추석</footer>
 </div>
 
 <script>
@@ -617,6 +623,17 @@ const QBC=[ // 올드퀘벡·여행 후기 단어 (레슨33)
   ['night view →','야경',''],
   ['to be impressive / striking →','인상적이다|인상적','']
 ];
+const CHU=[ // 추석 단어 (레슨34)
+  ['Chuseok, Korean harvest festival →','추석',''],
+  ['traditional holiday →','명절',''],
+  ['another name for Chuseok →','한가위',''],
+  ['full moon →','보름달',''],
+  ['half-moon rice cake →','송편',''],
+  ['ancestral memorial rite →','차례',''],
+  ['visiting ancestors\' graves →','성묘',''],
+  ['holiday period, consecutive days off →','연휴',''],
+  ['to gather, get together →','모이다','']
+];
 function renderBA(arr,key,cid){
   arr.forEach((a,i)=>el(cid).insertAdjacentHTML("beforeend",
     `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${a[0]}</span>
@@ -626,7 +643,7 @@ function renderBA(arr,key,cid){
 renderBA(SUP,"sup","sup"); renderBA(DAL,"dal","dal"); renderBA(HB,"hb","hb");
 renderBA(GW,"gw","gw"); renderBA(DG,"dg","dg"); renderBA(TOUR,"tw","tour"); renderBA(TRANS,"kt","trans");
 renderBA(SHOP,"sh","shop"); renderBA(REST,"rt","rest"); renderBA(COOK,"ck","cook"); renderBA(REVW,"rv","revw");
-renderBA(EXER,"ex","exer"); renderBA(CLOTH,"cl","cloth"); renderBA(LIBR,"lb","libr"); renderBA(LIBR2,"l2","libr2"); renderBA(BOOK,"bk","book"); renderBA(OPIN,"op","opin"); renderBA(ADVC,"ad","advc"); renderBA(PAIR,"pr","pair"); renderBA(INST,"it","inst"); renderBA(INST2,"i2","inst2"); renderBA(TRIP,"tp","trip"); renderBA(CONF,"cf","conf"); renderBA(WISH,"ws","wish"); renderBA(QBC,"qb","qbc");
+renderBA(EXER,"ex","exer"); renderBA(CLOTH,"cl","cloth"); renderBA(LIBR,"lb","libr"); renderBA(LIBR2,"l2","libr2"); renderBA(BOOK,"bk","book"); renderBA(OPIN,"op","opin"); renderBA(ADVC,"ad","advc"); renderBA(PAIR,"pr","pair"); renderBA(INST,"it","inst"); renderBA(INST2,"i2","inst2"); renderBA(TRIP,"tp","trip"); renderBA(CONF,"cf","conf"); renderBA(WISH,"ws","wish"); renderBA(QBC,"qb","qbc"); renderBA(CHU,"ch","chu");
 
 const KEY="practice_room", MKEY="practice_master", TARGET=5;
 const store=JSON.parse(localStorage.getItem(KEY)||"{}");
