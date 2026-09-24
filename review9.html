@@ -33,6 +33,11 @@
   .lbl{font-size:13px;color:var(--muted);}
   input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
   input.mid{width:210px;text-align:center;}
+  input.tiny{width:64px;text-align:center;font-size:17px;}
+  input.wide{width:300px;text-align:center;}
+  h2 .tag.hot{background:var(--no);}
+  section.hot{border-color:#fecaca;background:#fffafa;}
+  .wrongx{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 3px;}
   input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
   .fb{font-size:14px;font-weight:700;min-width:22px;}
   .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
@@ -57,8 +62,37 @@
       L26 <b>-는 게 좋겠어요</b>(조언) · L27 <b>자동사↔타동사</b>(조사로 고르기) · L28 <b>-(으)ㄹ 줄 알다/모르다</b> · L29 <b>-(으)ㄴ 지 됐어요</b>+-곤 했다·-(으)ㄹ수록 · L30 <b>-(으)려고 하다 / -기로 하다</b><br>
       ✎ 띄어쓰기 정확히! (쉬<b>는 게</b> · 칠 <b>줄</b> · 배운 <b>지</b> · 가<b>려고 해요</b> — 다 띄어요)
     </div>
+    <div class="note" style="background:#fff1f2;color:#7f1d1d">
+      🔴 <b>집중 (평가시험 26–30 결과)</b> — 문법은 25/25 다 맞았어요! 남은 건 <b>띄어쓰기</b>(쉬는게·불줄·배운지), <b>조사</b>(한국어<b>를</b> 배운 지), <b>높임 -시-</b>(선생님이 … 하<b>셨</b>어요), <b>시간 표현에 맞는 시제</b>, <b>-(으)ㄹ 줄 알다 문장 다듬기</b>(어떡해 X · 지하철은 <b>타다</b>). 앞의 A~E가 그 연습이고, 뒤의 L26~L30은 가벼운 점검이에요.
+      <span class="en">(Grammar was perfect; sections A–E target spacing, particles, honorific -시-, tense vs. time words, and tidying -(으)ㄹ 줄 알다 sentences.)</span>
+    </div>
   </div>
 
+  <section class="hot">
+    <h2><span class="tag hot">A</span> 띄어쓰기 고치기 <span class="en">Fix the spacing · 게 · 줄 · 지 · 해요 앞은 띄어요</span></h2>
+    <p class="lead">붙여 쓴 부분을 찾아 <b>띄어쓰기만 고쳐서</b> 전체를 다시 쓰세요. (게=것이, 줄, 지, 하다는 따로 서는 말이에요.)</p>
+    <div id="sA"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">B</span> 조사 넣기 <span class="en">Particles · 을/를 · 이/가</span></h2>
+    <p class="lead">빈칸에 <b>조사만</b> 쓰세요. 목적어는 <b>을/를</b>, 주어는 <b>이/가</b> — 말할 때는 빼도 되지만 <b>쓸 때는 꼭</b> 넣어요.</p>
+    <div id="sB"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">C</span> 높임 -(으)시- <span class="en">Honorific -시- when the subject is 선생님·부모님·할머니</span></h2>
+    <p class="lead">주어가 <b>선생님·어머니·할머니</b>면 동사에 <b>-(으)시-</b>를 넣어요. [ ] 안의 기본형·시제로 쓰세요.</p>
+    <div id="sC"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">D</span> 시간 표현 → 시제 <span class="en">Time word decides the tense · 지난·어제 = past, 이번·다음 = plan</span></h2>
+    <p class="lead">앞의 <b>시간 표현</b>을 보고 시제를 맞추세요. 한 글에서 <b>지난 주말</b> 이야기와 <b>이번 주말</b> 계획이 섞이면 시제도 따라가야 해요.</p>
+    <div id="sD"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">E</span> -(으)ㄹ 줄 알다 문장 다듬기 <span class="en">Tidy the sentence · no 어떻게, right verb</span></h2>
+    <p class="lead"><b>-(으)ㄹ 줄 알다</b>에는 이미 "how to"가 들어 있어서 <b>어떻게/어떡해</b>를 안 써요. 그리고 지하철·버스는 <b>타다</b>! 자연스럽게 고쳐 쓰세요.</p>
+    <div id="sE"></div>
+  </section>
   <section>
     <h2><span class="tag">L26</span> 조언·제안 <span class="en">-는 게 좋겠어요 / -지 않는 게 좋겠어요 / -는 게 어때요?</span></h2>
     <p class="lead">부드러운 조언은 <b>-는 게 좋겠어요</b>, 하지 말라는 조언은 <b>-지 않는 게 좋겠어요</b>, 제안은 <b>-는 게 어때요?</b></p>
@@ -93,6 +127,44 @@
 <script>
 function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
 
+const SA=[ // 띄어쓰기 고치기 [틀린 표기, 정답]
+  ['피곤하면 푹 쉬는게 좋겠어요','피곤하면 푹 쉬는 게 좋겠어요'],
+  ['플루트를 불줄 알아요','플루트를 불 줄 알아요'],
+  ['한국어를 배운지 2년 됐어요','한국어를 배운 지 2년 됐어요'],
+  ['퀘벡에 가려고해요','퀘벡에 가려고 해요'],
+  ['10월에 가기로했어요','10월에 가기로 했어요'],
+  ['드럼을 칠줄 몰라요','드럼을 칠 줄 몰라요'],
+  ['매일 연습하는게 어때요','매일 연습하는 게 어때요'],
+  ['여기 산지 얼마나 됐어요','여기 산 지 얼마나 됐어요']
+];
+const SB=[ // 조사 [앞, 정답(|), 뒤]
+  ['한국어','를',' 배운 지 2년 됐어요.'],
+  ['물','을',' 끓여요.'],
+  ['물','이',' 끓어요.'],
+  ['피아노','를',' 칠 줄 알아요.'],
+  ['지하철','을',' 탈 줄 알아요.'],
+  ['선생님','이',' 매일 연습하는 게 좋겠다고 하셨어요.']
+];
+const SC=[ // 높임 -(으)시- [힌트, 앞, 정답, 뒤]
+  ['하다 · 과거','선생님이 매일 조금씩 연습하는 게 좋겠다고 ','하셨어요',' .'],
+  ['만들다 · 과거','할머니가 송편을 직접 ','만드셨어요',' .'],
+  ['끓이다 · 과거','어머니가 물을 ','끓이셨어요',' .'],
+  ['사다 · -(으)려고 하다(현재)','선생님이 새 악보를 ','사려고 하세요',' .'],
+  ['치다 · 현재','아버지는 주말에만 피아노를 ','치세요',' .']
+];
+const SD=[ // 시간 표현 → 시제 [힌트, 앞, 정답, 뒤]
+  ['가다 · 과거','지난 주말에 미술관에 ','갔어요',' .'],
+  ['가다 · -기로 하다','이번 주말에 미술관에 ','가기로 했어요',' .'],
+  ['갔다 오다 · 과거','어제 지하철을 타고 쉽게 ','갔다 왔어요',' .'],
+  ['사다 · -(으)려고 하다','다음 주에 새 악보를 ','사려고 해요',' .'],
+  ['연습하다 · -곤 했다','작년에는 매일 ','연습하곤 했어요',' .']
+];
+const SE=[ // 문장 다듬기 [틀린 문장, 정답(|)]
+  ['지하철에서 어떡해 다닐 줄 알아요','지하철을 탈 줄 알아요|지하철 탈 줄 알아요'],
+  ['어떻게 운전할 줄 알아요','운전할 줄 알아요'],
+  ['버스에서 어떻게 다닐 줄 몰라요','버스를 탈 줄 몰라요|버스 탈 줄 몰라요'],
+  ['한국 음식을 어떻게 만들 줄 알아요','한국 음식을 만들 줄 알아요|한국 음식 만들 줄 알아요']
+];
 const S26=[ // 조언·제안
   ['-는 게 좋겠어요 · 쉬다','피곤하면 푹 ','쉬는 게 좋겠어요',' .'],
   ['-지 않는 게 좋겠어요 · 무리하다','너무 ','무리하지 않는 게 좋겠어요',' .'],
@@ -137,13 +209,29 @@ function renderFill(arr, cid, kp){
      <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="${kp}${i}">
      <span class="ko">${r[3]}</span><span class="fb" id="fb_${kp}${i}"></span></div></div>`));
 }
+function renderFix(arr, cid, kp){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko"><span class="wrongx">✗ ${r[0]}</span> →</span>
+     ${IN} class="ans wide" data-type="exact" data-ans="${r[1]}" data-k="${kp}${i}">
+     <span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+function renderPar(arr, cid, kp){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${r[0]}${IN} class="ans tiny" data-type="exact" data-ans="${r[1]}" data-k="${kp}${i}">${r[2]}</span>
+     <span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+renderFix(SA,"sA","fa");
+renderPar(SB,"sB","fb");
+renderFill(SC,"sC","fc");
+renderFill(SD,"sD","fd");
+renderFix(SE,"sE","fe");
 renderFill(S26,"s26","a");
 renderFill(S27,"s27","b");
 renderFill(S28,"s28","c");
 renderFill(S29,"s29","d");
 renderFill(S30,"s30","e");
 
-const KEY="review9_2630";
+const KEY="review9_2630_v2";
 const store=JSON.parse(localStorage.getItem(KEY)||"{}");
 function check(elm){
   const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);

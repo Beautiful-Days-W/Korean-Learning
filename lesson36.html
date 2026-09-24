@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 36 · 추석 음식·송편 빚기 (-(으)ㄹ 때) — Chuseok food</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  .chip{display:inline-block;background:var(--accent-soft);border-radius:6px;padding:1px 7px;font-weight:700;color:var(--accent);}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;margin-top:8px;}
+  .step{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.6;}
+  .step .n{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;width:22px;height:22px;line-height:22px;text-align:center;font-size:12px;font-weight:700;margin-bottom:4px;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 36 · 추석 음식·송편 빚기 <span class="sub">-(으)ㄹ 때 · 추석 시리즈 ②</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead"><b>추석 음식</b>을 소개하고, <b>송편 빚는 과정</b>을 "~할 때는 …" 으로 차근차근 설명하기. (Introduce Chuseok foods and walk through making songpyeon step by step with "when ~".)</p>
+    <div class="note">
+      ✓ <b>-(으)ㄹ 때</b> = "when ~ / at the time of ~": 송편을 <b>만들 때</b> 뜨거운 물을 써요 · 소를 <b>넣을 때</b> 조심해요<br>
+      ✓ <b>-았/었을 때</b> = "when (something already happened)": 한국에 <b>갔을 때</b> 처음 먹어 봤어요<br>
+      ✓ 명사 + <b>때</b>: <b>추석 때</b> · <b>명절 때</b> · <b>어릴 때</b> — 그리고 <b>때마다</b> = "every time"<br>
+      ✓ 추석 음식 어휘 10개 — 반죽·소·빚다·찌다·솔잎·토란국·갈비찜·나물 …
+    </div>
+    <div class="series">
+      🌕 <b>추석 시리즈 (5과)</b> — 2026년 추석은 <b>9월 25일(금)</b>이에요. ① 추석이 뭐예요?(L34) → ② 추석 음식·송편 빚기(오늘) → ③ 차례·성묘, 옛날과 요즘 → ④ 추석 인사·덕담 → ⑤ 추석과 추수감사절 비교
+      <span class="en">(Lesson 35 was a spelling special between ① and ②.)</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L31–35</span></h2>
+    <p class="lead">지난 과들에서 짧게. 답은 <b>해요체</b>로 쓰세요 (기본형은 [ ] 안에).</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (-(으)ㄹ 때)</span></h2>
+    <div class="rule">
+      <b>① -(으)ㄹ 때 = "~할 때, 그 시간에"</b> <span class="en">— "when ~ / while ~": the moment or period during which something happens.</span><br>
+      <span class="en">동사·형용사 어간 + <b>-(으)ㄹ 때</b>. 받침 없음·ㄹ 받침 → <b>-ㄹ 때</b>, 받침 있음 → <b>-을 때</b>. ★ <b>때</b>는 띄어 써요 (만들 때 ✓ · 만들<span class="wrong">때</span> ✗).</span>
+      <table class="conj">
+        <tr><th>기본형</th><th>규칙</th><th>-(으)ㄹ 때</th><th>예문</th></tr>
+        <tr><td>만들다</td><td>ㄹ 받침 → -ㄹ 때</td><td class="k">만들 때</td><td>송편을 <b>만들 때</b> 뜨거운 물을 써요.</td></tr>
+        <tr><td>찌다</td><td>받침 없음 → -ㄹ 때</td><td class="k">찔 때</td><td>송편을 <b>찔 때</b> 솔잎을 깔아요.</td></tr>
+        <tr><td>빚다 · 넣다 · 먹다</td><td>받침 → -을 때</td><td class="k">빚을 때 · 넣을 때 · 먹을 때</td><td>소를 <b>넣을 때</b> 조심해요.</td></tr>
+        <tr><td>듣다</td><td>ㄷ 불규칙 → 들 + 을 때</td><td class="k">들을 때</td><td>음악을 <b>들을 때</b> 행복해요.</td></tr>
+        <tr><td>덥다</td><td>ㅂ 불규칙 → 더우 + ㄹ 때</td><td class="k">더울 때</td><td>날씨가 <b>더울 때</b> 반죽이 빨리 말라요.</td></tr>
+      </table>
+
+      <b>② -았/었을 때 = 이미 일어난 일 "~했을 때"</b> <span class="en">— "when (something had happened / I was there)". Compare: 갈 때 = on the way there; 갔을 때 = when I was there (having gone).</span>
+      <div class="exbox">
+        한국에 <b>갈 때</b> 비행기에서 영화를 봤어요. <span class="en">(when going = on the way)</span><br>
+        한국에 <b>갔을 때</b> 처음 토란국을 먹어 봤어요. <span class="en">(when I was in Korea)</span><br>
+        송편이 다 <b>익었을 때</b> 찬물에 헹구고 참기름을 발라요. <span class="en">(once they're cooked)</span><br>
+        처음 <b>들었을 때</b> 무슨 뜻인지 몰랐어요. <span class="en">(when I first heard it)</span>
+      </div>
+
+      <b>③ 명사 + 때 · 어릴 때 · 때마다</b> <span class="en">— with time nouns just add 때 (no -(으)ㄹ). 어리다 → 어릴 때 = "when I was little".</span>
+      <div class="exbox">
+        <b>추석 때</b> 온 가족이 모여요. · <b>명절 때</b>는 한국 마트가 붐벼요. · <b>방학 때</b> 한국에 갔어요.<br>
+        ✗ 추석<span class="wrong">일 때</span> → ✓ <b>추석 때</b> <span class="en">(time nouns: just 때)</span><br>
+        <b>어릴 때</b> 할머니 옆에서 송편을 빚곤 했어요. <span class="en">(어리다 = to be young → 어릴 때)</span><br>
+        명절 <b>때마다</b> 어머니가 갈비찜을 해 주셨어요. <span class="en">(때마다 = every time)</span> · 송편을 <b>먹을 때마다</b> 할머니 생각이 나요.
+      </div>
+
+      <b>④ -(으)ㄹ 때 vs -(으)면 vs -(으)면서</b> <span class="en">— "when (time)" vs "if/when (condition)" vs "while (doing two things at once)".</span>
+      <div class="exbox">
+        송편을 <b>빚을 때</b> 손에 물을 묻혀요. = 그 시간에 <span class="en">(when you shape them)</span><br>
+        소를 너무 많이 <b>넣으면</b> 터져요. = 조건·결과 <span class="en">(if you put too much)</span><br>
+        송편을 <b>빚으면서</b> 이야기를 해요. = 동시에 두 가지 <span class="en">(while shaping, at the same time)</span>
+      </div>
+
+      <div class="warnbox">
+        ⚠️ <b>때</b> 앞은 항상 <b>-(으)ㄹ</b>(미래형 모양)이에요. 현재·과거 일이라도 <b>-는 때</b>·<b>-던 때</b>로 쓰지 않아요: ✗ 먹<span class="wrong">는</span> 때 → ✓ 먹<b>을</b> 때. 지난 일은 <b>-았/었을 때</b>로!
+      </div>
+    </div>
+
+    <div class="subh">송편 빚기 6단계 <span class="en" style="font-weight:400;color:var(--muted)">How to make songpyeon — read each step aloud</span></div>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><br>쌀가루에 <b>뜨거운 물</b>을 넣고 <b>반죽해요</b>. <span class="en">(hot water → smooth dough)</span></div>
+      <div class="step"><span class="n">2</span><br>반죽을 조금 떼어서 동그랗게 만들고 가운데를 눌러요.</div>
+      <div class="step"><span class="n">3</span><br><b>소</b>(깨+설탕·콩·밤)를 넣고 <b>반달 모양</b>으로 <b>빚어요</b>.</div>
+      <div class="step"><span class="n">4</span><br>찜기에 <b>솔잎</b>을 깔고 20분쯤 <b>쪄요</b>.</div>
+      <div class="step"><span class="n">5</span><br>다 익으면 <b>찬물</b>에 살짝 헹궈요.</div>
+      <div class="step"><span class="n">6</span><br><b>참기름</b>을 얇게 발라요 — 반짝반짝!</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 추석 음식 (10)</span></h2>
+    <table class="vocab"><tr><th>단어</th><th>뜻</th><th>단어</th><th>뜻</th></tr><tbody id="vtable"></tbody></table>
+  </section>
+
+  <section>
+    <h2>3. -(으)ㄹ 때 만들기 <span class="en">Make the form · 입력 즉시 채점</span></h2>
+    <p class="lead">단어를 <b>-(으)ㄹ 때</b>로 바꿔 쓰세요 (예: 가다 → 갈 때). [ ] 안에 <b>과거</b>라고 있으면 <b>-았/었을 때</b>, <b>명사</b>면 그냥 <b>N 때</b>! ★ <b>때</b>는 띄어 쓰세요.</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 채우기 <span class="en">Complete the sentences · 송편 빚기 과정</span></h2>
+    <p class="lead">송편 빚는 과정과 추석 음식 이야기를 <b>-(으)ㄹ 때</b>로 완성하세요. 빈칸에 <b>~ 때</b> 부분만 쓰면 돼요.</p>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 — 송편 같이 빚어요 <span class="en">Making songpyeon together</span></h2>
+    <p class="lead">토요일, 민수가 지호 집에 와서 송편을 같이 빚어요. 선생님과 <b>번갈아 소리 내어</b> 읽어요 (지호 ↔ 민수, 해요체). 그다음 대본을 덮고 <b>내가 잘 만드는 음식</b>으로 바꿔 말해 봐요.</p>
+    <div class="dlg">
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">지호 씨, 저 왔어요. 우와, 반죽을 벌써 다 했네요?</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">네, 어머니가 아침에 하셨어요. 쌀가루를 <b>반죽할 때</b> 꼭 뜨거운 물을 써야 한대요. 그래야 안 갈라진대요.</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">아, 그렇군요. 저는 뭘 하면 돼요?</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">우선 손에 물을 조금 묻히세요. 반죽을 <b>빚을 때</b> 손에 안 붙어요. 반죽을 조금 떼어서 동그랗게 만들고, 가운데를 눌러서 소를 넣으면 돼요.</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">소는 뭐예요?</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">깨하고 설탕을 섞은 거예요. 소를 <b>넣을 때</b> 너무 많이 넣으면 찔 때 터져요. 그리고 반달 모양으로 꼭 눌러서 닫아요.</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">이렇게요? 제 건 좀 못생겼는데요.</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">하하, 괜찮아요. 저도 <b>어릴 때</b>는 제가 빚은 건 다 못생겼었어요. 한국에서는 송편을 예쁘게 빚으면 예쁜 아이를 낳는다는 말도 있어요.</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">그래요? 그럼 더 열심히 빚어야겠네요. 다 만들면 어떻게 해요?</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">찜기에 솔잎을 깔고 20분쯤 쪄요. 다 <b>익었을 때</b> 찬물에 살짝 헹구고 참기름을 발라요. 그러면 반짝반짝 예뻐요.</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">냄새가 벌써 좋을 것 같아요. 그런데 추석에 송편만 먹어요?</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">아니요. 토란국하고 갈비찜, 나물도 상에 올려요. 작년에 한국에 <b>갔을 때</b> 처음 토란국을 먹어 봤는데, 저한테는 좀 낯설더라고요.</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">저는 갈비찜이 제일 좋아요. 명절 <b>때마다</b> 어머니가 해 주셨어요.</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">그럼 오늘 저녁에 갈비찜도 같이 먹어요. 송편 다 찌고 나서 상을 <b>차릴 때</b> 좀 도와주세요.</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">네, 좋아요! 대신 설거지는 제가 할게요.</span></div>
+    </div>
+    <div class="subh">빈칸 채우기 <span class="en" style="font-weight:400;color:var(--muted)">Fill in — from the dialogue</span></div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 쓰기 숙제 <span class="en">Homework · write &amp; submit</span></h2>
+    <p class="lead"><b>내가 잘 만드는 음식(또는 우리 가족의 명절 음식) 만드는 법</b>을 4~6문장으로 써 보세요. <b>-(으)ㄹ 때</b>를 두 번 이상 넣고, 그중 하나는 <b>-았/었을 때</b>로! (예: "처음 만들었을 때는 …")</p>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 저는 팬케이크를 잘 만들어요. 반죽을 만들 때 우유를 조금씩 넣으면서 섞어요. 팬이 뜨거울 때 반죽을 한 숟가락씩 올려요. 위에 작은 구멍이 생겼을 때 뒤집으면 돼요. 처음 만들었을 때는 다 탔지만, 지금은 가족들이 주말마다 먹고 싶다고 해요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요 <span class="en" style="font-weight:400;color:var(--muted)">write &amp; submit right here</span></div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="예) 저는 …를 잘 만들어요. 반죽을 만들 때 …"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw36()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 송편 빚기 설명하기 (길게 말하기)</h3>
+    <p class="lead">위 6단계 그림을 보면서 학습자가 <b>"~할 때는 …"</b>으로 과정을 처음부터 끝까지 설명해요. 선생님은 "그다음에는요?" · "그때 뭘 조심해요?" · "왜요?"로만 밀어 주세요.</p>
+    <ul>
+      <li>"먼저 뭐 해요?" → 반죽할 때는 뜨거운 물을 써요. 그래야 안 갈라져요.</li>
+      <li>"그다음에는요?" → 빚을 때는 손에 물을 묻혀요 · 소를 넣을 때는 너무 많이 안 넣어요.</li>
+      <li>"찔 때는요?" → 찔 때는 솔잎을 깔아요 · 다 익었을 때는 찬물에 헹구고 참기름을 발라요.</li>
+      <li>"다 만들었을 때 기분이 어땠어요?" → <b>-았/었을 때</b>로 대답 유도.</li>
+      <li>대본을 덮고 <b>내가 잘 만드는 음식</b>으로 바꿔서 같은 흐름으로 (숙제 예행연습).</li>
+    </ul>
+
+    <h3>② -(으)ㄹ 때 ↔ -았/었을 때 속사포</h3>
+    <p class="lead">같은 동사로 두 형태를 번갈아. 뜻 차이("가는 길에" vs "가 있을 때")를 짧게 확인.</p>
+    <ul>
+      <li>가다 → 한국에 <b>갈 때</b> 비행기에서 영화를 봤어요 ↔ 한국에 <b>갔을 때</b> 토란국을 먹어 봤어요</li>
+      <li>먹다 → 송편을 <b>먹을 때</b> 차를 마셔요 ↔ 처음 <b>먹었을 때</b> 좀 낯설었어요</li>
+      <li>듣다(ㄷ) → 음악을 <b>들을 때</b> ↔ 처음 <b>들었을 때</b> · 덥다(ㅂ) → 날씨가 <b>더울 때</b> ↔ 작년 여름 <b>더웠을 때</b></li>
+      <li>명사 → <b>추석 때</b> · <b>명절 때마다</b> · <b>어릴 때</b> (✗ 추석일 때)</li>
+    </ul>
+
+    <h3>③ 추석 음식 인터뷰</h3>
+    <ul>
+      <li>"추석 때 뭘 먹어요?" → 송편·토란국·갈비찜·나물·전 … (L34 <b>-기도 하고 -기도 해요</b>로 이어 말하기)</li>
+      <li>"처음 먹었을 때 어땠어요?" → <b>-았/었을 때 + -더라고요</b>(L33) 결합: 처음 먹었을 때 좀 낯설더라고요</li>
+    </ul>
+
+    <h3>④ 다음 시간 예고</h3>
+    <p class="lead">추석 시리즈 ③ 차례·성묘, 옛날과 요즘 — "요즘은 차례를 안 지내는 편이에요"처럼 <b>-(으)ㄴ/는 편이에요</b>로 경향 말하기.</p>
+
+    <p class="lead" style="color:var(--warm)">성공 기준: 6단계 그림만 보고 <b>-(으)ㄹ 때</b>를 4번 이상 써서 송편 빚기를 대본 없이 설명하기 (때 띄어쓰기 · 지난 일은 -았/었을 때). (숙제 = 위 6번 쓰기 → 제출)</p>
+  </div>
+
+  <footer>Lesson 36 / 추석 음식·송편 빚기 · -(으)ㄹ 때 · 추석 시리즈 ②</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[
+  ["반죽(하다)","dough (to knead / make dough)"],["소(를 넣다)","filling (to put in the filling)"],
+  ["빚다","to shape / mold (rice cakes, dumplings)"],["찌다","to steam"],
+  ["솔잎","pine needles (laid under songpyeon when steaming)"],["참기름(을 바르다)","sesame oil (to brush on)"],
+  ["토란국","taro soup (Chuseok soup)"],["갈비찜","braised short ribs"],
+  ["나물","seasoned vegetable side dishes"],["상을 차리다","to set the table (lay out the food)"]
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤] — L31~35
+  ['-기도 하고 -기도 해요 · 쉬다','연휴에는 여행을 가기도 하고 집에서 ','쉬기도 해요',' .'],
+  ['-더라고요 · 맛있다','처음 먹어 봤는데 송편이 정말 ','맛있더라고요',' .'],
+  ['-(으)면 좋겠어요(내 행동) · 만들다','올해는 송편을 직접 ','만들면 좋겠어요',' .'],
+  ['마음에 들다 (과거)','할머니가 보내 주신 한복이 정말 ','마음에 들었어요',' .'],
+  ['외래어 표기 · 영어 "cake"','추석에는 송편을 먹고 생일에는 ','케이크',' 를 먹어요.']
+];
+const ADV=[ // [단어, 정답]
+  ['먹다','먹을 때'],['만들다','만들 때'],['빚다','빚을 때'],['찌다','찔 때'],
+  ['어리다','어릴 때'],['듣다 [ㄷ 불규칙]','들을 때'],['덥다 [ㅂ 불규칙]','더울 때'],
+  ['가다 [과거]','갔을 때'],['살다 [과거]','살았을 때'],['추석 [명사]','추석 때']
+];
+const EXP=[ // [앞, 정답(|), 뒤, 힌트]
+  ['송편을 ','만들 때',' 먼저 쌀가루에 뜨거운 물을 넣고 반죽해요.','만들다 → -(으)ㄹ 때'],
+  ['소를 ','넣을 때',' 너무 많이 넣으면 터져요.','넣다 → -(으)ㄹ 때'],
+  ['송편을 ','찔 때',' 솔잎을 깔면 향이 좋아요.','찌다 → -(으)ㄹ 때'],
+  ['송편이 다 ','익었을 때',' 찬물에 헹구고 참기름을 발라요.','익다(to be cooked) → -았/었을 때'],
+  ['','어릴 때',' 할머니 옆에서 송편을 빚곤 했어요.','어리다 → -(으)ㄹ 때 (+ -곤 했어요 L29)'],
+  ['한국에서는 ','추석 때',' 토란국하고 갈비찜을 먹어요.','추석 → 명사 + 때']
+];
+const DLG=[ // 실전 대화 [앞, 정답(|), 뒤, 힌트]
+  ['쌀가루를 ','반죽할 때',' 꼭 뜨거운 물을 써야 한대요.','반죽하다 → -(으)ㄹ 때'],
+  ['손에 물을 조금 묻히세요. 반죽을 ','빚을 때',' 손에 안 붙어요.','빚다 → -(으)ㄹ 때'],
+  ['소를 ','넣을 때',' 너무 많이 넣으면 찔 때 터져요.','넣다 → -(으)ㄹ 때'],
+  ['다 ','익었을 때',' 찬물에 살짝 헹구고 참기름을 발라요.','익다 → -았/었을 때'],
+  ['작년에 한국에 ','갔을 때',' 처음 토란국을 먹어 봤어요.','가다 → -았/었을 때'],
+  ['송편 다 찌고 나서 상을 ','차릴 때',' 좀 도와주세요.','차리다 → -(으)ㄹ 때']
+];
+
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((v,i)=>{ if(i%2===0){const r=document.createElement("tr");r.id="vr"+i;el("vtable").appendChild(r);} });
+VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjacentHTML("beforeend",`<td><b>${v[0]}</b></td><td>${v[1]}</td>`); });
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko"><b>${a[0]}</b></span> →
+   ${IN} class="ans mid" data-type="exact" data-ans="${a[1]}" data-k="a${i}">
+   <span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson36_chuseok_food_ttae";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw36(){
+  const ta=document.getElementById("hwtext"), msg=document.getElementById("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 36 · 추석 음식 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 36 · 추석 음식·송편 빚기(-(으)ㄹ 때)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>

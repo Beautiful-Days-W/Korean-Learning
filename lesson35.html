@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 35 · 외래어 표기 — 영어 a·e를 한글로 (Loanword spelling: English a and e)</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .rule .en{color:var(--muted);font-size:13px;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 12px;font-size:14px;line-height:1.9;}
+  .exbox .en{color:var(--muted);font-size:12.5px;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0 12px;font-size:13.5px;line-height:1.8;}
+  .keybox{background:#ecfdf5;border:2px solid #a7f3d0;border-radius:10px;padding:10px 14px;margin:8px 0 12px;font-size:15px;line-height:1.9;}
+  .keybox b{color:var(--ok);}
+  .chip{display:inline-block;background:var(--accent-soft);border-radius:6px;padding:1px 8px;font-weight:700;color:var(--accent);}
+  .chip.a{background:#fef3c7;color:#92400e;} .chip.e{background:#dbeafe;color:#1e40af;} .chip.i{background:#dcfce7;color:#166534;} .chip.o{background:#fce7f3;color:#9d174d;}
+  .snd{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--warm);}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:10px;}
+  .grp{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.85;background:#fff;}
+  .grp .gh{font-weight:700;margin-bottom:4px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+  .grp .gh .en{font-size:12px;color:var(--muted);font-weight:500;}
+  .grp .w{display:flex;justify-content:space-between;gap:8px;border-top:1px dashed var(--line);padding:2px 0;}
+  .grp .w:first-of-type{border-top:none;}
+  .grp .w .k{font-weight:700;color:var(--ok);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .en-word{font-size:16px;font-weight:700;font-family:Georgia,"Times New Roman",serif;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .wrong{color:var(--no);text-decoration:line-through;text-decoration-thickness:2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 35 · 외래어 표기 <span class="sub">영어 a·e를 한글로 — ㅐ? ㅔ? 에이? ㅏ?</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">영어에서 온 말(외래어)을 한글로 쓸 때 <b>a</b>와 <b>e</b>가 <b>ㅐ·ㅔ·에이·ㅏ·ㅣ·ㅓ</b> 중 어디로 가는지 — 그 규칙을 이해하고, 자주 틀리는 표기(카페·호텔·벨트·케이…)를 스스로 고칠 수 있게. <span class="en">(Learn how English a and e map to Korean vowels, and fix the common ㅐ/ㅔ mix-ups for good.)</span></p>
+    <div class="note">
+      ✓ 한글은 영어 <b>글자</b>가 아니라 영어 <b>소리</b>를 옮겨요 <span class="en">(Korean spells the sound, not the letter)</span><br>
+      ✓ <b>ㅐ</b>는 오직 c<b>a</b>t 소리 · <b>ㅔ</b>는 b<b>e</b>d 소리 · "에이" 소리는 <b>ㅔ+이</b> · c<b>ar</b> 소리는 <b>ㅏ</b> <span class="en">(the four vowels you'll actually decide between)</span><br>
+      ✓ 오늘은 <b>말하기·쓰기 숙제 없이</b>, 문제를 풀면서 바로 확인해요 <span class="en">(no dialogue or essay today — practice-only, instant grading)</span>
+    </div>
+    <div class="series">
+      🌕 <b>추석 시리즈는 다음 시간에 이어져요</b> — 오늘은 잠깐 쉬어 가는 <b>표기 특강</b>이에요. 지난 숙제들에서 여러 번 나온 ㅐ/ㅔ 표기를 한 번에 정리합니다.
+      <span class="en">(A short spelling clinic between Chuseok lessons.)</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L30–34</span></h2>
+    <p class="lead">지난 과들에서 짧게. 답은 <b>해요체</b>로 쓰세요 (기본형은 [ ] 안에).</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (외래어 표기 · a and e)</span></h2>
+    <div class="rule">
+      <b>① 글자가 아니라 소리를 옮겨요</b> <span class="en">— Korean writes the English SOUND, not the English letter.</span><br>
+      같은 글자 <b>a</b>라도 소리가 다르면 한글도 달라져요. 그래서 먼저 <b>"영어로 어떻게 소리 나지?"</b>를 물어보세요.
+      <div class="exbox">
+        c<b>a</b>t <span class="snd">[æ]</span> → <span class="ex">캣</span> &nbsp;·&nbsp; c<b>a</b>ke <span class="snd">[eɪ]</span> → <span class="ex">케이크</span> &nbsp;·&nbsp; c<b>a</b>r <span class="snd">[ɑː]</span> → <span class="ex">카</span><br>
+        <span class="en">Same letter a, three different Korean spellings — because the English sounds are different. First ask: how does it sound in English?</span>
+      </div>
+
+      <b>② 영어 a → 네 가지</b> <span class="en">— the letter a goes four ways, by sound.</span>
+      <div class="exbox">
+        <span class="chip a">ㅐ</span> <b>cat 소리</b> <span class="snd">[æ]</span> — c<b>a</b>t · h<b>a</b>t · t<b>a</b>xi → <span class="ex">택시 · 캐나다 · 샌드위치 · 햄버거 · 재킷 · 캠핑</span><br>
+        <span class="en">The short "a" of cat/hat. This is the ONLY sound that becomes ㅐ.</span><br>
+        <span class="chip e">에이</span> <b>cake 소리</b> <span class="snd">[eɪ]</span> — c<b>a</b>ke · d<b>ay</b> · m<b>ai</b>l → <span class="ex">케이크 · 데이트 · 메일 · 게임 · 테이블 · 세일 · 베이컨 · 케이(Kay)</span><br>
+        <span class="en">The long "ay" sound is ㅔ + 이. Spellings a_e, ay, ai all sound like this.</span>
+        &nbsp;⚠️ ㅐ+이는 없어요: <span class="wrong">캐이크</span> → <span class="ex">케이크</span> · <span class="wrong">캐이</span> → <span class="ex">케이</span><br>
+        <span class="chip">ㅏ</span> <b>car 소리</b> <span class="snd">[ɑː]</span> — c<b>ar</b> · p<b>ar</b>k · G<b>ar</b>dner → <span class="ex">카드 · 파크 · 파스타 · 스타 · 가든 · 가드너</span><br>
+        <span class="en">The open "ah" of car/park (usually a + r).</span><br>
+        <span class="chip">ㅏ</span> <b>약한 a</b> <span class="snd">[ə]</span> — b<b>a</b>nan<b>a</b> · sof<b>a</b> → <span class="ex">바나나 · 소파 · 피자 · 아메리카 · 캐나<b>다</b></span><br>
+        <span class="en">The weak, unstressed a (a "schwa") is usually written ㅏ following the spelling. This group is the least regular — learn word by word. But note: it is never ㅐ.</span>
+      </div>
+
+      <b>③ 영어 e → 세 가지</b> <span class="en">— the letter e goes three ways, by sound.</span>
+      <div class="exbox">
+        <span class="chip e">ㅔ</span> <b>bed 소리</b> <span class="snd">[e]</span> — b<b>e</b>d · b<b>e</b>lt · hot<b>e</b>l → <span class="ex">벨트 · 호텔 · 메뉴 · 펜 · 텐트 · 체크 · 헬멧 · 레몬 · 퀘벡</span><br>
+        <span class="en">The short "e" of bed. This is where most e's go.</span><br>
+        <span class="chip i">ㅣ</span> <b>me 소리</b> <span class="snd">[iː]</span> — m<b>e</b> · <b>e</b>-mail · t<b>ea</b>m · m<b>ee</b>ting → <span class="ex">이메일 · 팀 · 미팅 · 치즈 · 티</span><br>
+        <span class="en">The long "ee" sound is ㅣ. Spellings e, ee, ea all sound like this.</span><br>
+        <span class="chip o">ㅓ</span> <b>e + r</b> <span class="snd">[ɜːr / ər]</span> — h<b>er</b> · cent<b>er</b> · Gardn<b>er</b> → <span class="ex">센터 · 컴퓨터 · 서비스 · 햄버거 · 가드너</span><br>
+        <span class="en">e followed by r is ㅓ. A word-final -er is almost always ㅓ (센터, 컴퓨터).</span>
+      </div>
+
+      <b>④ ★ 오늘의 한 줄 규칙</b> <span class="en">— the one rule to remember.</span>
+      <div class="keybox">
+        1) 영어 <b>e 글자</b>는 <b>ㅔ</b> 아니면 <b>ㅣ</b>. <b>ㅐ는 절대 아니에요!</b> <span class="en">(The letter e is NEVER ㅐ.)</span><br>
+        2) <b>ㅐ</b>는 오직 <b>cat 소리</b>에만. <span class="en">(ㅐ is ONLY for the cat vowel.)</span><br>
+        3) <b>"에이" 소리</b>는 <b>ㅔ + 이</b>. <span class="en">(The "ay" sound is 에이: 케이·게임·메일.)</span>
+      </div>
+
+      <b>⑤ 예외: 프랑스어에서 온 말</b> <span class="en">— words that came through French.</span>
+      <div class="exbox">
+        caf<b>é</b> → <span class="ex">카페</span> · ball<b>et</b> → <span class="ex">발레</span> · buff<b>et</b> → <span class="ex">뷔페</span> · bagu<b>ette</b> → <span class="ex">바게트</span><br>
+        <span class="en">Word-final é / -et sounds like "ay", but these French-origin words are written with a single 에 (not 에이). Still never ㅐ.</span>
+      </div>
+
+      <div class="warnbox">
+        ⚠️ <b>왜 헷갈릴까요?</b> 요즘 한국어에서 <b>ㅐ와 ㅔ는 소리가 거의 같아요</b>. 한국 사람도 소리로는 구별하지 못하고 <b>표기로 외워요</b>. 그래서 한국어 소리를 듣고 고르면 안 되고, <b>영어 원래 소리</b>로 판단해야 해요. 영어가 모국어인 사람에게는 오히려 쉬운 규칙이에요!
+        <span class="en">(In modern Korean, ㅐ and ㅔ are pronounced the same, so Koreans memorize the spelling word by word. Don't judge by the Korean sound — judge by the original English sound. That gives a native English speaker the advantage.)</span>
+      </div>
+
+      <div class="warnbox">
+        🔁 <b>지난 숙제들에서 나온 실수 네 개</b> — 모두 <b>같은 실수</b>예요: ㅔ 자리에 ㅐ.<br>
+        <span class="wrong">캐이</span> → <span class="ex">케이</span> (K<b>ay</b>, 에이 소리) &nbsp;·&nbsp; <span class="wrong">밸트</span> → <span class="ex">벨트</span> (b<b>e</b>lt, bed 소리) &nbsp;·&nbsp; <span class="wrong">호탤</span> → <span class="ex">호텔</span> (hot<b>e</b>l, bed 소리) &nbsp;·&nbsp; <span class="wrong">카패</span> → <span class="ex">카페</span> (caf<b>é</b>, 프랑스어)<br>
+        <span class="en">(All four put ㅐ where ㅔ belongs. Once the rule in ④ sticks, these disappear together.)</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 참고표 — 자주 쓰는 외래어 <span class="en">Reference · everyday loanwords by vowel</span></h2>
+    <p class="lead">소리 그룹별로 모았어요. 드릴을 풀다가 막히면 여기로 돌아오세요. <span class="en">(Grouped by sound. Come back here when a drill stumps you.)</span></p>
+    <div class="grid2" id="reftable"></div>
+  </section>
+
+  <section>
+    <h2>3. 영어 a → 한글 <span class="en">The letter a · 입력 즉시 채점</span></h2>
+    <p class="lead">영어 단어를 <b>한글 표기</b>로 쓰세요. [ ] 안의 힌트는 <b>소리 그룹</b>이에요 (cat · cake · car). <span class="en">(Type the Korean spelling. The bracket tells you which sound group the a belongs to.)</span></p>
+    <div id="da"></div>
+  </section>
+
+  <section>
+    <h2>4. 영어 e → 한글 <span class="en">The letter e · 입력 즉시 채점</span></h2>
+    <p class="lead">영어 단어를 <b>한글 표기</b>로 쓰세요. [ ] 안의 힌트는 <b>소리 그룹</b>이에요 (bed · me · her). <span class="en">(Type the Korean spelling. The bracket tells you which sound group the e belongs to.)</span></p>
+    <div id="de"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. ⭐ 틀린 표기 고치기 <span class="en">Fix the misspelling · ㅐ ↔ ㅔ</span></h2>
+    <p class="lead">왼쪽은 <b>틀린 표기</b>예요. 영어 단어를 보고 <b>바른 표기</b>를 쓰세요. 이번엔 소리 힌트가 없어요 — 규칙 ④로 판단! <span class="en">(The left side is misspelled. Write the correct Korean. No sound hints this time — apply rule ④.)</span></p>
+    <div id="dfix"></div>
+  </section>
+
+  <section>
+    <h2>6. 캐나다 지명 <span class="en">Canadian place names · 입력 즉시 채점</span></h2>
+    <p class="lead">우리 동네 이름들을 <b>표준 한글 표기</b>로 쓰세요. 지명은 정해진 표기 하나만 맞아요. <span class="en">(Standard Korean spellings of places you actually talk about. Each has exactly one standard form.)</span></p>
+    <div id="dpl"></div>
+  </section>
+
+  <section>
+    <h2>7. 문장 속에 쓰기 <span class="en">In real sentences · 여행·일상</span></h2>
+    <p class="lead">빈칸에 [ ] 안 영어 단어의 <b>한글 표기</b>를 넣으세요. 지난 과들의 문형과 함께! <span class="en">(Fill in the Korean spelling of the bracketed English word — inside sentences using recent grammar.)</span></p>
+    <div id="dsen"></div>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">문제풀이 확인 · 짧게</span></h2>
+
+    <h3>① 받아쓰기 속사포 (소리 듣고 판단)</h3>
+    <p class="lead">선생님이 <b>영어 단어를 영어 발음으로</b> 말하면 학습자가 한글로 써요(종이 또는 채팅). 오늘 규칙의 핵심 = "영어 소리로 판단" 그 자체가 연습이 돼요.</p>
+    <ul>
+      <li>hotel · cake · taxi · game · belt · café · menu · Canada · mail · hamburger · e-mail · computer</li>
+      <li>틀리면 바로 되묻기: "cat 소리예요, cake 소리예요, bed 소리예요?" → 학습자가 그룹을 말한 뒤 다시 쓰기</li>
+    </ul>
+
+    <h3>② 규칙 즉답</h3>
+    <ul>
+      <li>"e 글자는?" → <b>ㅔ 아니면 ㅣ</b> (ㅐ 절대 아님)</li>
+      <li>"ㅐ는 언제?" → <b>cat 소리만</b></li>
+      <li>"에이 소리는?" → <b>ㅔ + 이</b> (케이·게임·메일)</li>
+      <li>"끝의 -er는?" → <b>ㅓ</b> (센터·컴퓨터)</li>
+      <li>"카페는 왜 에이가 아니에요?" → <b>프랑스어</b>에서 온 말 (카페·발레·뷔페)</li>
+    </ul>
+
+    <h3>③ 다음 시간 예고</h3>
+    <p class="lead">추석 시리즈 ② 추석 음식·송편 빚기로 돌아갑니다. 오늘 배운 표기는 앞으로 첨삭에서 "규칙 ④"로만 짚어 주면 돼요.</p>
+
+    <p class="lead" style="color:var(--warm)">성공 기준: <b>5번 틀린 표기 고치기 12문항 전부 정답</b> + 받아쓰기 12개 중 10개 이상. 오늘은 쓰기 숙제·실전 대화 없음 — 문제풀이로 확인.</p>
+  </div>
+
+  <footer>Lesson 35 / 외래어 표기 · 영어 a·e를 한글로 (ㅐ·ㅔ·에이·ㅏ)</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤] — L30~34
+  ['-더라고요 · 춥다','퀘벡은 밤에 생각보다 ','춥더라고요',' .'],
+  ['-기도 하고 -기도 해요 · 사다','송편을 만들기도 하고 한국 마트에서 ','사기도 해요',' .'],
+  ['-았/었으면 좋겠어요(못 바꾸는 일) · 맑다','추석에 날씨가 ','맑았으면 좋겠어요',' .'],
+  ['-(으)려고 하다 · 듣다','오는 길에 음악을 ','들으려고 해요',' .'],
+  ['높임 · 있다 → ? (현재)','할머니는 한국에 ','계세요',' .']
+];
+
+const REF=[ // [그룹 라벨, chip class, 영어 소리 설명, [[영어, 한글],...]]
+  ['ㅐ · cat 소리','a','short a [æ]',[['taxi','택시'],['Canada','캐나다'],['sandwich','샌드위치'],['hamburger','햄버거'],['jacket','재킷'],['camping','캠핑'],['battery','배터리'],['jam','잼']]],
+  ['에이 · cake 소리','e','long a [eɪ]',[['cake','케이크'],['game','게임'],['mail','메일'],['table','테이블'],['date','데이트'],['sale','세일'],['bacon','베이컨'],['Kay','케이']]],
+  ['ㅏ · car 소리 / 약한 a','','[ɑː] or weak [ə]',[['card','카드'],['park','파크'],['pasta','파스타'],['star','스타'],['garden','가든'],['banana','바나나'],['sofa','소파'],['pizza','피자']]],
+  ['ㅔ · bed 소리','e','short e [e]',[['hotel','호텔'],['belt','벨트'],['menu','메뉴'],['pen','펜'],['tent','텐트'],['check','체크'],['helmet','헬멧'],['lemon','레몬']]],
+  ['ㅣ · me 소리','i','long e [iː]',[['e-mail','이메일'],['team','팀'],['meeting','미팅'],['cheese','치즈'],['tea','티'],['jeans','진'],['key','키'],['coffee','커피']]],
+  ['ㅓ · e + r','o','[ɜːr] / [ər]',[['center','센터'],['computer','컴퓨터'],['service','서비스'],['person','퍼슨'],['Gardner','가드너'],['runner','러너'],['hamburger','햄버거'],['printer','프린터']]]
+];
+
+const DA=[ // 영어 a [영어, 힌트, 정답]
+  ['taxi','cat','택시'],['sandwich','cat','샌드위치'],['camping','cat','캠핑'],['jacket','cat','재킷'],
+  ['cake','cake','케이크'],['game','cake','게임'],['mail','cake','메일'],['table','cake','테이블'],
+  ['card','car','카드'],['park','car','파크'],['pasta','car','파스타'],['star','car','스타']
+];
+const DE=[ // 영어 e [영어, 힌트, 정답]
+  ['hotel','bed','호텔'],['belt','bed','벨트'],['menu','bed','메뉴'],['tent','bed','텐트'],['check','bed','체크'],['helmet','bed','헬멧'],
+  ['e-mail','me','이메일'],['team','me','팀'],['meeting','me','미팅'],
+  ['center','her','센터'],['computer','her','컴퓨터'],['hamburger','cat + her','햄버거']
+];
+const DFIX=[ // 틀린 표기 고치기 [틀린 표기, 영어, 정답]
+  ['카패','café','카페'],['호탤','hotel','호텔'],['밸트','belt','벨트'],['캐이','Kay','케이'],
+  ['캐이크','cake','케이크'],['개임','game','게임'],['매뉴','menu','메뉴'],['텍시','taxi','택시'],
+  ['센드위치','sandwich','샌드위치'],['헴버거','hamburger','햄버거'],['배이컨','bacon','베이컨'],['컴퓨태','computer','컴퓨터']
+];
+const DPL=[ // 지명 [영어, 정답]
+  ['Toronto','토론토'],['Ottawa','오타와'],['Quebec','퀘벡'],['Vancouver','밴쿠버'],['Calgary','캘거리'],
+  ['Hamilton','해밀턴'],['Halifax','핼리팩스'],['Niagara','나이아가라'],['Ontario','온타리오'],['Beltline','벨트라인']
+];
+const DSEN=[ // 문장 [앞, 정답, 뒤, 영어]
+  ['지난 주말에 ','케이 가드너 벨트라인',' 에 갔어요.','Kay Gardner Beltline'],
+  ['퀘벡 구시가지 ','카페',' 에서 커피를 마셨어요.','café'],
+  ['도착해서 ','호텔',' 에 짐을 맡겼어요.','hotel'],
+  ['10월에 ','퀘벡',' 에 가기로 했어요.','Quebec'],
+  ['토론토에 오는 길에 ','오타와',' 에 들르려고 해요.','Ottawa'],
+  ['주말에 친구들하고 ','게임',' 을 하기도 하고 영화를 보기도 해요.','game'],
+  ['배가 고파서 ','샌드위치',' 하고 커피를 시켰어요.','sandwich'],
+  ['생일에 ','케이크',' 를 만들어 봤는데 생각보다 쉽더라고요.','cake']
+];
+
+function el(id){return document.getElementById(id);}
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+
+REF.forEach(g=>{
+  const rows=g[3].map(w=>`<div class="w"><span>${w[0]}</span><span class="k">${w[1]}</span></div>`).join("");
+  el("reftable").insertAdjacentHTML("beforeend",`<div class="grp"><div class="gh"><span class="chip ${g[1]}">${g[0]}</span><span class="en">${g[2]}</span></div>${rows}</div>`);
+});
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+DA.forEach((a,i)=>el("da").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="en-word">${a[0]}</span><span class="lbl">[${a[1]}]</span> →
+   ${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="fb" id="fb_a${i}"></span></div></div>`));
+DE.forEach((a,i)=>el("de").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="en-word">${a[0]}</span><span class="lbl">[${a[1]}]</span> →
+   ${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="e${i}">
+   <span class="fb" id="fb_e${i}"></span></div></div>`));
+DFIX.forEach((a,i)=>el("dfix").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko wrong">${a[0]}</span><span class="lbl">(${a[1]})</span> →
+   ${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="f${i}">
+   <span class="fb" id="fb_f${i}"></span></div></div>`));
+DPL.forEach((a,i)=>el("dpl").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="en-word">${a[0]}</span> →
+   ${IN} class="ans mid" data-type="exact" data-ans="${a[1]}" data-k="p${i}">
+   <span class="fb" id="fb_p${i}"></span></div></div>`));
+DSEN.forEach((s,i)=>el("dsen").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${s[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${s[1]}" data-k="s${i}">
+   <span class="ko">${s[2]}</span><span class="lbl">[${s[3]}]</span><span class="fb" id="fb_s${i}"></span></div></div>`));
+
+const KEY="lesson35_loanword_ae";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
