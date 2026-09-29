@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 38 · 어른께 안부 묻기·인사 드리기 (높임 -(으)시-) — Greeting elders</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+  .two .col{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;line-height:1.8;}
+  .two .col h4{margin:0 0 4px;font-size:13px;}
+  .two .col.up h4{color:var(--accent);} .two .col.down h4{color:var(--warm);}
+  @media (max-width:560px){.two{grid-template-columns:1fr;}}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 38 · 어른께 안부 묻기·인사 드리기 <span class="sub">높임 -(으)시- 한 세트 · 추석 시리즈 ④</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">한국에 계신 <b>할머니께 영상통화</b>로 늦은 추석 인사를 드리기 — 어른이 하는 일은 <b>높임 -(으)시-</b>, 내가 하는 일은 <b>낮춤 드리다·뵙다</b>로 말해서 <b>안부를 묻고, 전하고, 인사</b>하기. (Ask after an elder, pass on greetings, and close politely: honorific -(으)시- for their actions, humble 드리다·뵙다 for mine.)</p>
+    <div class="note">
+      ✓ <b>높임</b> = 어른이 하는 일 → <b>-(으)시-</b>: 추석 잘 <b>보내셨어요</b>? · 편찮으신 데는 <b>없으세요</b>? · 아침 <b>드셨어요</b>?<br>
+      ✓ <b>낮춤</b> = 내가 하는 일 → <b>드리다·뵙다</b>: 전화<b>드렸어요</b> · 선물을 <b>보내 드렸어요</b> · 다음에 꼭 <b>뵐게요</b><br>
+      ✓ 덕담은 딱 세 마디, 전부 <b>-(으)세요</b>: <b>건강하세요</b> · <b>복 많이 받으세요</b> · 즐거운 한가위 <b>보내세요</b><br>
+      ✓ 인사 어휘 10개 — 안부·덕담·연세·댁·성함·뵙다·편찮으시다·말씀드리다·용돈·오래오래
+    </div>
+    <div class="series">
+      🌕 <b>추석 시리즈 (5과)</b> — ① 추석이 뭐예요?(L34) → ② 추석 음식·송편 빚기(L36) → ③ 차례·성묘, 옛날과 요즘(L37) → ④ 어른께 안부·인사(오늘) → ⑤ 추석과 추수감사절 비교
+      <span class="en">(Lesson 4 of the Chuseok series. Chuseok was Sept 25 — a late greeting call is perfectly normal!)</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L33–37</span></h2>
+    <p class="lead">지난 과들에서 짧게. 답은 <b>해요체</b>로 쓰세요 (기본형은 [ ] 안에).</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (높임 -(으)시- · 낮춤 드리다·뵙다)</span></h2>
+    <div class="rule">
+      <b>① -(으)시- 하나로 세 가지: 물어보기 · 지난 일 · 부탁과 덕담</b> <span class="en">— one honorific marker, three jobs. Present question -(으)세요?, past -(으)셨어요?, and request/blessing -(으)세요 (same shape as the question!).</span>
+      <table class="conj">
+        <tr><th>기본형</th><th>규칙</th><th>지금 · 물어보기 -(으)세요?</th><th>지난 일 -(으)셨어요?</th><th>부탁·덕담 -(으)세요</th></tr>
+        <tr><td>가다 · 건강하다</td><td>받침 없음 → -세요</td><td class="k">어디 가세요?</td><td class="k">어디 가셨어요?</td><td class="k">늘 건강하세요</td></tr>
+        <tr><td>받다 · 읽다</td><td>받침 → -으세요</td><td class="k">뭐 읽으세요?</td><td class="k">선물 받으셨어요?</td><td class="k">복 많이 받으세요</td></tr>
+        <tr><td>살다</td><td>ㄹ 탈락 → 사세요</td><td class="k">어디 사세요?</td><td class="k">서울에 사셨어요?</td><td class="k">오래오래 사세요</td></tr>
+        <tr><td>듣다</td><td>ㄷ 불규칙 → 들으세요</td><td class="k">뭐 들으세요?</td><td class="k">소식 들으셨어요?</td><td class="k">천천히 들으세요</td></tr>
+      </table>
+      <div class="exbox">
+        💡 덕담은 새 문법이 아니에요 — 그냥 <b>-(으)세요</b>: <b>건강하세요</b> · <b>복 많이 받으세요</b> · <b>즐거운 한가위 보내세요</b> · <b>오래오래 사세요</b><br>
+        <span class="en">(참고: 카드나 문자에는 더 격식 있게 「건강하<b>시길 바랍니다</b>」라고도 써요. 말할 때는 건강하세요면 충분해요.)</span>
+      </div>
+
+      <b>② 모양이 바뀌는 높임 동사 (L5 복습)</b> <span class="en">— a few verbs swap to a special honorific word instead of just adding -시-.</span>
+      <table class="conj">
+        <tr><th>보통 말</th><th>어른께</th><th>안부 묻기</th></tr>
+        <tr><td>먹다</td><td class="k">드시다</td><td>아침 <b>드셨어요</b>? · 진지 <b>드셨어요</b>? <span class="en">(진지 = honorific 밥)</span></td></tr>
+        <tr><td>자다</td><td class="k">주무시다</td><td>잘 <b>주무셨어요</b>? <span class="en">(morning greeting)</span></td></tr>
+        <tr><td>아프다</td><td class="k">편찮으시다</td><td><b>편찮으신 데는 없으세요</b>? <span class="en">(any aches or illness?)</span></td></tr>
+        <tr><td>있다</td><td class="k">계시다</td><td>잘 <b>계셨어요</b>? · 할머니 <b>계세요</b>?</td></tr>
+        <tr><td>말하다</td><td class="k">말씀하시다</td><td>어머니가 그렇게 <b>말씀하셨어요</b>.</td></tr>
+        <tr><td>나이 · 집 · 이름</td><td class="k">연세 · 댁 · 성함</td><td>할머니 <b>연세</b>가 어떻게 되세요? · 할머니 <b>댁</b>은 안 추우세요?</td></tr>
+      </table>
+
+      <b>③ 높임 ↔ 낮춤: 어른이 하는 일은 높이고, 내가 하는 일은 낮춰요</b> <span class="en">— -(으)시- marks *their* action. When *I* do something for them, I use the humble verb instead.</span>
+      <div class="two">
+        <div class="col up"><h4>⬆ 높임 · 어른이 하는 일 → -(으)시- <span class="en">(they do it)</span></h4>
+          할머니가 전화<b>하셨어요</b>.<br>할머니가 용돈을 <b>주셨어요</b>.<br>할머니가 저를 <b>보셨어요</b>.<br>어머니가 안부 전해 달라고 <b>하셨어요</b>. <span class="en">(L4)</span></div>
+        <div class="col down"><h4>⬇ 낮춤 · 내가 하는 일 → 드리다·뵙다 <span class="en">(I do it for them)</span></h4>
+          제가 할머니께 전화<b>드렸어요</b>. <span class="en">(✗ 전화하셨어요)</span><br>제가 선물을 <b>보내 드렸어요</b>. <span class="en">(주다 → 드리다)</span><br>제가 할머니를 <b>뵈었어요</b> · 다음에 꼭 <b>뵐게요</b>. <span class="en">(보다 → 뵙다)</span><br>부모님께 <b>말씀드릴게요</b>. <span class="en">(말하다 → 말씀드리다)</span></div>
+      </div>
+      <div class="exbox">
+        조사도 같이: 할머니<b>께</b> 전화드렸어요 (한테 → 께) · 할머니<b>께서</b> 주셨어요 (가 → 께서, 말할 땐 ‘할머니가’도 OK) · 우리 → <b>저희</b>
+      </div>
+
+      <b>④ 안부 세트 — 이 순서면 통화가 돼요</b> <span class="en">— greet → ask → pass on → my news → blessing → sign-off.</span>
+      <div class="exbox">
+        인사: 할머니, 추석 잘 <b>보내셨어요</b>? <span class="en">(after)</span> · 즐거운 한가위 <b>보내세요</b> <span class="en">(before)</span><br>
+        안부 묻기: 요즘 어떻게 <b>지내세요</b>? · 편찮으신 데는 <b>없으세요</b>? · 아침 <b>드셨어요</b>?<br>
+        안부 전하기: 어머니가 안부 <b>전해 달라고 하셨어요</b>. · 저희는 다 잘 지내요.<br>
+        내 소식: 지난주에 선물을 <b>보내 드렸어요</b>. · 저녁 먹고 전화<b>드렸어요</b>.<br>
+        덕담·마무리: 늘 <b>건강하세요</b>. 오래오래 <b>사세요</b>. 다음에 꼭 <b>뵐게요</b>. 안녕히 <b>계세요</b>.
+      </div>
+
+      <div class="warnbox">
+        ⚠️ <b>-(으)시-는 사람(어른)에게만!</b> 사물·음식·나에게는 X. ✗ 할머니 댁이 <span class="wrong">크세요</span> → ✓ 커요 · ✗ 송편을 <span class="wrong">드시면</span> 맛있어요(일반적인 ‘먹으면’) → ✓ 송편을 <b>먹으면</b> · ✗ 제가 <span class="wrong">드셨어요</span> → ✓ 제가 <b>먹었어요</b>. <span class="en">(Honorifics go on the elder, never on things, food, or yourself.)</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 안부·인사 (10)</span></h2>
+    <table class="vocab"><tr><th>단어</th><th>뜻</th><th>단어</th><th>뜻</th></tr><tbody id="vtable"></tbody></table>
+  </section>
+
+  <section>
+    <h2>3. 높임 만들기 <span class="en">Make the form · -(으)세요? / -(으)셨어요? / 드리다·뵙다 · 입력 즉시 채점</span></h2>
+    <p class="lead">[ ] 안의 지시대로 바꿔 쓰세요. <b>높임</b>(어른이 하는 일)은 -(으)시-, <b>낮춤</b>(내가 하는 일)은 드리다·뵙다로! (예: 가다 [높임 · 현재 질문] → 가세요 · 주다 [낮춤 · 과거] → 드렸어요)</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 채우기 <span class="en">Complete the sentences · 할머니께 안부</span></h2>
+    <p class="lead">할머니께 드리는 인사를 완성하세요. [ ] 힌트를 보고 <b>높임·낮춤 형태</b>로!</p>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 — 할머니께 뭐라고 해요? <span class="en">Getting ready to call Grandma</span></h2>
+    <p class="lead">지호가 한국에 계신 할머니께 영상통화를 하기 전에 민수한테 높임말을 물어봐요. 선생님과 <b>번갈아 소리 내어</b> 읽어요 (지호 ↔ 민수, 해요체). 그다음 대본을 덮고 <b>선생님을 할머니로</b> 삼아 실제 통화처럼 말해 봐요.</p>
+    <div class="dlg">
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">지호 씨, 왜 이렇게 긴장했어요?</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">이따가 한국에 계신 할머니께 영상통화를 하려고요. 그런데 높임말이 아직 어려워요. 처음에 뭐라고 해요?</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">먼저 "할머니, 추석 잘 <b>보내셨어요</b>?" 하고 인사해요. 그다음에 안부를 물어요. "요즘 건강은 어떠세요? 편찮으신 데는 <b>없으세요</b>?"</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">아, '아프세요'가 아니라 '편찮으세요'군요. 밥은요? "밥 먹었어요?"는 안 되죠?</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">네, 어른께는 "아침 <b>드셨어요</b>?"라고 해요. 아침에 전화하면 "잘 주무셨어요?"도 좋고요.</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">그리고 어머니가 할머니한테 안부 전해 달라고 했어요. 그건 어떻게 말해요?</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">"어머니가 할머니께 안부 <b>전해 달라고 하셨어요</b>." 어머니도 어른이니까 '하셨어요'예요. 그리고 '한테' 대신 '께'!</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">어렵네요… 저희 소식은요? 지난주에 할머니께 선물도 보냈어요.</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">그건 지호 씨가 한 일이니까 '-시-'를 안 넣어요. 대신 '드리다'로 낮춰요. "지난주에 선물을 <b>보내 드렸어요</b>." 전화도 '드리다'예요. "저녁 먹고 전화드렸어요."</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">아, 어른이 하는 일은 높임 '-시-', 내가 하는 일은 낮춤 '드리다'! 마지막 인사는요?</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">"할머니, 늘 건강하세요. 오래오래 사세요." 이 두 마디면 충분해요. 그리고 "다음 추석에는 한국에 가서 꼭 <b>뵐게요</b>."</span></div>
+      <div class="turn"><span class="who">🌕 지호</span><span class="say">'볼게요'가 아니라 '뵐게요'. 알겠어요. 고마워요, 민수 씨. 덕분에 자신이 생겼어요.</span></div>
+      <div class="turn b"><span class="who">🙂 민수</span><span class="say">할머니가 정말 좋아하실 거예요. 천천히 말해도 괜찮아요!</span></div>
+    </div>
+    <div class="subh">빈칸 채우기 <span class="en" style="font-weight:400;color:var(--muted)">Fill in — from the dialogue</span></div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 쓰기 숙제 <span class="en">Homework · write &amp; submit</span></h2>
+    <p class="lead"><b>어른께 보내는 명절 인사 메시지</b>(할머니·할아버지·부모님·선생님 등, 추석이나 추수감사절)를 4~6문장으로 써 보세요. 꼭 넣을 것: <b>안부 질문 1개</b>(-(으)셨어요?·-(으)세요?) + <b>내 소식 1문장</b>(드리다/뵙다 쓰기) + <b>덕담 2개</b>(-(으)세요).</p>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 할아버지, 늦었지만 추석 인사 드려요. 요즘 편찮으신 데는 없으세요? 저희는 다 잘 지내고 있어요. 지난주에 작은 선물을 보내 드렸는데 받으셨어요? 늘 건강하세요. 그리고 오래오래 사세요. 다음 여름에는 꼭 한국에 가서 뵐게요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요 <span class="en" style="font-weight:400;color:var(--muted)">write &amp; submit right here</span></div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="예) 할머니, 늦었지만 추석 인사 드려요. …"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw38()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 영상통화 롤플레이 (길게 말하기)</h3>
+    <p class="lead">선생님이 <b>할머니 역</b>(짧게 — 반말로 해도 좋아요, 학습자는 듣기만), 학습자가 지호 역. 대본 없이 <b>인사 → 안부 질문 2개 → 안부 전하기 → 우리 집 근황(길게) → 덕담 → 마무리</b>. 추임새는 "그래서?" · "너희는 뭐 했어?" · "밥은?"</p>
+    <ul>
+      <li>인사·안부: 추석 잘 보내셨어요? · 편찮으신 데는 없으세요? · 아침 드셨어요? · (아침이면) 잘 주무셨어요?</li>
+      <li>전하기·내 소식: 어머니가 안부 전해 달라고 하셨어요 · 지난주에 선물을 보내 드렸어요 · 저녁 먹고 전화드렸어요</li>
+      <li>근황(길게): 저희는 … 모이기도 하고 … 빚기도 했어요(L34) · 송편을 빚을 때 …(L36) · 요즘은 간소하게 하는 편이에요(L37)</li>
+      <li>덕담·마무리: 늘 건강하세요 · 오래오래 사세요 · 다음에 꼭 뵐게요 · 안녕히 계세요</li>
+    </ul>
+
+    <h3>② 높임 ↔ 낮춤 속사포</h3>
+    <p class="lead">선생님이 보통 말로 말하면 학습자가 어른께 하는 말로 바꿔요. 방향(높임 = 어른이 하는 일 / 낮춤 = 내가 하는 일)을 매번 확인.</p>
+    <ul>
+      <li>"할머니가 밥 먹었어요?" → 할머니가 아침(진지) 드셨어요? · "할머니가 어디 살아요?" → 할머니가 어디 사세요?</li>
+      <li>"할머니가 소식 들었어요?" → 들으셨어요? · "할머니가 선물 줬어요" → 할머니가 선물을 주셨어요</li>
+      <li>"제가 할머니한테 선물 줬어요" → 제가 할머니께 선물을 드렸어요 · "제가 할머니를 볼게요" → 뵐게요 · "제가 할머니한테 전화했어요" → 전화드렸어요</li>
+      <li>덕담: 건강하다 → 건강하세요 · 받다(복 많이) → 받으세요 · 살다(오래오래) → 사세요 · 보내다(즐거운 한가위) → 보내세요</li>
+    </ul>
+
+    <h3>③ 함정 확인 — 사물·음식·나에게 -시- X</h3>
+    <ul>
+      <li>"할머니 집이 크세요?" → 할머니 댁이 커요? · "송편을 드시면 맛있어요" → 송편을 먹으면 맛있어요 (L34 숙제에서 나왔던 것!)</li>
+      <li>"제가 드셨어요" → 제가 먹었어요 · "제가 할머니께 전화하셨어요" → 전화드렸어요</li>
+    </ul>
+
+    <h3>④ 다음 시간 예고</h3>
+    <p class="lead">추석 시리즈 ⑤(마지막) 추석과 캐나다 추수감사절(10월 12일) 비교 — "추석은 음력이잖아요"처럼 <b>-잖아요</b> + 보다 비교 복습, 보름달 소원.</p>
+
+    <p class="lead" style="color:var(--warm)">성공 기준: 대본 없이 할머니(선생님)께 <b>안부 질문 2개 + 내 소식 2문장(드리다/뵙다) + 근황 2문장 + 덕담 2개</b>로 통화하기 (높임 -(으)시- / 낮춤 드리다 방향 안 틀리기). (숙제 = 위 6번 쓰기 → 제출)</p>
+  </div>
+
+  <footer>Lesson 38 / 어른께 안부 묻기·인사 드리기 · 높임 -(으)시- · 추석 시리즈 ④</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[
+  ["안부(를 묻다/전하다)","regards, how someone is doing (to ask after / to pass on regards)"],["덕담","words of blessing / good wishes"],
+  ["연세","age (honorific of 나이)"],["댁","home, house (honorific of 집)"],
+  ["성함","name (honorific of 이름)"],["뵙다","to see / meet an elder (humble) → 뵐게요, 뵙고 싶어요"],
+  ["편찮으시다","to be ill / unwell (honorific of 아프다)"],["말씀드리다","to tell an elder (humble of 말하다)"],
+  ["용돈","pocket money, allowance"],["오래오래","for a long, long time (오래오래 사세요)"]
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤] — L33~37
+  ['-(으)ㄴ/는 편이에요 · 간소하다(형용사)','요즘은 차례상이 ','간소한 편이에요',' .'],
+  ['-(으)ㄹ 때 · 하다','할머니하고 영상통화를 ','할 때',' 천천히 말해요.'],
+  ['-기도 하고 -기도 해요 · 보내다','추석에 선물을 ','보내기도 하고',' 용돈을 드리기도 해요.'],
+  ['-더라고요 · 좋아하다','할머니가 영상통화를 정말 ','좋아하시더라고요',' .'],
+  ['외래어 표기 · 영어 "video"','할머니하고 ','비디오',' 통화를 자주 해요.']
+];
+const ADV=[ // [단어, 정답]
+  ['가다 [높임 · 현재 질문]','가세요'],['읽다 [높임 · 과거 질문, 받침]','읽으셨어요'],['먹다 [높임 · 과거 질문]','드셨어요'],['자다 [높임 · 현재 질문]','주무세요'],
+  ['있다 [높임 · 현재 질문]','계세요'],['아프다 [높임 · 현재 질문]','편찮으세요'],['살다 [높임 · 과거 질문, ㄹ 탈락]','사셨어요'],['듣다 [높임 · 과거 질문, ㄷ 불규칙]','들으셨어요'],
+  ['주다 [낮춤 · 과거]','드렸어요'],['보다 [낮춤 · -(으)ㄹ게요]','뵐게요']
+];
+const EXP=[ // [앞, 정답(|), 뒤, 힌트]
+  ['할머니, 추석 잘 ','보내셨어요',' ?','보내다 → 높임, 과거'],
+  ['요즘 편찮으신 데는 ','없으세요',' ?','없다 → 높임, 현재'],
+  ['어머니가 할머니께 안부 ','전해 달라고 하셨어요',' .','전하다 → -아/어 달라고 하다 (L4) + 높임(어머니도 어른)'],
+  ['지난주에 할머니께 선물을 ','보내 드렸어요',' .','보내 주다 → 낮춤, 과거'],
+  ['할머니, 늘 ','건강하세요',' .','건강하다 → 덕담 -(으)세요'],
+  ['다음 추석에는 한국에 가서 꼭 ','뵐게요',' .','보다 → 낮춤 + -(으)ㄹ게요']
+];
+const DLG=[ // 실전 대화 [앞, 정답(|), 뒤, 힌트]
+  ['먼저 "할머니, 추석 잘 ','보내셨어요',' ?" 하고 인사해요.','보내다 → 높임, 과거'],
+  ['"요즘 건강은 어떠세요? 편찮으신 데는 ','없으세요',' ?"','없다 → 높임, 현재'],
+  ['어른께는 "아침 ','드셨어요',' ?"라고 해요.','먹다 → 높임, 과거'],
+  ['"어머니가 할머니께 안부 ','전해 달라고 하셨어요',' ."','전하다 → -아/어 달라고 하다 + 높임(어머니도 어른)'],
+  ['"지난주에 선물을 ','보내 드렸어요',' ."','보내 주다 → 낮춤, 과거'],
+  ['"다음 추석에는 한국에 가서 꼭 ','뵐게요',' ."','보다 → 낮춤 + -(으)ㄹ게요']
+];
+
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((v,i)=>{ if(i%2===0){const r=document.createElement("tr");r.id="vr"+i;el("vtable").appendChild(r);} });
+VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjacentHTML("beforeend",`<td><b>${v[0]}</b></td><td>${v[1]}</td>`); });
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko"><b>${a[0]}</b></span> →
+   ${IN} class="ans mid" data-type="exact" data-ans="${a[1]}" data-k="a${i}">
+   <span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson38_greetings_v2";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw38(){
+  const ta=document.getElementById("hwtext"), msg=document.getElementById("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 38 · 어른께 안부·인사 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 38 · 어른께 안부 묻기·인사 드리기(높임 -(으)시-)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
