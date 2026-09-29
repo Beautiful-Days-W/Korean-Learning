@@ -6,52 +6,83 @@
 <title>복습 연습장 · Practice Room</title>
 <style>
   :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
-    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;}
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
     font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
   .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
   .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 30px;margin:0 -18px 18px;}
   .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
   .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
   #score{font-size:13px;color:var(--ok);font-weight:700;}
+  #mcount{font-size:12px;color:var(--muted);font-weight:600;}
+  #msg{font-size:12px;color:var(--ok);font-weight:600;flex-basis:100%;min-height:0;}
   .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
   .btn:hover{border-color:var(--accent);color:var(--accent);}
-  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
-  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
-  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
-  h2{font-size:19px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;}
-  h2 .en{font-size:13px;color:var(--muted);font-weight:500;}
-  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
-  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;margin:10px 0;}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700;}
+  .btn.primary:hover{color:#fff;opacity:.92;}
+  .btn.small{font-size:12px;padding:4px 9px;}
+  .btn.warn{color:var(--no);}
+  .tabs{display:flex;gap:6px;margin:0 0 14px;}
+  .tab{font:inherit;font-size:14px;font-weight:700;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:9px 18px;border-radius:12px;color:var(--muted);}
+  .tab.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+  .modes{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:14px;font-size:13px;color:var(--muted);}
+  .modes .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card);}
+  .modes .seg button{font:inherit;font-size:13px;border:none;background:none;padding:6px 13px;cursor:pointer;color:var(--muted);}
+  .modes .seg button.on{background:var(--accent);color:#fff;font-weight:700;}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:14px;font-size:13.5px;color:#374151;}
+  .head b{color:var(--ink);}
+  .tierbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:13.5px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .tierbox .t{font-weight:700;color:var(--warm);}
+  .tierbox .prog{flex:1;min-width:140px;height:8px;background:#fde8d2;border-radius:99px;overflow:hidden;}
+  .tierbox .prog i{display:block;height:100%;background:var(--warm);border-radius:99px;}
+  .banner{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:14px;color:#065f46;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  .todaynote{background:var(--accent-soft);border-radius:12px;padding:10px 16px;margin-bottom:14px;font-size:13.5px;color:#334155;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;}
+  section.locked-all{display:none;}
+  h2{font-size:17px;margin:0 0 4px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;flex:1;}
+  h2 .secbtn{font-size:11px;color:var(--muted);background:none;border:1px solid var(--line);border-radius:999px;padding:2px 8px;cursor:pointer;}
+  h2 .secbtn:hover{color:var(--no);border-color:var(--no);}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;margin:8px 0;line-height:1.75;}
   .rule b{color:var(--accent);}
+  p.lead{font-size:14px;color:#374151;margin:6px 0;}
   .drill{padding:9px 0;border-top:1px dashed var(--line);}
-  .drill:first-of-type{border-top:none;}
+  .list .drill:first-child{border-top:none;}
   .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
   .num{font-weight:700;color:var(--accent);}
   .ko{font-size:16px;}
+  .wrongx{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 3px;}
+  .tier{font-size:10.5px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 5px;}
+  .tier.t1{color:var(--ok);border-color:#99f6e4;}
   input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
-  input.mid{width:140px;text-align:center;}
-  input.wide{width:185px;text-align:center;}
+  input.mid{width:150px;text-align:center;}
+  input.wide{width:200px;text-align:center;}
+  input.xwide{width:300px;text-align:center;}
   input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
   .fb{font-size:14px;font-weight:700;min-width:22px;}
   .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
   .grid2{display:grid;grid-template-rows:repeat(6,auto);grid-auto-flow:column;column-gap:26px;}
-  .grid2 .drill:nth-child(7){border-top:none;}
   .grid2b{display:grid;grid-template-rows:repeat(5,auto);grid-auto-flow:column;column-gap:26px;}
-  .grid2b .drill:nth-child(6){border-top:none;}
-  @media(max-width:560px){.grid2,.grid2b{display:block;} .grid2 .drill:nth-child(7),.grid2b .drill:nth-child(6){border-top:1px dashed var(--line);}}
-  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media(max-width:560px){.grid2,.grid2b{display:block;}}
   .dots{flex-basis:100%;display:flex;gap:3px;align-items:center;margin-top:4px;}
   .dots i{width:8px;height:8px;border-radius:50%;background:#e5e7eb;display:inline-block;}
   .dots i.on{background:var(--ok);}
   .mbadge{font-size:11px;color:var(--ok);font-weight:700;margin-left:4px;white-space:nowrap;}
-  .drill.mastered{opacity:.55;}
-  #mcount{font-size:12px;color:var(--muted);font-weight:600;}
-  #msg{font-size:12px;color:var(--ok);font-weight:600;}
-  .bar label.tg{font-size:12.5px;color:var(--ink);display:inline-flex;align-items:center;gap:4px;cursor:pointer;}
-  @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}.dots{display:none;}}
+  .rbadge{font-size:11px;color:var(--warm);font-weight:700;margin-left:4px;white-space:nowrap;}
+  details.mlist{margin-top:8px;border-top:1px solid var(--line);padding-top:6px;}
+  details.mlist summary{cursor:pointer;font-size:13px;color:var(--ok);font-weight:700;}
+  details.mlist .drill{opacity:.6;}
+  .lockinfo{font-size:12px;color:var(--muted);margin-top:6px;}
+  .menu{position:relative;}
+  .menu .dd{display:none;position:absolute;right:0;top:36px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px;min-width:220px;box-shadow:0 8px 24px rgba(0,0,0,.08);z-index:60;}
+  .menu.open .dd{display:block;}
+  .menu .dd button{display:block;width:100%;text-align:left;font:inherit;font-size:13px;background:none;border:none;padding:8px 10px;border-radius:8px;cursor:pointer;color:var(--ink);}
+  .menu .dd button:hover{background:var(--accent-soft);}
+  .menu .dd button.warn{color:var(--no);}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar,.tabs,.modes,.tierbox,.banner,.todaynote{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}.dots{display:none;}}
 </style>
 </head>
 <body>
@@ -60,742 +91,234 @@
   <h1>복습 연습장 <span class="sub">Practice Room</span></h1>
   <span id="mcount"></span>
   <span id="score"></span>
-  <span id="msg"></span>
-  <button class="btn" onclick="nextRound()">✅ 채점·다음 회차</button>
-  <label class="tg"><input type="checkbox" id="toggleM" onchange="toggleMastered(this)"> 익힌 문제 보기</label>
+  <button class="btn primary" onclick="nextRound()">✅ 채점·다음 회차</button>
   <button class="btn" onclick="window.print()">🖨 인쇄</button>
-  <button class="btn" onclick="resetProgress()">↺ 진도 초기화</button>
+  <div class="menu" id="menu">
+    <button class="btn" onclick="document.getElementById('menu').classList.toggle('open')">↺ 초기화 ▾</button>
+    <div class="dd">
+      <button onclick="resetMasteredOnly()">익힌 것만 다시 풀기 (공부 중인 진도는 유지)</button>
+      <button onclick="clearAnswers()">지금 입력한 답만 지우기</button>
+      <button class="warn" onclick="resetAll()">전체 진도 초기화 (모두 삭제)</button>
+    </div>
+  </div>
+  <span id="msg"></span>
 </div>
 
 <div class="wrap">
-  <div class="head">
-    <h2>쓰는 법 <span class="en">How to use</span></h2>
-    <p class="lead">수업과 별도로, <b>틈날 때마다</b> 와서 반복 연습하는 곳이에요. 입력하면 바로 ✓/✗ 채점돼요.</p>
-    <p class="lead">문제를 풀고 <b>「✅ 채점·다음 회차」</b>를 누르면 맞은 문제에 진도 점(●)이 하나씩 차요. <b>연속 5번 맞히면 그 문제는 사라져요</b>(익힘 완료) — 아직 약한 것만 남아 페이지가 깔끔해져요. <b>「👁 익힌 문제 보기」</b>로 다시 보고, <b>「↺ 진도 초기화」</b>로 처음부터 할 수 있어요. <span class="en">Answer 5 rounds correctly → the item is mastered and hidden.</span></p>
-    <div class="note">지금 있는 연습: <b>높임말</b> · <b>상대 시간</b> · <b>추측</b> · <b>달라고/주라고</b> · <b>있다/계시다</b> · <b>가요/와요</b> · <b>-다가/-았다가</b> · <b>관광 단어</b> · <b>교통 단어</b> — 복습 레슨에서 다룬 내용이에요.</div>
+  <div class="tabs">
+    <button class="tab on" id="tab_p" onclick="setTab('p')">✍️ 문형 복습</button>
+    <button class="tab" id="tab_w" onclick="setTab('w')">📖 단어</button>
+  </div>
+  <div class="modes">
+    <span class="seg"><button id="mode_today" class="on" onclick="setMode('today')">🌤 오늘의 복습</button><button id="mode_all" onclick="setMode('all')">📚 전체 보기</button></span>
+    <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer"><input type="checkbox" id="toggleM" onchange="toggleMastered(this)"> 익힌 문제도 펼쳐 보기</label>
   </div>
 
-  <section>
-    <h2>1. 높임말 <span class="en">Honorific words</span></h2>
-    <div class="rule">
-      어른께 말할 때 바뀌는 단어들이에요. (Words that change when speaking to elders.)<br>
-      이름→<b>성함</b> · 나이→<b>연세</b> · 집→<b>댁</b> · 먹다/마시다→<b>드시다</b> · 있다→<b>계시다</b> · 말→<b>말씀</b> · 자다→<b>주무시다</b> · 생일→<b>생신</b> · 주다→<b>드리다</b> · 묻다→<b>여쭤보다</b> · 사람→<b>분</b> · 한테→<b>께</b>
-    </div>
-    <p class="lead">보통 말 → <b>높임말</b>로 바꿔 쓰세요. (위 표를 먼저 가리고 해 보세요!)</p>
-    <div class="grid2" id="hon"></div>
-  </section>
+  <div class="head" id="howto">
+    <b>쓰는 법</b> · 하루에 <b>오늘의 복습 15문항</b>만 풀고 <b>「✅ 채점·다음 회차」</b>를 누르면 끝이에요. 맞으면 진도 점(●)이 하나 차고, 틀리면 하나만 줄어요(처음으로 돌아가지 않아요). <b>연속 5번 맞히면 익힘</b> — 사라지지 않고 섹션 아래 「익힘 N개」에 접혀요. 익힌 문제는 얼마 뒤 오늘의 복습에 <b>한 번씩 다시</b> 나와요(5회차 뒤, 그다음 10회차 뒤 …). 틀리면 다시 공부 중으로 돌아와요.
+    <span class="en" style="color:var(--muted);font-size:12.5px">(15 items a day. Correct = +1 dot, wrong = −1. Five in a row = mastered and folded away, then it resurfaces once in a while.)</span>
+  </div>
 
-  <section>
-    <h2>2. 상대 시간 <span class="en">Relative time — from today</span></h2>
-    <div class="rule">
-      <b>날:</b> 그저께 ← 어제 ← <b>오늘</b> → 내일 → 모레 → 글피<br>
-      <b>주·달·년:</b> 지난주 · 이번 주 · 다음 주 / 지난달 · 이번 달 · 다음 달 / 작년 · 올해 · 내년 (last / this / next)
-    </div>
-    <div class="grid2b" id="rel"></div>
-  </section>
+  <div class="todaynote" id="todaynote"></div>
+  <div class="tierbox" id="tierbox"></div>
+  <div class="banner" id="banner" style="display:none"></div>
 
-  <section>
-    <h2>3. 추측 <span class="en">Guessing · -(으)ㄹ 것 같아요</span></h2>
-    <div class="rule">
-      확실하지 않은 짐작. 받침 있으면 <b>-을 것 같아요</b>, 없으면 <b>-ㄹ 것 같아요</b>. (a guess — not certain)
-    </div>
-    <p class="lead">기본형을 <b>-(으)ㄹ 것 같아요</b>로 바꿔 쓰세요.</p>
-    <div id="sup"></div>
-  </section>
+  <div id="pane_p"></div>
+  <div id="pane_w"></div>
 
-  <section>
-    <h2>4. 달라고 vs 주라고 <span class="en">Reporting requests</span></h2>
-    <div class="rule">
-      부탁을 전할 때 — <b>내가</b> 받으면 <b>달라고</b>, <b>남이</b> 받으면 <b>주라고</b>. (for me → 달라고, for someone else → 주라고)
-    </div>
-    <p class="lead">따옴표 속 말을 보고 <b>누가 받는지</b> 판단해서, 전달 문장을 <b>달라고</b>/<b>주라고</b>로 완성하세요.</p>
-    <div id="dal"></div>
-  </section>
-
-  <section>
-    <h2>5. 있다 / 계시다 <span class="en">Things vs people</span></h2>
-    <div class="rule">
-      <b>사물</b>엔 높임 없이 <b>있어요</b>, <b>사람(어른)</b>의 존재는 <b>계세요</b>. (things → 있어요, a person → 계세요)
-    </div>
-    <p class="lead">사물이면 <b>있어요</b>, 사람이면 <b>계세요</b>로 채우세요.</p>
-    <div id="hb"></div>
-  </section>
-
-  <section>
-    <h2>6. 가요? 와요? <span class="en">Coming and going</span></h2>
-    <div class="rule">
-      한국어는 <b>말하는 사람(나) 기준</b>! 내 쪽으로 오면 <b>와요</b>, 다른 곳으로 가면 <b>가요</b>. 상대에게 다가갈 땐 "지금 <b>가요</b>!" (English "I'm coming" = 지금 가요)<br>
-      어른·손님이 내 쪽으로 오실 땐 높여서 <b>오세요</b> (어머니께서 <b>오세요</b> · 손님이 <b>오세요</b>).
-    </div>
-    <p class="lead">상황을 보고 <b>가요</b> 또는 <b>와요</b>(허용형 포함)를 쓰세요.</p>
-    <div id="gw"></div>
-  </section>
-
-  <section>
-    <h2>7. -다가 ↔ -았다가 <span class="en">Mid-action vs completed</span></h2>
-    <div class="rule">
-      <b>[도중]</b> 아직 하는 중 → <b>-다가</b>(가다가) · <b>[완료]</b> 다 하고 나서 → <b>-았/었다가</b>(갔다가). 핵심은 앞 행동의 완료 여부!
-    </div>
-    <p class="lead">태그(도중/완료)를 보고, 괄호 속 동사를 알맞은 형태로 쓰세요.</p>
-    <div id="dg"></div>
-  </section>
-
-  <section>
-    <h2>8. 관광 단어 <span class="en">Sightseeing vocabulary · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="tour"></div>
-  </section>
-
-  <section>
-    <h2>9. 교통 단어 <span class="en">Transportation vocabulary · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="trans"></div>
-  </section>
-
-  <section>
-    <h2>10. 쇼핑 단어 <span class="en">Souvenir shopping · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="shop"></div>
-  </section>
-
-  <section>
-    <h2>11. 식당 단어 <span class="en">Restaurant · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="rest"></div>
-  </section>
-
-  <section>
-    <h2>12. 요리 단어 <span class="en">Cooking · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="cook"></div>
-  </section>
-
-  <section>
-    <h2>13. 여행 후기 단어 <span class="en">Travel review · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="revw"></div>
-  </section>
-
-  <section>
-    <h2>14. 운동 단어 <span class="en">Exercise · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="exer"></div>
-  </section>
-
-  <section>
-    <h2>15. 옷 쇼핑 단어 <span class="en">Clothes shopping · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="cloth"></div>
-  </section>
-
-  <section>
-    <h2>16. 도서관 단어 <span class="en">Library · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="libr"></div>
-  </section>
-
-  <section>
-    <h2>17. 도서관 ② 단어 <span class="en">Library — finding books · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="libr2"></div>
-  </section>
-
-  <section>
-    <h2>18. 독서 모임 단어 <span class="en">Book club · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="book"></div>
-  </section>
-
-  <section>
-    <h2>19. 의견 단어 <span class="en">Opinions · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="opin"></div>
-  </section>
-
-  <section>
-    <h2>20. 고민·조언 단어 <span class="en">Advice · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="advc"></div>
-  </section>
-
-  <section>
-    <h2>21. 자동사↔타동사 짝 <span class="en">Verb pairs · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 동사</b>를 쓰세요 (자동사=저절로, 타동사=사람이 함).</p>
-    <div id="pair"></div>
-  </section>
-
-  <section>
-    <h2>22. 악기 단어 <span class="en">Instruments · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="inst"></div>
-  </section>
-
-  <section>
-    <h2>23. 악기 심화 단어 <span class="en">Instruments (advanced) · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="inst2"></div>
-  </section>
-
-  <section>
-    <h2>24. 로드트립 단어 <span class="en">Road trip · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="trip"></div>
-  </section>
-
-  <section>
-    <h2>25. 헷갈리는 동사 <span class="en">들르다·듣다·들다 · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="conf"></div>
-  </section>
-
-  <section>
-    <h2>26. 여행 소망 단어 <span class="en">Travel &amp; wishes · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="wish"></div>
-  </section>
-
-  <section>
-    <h2>27. 올드퀘벡·여행 후기 단어 <span class="en">Old Quebec sights · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="qbc"></div>
-  </section>
-
-  <section>
-    <h2>28. 추석 단어 <span class="en">Chuseok · type the Korean</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="chu"></div>
-  </section>
-
-  <section>
-    <h2>29. 외래어 표기 ㅐ/ㅔ <span class="en">Loanword spelling · English → Korean (Lesson 35)</span></h2>
-    <p class="lead">영어 단어를 보고 <b>표준 한글 표기</b>를 쓰세요. (e 글자는 ㅔ 아니면 ㅣ, ㅐ는 cat 소리만, "에이" 소리는 ㅔ+이)</p>
-    <div id="loan"></div>
-  </section>
-
-  <section>
-    <h2>30. 추석 음식 단어 <span class="en">Chuseok food · type the Korean (Lesson 36)</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="food"></div>
-  </section>
-
-  <section>
-    <h2>31. 차례·성묘 단어 <span class="en">Rites &amp; grave visits · type the Korean (Lesson 37)</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="rite"></div>
-  </section>
-
-  <section>
-    <h2>32. 안부·인사·높임 단어 <span class="en">Greetings &amp; honorifics · type the Korean (Lesson 38)</span></h2>
-    <p class="lead">뜻을 보고 <b>한국어 단어</b>를 쓰세요.</p>
-    <div id="greet"></div>
-  </section>
-
-  <footer>복습 연습장 · 높임말 · 상대 시간 · 추측 · 달라고/주라고 · 있다/계시다 · 가요/와요 · -다가/-았다가 · 관광 · 교통 · 쇼핑 · 식당 · 요리 · 여행 후기 · 운동 · 옷 쇼핑 · 도서관 · 도서관 ② · 독서 모임 · 의견 · 고민조언 · 자타동사 짝 · 악기 · 로드트립 · 헷갈리는 동사 · 여행 소망 · 올드퀘벡 · 추석 · 추석 음식 · 차례·성묘 · 안부·인사</footer>
+  <footer>복습 연습장 · 문형 복습 + 핵심 단어 · 조금씩, 자주</footer>
 </div>
 
 <script>
-function norm(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
-const HON=[ // [보통말, 높임말(| 허용)]
-  ["이름","성함"],["나이","연세"],["집","댁"],["먹다","드시다|드세요"],["있다","계시다|계세요"],["말","말씀"],
-  ["자다","주무시다|주무세요"],["생일","생신"],["주다","드리다"],["묻다","여쭤보다|여쭙다"],["사람","분"],["한테","께"]
-];
-const REL=[ // [질문, 정답(|)]
-  ["오늘의 1일 뒤 →","내일"],
-  ["오늘의 2일 뒤 →","모레"],
-  ["오늘의 3일 뒤 →","글피"],
-  ["오늘의 1일 전 →","어제"],
-  ["오늘의 2일 전 →","그저께"],
-  ["이번 주의 다음 →","다음 주"],
-  ["이번 달의 전 →","지난달"],
-  ["올해의 다음 →","내년"],
-  ["올해의 전 →","작년"]
-];
-
-function el(id){return document.getElementById(id);}
-HON.forEach((h,i)=>el("hon").insertAdjacentHTML("beforeend",
-  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${h[0]}</span> →
-   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${h[1]}" data-k="h${i}">
-   <span class="fb" id="fb_h${i}"></span></div></div>`));
-REL.forEach((r,i)=>el("rel").insertAdjacentHTML("beforeend",
-  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${r[0]}</span>
-   <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${r[1]}" data-k="r${i}">
-   <span class="fb" id="fb_r${i}"></span></div></div>`));
-
-// 복습 레슨 내용 — [앞, 정답(|), 뒤]
-const SUP=[ // 추측 (복습1)
-  ["(비가) 오다 →","올 것 같아요",""],
-  ["(음식이) 맛있다 →","맛있을 것 같아요",""],
-  ["(차가) 막히다 →","막힐 것 같아요",""],
-  ["(값이) 비싸다 →","비쌀 것 같아요",""],
-  ["(오늘) 늦다 →","늦을 것 같아요",""],
-  ["(날씨가) 좋다 →","좋을 것 같아요",""],
-  ["(내일) 바쁘다 →","바쁠 것 같아요",""],
-  ["(사람이) 많다 →","많을 것 같아요",""],
-  ["(곧) 끝나다 →","끝날 것 같아요",""],
-  ["(내일) 쉬다 →","쉴 것 같아요",""]
-];
-const DAL=[ // 달라고/주라고 (복습3) — 따옴표 속 '누가 받나'로 스스로 판단
-  ['친구가 "나 돈 좀 빌려줘." → 돈을 빌려','달라고','했어요.'],
-  ['친구가 "동생 돈 좀 빌려줘." → 동생한테 빌려','주라고','했어요.'],
-  ['아이가 "나 우유 사 줘." → 우유를 사','달라고','했어요.'],
-  ['아이가 "친구도 사 줘." → 친구 것도 사','주라고','했어요.'],
-  ['손님이 "저 물 좀 주세요." → 물을','달라고','하셨어요.'],
-  ['손님이 "옆 사람 물 좀 주세요." → 옆 사람한테 물을','주라고','하셨어요.'],
-  ['동생이 "나 좀 도와줘." → 도와','달라고','했어요.'],
-  ['동생이 "친구 좀 도와줘." → 친구를 도와','주라고','했어요.'],
-  ['엄마가 "나한테 사진 보내 줘." → 사진을 보내','달라고','하셨어요.'],
-  ['엄마가 "삼촌한테 보내 줘." → 삼촌한테 보내','주라고','하셨어요.']
-];
-const HB=[ // 있다/계시다 (복습2) — 사물/사람 태그 없이, 명사로 스스로 판단
-  ["표가","있어요","?"],
-  ["사장님이","계세요","?"],
-  ["빈자리가","있어요","?"],
-  ["할아버지께서 방에","계세요","."],
-  ["질문이","있어요","?"],
-  ["선생님이","계세요","?"],
-  ["화장실이 어디","있어요","?"],
-  ["어머니께서 지금 집에","계세요","?"],
-  ["혹시 펜이","있어요","?"],
-  ["부장님이 자리에","계세요","?"]
-];
-const GW=[ // 가요/와요 (복습2·L10) — 어른·손님이 오시면 오세요(높임)
-  ['친구가 "우리 집에 와" → 나: 지금','가요|갈게요','!'],
-  ['어머니께서 우리 집으로','오세요','.'],
-  ['나는 이따 학교에','가요','.'],
-  ['동생이 내 방에','와요','.'],
-  ['(전화) "빨리 와!" → 알겠어, 지금','가요|갈게요','!'],
-  ['손님이 우리 가게에','오세요','.'],
-  ['나는 내일 부산에','가요|갈 거예요','.'],
-  ['친구가 우리 집에 놀러','와요','.'],
-  ['내가 이따 너희 집에','갈게요|가요','.'],
-  ['아버지께서 집으로','오세요','.']
-];
-const DG=[ // -다가/-았다가 (복습4)
-  ["[도중] 밥을","먹다가","전화를 받았어요. (먹다)"],
-  ["[완료] 우체국에","갔다가","은행에도 들렀어요. (가다)"],
-  ["[도중] 학교에","가다가","친구를 만났어요. (가다)"],
-  ["[완료] 창문을","열었다가","닫았어요. (열다)"],
-  ["[도중] 텔레비전을","보다가","잠이 들었어요. (보다)"],
-  ["[완료] 불을","켰다가","바로 껐어요. (켜다)"],
-  ["[도중] 공부를","하다가","잠깐 쉬었어요. (하다)"],
-  ["[완료] 밖에","나갔다가","추워서 들어왔어요. (나가다)"],
-  ["[도중] 길을","걷다가","넘어졌어요. (걷다)"],
-  ["[완료] 옷을","입었다가","다시 벗었어요. (입다)"]
-];
-const TOUR=[ // 관광 단어 (레슨13 어휘 + 재입장·입장마감·특별전시실·관람·안내도·촬영·입구)
-  ['sightseeing spot →','관광지',''],
-  ['ticket office →','매표소',''],
-  ['admission fee →','입장료',''],
-  ['discount →','할인',''],
-  ['seat →','자리|좌석',''],
-  ['exhibition →','전시회|전시',''],
-  ['performance / show →','공연',''],
-  ['museum →','박물관',''],
-  ['art gallery →','미술관',''],
-  ['souvenir →','기념품',''],
-  ['information desk →','안내소',''],
-  ['adult →','어른',''],
-  ['child →','어린이',''],
-  ['to line up →','줄을 서다|줄 서다|줄서다',''],
-  ['to book tickets →','예매하다|표를 예매하다|표 예매하다',''],
-  ['(a place) open / close →','열다|닫다',''],
-  ['entrance →','입구',''],
-  ['re-entry →','재입장',''],
-  ['last entry →','입장 마감|입장마감',''],
-  ['special exhibition room →','특별 전시실|특별전시실',''],
-  ['viewing (a show) →','관람',''],
-  ['floor map / guide →','안내도',''],
-  ['photography →','촬영','']
-];
-const TRANS=[ // 교통 단어 (레슨14 어휘)
-  ['airplane →','비행기',''],
-  ['train →','기차',''],
-  ['subway →','지하철',''],
-  ['bus →','버스',''],
-  ['ferry / boat →','페리|배',''],
-  ['(bus/subway) stop →','정거장|정류장',''],
-  ['station →','역',''],
-  ['to get on →','타다',''],
-  ['to get off →','내리다',''],
-  ['to transfer →','갈아타다',''],
-  ['one-way →','편도',''],
-  ['round-trip →','왕복',''],
-  ['departure →','출발',''],
-  ['arrival →','도착',''],
-  ['fare →','요금',''],
-  ['transit card →','교통카드',''],
-  ['ferry terminal →','선착장|여객선 터미널',''],
-  ['to check baggage →','짐을 부치다|수하물을 부치다|부치다',''],
-  ['boarding pass →','탑승권',''],
-  ['(boarding) gate →','탑승구',''],
-  ['security check →','보안 검색|보안검색',''],
-  ['sightseeing cruise →','유람선',''],
-  ['to board (a boat) →','승선하다|승선',''],
-  ['personal details →','인적사항',''],
-  ['life jacket →','구명조끼',''],
-  ['to book (in advance) →','예매하다|예매',''],
-  ['harbor / port →','항구',''],
-  ['lighthouse →','등대',''],
-  ['island →','섬',''],
-  ['in an emergency →','비상시',''],
-  ['crew / attendant →','승무원',''],
-  ['railing →','난간','']
-];
-const SHOP=[ // 쇼핑 단어 (레슨15 어휘)
-  ['postcard →','엽서',''],
-  ['keychain →','열쇠고리',''],
-  ['fridge magnet →','냉장고 자석|자석',''],
-  ['mug →','머그컵|머그잔',''],
-  ['receipt →','영수증',''],
-  ['(shopping) bag →','봉투',''],
-  ['to exchange →','교환하다|교환',''],
-  ['to refund →','환불하다|환불',''],
-  ['to wrap / pack →','포장하다|포장',''],
-  ['to knock the price down →','깎다|깎아 주세요','']
-];
-const REST=[ // 식당 단어 (레슨16 어휘)
-  ['reservation →','예약|예약하다',''],
-  ['to order →','주문하다|주문',''],
-  ['menu →','메뉴',''],
-  ['side dishes →','반찬',''],
-  ['serving of a shared dish →','인분',''],
-  ['to pay the bill →','계산하다|계산',''],
-  ['to split the bill →','나눠 내다|따로 계산하다|따로 내다',''],
-  ['to add (an extra item) →','추가하다|추가',''],
-  ['to leave out (an ingredient) →','빼다|빼 주세요','']
-];
-const COOK=[ // 요리 단어 (레슨17 어휘)
-  ['ingredients →','재료',''],
-  ['to slice / cut →','썰다',''],
-  ['to mince (finely) →','다지다',''],
-  ['to stir-fry →','볶다',''],
-  ['to boil (something) →','끓이다',''],
-  ['to put in / add →','넣다',''],
-  ['to mix →','섞다',''],
-  ['to grill / roast →','굽다',''],
-  ['to taste (check seasoning) →','간을 보다|간 보다','']
-];
-const REVW=[ // 여행 후기 단어 (레슨18 어휘)
-  ['travel review →','여행 후기|후기',''],
-  ['(fond) memory →','추억',''],
-  ['to be impressive →','인상 깊다|인상적이다',''],
-  ['to be memorable →','기억에 남다',''],
-  ['the best →','최고',''],
-  ['to recommend →','추천하다|추천',''],
-  ['to be crowded →','붐비다',''],
-  ['prices / cost of living →','물가',''],
-  ['to feel it is a pity →','아쉽다',''],
-  ['not so great →','별로|별로예요','']
-];
-const EXER=[ // 운동 단어 (레슨19 어휘)
-  ['to exercise / work out →','운동하다|운동',''],
-  ['gym →','헬스장',''],
-  ['to walk →','걷다',''],
-  ['to run →','뛰다|달리다',''],
-  ['to swim →','수영하다|수영',''],
-  ['to stretch →','스트레칭하다|스트레칭',''],
-  ['to ride a bike →','자전거를 타다|자전거 타다',''],
-  ['to sweat →','땀이 나다|땀나다',''],
-  ['to be out of breath →','숨이 차다|숨차다',''],
-  ['strength training →','근력 운동|근력운동',''],
-  ['cardio →','유산소 운동|유산소운동',''],
-  ['how often →','얼마나 자주','']
-];
-const CLOTH=[ // 옷 쇼핑 단어 (레슨20 어휘)
-  ['size →','사이즈',''],
-  ['to try on (clothes) →','입어 보다|입어보다',''],
-  ['to try on (shoes) →','신어 보다|신어보다',''],
-  ['to suit / look good on →','어울리다',''],
-  ['fitting room →','탈의실',''],
-  ['to fit perfectly →','딱 맞다|딱맞다',''],
-  ['to be (too) tight →','끼다',''],
-  ['to be (too) loose →','헐렁하다',''],
-  ['color →','색깔','']
-];
-const LIBR=[ // 도서관 단어 (레슨22 어휘)
-  ['library card →','도서관 회원증|회원증',''],
-  ['to check out (borrow) →','대출하다|대출',''],
-  ['to return (a book) →','반납하다|반납',''],
-  ['to renew / extend →','연장하다|연장',''],
-  ['reading room →','열람실',''],
-  ['to save a seat →','자리를 맡다|자리 맡다',''],
-  ['quietly →','조용히',''],
-  ['to chatter / be loud →','떠들다',''],
-  ['overdue →','연체','']
-];
-const LIBR2=[ // 도서관 ② 단어 (레슨23 어휘)
-  ['to look for →','찾다',''],
-  ['title →','제목',''],
-  ['to search (catalog) →','검색하다|검색',''],
-  ['bookshelf →','책장',''],
-  ['to reserve / put on hold →','예약하다|예약',''],
-  ['checked out (now borrowed) →','대출 중|대출중',''],
-  ['new release →','신간',''],
-  ['opening hours →','여는 시간|문 여는 시간',''],
-  ['to contact →','연락하다|연락','']
-];
-const BOOK=[ // 독서 모임 단어 (레슨24 어휘)
-  ['book club →','독서 모임',''],
-  ['novel →','소설',''],
-  ['main character →','주인공',''],
-  ['plot / storyline →','줄거리',''],
-  ['to be moving / touching →','감동적이다|감동적',''],
-  ['to be boring →','지루하다',''],
-  ['to lend (to someone) →','빌려주다',''],
-  ["one's thoughts / impressions →",'감상',''],
-  ['to finish reading →','다 읽다','']
-];
-const OPIN=[ // 의견 단어 (레슨25 어휘)
-  ['in my opinion →','제 생각에는|제 생각엔',''],
-  ['probably / maybe →','아마|아마도',''],
-  ['much (more) →','훨씬',''],
-  ['to be okay / fine →','괜찮다',''],
-  ['to be not so good →','별로다|별로',''],
-  ['to agree →','동의하다|동의',''],
-  ['to disagree / oppose →','반대하다|반대',''],
-  ["hmm, I'm not sure →",'글쎄요',''],
-  ['to be right / correct →','맞다','']
-];
-const ADVC=[ // 고민·조언 단어 (레슨26 어휘)
-  ["a worry / what's on one's mind →",'고민',''],
-  ['to consult / talk it over →','상담하다|상담',''],
-  ['to be stressed →','스트레스를 받다|스트레스 받다',''],
-  ['to overdo it / push too hard →','무리하다',''],
-  ['to rest well →','푹 쉬다',''],
-  ['to endure / hold it in →','참다',''],
-  ['honestly / frankly →','솔직하게',''],
-  ['relationship (between people) →','사이',''],
-  ['to give advice →','조언하다|조언','']
-];
-const INST2=[ // 악기 심화 단어 (레슨29)
-  ['reed (clarinet) →','리드',''],
-  ['mouthpiece →','마우스피스',''],
-  ['pitch / intonation →','음정',''],
-  ['to tune →','조율하다|조율',''],
-  ['high note(s) →','고음',''],
-  ['to play together / ensemble →','합주하다|합주',''],
-  ['orchestra →','오케스트라',''],
-  ['stage →','무대',''],
-  ['etude / practice piece →','연습곡','']
-];
-const INST=[ // 악기 단어 (레슨28)
-  ['musical instrument →','악기',''],
-  ['to play / perform →','연주하다|연주',''],
-  ['to play (piano/guitar/drums) →','치다',''],
-  ['to play (violin — bow) →','켜다',''],
-  ['to play (flute — blow) →','불다',''],
-  ['to learn →','배우다',''],
-  ['to practice →','연습하다|연습',''],
-  ['sheet music / score →','악보',''],
-  ['hobby →','취미','']
-];
-const PAIR=[ // 자동사↔타동사 짝 (레슨27)
-  ['(물이) boils [자동사] →','끓다',''],
-  ['to boil (water) [타동사] →','끓이다',''],
-  ['(meat) gets cooked [자동사] →','익다',''],
-  ['to cook (meat) [타동사] →','익히다',''],
-  ['(soup) cools down [자동사] →','식다',''],
-  ['to cool (soup) down [타동사] →','식히다',''],
-  ['(light) turns off [자동사] →','꺼지다',''],
-  ['to turn off (light) [타동사] →','끄다',''],
-  ['(door) opens [자동사] →','열리다',''],
-  ['to open (door) [타동사] →','열다',''],
-  ['(car) stops [자동사] →','서다',''],
-  ['to park/stop (car) [타동사] →','세우다','']
-];
-const TRIP=[ // 로드트립 단어 (레슨30)
-  ['road trip →','로드트립|자동차 여행',''],
-  ['to drive →','운전하다|운전',''],
-  ['highway / freeway →','고속도로',''],
-  ['rest stop / service area →','휴게소',''],
-  ['fall foliage →','단풍',''],
-  ['scenery / view →','경치',''],
-  ['lodging / accommodation →','숙소',''],
-  ['gas station →','주유소',''],
-  ['itinerary / schedule →','일정','']
-];
-const CONF=[ // 헷갈리는 동사 (레슨31)
-  ['to stop by (a place) →','들르다',''],
-  ['to listen / take a class →','듣다',''],
-  ['to lift / hold (가방을) →','들다',''],
-  ['to like / be pleased (마음에) →','마음에 들다|들다',''],
-  ['to get older (나이가) →','나이가 들다|들다',''],
-  ['to cost money (돈이) →','돈이 들다|들다',''],
-  ['to fall asleep (잠이) →','잠이 들다|들다',''],
-  ['bookstore →','서점',''],
-  ['(music) album →','앨범','']
-];
-const WISH=[ // 여행 소망 단어 (레슨32)
-  ['memory (keepsake) →','추억',''],
-  ['a great / popular restaurant →','맛집',''],
-  ['to look around, sightsee →','구경하다|구경',''],
-  ['weather →','날씨',''],
-  ['to be clear / sunny →','맑다',''],
-  ['to be jammed (traffic) →','막히다',''],
-  ['safely, without a hitch →','무사히',''],
-  ['to be relaxed / leisurely →','여유롭다',''],
-  ['souvenir →','기념품','']
-];
-const QBC=[ // 올드퀘벡·여행 후기 단어 (레슨33)
-  ['castle →','성',''],
-  ['city wall(s) →','성벽',''],
-  ['view (vista) →','전망',''],
-  ['cobblestone street →','돌길',''],
-  ['alley, narrow street →','골목',''],
-  ['atmosphere, vibe →','분위기',''],
-  ['waterfall →','폭포',''],
-  ['night view →','야경',''],
-  ['to be impressive / striking →','인상적이다|인상적','']
-];
-const CHU=[ // 추석 단어 (레슨34)
-  ['Chuseok, Korean harvest festival →','추석',''],
-  ['traditional holiday →','명절',''],
-  ['another name for Chuseok →','한가위',''],
-  ['full moon →','보름달',''],
-  ['half-moon rice cake →','송편',''],
-  ['ancestral memorial rite →','차례',''],
-  ['visiting ancestors\' graves →','성묘',''],
-  ['holiday period, consecutive days off →','연휴',''],
-  ['to gather, get together →','모이다','']
-];
-const LOAN=[ // 외래어 표기 (레슨35)
-  ['café →','카페',''],
-  ['hotel →','호텔',''],
-  ['belt →','벨트',''],
-  ['Kay →','케이',''],
-  ['cake →','케이크',''],
-  ['game →','게임',''],
-  ['menu →','메뉴',''],
-  ['taxi →','택시',''],
-  ['Canada →','캐나다',''],
-  ['e-mail →','이메일',''],
-  ['computer →','컴퓨터',''],
-  ['Ottawa →','오타와',''],
-  ['Quebec →','퀘벡','']
-];
-const FOOD=[ // 추석 음식 단어 (레슨36)
-  ['dough →','반죽',''],
-  ['filling (inside a rice cake) →','소',''],
-  ['to shape / mold (rice cakes) →','빚다',''],
-  ['to steam →','찌다',''],
-  ['pine needles →','솔잎',''],
-  ['sesame oil →','참기름',''],
-  ['taro soup →','토란국',''],
-  ['braised short ribs →','갈비찜',''],
-  ['seasoned vegetable side dish →','나물',''],
-  ['to set the table →','상을 차리다','']
-];
-const RITE=[ // 차례·성묘 단어 (레슨37)
-  ['ancestors →','조상',''],
-  ['ritual offering table →','차례상',''],
-  ['to bow (deep bow) →','절을 하다|절하다',''],
-  ['grave (respectful) →','산소',''],
-  ['trimming grass at a grave →','벌초',''],
-  ['relatives →','친척',''],
-  ['tradition →','전통',''],
-  ['simply, in a simplified way →','간소하게',''],
-  ['to change (by itself) →','바뀌다',''],
-  ['generation →','세대','']
-];
-const GREET=[ // 안부·인사·높임 단어 (레슨38)
-  ['regards, how someone is doing →','안부',''],
-  ['words of blessing →','덕담',''],
-  ['age (honorific of 나이) →','연세',''],
-  ['home (honorific of 집) →','댁',''],
-  ['name (honorific of 이름) →','성함',''],
-  ['to see an elder (humble) →','뵙다',''],
-  ['to be ill (honorific of 아프다) →','편찮으시다',''],
-  ['to tell an elder (humble) →','말씀드리다',''],
-  ['pocket money →','용돈',''],
-  ['for a long, long time →','오래오래','']
-];
-function renderBA(arr,key,cid){
-  arr.forEach((a,i)=>el(cid).insertAdjacentHTML("beforeend",
-    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${a[0]}</span>
-     <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans wide" data-type="exact" data-ans="${a[1]}" data-k="${key}${i}">
-     <span class="ko">${a[2]}</span><span class="fb" id="fb_${key}${i}"></span></div></div>`));
-}
-renderBA(SUP,"sup","sup"); renderBA(DAL,"dal","dal"); renderBA(HB,"hb","hb");
-renderBA(GW,"gw","gw"); renderBA(DG,"dg","dg"); renderBA(TOUR,"tw","tour"); renderBA(TRANS,"kt","trans");
-renderBA(SHOP,"sh","shop"); renderBA(REST,"rt","rest"); renderBA(COOK,"ck","cook"); renderBA(REVW,"rv","revw");
-renderBA(EXER,"ex","exer"); renderBA(CLOTH,"cl","cloth"); renderBA(LIBR,"lb","libr"); renderBA(LIBR2,"l2","libr2"); renderBA(BOOK,"bk","book"); renderBA(OPIN,"op","opin"); renderBA(ADVC,"ad","advc"); renderBA(PAIR,"pr","pair"); renderBA(INST,"it","inst"); renderBA(INST2,"i2","inst2"); renderBA(TRIP,"tp","trip"); renderBA(CONF,"cf","conf"); renderBA(WISH,"ws","wish"); renderBA(QBC,"qb","qbc"); renderBA(CHU,"ch","chu"); renderBA(LOAN,"lw","loan"); renderBA(FOOD,"fd","food"); renderBA(RITE,"ri","rite"); renderBA(GREET,"gr","greet");
-
-const KEY="practice_room", MKEY="practice_master", TARGET=5;
+const PATTERNS=[{"id": "hon", "key": "h", "title": "높임말", "en": "Honorific words", "rule": "어른께 말할 때 바뀌는 단어들이에요. (Words that change when speaking to elders.)<br>\n      이름→<b>성함</b> · 나이→<b>연세</b> · 집→<b>댁</b> · 먹다/마시다→<b>드시다</b> · 있다→<b>계시다</b> · 말→<b>말씀</b> · 자다→<b>주무시다</b> · 생일→<b>생신</b> · 주다→<b>드리다</b> · 묻다→<b>여쭤보다</b> · 사람→<b>분</b> · 한테→<b>께</b>", "lead": "보통 말 → <b>높임말</b>로 바꿔 쓰세요. (위 표를 먼저 가리고 해 보세요!)", "kind": "pair", "layout": "grid2", "strict": false, "items": [{"k": "h0", "pre": "이름", "ans": "성함", "post": ""}, {"k": "h1", "pre": "나이", "ans": "연세", "post": ""}, {"k": "h2", "pre": "집", "ans": "댁", "post": ""}, {"k": "h3", "pre": "먹다", "ans": "드시다|드세요", "post": ""}, {"k": "h4", "pre": "있다", "ans": "계시다|계세요", "post": ""}, {"k": "h5", "pre": "말", "ans": "말씀", "post": ""}, {"k": "h6", "pre": "자다", "ans": "주무시다|주무세요", "post": ""}, {"k": "h7", "pre": "생일", "ans": "생신", "post": ""}, {"k": "h8", "pre": "주다", "ans": "드리다", "post": ""}, {"k": "h9", "pre": "묻다", "ans": "여쭤보다|여쭙다", "post": ""}, {"k": "h10", "pre": "사람", "ans": "분", "post": ""}, {"k": "h11", "pre": "한테", "ans": "께", "post": ""}]}, {"id": "rel", "key": "r", "title": "상대 시간", "en": "Relative time — from today", "rule": "<b>날:</b> 그저께 ← 어제 ← <b>오늘</b> → 내일 → 모레 → 글피<br>\n      <b>주·달·년:</b> 지난주 · 이번 주 · 다음 주 / 지난달 · 이번 달 · 다음 달 / 작년 · 올해 · 내년 (last / this / next)", "lead": "", "kind": "pair", "layout": "grid2b", "strict": false, "items": [{"k": "r0", "pre": "오늘의 1일 뒤 →", "ans": "내일", "post": ""}, {"k": "r1", "pre": "오늘의 2일 뒤 →", "ans": "모레", "post": ""}, {"k": "r2", "pre": "오늘의 3일 뒤 →", "ans": "글피", "post": ""}, {"k": "r3", "pre": "오늘의 1일 전 →", "ans": "어제", "post": ""}, {"k": "r4", "pre": "오늘의 2일 전 →", "ans": "그저께", "post": ""}, {"k": "r5", "pre": "이번 주의 다음 →", "ans": "다음 주", "post": ""}, {"k": "r6", "pre": "이번 달의 전 →", "ans": "지난달", "post": ""}, {"k": "r7", "pre": "올해의 다음 →", "ans": "내년", "post": ""}, {"k": "r8", "pre": "올해의 전 →", "ans": "작년", "post": ""}]}, {"id": "sup", "key": "sup", "title": "추측", "en": "Guessing · -(으)ㄹ 것 같아요", "rule": "확실하지 않은 짐작. 받침 있으면 <b>-을 것 같아요</b>, 없으면 <b>-ㄹ 것 같아요</b>. (a guess — not certain)", "lead": "기본형을 <b>-(으)ㄹ 것 같아요</b>로 바꿔 쓰세요.", "kind": "ba", "layout": "", "strict": false, "items": [{"k": "sup0", "pre": "(비가) 오다 →", "ans": "올 것 같아요", "post": ""}, {"k": "sup1", "pre": "(음식이) 맛있다 →", "ans": "맛있을 것 같아요", "post": ""}, {"k": "sup2", "pre": "(차가) 막히다 →", "ans": "막힐 것 같아요", "post": ""}, {"k": "sup3", "pre": "(값이) 비싸다 →", "ans": "비쌀 것 같아요", "post": ""}, {"k": "sup4", "pre": "(오늘) 늦다 →", "ans": "늦을 것 같아요", "post": ""}, {"k": "sup5", "pre": "(날씨가) 좋다 →", "ans": "좋을 것 같아요", "post": ""}, {"k": "sup6", "pre": "(내일) 바쁘다 →", "ans": "바쁠 것 같아요", "post": ""}, {"k": "sup7", "pre": "(사람이) 많다 →", "ans": "많을 것 같아요", "post": ""}, {"k": "sup8", "pre": "(곧) 끝나다 →", "ans": "끝날 것 같아요", "post": ""}, {"k": "sup9", "pre": "(내일) 쉬다 →", "ans": "쉴 것 같아요", "post": ""}]}, {"id": "dal", "key": "dal", "title": "달라고 vs 주라고", "en": "Reporting requests", "rule": "부탁을 전할 때 — <b>내가</b> 받으면 <b>달라고</b>, <b>남이</b> 받으면 <b>주라고</b>. (for me → 달라고, for someone else → 주라고)", "lead": "따옴표 속 말을 보고 <b>누가 받는지</b> 판단해서, 전달 문장을 <b>달라고</b>/<b>주라고</b>로 완성하세요.", "kind": "ba", "layout": "", "strict": false, "items": [{"k": "dal0", "pre": "친구가 \"나 돈 좀 빌려줘.\" → 돈을 빌려", "ans": "달라고", "post": "했어요."}, {"k": "dal1", "pre": "친구가 \"동생 돈 좀 빌려줘.\" → 동생한테 빌려", "ans": "주라고", "post": "했어요."}, {"k": "dal2", "pre": "아이가 \"나 우유 사 줘.\" → 우유를 사", "ans": "달라고", "post": "했어요."}, {"k": "dal3", "pre": "아이가 \"친구도 사 줘.\" → 친구 것도 사", "ans": "주라고", "post": "했어요."}, {"k": "dal4", "pre": "손님이 \"저 물 좀 주세요.\" → 물을", "ans": "달라고", "post": "하셨어요."}, {"k": "dal5", "pre": "손님이 \"옆 사람 물 좀 주세요.\" → 옆 사람한테 물을", "ans": "주라고", "post": "하셨어요."}, {"k": "dal6", "pre": "동생이 \"나 좀 도와줘.\" → 도와", "ans": "달라고", "post": "했어요."}, {"k": "dal7", "pre": "동생이 \"친구 좀 도와줘.\" → 친구를 도와", "ans": "주라고", "post": "했어요."}, {"k": "dal8", "pre": "엄마가 \"나한테 사진 보내 줘.\" → 사진을 보내", "ans": "달라고", "post": "하셨어요."}, {"k": "dal9", "pre": "엄마가 \"삼촌한테 보내 줘.\" → 삼촌한테 보내", "ans": "주라고", "post": "하셨어요."}]}, {"id": "hb", "key": "hb", "title": "있다 / 계시다", "en": "Things vs people", "rule": "<b>사물</b>엔 높임 없이 <b>있어요</b>, <b>사람(어른)</b>의 존재는 <b>계세요</b>. (things → 있어요, a person → 계세요)", "lead": "사물이면 <b>있어요</b>, 사람이면 <b>계세요</b>로 채우세요.", "kind": "ba", "layout": "", "strict": false, "items": [{"k": "hb0", "pre": "표가", "ans": "있어요", "post": "?"}, {"k": "hb1", "pre": "사장님이", "ans": "계세요", "post": "?"}, {"k": "hb2", "pre": "빈자리가", "ans": "있어요", "post": "?"}, {"k": "hb3", "pre": "할아버지께서 방에", "ans": "계세요", "post": "."}, {"k": "hb4", "pre": "질문이", "ans": "있어요", "post": "?"}, {"k": "hb5", "pre": "선생님이", "ans": "계세요", "post": "?"}, {"k": "hb6", "pre": "화장실이 어디", "ans": "있어요", "post": "?"}, {"k": "hb7", "pre": "어머니께서 지금 집에", "ans": "계세요", "post": "?"}, {"k": "hb8", "pre": "혹시 펜이", "ans": "있어요", "post": "?"}, {"k": "hb9", "pre": "부장님이 자리에", "ans": "계세요", "post": "?"}]}, {"id": "gw", "key": "gw", "title": "가요? 와요?", "en": "Coming and going", "rule": "한국어는 <b>말하는 사람(나) 기준</b>! 내 쪽으로 오면 <b>와요</b>, 다른 곳으로 가면 <b>가요</b>. 상대에게 다가갈 땐 \"지금 <b>가요</b>!\" (English \"I'm coming\" = 지금 가요)<br>\n      어른·손님이 내 쪽으로 오실 땐 높여서 <b>오세요</b> (어머니께서 <b>오세요</b> · 손님이 <b>오세요</b>).", "lead": "상황을 보고 <b>가요</b> 또는 <b>와요</b>(허용형 포함)를 쓰세요.", "kind": "ba", "layout": "", "strict": false, "items": [{"k": "gw0", "pre": "친구가 \"우리 집에 와\" → 나: 지금", "ans": "가요|갈게요", "post": "!"}, {"k": "gw1", "pre": "어머니께서 우리 집으로", "ans": "오세요", "post": "."}, {"k": "gw2", "pre": "나는 이따 학교에", "ans": "가요", "post": "."}, {"k": "gw3", "pre": "동생이 내 방에", "ans": "와요", "post": "."}, {"k": "gw4", "pre": "(전화) \"빨리 와!\" → 알겠어, 지금", "ans": "가요|갈게요", "post": "!"}, {"k": "gw5", "pre": "손님이 우리 가게에", "ans": "오세요", "post": "."}, {"k": "gw6", "pre": "나는 내일 부산에", "ans": "가요|갈 거예요", "post": "."}, {"k": "gw7", "pre": "친구가 우리 집에 놀러", "ans": "와요", "post": "."}, {"k": "gw8", "pre": "내가 이따 너희 집에", "ans": "갈게요|가요", "post": "."}, {"k": "gw9", "pre": "아버지께서 집으로", "ans": "오세요", "post": "."}]}, {"id": "dg", "key": "dg", "title": "-다가 ↔ -았다가", "en": "Mid-action vs completed", "rule": "<b>[도중]</b> 아직 하는 중 → <b>-다가</b>(가다가) · <b>[완료]</b> 다 하고 나서 → <b>-았/었다가</b>(갔다가). 핵심은 앞 행동의 완료 여부!", "lead": "태그(도중/완료)를 보고, 괄호 속 동사를 알맞은 형태로 쓰세요.", "kind": "ba", "layout": "", "strict": false, "items": [{"k": "dg0", "pre": "[도중] 밥을", "ans": "먹다가", "post": "전화를 받았어요. (먹다)"}, {"k": "dg1", "pre": "[완료] 우체국에", "ans": "갔다가", "post": "은행에도 들렀어요. (가다)"}, {"k": "dg2", "pre": "[도중] 학교에", "ans": "가다가", "post": "친구를 만났어요. (가다)"}, {"k": "dg3", "pre": "[완료] 창문을", "ans": "열었다가", "post": "닫았어요. (열다)"}, {"k": "dg4", "pre": "[도중] 텔레비전을", "ans": "보다가", "post": "잠이 들었어요. (보다)"}, {"k": "dg5", "pre": "[완료] 불을", "ans": "켰다가", "post": "바로 껐어요. (켜다)"}, {"k": "dg6", "pre": "[도중] 공부를", "ans": "하다가", "post": "잠깐 쉬었어요. (하다)"}, {"k": "dg7", "pre": "[완료] 밖에", "ans": "나갔다가", "post": "추워서 들어왔어요. (나가다)"}, {"k": "dg8", "pre": "[도중] 길을", "ans": "걷다가", "post": "넘어졌어요. (걷다)"}, {"k": "dg9", "pre": "[완료] 옷을", "ans": "입었다가", "post": "다시 벗었어요. (입다)"}]}, {"id": "n_ge", "key": "n8_", "title": "-는 게 좋겠어요", "en": "Advice · L26", "rule": "부드러운 조언은 <b>-는 게 좋겠어요</b>, 하지 말라는 조언은 <b>-지 않는 게 좋겠어요</b>, 제안은 <b>-는 게 어때요?</b> ★ 게 앞은 띄어요.", "lead": "[ ] 안의 동사로 조언 문장을 완성하세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n8_0", "pre": "[쉬다] 피곤하면 푹 ", "ans": "쉬는 게 좋겠어요", "post": " ."}, {"k": "n8_1", "pre": "[줄이다] 커피를 좀 ", "ans": "줄이는 게 좋겠어요", "post": " ."}, {"k": "n8_2", "pre": "[무리하다 · 부정] 너무 ", "ans": "무리하지 않는 게 좋겠어요", "post": " ."}, {"k": "n8_3", "pre": "[만들다 · ㄹ 탈락] 직접 ", "ans": "만드는 게 좋겠어요", "post": " ."}, {"k": "n8_4", "pre": "[연락하다 · 어때요?] 친구한테 먼저 ", "ans": "연락하는 게 어때요", "post": " ?"}]}, {"id": "n_jul", "key": "n9_", "title": "-(으)ㄹ 줄 알다/모르다", "en": "Know how to · L28", "rule": "할 줄 알면 <b>-(으)ㄹ 줄 알아요</b>, 모르면 <b>-(으)ㄹ 줄 몰라요</b>. 받침 없음·ㄹ → -ㄹ 줄, 받침 → -을 줄. ★ 줄 앞은 띄어요. \"어떻게\"는 안 넣어요.", "lead": "[ ] 안의 동사로 완성하세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n9_0", "pre": "[치다 · 알다] 피아노를 ", "ans": "칠 줄 알아요", "post": " ."}, {"k": "n9_1", "pre": "[켜다 · 모르다] 바이올린을 ", "ans": "켤 줄 몰라요", "post": " ."}, {"k": "n9_2", "pre": "[불다 · 알다] 플루트를 ", "ans": "불 줄 알아요", "post": " ."}, {"k": "n9_3", "pre": "[하다 · 알다] 운전을 ", "ans": "할 줄 알아요", "post": " ."}, {"k": "n9_4", "pre": "[만들다 · 모르다] 김치를 ", "ans": "만들 줄 몰라요", "post": " ."}, {"k": "n9_5", "pre": "[타다 · 알다] 지하철을 ", "ans": "탈 줄 알아요", "post": " ."}]}, {"id": "n_ji", "key": "n10_", "title": "-(으)ㄴ 지 됐어요", "en": "How long since · L29", "rule": "<b>-(으)ㄴ 지 + 기간 + 됐어요</b> = \"it's been ~ since\". ㄹ 받침은 ㄹ 탈락(살다 → 산 지). ★ 지 앞은 띄어요.", "lead": "[ ] 안의 동사로 완성하세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n10_0", "pre": "[배우다] 한국어를 ", "ans": "배운 지", "post": " 2년 됐어요."}, {"k": "n10_1", "pre": "[살다 · ㄹ 탈락] 캐나다에 ", "ans": "산 지", "post": " 10년 됐어요."}, {"k": "n10_2", "pre": "[일하다] 여기서 ", "ans": "일한 지", "post": " 얼마나 됐어요?"}, {"k": "n10_3", "pre": "[안 치다] 피아노를 ", "ans": "안 친 지", "post": " 오래됐어요."}, {"k": "n10_4", "pre": "[먹다] 밥을 ", "ans": "먹은 지", "post": " 한 시간 됐어요."}]}, {"id": "n_ryeo", "key": "n11_", "title": "-(으)려고 하다 / -기로 하다", "en": "Plans vs decisions · L30", "rule": "내 계획 <b>-(으)려고 해요</b>(받침 → -으려고, ㄷ 불규칙 들으려고) · 정한 결정 <b>-기로 했어요</b>(어간 그대로). ★ 해요/했어요 앞은 띄어요.", "lead": "[ ] 안의 지시대로 완성하세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n11_0", "pre": "[가다 · -(으)려고] 주말에 퀘벡에 ", "ans": "가려고 해요", "post": " ."}, {"k": "n11_1", "pre": "[먹다 · -(으)려고] 점심에 김치찌개를 ", "ans": "먹으려고 해요", "post": " ."}, {"k": "n11_2", "pre": "[들르다 · -(으)려고] 오는 길에 마트에 ", "ans": "들르려고 해요", "post": " ."}, {"k": "n11_3", "pre": "[듣다 · -(으)려고 · ㄷ 불규칙] 음악을 ", "ans": "들으려고 해요", "post": " ."}, {"k": "n11_4", "pre": "[가다 · -기로 · 과거] 우리는 10월에 여행을 ", "ans": "가기로 했어요", "post": " ."}, {"k": "n11_5", "pre": "[걷다 · -기로 · 과거] 매일 30분씩 ", "ans": "걷기로 했어요", "post": " ."}]}, {"id": "n_wish", "key": "n12_", "title": "바람: -았/었으면 vs -(으)면 좋겠어요", "en": "Wishes · L32", "rule": "내가 <b>못 바꾸는 일</b>(날씨·교통·남의 건강) → <b>-았/었으면 좋겠어요</b> · <b>내 행동</b> → <b>-(으)면 좋겠어요</b>.", "lead": "[ ] 안의 힌트를 보고 완성하세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n12_0", "pre": "[맑다 · 못 바꾸는 일] 주말에 날씨가 ", "ans": "맑았으면 좋겠어요", "post": " ."}, {"k": "n12_1", "pre": "[안 막히다 · 못 바꾸는 일] 길이 ", "ans": "안 막혔으면 좋겠어요", "post": " ."}, {"k": "n12_2", "pre": "[안 오다 · 못 바꾸는 일] 비가 ", "ans": "안 왔으면 좋겠어요", "post": " ."}, {"k": "n12_3", "pre": "[건강하시다 · 못 바꾸는 일] 할머니가 ", "ans": "건강하셨으면 좋겠어요", "post": " ."}, {"k": "n12_4", "pre": "[가다 · 내 행동] 이번 여행에서 맛집을 많이 ", "ans": "가면 좋겠어요", "post": " ."}, {"k": "n12_5", "pre": "[만들다 · 내 행동] 올해는 송편을 직접 ", "ans": "만들면 좋겠어요", "post": " ."}]}, {"id": "n_deo", "key": "n13_", "title": "-더라고요", "en": "What I found · L33", "rule": "<b>직접 겪어 보니</b> 그렇더라 → 어간 + <b>-더라고요</b>. 내 의지 행동이 아니라 내가 본·느낀 것에 써요.", "lead": "[ ] 안의 형용사로 완성하세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n13_0", "pre": "[춥다] 퀘벡은 밤에 정말 ", "ans": "춥더라고요", "post": " ."}, {"k": "n13_1", "pre": "[크다] 폭포가 생각보다 ", "ans": "크더라고요", "post": " ."}, {"k": "n13_2", "pre": "[많다] 마트에 사람이 ", "ans": "많더라고요", "post": " ."}, {"k": "n13_3", "pre": "[어렵다] 송편이 만들기 ", "ans": "어렵더라고요", "post": " ."}, {"k": "n13_4", "pre": "[맛있다] 직접 만든 게 더 ", "ans": "맛있더라고요", "post": " ."}]}, {"id": "n_gido", "key": "n14_", "title": "-기도 하고 -기도 해요", "en": "Sometimes ~, sometimes ~ · L34", "rule": "<b>-기도 하고 … -기도 해요</b>(짝). 시제는 <b>마지막 하다</b>에만(…기도 했어요). 명사는 <b>N이기도 하고</b>. ★ 기도 하고 / 기도 해요 띄어요.", "lead": "빈칸에 들어갈 절반만 쓰세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n14_0", "pre": "[쉬다] 주말에는 집에서 ", "ans": "쉬기도 하고", "post": " 친구를 만나기도 해요."}, {"k": "n14_1", "pre": "[사 먹다] 송편을 만들기도 하고 ", "ans": "사 먹기도 해요", "post": " ."}, {"k": "n14_2", "pre": "[가다 · 과거는 끝에!] 작년에는 성묘를 가기도 하고 친척 집에 ", "ans": "가기도 했어요", "post": " ."}, {"k": "n14_3", "pre": "[명절 · N이기도] 추석은 ", "ans": "명절이기도 하고", "post": " 가족이 모이는 날이기도 해요."}, {"k": "n14_4", "pre": "[안 지내다] 어떤 집은 차례를 ", "ans": "안 지내기도 해요", "post": " ."}]}, {"id": "n_ttae", "key": "n15_", "title": "-(으)ㄹ 때 / -았/었을 때", "en": "When · L36", "rule": "<b>-(으)ㄹ 때</b> = when(그 시간에). 지난 일·완료는 <b>-았/었을 때</b>. 명사는 그냥 <b>N 때</b>. ★ 때 앞은 띄어요.", "lead": "[ ] 안의 힌트로 완성하세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n15_0", "pre": "[만들다] 송편을 ", "ans": "만들 때", "post": " 뜨거운 물을 써요."}, {"k": "n15_1", "pre": "[듣다 · ㄷ 불규칙] 음악을 ", "ans": "들을 때", "post": " 행복해요."}, {"k": "n15_2", "pre": "[덥다 · ㅂ 불규칙] 날씨가 ", "ans": "더울 때", "post": " 반죽이 빨리 말라요."}, {"k": "n15_3", "pre": "[끓다 · 물이 → 자동사!] 물이 ", "ans": "끓을 때", "post": " 파스타를 넣어요."}, {"k": "n15_4", "pre": "[가다 · 과거] 한국에 ", "ans": "갔을 때", "post": " 토란국을 먹어 봤어요."}, {"k": "n15_5", "pre": "[추석 · 명사 + 때] ", "ans": "추석 때", "post": " 온 가족이 모여요."}]}, {"id": "n_pyeon", "key": "n16_", "title": "-(으)ㄴ/는 편이에요", "en": "Tend to · L37", "rule": "동사 <b>-는 편이에요</b>(ㄹ 탈락 만드는), 형용사 <b>-(으)ㄴ 편이에요</b>(ㅂ 불규칙 어려운). 과거는 <b>편이었어요</b>. ★ 편 앞은 띄어요.", "lead": "[ ] 안의 힌트로 완성하세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n16_0", "pre": "[차리다] 요즘은 차례상을 간소하게 ", "ans": "차리는 편이에요", "post": " ."}, {"k": "n16_1", "pre": "[많다 · 형용사] 저희 집은 친척이 ", "ans": "많은 편이에요", "post": " ."}, {"k": "n16_2", "pre": "[만들다 · ㄹ 탈락] 저는 명절 음식을 잘 ", "ans": "만드는 편이에요", "post": " ."}, {"k": "n16_3", "pre": "[모이다 · 과거] 옛날에는 친척이 다 ", "ans": "모이는 편이었어요", "post": " ."}, {"k": "n16_4", "pre": "[어렵다 · ㅂ 불규칙] 한국어 쓰기는 아직 ", "ans": "어려운 편이에요", "post": " ."}, {"k": "n16_5", "pre": "[안 일어나다] 저는 아침에 일찍 ", "ans": "안 일어나는 편이에요", "post": " ."}]}, {"id": "n_hn", "key": "n17_", "title": "높임 ↔ 낮춤 방향", "en": "Honorific vs humble · L38", "rule": "<b>높임</b> = 어른이 하는 일 → <b>-(으)시-</b>(드셨어요·주셨어요) · <b>낮춤</b> = 내가 하는 일 → <b>드리다·뵙다</b>(드렸어요·뵐게요). 사물·나에게 -시- X.", "lead": "[ ] 안의 힌트로 완성하세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n17_0", "pre": "[먹다 · 높임 · 과거 질문] 할머니, 아침 ", "ans": "드셨어요", "post": " ?"}, {"k": "n17_1", "pre": "[없다 · 높임 · 현재 질문] 편찮으신 데는 ", "ans": "없으세요", "post": " ?"}, {"k": "n17_2", "pre": "[주다 · 높임 · 과거] 할머니가 저한테 용돈을 ", "ans": "주셨어요", "post": " ."}, {"k": "n17_3", "pre": "[주다 · 낮춤 · 과거] 제가 할머니께 선물을 ", "ans": "드렸어요", "post": " ."}, {"k": "n17_4", "pre": "[전화하다 · 낮춤 · 과거] 제가 할머니께 ", "ans": "전화드렸어요", "post": " ."}, {"k": "n17_5", "pre": "[보다 · 낮춤 · -(으)ㄹ게요] 다음 추석에 할머니를 ", "ans": "뵐게요", "post": " ."}]}, {"id": "n_jan", "key": "n18_", "title": "-잖아요 vs -죠?", "en": "You know vs right? · L39", "rule": "<b>-죠?</b> = 확인하는 질문(대답 기다림) · <b>-잖아요</b> = 둘 다 아는 사실 말하기(대답 안 기다림, 그래서 …). 명사는 (이)잖아요 · (이)죠.", "lead": "[말하기] → -잖아요, [묻기] → -죠?로 완성하세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n18_0", "pre": "[말하기 · 음력] 추석은 ", "ans": "음력이잖아요", "post": " . 그래서 날짜가 해마다 달라요."}, {"k": "n18_1", "pre": "[묻기 · 음력] 추석은 ", "ans": "음력이죠", "post": " ?"}, {"k": "n18_2", "pre": "[말하기 · 아니다] 캐나다에서는 추석이 휴일이 ", "ans": "아니잖아요", "post": " ."}, {"k": "n18_3", "pre": "[말하기 · 만들다 · 과거] 지난주에 같이 송편 ", "ans": "만들었잖아요", "post": " ."}, {"k": "n18_4", "pre": "[묻기 · 추수감사절] 다음 주 월요일이 ", "ans": "추수감사절이죠", "post": " ?"}]}, {"id": "n_sp", "key": "n19_", "title": "띄어쓰기 고치기", "en": "Fix the spacing · 평가시험·숙제 약점", "rule": "<b>게 · 줄 · 지 · 때 · 편 · 해요/했어요</b> 앞은 띄어요. 붙여 쓴 부분을 찾아 <b>띄어쓰기만 고쳐서</b> 전체를 다시 쓰세요.", "lead": "", "kind": "fix", "layout": "", "strict": true, "items": [{"k": "n19_0", "pre": "피곤하면 푹 쉬는게 좋겠어요", "ans": "피곤하면 푹 쉬는 게 좋겠어요", "post": ""}, {"k": "n19_1", "pre": "플루트를 불줄 알아요", "ans": "플루트를 불 줄 알아요", "post": ""}, {"k": "n19_2", "pre": "한국어를 배운지 2년 됐어요", "ans": "한국어를 배운 지 2년 됐어요", "post": ""}, {"k": "n19_3", "pre": "퀘벡에 가려고해요", "ans": "퀘벡에 가려고 해요", "post": ""}, {"k": "n19_4", "pre": "파스타를 넣어야해요", "ans": "파스타를 넣어야 해요", "post": ""}, {"k": "n19_5", "pre": "송편을 만들때 뜨거운 물을 써요", "ans": "송편을 만들 때 뜨거운 물을 써요", "post": ""}, {"k": "n19_6", "pre": "할로윈때 나가서 놀았어요", "ans": "할로윈 때 나가서 놀았어요", "post": ""}, {"k": "n19_7", "pre": "차례를 안 지내는편이에요", "ans": "차례를 안 지내는 편이에요", "post": ""}]}, {"id": "n_nde", "key": "n20_", "title": "형용사 -(으)ㄴ데 / 동사 -는데", "en": "Background clause · 숙제 약점", "rule": "배경·대조 \"~인데\": <b>형용사 → -(으)ㄴ데</b>(다르다 → 다른데, 춥다 → 추운데) · <b>동사 → -는데</b>(먹다 → 먹는데). ✗ 다르는데", "lead": "[ ] 안의 단어로 완성하세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n20_0", "pre": "[다르다 · 형용사] 옛날이랑 ", "ans": "다른데", "post": " , 둘 다 재미있어요."}, {"k": "n20_1", "pre": "[먹다 · 동사] 송편을 ", "ans": "먹는데", "post": " 할머니 생각이 났어요."}, {"k": "n20_2", "pre": "[춥다 · 형용사 · ㅂ] 날씨가 ", "ans": "추운데", "post": " 밖에 나갔어요."}, {"k": "n20_3", "pre": "[가다 · 동사] 지금 ", "ans": "가는데", "post": " 좀 늦을 것 같아요."}, {"k": "n20_4", "pre": "[크다 · 형용사] 이 집은 크기는 ", "ans": "큰데", "post": " 좀 어두워요."}]}, {"id": "n_ja", "key": "n21_", "title": "자동사↔타동사 문장 속", "en": "Intransitive vs transitive in sentences · L27", "rule": "<b>이/가</b> + 저절로 → 자동사(끓어요·꺼졌어요·열렸어요) · <b>을/를</b> + 사람이 → 타동사(끓여요·껐어요·열었어요). 조사를 보고 고르세요.", "lead": "[ ] 안의 짝 중 알맞은 동사를 시제에 맞게 쓰세요.", "kind": "ba", "layout": "", "strict": true, "items": [{"k": "n21_0", "pre": "[끓다/끓이다 · 현재] 물이 ", "ans": "끓어요", "post": " ."}, {"k": "n21_1", "pre": "[끓다/끓이다 · 현재] 물을 ", "ans": "끓여요", "post": " ."}, {"k": "n21_2", "pre": "[끄다/꺼지다 · 과거] 바람에 불이 ", "ans": "꺼졌어요", "post": " ."}, {"k": "n21_3", "pre": "[열다/열리다 · 과거] 문이 저절로 ", "ans": "열렸어요", "post": " ."}, {"k": "n21_4", "pre": "[서다/세우다 · 과거] 휴게소에 차를 ", "ans": "세웠어요", "post": " ."}]}];
+const WORDS=[{"id": "tour", "key": "tw", "title": "관광 단어", "en": "Sightseeing vocabulary · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "tw0", "pre": "sightseeing spot →", "ans": "관광지", "post": "", "tier": 2}, {"k": "tw1", "pre": "ticket office →", "ans": "매표소", "post": "", "tier": 3}, {"k": "tw2", "pre": "admission fee →", "ans": "입장료", "post": "", "tier": 2}, {"k": "tw3", "pre": "discount →", "ans": "할인", "post": "", "tier": 1}, {"k": "tw4", "pre": "seat →", "ans": "자리|좌석", "post": "", "tier": 1}, {"k": "tw5", "pre": "exhibition →", "ans": "전시회|전시", "post": "", "tier": 2}, {"k": "tw6", "pre": "performance / show →", "ans": "공연", "post": "", "tier": 2}, {"k": "tw7", "pre": "museum →", "ans": "박물관", "post": "", "tier": 1}, {"k": "tw8", "pre": "art gallery →", "ans": "미술관", "post": "", "tier": 2}, {"k": "tw9", "pre": "souvenir →", "ans": "기념품", "post": "", "tier": 2}, {"k": "tw10", "pre": "information desk →", "ans": "안내소", "post": "", "tier": 3}, {"k": "tw11", "pre": "adult →", "ans": "어른", "post": "", "tier": 1}, {"k": "tw12", "pre": "child →", "ans": "어린이", "post": "", "tier": 1}, {"k": "tw13", "pre": "to line up →", "ans": "줄을 서다|줄 서다|줄서다", "post": "", "tier": 2}, {"k": "tw14", "pre": "to book tickets →", "ans": "예매하다|표를 예매하다|표 예매하다", "post": "", "tier": 1}, {"k": "tw15", "pre": "(a place) open / close →", "ans": "열다|닫다", "post": "", "tier": 1}, {"k": "tw16", "pre": "entrance →", "ans": "입구", "post": "", "tier": 2}, {"k": "tw17", "pre": "re-entry →", "ans": "재입장", "post": "", "tier": 3}, {"k": "tw18", "pre": "last entry →", "ans": "입장 마감|입장마감", "post": "", "tier": 3}, {"k": "tw19", "pre": "special exhibition room →", "ans": "특별 전시실|특별전시실", "post": "", "tier": 3}, {"k": "tw20", "pre": "viewing (a show) →", "ans": "관람", "post": "", "tier": 3}, {"k": "tw21", "pre": "floor map / guide →", "ans": "안내도", "post": "", "tier": 3}, {"k": "tw22", "pre": "photography →", "ans": "촬영", "post": "", "tier": 3}]}, {"id": "trans", "key": "kt", "title": "교통 단어", "en": "Transportation vocabulary · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "kt0", "pre": "airplane →", "ans": "비행기", "post": "", "tier": 1}, {"k": "kt1", "pre": "train →", "ans": "기차", "post": "", "tier": 1}, {"k": "kt2", "pre": "subway →", "ans": "지하철", "post": "", "tier": 1}, {"k": "kt3", "pre": "bus →", "ans": "버스", "post": "", "tier": 1}, {"k": "kt4", "pre": "ferry / boat →", "ans": "페리|배", "post": "", "tier": 3}, {"k": "kt5", "pre": "(bus/subway) stop →", "ans": "정거장|정류장", "post": "", "tier": 2}, {"k": "kt6", "pre": "station →", "ans": "역", "post": "", "tier": 1}, {"k": "kt7", "pre": "to get on →", "ans": "타다", "post": "", "tier": 1}, {"k": "kt8", "pre": "to get off →", "ans": "내리다", "post": "", "tier": 1}, {"k": "kt9", "pre": "to transfer →", "ans": "갈아타다", "post": "", "tier": 1}, {"k": "kt10", "pre": "one-way →", "ans": "편도", "post": "", "tier": 2}, {"k": "kt11", "pre": "round-trip →", "ans": "왕복", "post": "", "tier": 2}, {"k": "kt12", "pre": "departure →", "ans": "출발", "post": "", "tier": 1}, {"k": "kt13", "pre": "arrival →", "ans": "도착", "post": "", "tier": 1}, {"k": "kt14", "pre": "fare →", "ans": "요금", "post": "", "tier": 1}, {"k": "kt15", "pre": "transit card →", "ans": "교통카드", "post": "", "tier": 1}, {"k": "kt16", "pre": "ferry terminal →", "ans": "선착장|여객선 터미널", "post": "", "tier": 3}, {"k": "kt17", "pre": "to check baggage →", "ans": "짐을 부치다|수하물을 부치다|부치다", "post": "", "tier": 2}, {"k": "kt18", "pre": "boarding pass →", "ans": "탑승권", "post": "", "tier": 3}, {"k": "kt19", "pre": "(boarding) gate →", "ans": "탑승구", "post": "", "tier": 3}, {"k": "kt20", "pre": "security check →", "ans": "보안 검색|보안검색", "post": "", "tier": 3}, {"k": "kt21", "pre": "sightseeing cruise →", "ans": "유람선", "post": "", "tier": 3}, {"k": "kt22", "pre": "to board (a boat) →", "ans": "승선하다|승선", "post": "", "tier": 3}, {"k": "kt23", "pre": "personal details →", "ans": "인적사항", "post": "", "tier": 3}, {"k": "kt24", "pre": "life jacket →", "ans": "구명조끼", "post": "", "tier": 3}, {"k": "kt25", "pre": "to book (in advance) →", "ans": "예매하다|예매", "post": "", "tier": 2}, {"k": "kt26", "pre": "harbor / port →", "ans": "항구", "post": "", "tier": 3}, {"k": "kt27", "pre": "lighthouse →", "ans": "등대", "post": "", "tier": 3}, {"k": "kt28", "pre": "island →", "ans": "섬", "post": "", "tier": 3}, {"k": "kt29", "pre": "in an emergency →", "ans": "비상시", "post": "", "tier": 3}, {"k": "kt30", "pre": "crew / attendant →", "ans": "승무원", "post": "", "tier": 3}, {"k": "kt31", "pre": "railing →", "ans": "난간", "post": "", "tier": 3}]}, {"id": "shop", "key": "sh", "title": "쇼핑 단어", "en": "Souvenir shopping · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "sh0", "pre": "postcard →", "ans": "엽서", "post": "", "tier": 3}, {"k": "sh1", "pre": "keychain →", "ans": "열쇠고리", "post": "", "tier": 3}, {"k": "sh2", "pre": "fridge magnet →", "ans": "냉장고 자석|자석", "post": "", "tier": 3}, {"k": "sh3", "pre": "mug →", "ans": "머그컵|머그잔", "post": "", "tier": 3}, {"k": "sh4", "pre": "receipt →", "ans": "영수증", "post": "", "tier": 1}, {"k": "sh5", "pre": "(shopping) bag →", "ans": "봉투", "post": "", "tier": 2}, {"k": "sh6", "pre": "to exchange →", "ans": "교환하다|교환", "post": "", "tier": 2}, {"k": "sh7", "pre": "to refund →", "ans": "환불하다|환불", "post": "", "tier": 1}, {"k": "sh8", "pre": "to wrap / pack →", "ans": "포장하다|포장", "post": "", "tier": 2}, {"k": "sh9", "pre": "to knock the price down →", "ans": "깎다|깎아 주세요", "post": "", "tier": 2}]}, {"id": "rest", "key": "rt", "title": "식당 단어", "en": "Restaurant · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "rt0", "pre": "reservation →", "ans": "예약|예약하다", "post": "", "tier": 1}, {"k": "rt1", "pre": "to order →", "ans": "주문하다|주문", "post": "", "tier": 1}, {"k": "rt2", "pre": "menu →", "ans": "메뉴", "post": "", "tier": 1}, {"k": "rt3", "pre": "side dishes →", "ans": "반찬", "post": "", "tier": 2}, {"k": "rt4", "pre": "serving of a shared dish →", "ans": "인분", "post": "", "tier": 2}, {"k": "rt5", "pre": "to pay the bill →", "ans": "계산하다|계산", "post": "", "tier": 1}, {"k": "rt6", "pre": "to split the bill →", "ans": "나눠 내다|따로 계산하다|따로 내다", "post": "", "tier": 2}, {"k": "rt7", "pre": "to add (an extra item) →", "ans": "추가하다|추가", "post": "", "tier": 2}, {"k": "rt8", "pre": "to leave out (an ingredient) →", "ans": "빼다|빼 주세요", "post": "", "tier": 2}]}, {"id": "cook", "key": "ck", "title": "요리 단어", "en": "Cooking · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "ck0", "pre": "ingredients →", "ans": "재료", "post": "", "tier": 1}, {"k": "ck1", "pre": "to slice / cut →", "ans": "썰다", "post": "", "tier": 2}, {"k": "ck2", "pre": "to mince (finely) →", "ans": "다지다", "post": "", "tier": 3}, {"k": "ck3", "pre": "to stir-fry →", "ans": "볶다", "post": "", "tier": 2}, {"k": "ck4", "pre": "to boil (something) →", "ans": "끓이다", "post": "", "tier": 1}, {"k": "ck5", "pre": "to put in / add →", "ans": "넣다", "post": "", "tier": 1}, {"k": "ck6", "pre": "to mix →", "ans": "섞다", "post": "", "tier": 2}, {"k": "ck7", "pre": "to grill / roast →", "ans": "굽다", "post": "", "tier": 2}, {"k": "ck8", "pre": "to taste (check seasoning) →", "ans": "간을 보다|간 보다", "post": "", "tier": 3}]}, {"id": "revw", "key": "rv", "title": "여행 후기 단어", "en": "Travel review · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "rv0", "pre": "travel review →", "ans": "여행 후기|후기", "post": "", "tier": 3}, {"k": "rv1", "pre": "(fond) memory →", "ans": "추억", "post": "", "tier": 2}, {"k": "rv2", "pre": "to be impressive →", "ans": "인상 깊다|인상적이다", "post": "", "tier": 2}, {"k": "rv3", "pre": "to be memorable →", "ans": "기억에 남다", "post": "", "tier": 2}, {"k": "rv4", "pre": "the best →", "ans": "최고", "post": "", "tier": 2}, {"k": "rv5", "pre": "to recommend →", "ans": "추천하다|추천", "post": "", "tier": 2}, {"k": "rv6", "pre": "to be crowded →", "ans": "붐비다", "post": "", "tier": 2}, {"k": "rv7", "pre": "prices / cost of living →", "ans": "물가", "post": "", "tier": 2}, {"k": "rv8", "pre": "to feel it is a pity →", "ans": "아쉽다", "post": "", "tier": 2}, {"k": "rv9", "pre": "not so great →", "ans": "별로|별로예요", "post": "", "tier": 1}]}, {"id": "exer", "key": "ex", "title": "운동 단어", "en": "Exercise · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "ex0", "pre": "to exercise / work out →", "ans": "운동하다|운동", "post": "", "tier": 1}, {"k": "ex1", "pre": "gym →", "ans": "헬스장", "post": "", "tier": 1}, {"k": "ex2", "pre": "to walk →", "ans": "걷다", "post": "", "tier": 1}, {"k": "ex3", "pre": "to run →", "ans": "뛰다|달리다", "post": "", "tier": 1}, {"k": "ex4", "pre": "to swim →", "ans": "수영하다|수영", "post": "", "tier": 1}, {"k": "ex5", "pre": "to stretch →", "ans": "스트레칭하다|스트레칭", "post": "", "tier": 2}, {"k": "ex6", "pre": "to ride a bike →", "ans": "자전거를 타다|자전거 타다", "post": "", "tier": 2}, {"k": "ex7", "pre": "to sweat →", "ans": "땀이 나다|땀나다", "post": "", "tier": 2}, {"k": "ex8", "pre": "to be out of breath →", "ans": "숨이 차다|숨차다", "post": "", "tier": 2}, {"k": "ex9", "pre": "strength training →", "ans": "근력 운동|근력운동", "post": "", "tier": 3}, {"k": "ex10", "pre": "cardio →", "ans": "유산소 운동|유산소운동", "post": "", "tier": 3}, {"k": "ex11", "pre": "how often →", "ans": "얼마나 자주", "post": "", "tier": 2}]}, {"id": "cloth", "key": "cl", "title": "옷 쇼핑 단어", "en": "Clothes shopping · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "cl0", "pre": "size →", "ans": "사이즈", "post": "", "tier": 1}, {"k": "cl1", "pre": "to try on (clothes) →", "ans": "입어 보다|입어보다", "post": "", "tier": 1}, {"k": "cl2", "pre": "to try on (shoes) →", "ans": "신어 보다|신어보다", "post": "", "tier": 2}, {"k": "cl3", "pre": "to suit / look good on →", "ans": "어울리다", "post": "", "tier": 1}, {"k": "cl4", "pre": "fitting room →", "ans": "탈의실", "post": "", "tier": 3}, {"k": "cl5", "pre": "to fit perfectly →", "ans": "딱 맞다|딱맞다", "post": "", "tier": 2}, {"k": "cl6", "pre": "to be (too) tight →", "ans": "끼다", "post": "", "tier": 2}, {"k": "cl7", "pre": "to be (too) loose →", "ans": "헐렁하다", "post": "", "tier": 2}, {"k": "cl8", "pre": "color →", "ans": "색깔", "post": "", "tier": 1}]}, {"id": "libr", "key": "lb", "title": "도서관 단어", "en": "Library · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "lb0", "pre": "library card →", "ans": "도서관 회원증|회원증", "post": "", "tier": 3}, {"k": "lb1", "pre": "to check out (borrow) →", "ans": "대출하다|대출", "post": "", "tier": 2}, {"k": "lb2", "pre": "to return (a book) →", "ans": "반납하다|반납", "post": "", "tier": 2}, {"k": "lb3", "pre": "to renew / extend →", "ans": "연장하다|연장", "post": "", "tier": 2}, {"k": "lb4", "pre": "reading room →", "ans": "열람실", "post": "", "tier": 3}, {"k": "lb5", "pre": "to save a seat →", "ans": "자리를 맡다|자리 맡다", "post": "", "tier": 2}, {"k": "lb6", "pre": "quietly →", "ans": "조용히", "post": "", "tier": 2}, {"k": "lb7", "pre": "to chatter / be loud →", "ans": "떠들다", "post": "", "tier": 2}, {"k": "lb8", "pre": "overdue →", "ans": "연체", "post": "", "tier": 3}]}, {"id": "libr2", "key": "l2", "title": "도서관 ② 단어", "en": "Library — finding books · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "l20", "pre": "to look for →", "ans": "찾다", "post": "", "tier": 1}, {"k": "l21", "pre": "title →", "ans": "제목", "post": "", "tier": 2}, {"k": "l22", "pre": "to search (catalog) →", "ans": "검색하다|검색", "post": "", "tier": 1}, {"k": "l23", "pre": "bookshelf →", "ans": "책장", "post": "", "tier": 3}, {"k": "l24", "pre": "to reserve / put on hold →", "ans": "예약하다|예약", "post": "", "tier": 3}, {"k": "l25", "pre": "checked out (now borrowed) →", "ans": "대출 중|대출중", "post": "", "tier": 3}, {"k": "l26", "pre": "new release →", "ans": "신간", "post": "", "tier": 3}, {"k": "l27", "pre": "opening hours →", "ans": "여는 시간|문 여는 시간", "post": "", "tier": 2}, {"k": "l28", "pre": "to contact →", "ans": "연락하다|연락", "post": "", "tier": 1}]}, {"id": "book", "key": "bk", "title": "독서 모임 단어", "en": "Book club · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "bk0", "pre": "book club →", "ans": "독서 모임", "post": "", "tier": 3}, {"k": "bk1", "pre": "novel →", "ans": "소설", "post": "", "tier": 2}, {"k": "bk2", "pre": "main character →", "ans": "주인공", "post": "", "tier": 2}, {"k": "bk3", "pre": "plot / storyline →", "ans": "줄거리", "post": "", "tier": 3}, {"k": "bk4", "pre": "to be moving / touching →", "ans": "감동적이다|감동적", "post": "", "tier": 3}, {"k": "bk5", "pre": "to be boring →", "ans": "지루하다", "post": "", "tier": 1}, {"k": "bk6", "pre": "to lend (to someone) →", "ans": "빌려주다", "post": "", "tier": 1}, {"k": "bk7", "pre": "one's thoughts / impressions →", "ans": "감상", "post": "", "tier": 3}, {"k": "bk8", "pre": "to finish reading →", "ans": "다 읽다", "post": "", "tier": 2}]}, {"id": "opin", "key": "op", "title": "의견 단어", "en": "Opinions · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "op0", "pre": "in my opinion →", "ans": "제 생각에는|제 생각엔", "post": "", "tier": 1}, {"k": "op1", "pre": "probably / maybe →", "ans": "아마|아마도", "post": "", "tier": 1}, {"k": "op2", "pre": "much (more) →", "ans": "훨씬", "post": "", "tier": 2}, {"k": "op3", "pre": "to be okay / fine →", "ans": "괜찮다", "post": "", "tier": 1}, {"k": "op4", "pre": "to be not so good →", "ans": "별로다|별로", "post": "", "tier": 2}, {"k": "op5", "pre": "to agree →", "ans": "동의하다|동의", "post": "", "tier": 2}, {"k": "op6", "pre": "to disagree / oppose →", "ans": "반대하다|반대", "post": "", "tier": 2}, {"k": "op7", "pre": "hmm, I'm not sure →", "ans": "글쎄요", "post": "", "tier": 1}, {"k": "op8", "pre": "to be right / correct →", "ans": "맞다", "post": "", "tier": 1}]}, {"id": "advc", "key": "ad", "title": "고민·조언 단어", "en": "Advice · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "ad0", "pre": "a worry / what's on one's mind →", "ans": "고민", "post": "", "tier": 2}, {"k": "ad1", "pre": "to consult / talk it over →", "ans": "상담하다|상담", "post": "", "tier": 2}, {"k": "ad2", "pre": "to be stressed →", "ans": "스트레스를 받다|스트레스 받다", "post": "", "tier": 1}, {"k": "ad3", "pre": "to overdo it / push too hard →", "ans": "무리하다", "post": "", "tier": 2}, {"k": "ad4", "pre": "to rest well →", "ans": "푹 쉬다", "post": "", "tier": 1}, {"k": "ad5", "pre": "to endure / hold it in →", "ans": "참다", "post": "", "tier": 2}, {"k": "ad6", "pre": "honestly / frankly →", "ans": "솔직하게", "post": "", "tier": 2}, {"k": "ad7", "pre": "relationship (between people) →", "ans": "사이", "post": "", "tier": 2}, {"k": "ad8", "pre": "to give advice →", "ans": "조언하다|조언", "post": "", "tier": 2}]}, {"id": "pair", "key": "pr", "title": "자동사↔타동사 짝", "en": "Verb pairs · type the Korean", "lead": "뜻을 보고 <b>한국어 동사</b>를 쓰세요 (자동사=저절로, 타동사=사람이 함).", "items": [{"k": "pr0", "pre": "(물이) boils [자동사] →", "ans": "끓다", "post": "", "tier": 2}, {"k": "pr1", "pre": "to boil (water) [타동사] →", "ans": "끓이다", "post": "", "tier": 2}, {"k": "pr2", "pre": "(meat) gets cooked [자동사] →", "ans": "익다", "post": "", "tier": 2}, {"k": "pr3", "pre": "to cook (meat) [타동사] →", "ans": "익히다", "post": "", "tier": 3}, {"k": "pr4", "pre": "(soup) cools down [자동사] →", "ans": "식다", "post": "", "tier": 2}, {"k": "pr5", "pre": "to cool (soup) down [타동사] →", "ans": "식히다", "post": "", "tier": 3}, {"k": "pr6", "pre": "(light) turns off [자동사] →", "ans": "꺼지다", "post": "", "tier": 2}, {"k": "pr7", "pre": "to turn off (light) [타동사] →", "ans": "끄다", "post": "", "tier": 1}, {"k": "pr8", "pre": "(door) opens [자동사] →", "ans": "열리다", "post": "", "tier": 2}, {"k": "pr9", "pre": "to open (door) [타동사] →", "ans": "열다", "post": "", "tier": 2}, {"k": "pr10", "pre": "(car) stops [자동사] →", "ans": "서다", "post": "", "tier": 2}, {"k": "pr11", "pre": "to park/stop (car) [타동사] →", "ans": "세우다", "post": "", "tier": 2}]}, {"id": "inst", "key": "it", "title": "악기 단어", "en": "Instruments · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "it0", "pre": "musical instrument →", "ans": "악기", "post": "", "tier": 2}, {"k": "it1", "pre": "to play / perform →", "ans": "연주하다|연주", "post": "", "tier": 3}, {"k": "it2", "pre": "to play (piano/guitar/drums) →", "ans": "치다", "post": "", "tier": 2}, {"k": "it3", "pre": "to play (violin — bow) →", "ans": "켜다", "post": "", "tier": 2}, {"k": "it4", "pre": "to play (flute — blow) →", "ans": "불다", "post": "", "tier": 2}, {"k": "it5", "pre": "to learn →", "ans": "배우다", "post": "", "tier": 1}, {"k": "it6", "pre": "to practice →", "ans": "연습하다|연습", "post": "", "tier": 1}, {"k": "it7", "pre": "sheet music / score →", "ans": "악보", "post": "", "tier": 3}, {"k": "it8", "pre": "hobby →", "ans": "취미", "post": "", "tier": 1}]}, {"id": "inst2", "key": "i2", "title": "악기 심화 단어", "en": "Instruments (advanced) · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "i20", "pre": "reed (clarinet) →", "ans": "리드", "post": "", "tier": 3}, {"k": "i21", "pre": "mouthpiece →", "ans": "마우스피스", "post": "", "tier": 3}, {"k": "i22", "pre": "pitch / intonation →", "ans": "음정", "post": "", "tier": 3}, {"k": "i23", "pre": "to tune →", "ans": "조율하다|조율", "post": "", "tier": 3}, {"k": "i24", "pre": "high note(s) →", "ans": "고음", "post": "", "tier": 3}, {"k": "i25", "pre": "to play together / ensemble →", "ans": "합주하다|합주", "post": "", "tier": 3}, {"k": "i26", "pre": "orchestra →", "ans": "오케스트라", "post": "", "tier": 3}, {"k": "i27", "pre": "stage →", "ans": "무대", "post": "", "tier": 3}, {"k": "i28", "pre": "etude / practice piece →", "ans": "연습곡", "post": "", "tier": 3}]}, {"id": "trip", "key": "tp", "title": "로드트립 단어", "en": "Road trip · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "tp0", "pre": "road trip →", "ans": "로드트립|자동차 여행", "post": "", "tier": 3}, {"k": "tp1", "pre": "to drive →", "ans": "운전하다|운전", "post": "", "tier": 1}, {"k": "tp2", "pre": "highway / freeway →", "ans": "고속도로", "post": "", "tier": 2}, {"k": "tp3", "pre": "rest stop / service area →", "ans": "휴게소", "post": "", "tier": 2}, {"k": "tp4", "pre": "fall foliage →", "ans": "단풍", "post": "", "tier": 3}, {"k": "tp5", "pre": "scenery / view →", "ans": "경치", "post": "", "tier": 2}, {"k": "tp6", "pre": "lodging / accommodation →", "ans": "숙소", "post": "", "tier": 2}, {"k": "tp7", "pre": "gas station →", "ans": "주유소", "post": "", "tier": 2}, {"k": "tp8", "pre": "itinerary / schedule →", "ans": "일정", "post": "", "tier": 1}]}, {"id": "conf", "key": "cf", "title": "헷갈리는 동사", "en": "들르다·듣다·들다 · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "cf0", "pre": "to stop by (a place) →", "ans": "들르다", "post": "", "tier": 1}, {"k": "cf1", "pre": "to listen / take a class →", "ans": "듣다", "post": "", "tier": 1}, {"k": "cf2", "pre": "to lift / hold (가방을) →", "ans": "들다", "post": "", "tier": 1}, {"k": "cf3", "pre": "to like / be pleased (마음에) →", "ans": "마음에 들다|들다", "post": "", "tier": 1}, {"k": "cf4", "pre": "to get older (나이가) →", "ans": "나이가 들다|들다", "post": "", "tier": 2}, {"k": "cf5", "pre": "to cost money (돈이) →", "ans": "돈이 들다|들다", "post": "", "tier": 2}, {"k": "cf6", "pre": "to fall asleep (잠이) →", "ans": "잠이 들다|들다", "post": "", "tier": 2}, {"k": "cf7", "pre": "bookstore →", "ans": "서점", "post": "", "tier": 2}, {"k": "cf8", "pre": "(music) album →", "ans": "앨범", "post": "", "tier": 3}]}, {"id": "wish", "key": "ws", "title": "여행 소망 단어", "en": "Travel &amp; wishes · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "ws0", "pre": "memory (keepsake) →", "ans": "추억", "post": "", "tier": 2}, {"k": "ws1", "pre": "a great / popular restaurant →", "ans": "맛집", "post": "", "tier": 2}, {"k": "ws2", "pre": "to look around, sightsee →", "ans": "구경하다|구경", "post": "", "tier": 1}, {"k": "ws3", "pre": "weather →", "ans": "날씨", "post": "", "tier": 1}, {"k": "ws4", "pre": "to be clear / sunny →", "ans": "맑다", "post": "", "tier": 1}, {"k": "ws5", "pre": "to be jammed (traffic) →", "ans": "막히다", "post": "", "tier": 1}, {"k": "ws6", "pre": "safely, without a hitch →", "ans": "무사히", "post": "", "tier": 3}, {"k": "ws7", "pre": "to be relaxed / leisurely →", "ans": "여유롭다", "post": "", "tier": 3}, {"k": "ws8", "pre": "souvenir →", "ans": "기념품", "post": "", "tier": 2}]}, {"id": "qbc", "key": "qb", "title": "올드퀘벡·여행 후기 단어", "en": "Old Quebec sights · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "qb0", "pre": "castle →", "ans": "성", "post": "", "tier": 3}, {"k": "qb1", "pre": "city wall(s) →", "ans": "성벽", "post": "", "tier": 3}, {"k": "qb2", "pre": "view (vista) →", "ans": "전망", "post": "", "tier": 3}, {"k": "qb3", "pre": "cobblestone street →", "ans": "돌길", "post": "", "tier": 3}, {"k": "qb4", "pre": "alley, narrow street →", "ans": "골목", "post": "", "tier": 2}, {"k": "qb5", "pre": "atmosphere, vibe →", "ans": "분위기", "post": "", "tier": 1}, {"k": "qb6", "pre": "waterfall →", "ans": "폭포", "post": "", "tier": 3}, {"k": "qb7", "pre": "night view →", "ans": "야경", "post": "", "tier": 3}, {"k": "qb8", "pre": "to be impressive / striking →", "ans": "인상적이다|인상적", "post": "", "tier": 3}]}, {"id": "chu", "key": "ch", "title": "추석 단어", "en": "Chuseok · type the Korean", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "ch0", "pre": "Chuseok, Korean harvest festival →", "ans": "추석", "post": "", "tier": 1}, {"k": "ch1", "pre": "traditional holiday →", "ans": "명절", "post": "", "tier": 1}, {"k": "ch2", "pre": "another name for Chuseok →", "ans": "한가위", "post": "", "tier": 3}, {"k": "ch3", "pre": "full moon →", "ans": "보름달", "post": "", "tier": 3}, {"k": "ch4", "pre": "half-moon rice cake →", "ans": "송편", "post": "", "tier": 2}, {"k": "ch5", "pre": "ancestral memorial rite →", "ans": "차례", "post": "", "tier": 3}, {"k": "ch6", "pre": "visiting ancestors' graves →", "ans": "성묘", "post": "", "tier": 3}, {"k": "ch7", "pre": "holiday period, consecutive days off →", "ans": "연휴", "post": "", "tier": 1}, {"k": "ch8", "pre": "to gather, get together →", "ans": "모이다", "post": "", "tier": 1}]}, {"id": "loan", "key": "lw", "title": "외래어 표기 ㅐ/ㅔ", "en": "Loanword spelling · English → Korean (Lesson 35)", "lead": "영어 단어를 보고 <b>표준 한글 표기</b>를 쓰세요. (e 글자는 ㅔ 아니면 ㅣ, ㅐ는 cat 소리만, \"에이\" 소리는 ㅔ+이)", "items": [{"k": "lw0", "pre": "café →", "ans": "카페", "post": "", "tier": 1}, {"k": "lw1", "pre": "hotel →", "ans": "호텔", "post": "", "tier": 2}, {"k": "lw2", "pre": "belt →", "ans": "벨트", "post": "", "tier": 2}, {"k": "lw3", "pre": "Kay →", "ans": "케이", "post": "", "tier": 3}, {"k": "lw4", "pre": "cake →", "ans": "케이크", "post": "", "tier": 2}, {"k": "lw5", "pre": "game →", "ans": "게임", "post": "", "tier": 2}, {"k": "lw6", "pre": "menu →", "ans": "메뉴", "post": "", "tier": 2}, {"k": "lw7", "pre": "taxi →", "ans": "택시", "post": "", "tier": 1}, {"k": "lw8", "pre": "Canada →", "ans": "캐나다", "post": "", "tier": 2}, {"k": "lw9", "pre": "e-mail →", "ans": "이메일", "post": "", "tier": 1}, {"k": "lw10", "pre": "computer →", "ans": "컴퓨터", "post": "", "tier": 1}, {"k": "lw11", "pre": "Ottawa →", "ans": "오타와", "post": "", "tier": 3}, {"k": "lw12", "pre": "Quebec →", "ans": "퀘벡", "post": "", "tier": 3}]}, {"id": "food", "key": "fd", "title": "추석 음식 단어", "en": "Chuseok food · type the Korean (Lesson 36)", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "fd0", "pre": "dough →", "ans": "반죽", "post": "", "tier": 3}, {"k": "fd1", "pre": "filling (inside a rice cake) →", "ans": "소", "post": "", "tier": 3}, {"k": "fd2", "pre": "to shape / mold (rice cakes) →", "ans": "빚다", "post": "", "tier": 3}, {"k": "fd3", "pre": "to steam →", "ans": "찌다", "post": "", "tier": 3}, {"k": "fd4", "pre": "pine needles →", "ans": "솔잎", "post": "", "tier": 3}, {"k": "fd5", "pre": "sesame oil →", "ans": "참기름", "post": "", "tier": 2}, {"k": "fd6", "pre": "taro soup →", "ans": "토란국", "post": "", "tier": 3}, {"k": "fd7", "pre": "braised short ribs →", "ans": "갈비찜", "post": "", "tier": 3}, {"k": "fd8", "pre": "seasoned vegetable side dish →", "ans": "나물", "post": "", "tier": 2}, {"k": "fd9", "pre": "to set the table →", "ans": "상을 차리다", "post": "", "tier": 2}]}, {"id": "rite", "key": "ri", "title": "차례·성묘 단어", "en": "Rites &amp; grave visits · type the Korean (Lesson 37)", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "ri0", "pre": "ancestors →", "ans": "조상", "post": "", "tier": 3}, {"k": "ri1", "pre": "ritual offering table →", "ans": "차례상", "post": "", "tier": 3}, {"k": "ri2", "pre": "to bow (deep bow) →", "ans": "절을 하다|절하다", "post": "", "tier": 3}, {"k": "ri3", "pre": "grave (respectful) →", "ans": "산소", "post": "", "tier": 3}, {"k": "ri4", "pre": "trimming grass at a grave →", "ans": "벌초", "post": "", "tier": 3}, {"k": "ri5", "pre": "relatives →", "ans": "친척", "post": "", "tier": 1}, {"k": "ri6", "pre": "tradition →", "ans": "전통", "post": "", "tier": 2}, {"k": "ri7", "pre": "simply, in a simplified way →", "ans": "간소하게", "post": "", "tier": 3}, {"k": "ri8", "pre": "to change (by itself) →", "ans": "바뀌다", "post": "", "tier": 2}, {"k": "ri9", "pre": "generation →", "ans": "세대", "post": "", "tier": 3}]}, {"id": "greet", "key": "gr", "title": "안부·인사·높임 단어", "en": "Greetings &amp; honorifics · type the Korean (Lesson 38)", "lead": "뜻을 보고 <b>한국어 단어</b>를 쓰세요.", "items": [{"k": "gr0", "pre": "regards, how someone is doing →", "ans": "안부", "post": "", "tier": 2}, {"k": "gr1", "pre": "words of blessing →", "ans": "덕담", "post": "", "tier": 3}, {"k": "gr2", "pre": "age (honorific of 나이) →", "ans": "연세", "post": "", "tier": 2}, {"k": "gr3", "pre": "home (honorific of 집) →", "ans": "댁", "post": "", "tier": 2}, {"k": "gr4", "pre": "name (honorific of 이름) →", "ans": "성함", "post": "", "tier": 2}, {"k": "gr5", "pre": "to see an elder (humble) →", "ans": "뵙다", "post": "", "tier": 1}, {"k": "gr6", "pre": "to be ill (honorific of 아프다) →", "ans": "편찮으시다", "post": "", "tier": 1}, {"k": "gr7", "pre": "to tell an elder (humble) →", "ans": "말씀드리다", "post": "", "tier": 2}, {"k": "gr8", "pre": "pocket money →", "ans": "용돈", "post": "", "tier": 2}, {"k": "gr9", "pre": "for a long, long time →", "ans": "오래오래", "post": "", "tier": 3}]}];
+const TARGET=5, TODAY_N=15, TODAY_WORDS=6, REVISIT_MAX=3, GAP0=5, UNLOCK_RATIO=0.8;
+const KEY="practice_room", MKEY="practice_master", META="practice_meta";
 const store=JSON.parse(localStorage.getItem(KEY)||"{}");
 const master=JSON.parse(localStorage.getItem(MKEY)||"{}");
-let showMastered=false;
+const meta=Object.assign({round:0,wrong:{},seen:{},due:{},gap:{},tier:1,tab:'p',mode:'today',showM:false,today:null,nonce:0,suggested:{}},JSON.parse(localStorage.getItem(META)||"{}"));
+function saveAll(){ localStorage.setItem(KEY,JSON.stringify(store)); localStorage.setItem(MKEY,JSON.stringify(master)); localStorage.setItem(META,JSON.stringify(meta)); }
+function el(id){return document.getElementById(id);}
+function normLoose(s){ return s.replace(/\s/g,"").replace(/[.?!]+$/,""); }
+function normStrict(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); }
+const INPUT='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
 
+// ---------- 항목 인덱스 ----------
+const ITEMS={}; const ORDER=[];
+PATTERNS.forEach((s,si)=>s.items.forEach(it=>{ it.sec=s.id; it.tab='p'; it.strict=!!s.strict; it.kind=s.kind; it.rec=si/(PATTERNS.length-1); ITEMS[it.k]=it; ORDER.push(it.k); }));
+WORDS.forEach((s,si)=>s.items.forEach(it=>{ it.sec=s.id; it.tab='w'; it.strict=false; it.kind='ba'; it.rec=si/(WORDS.length-1); ITEMS[it.k]=it; ORDER.push(it.k); }));
+const TIERNAME={1:'★핵심',2:'보통',3:'참고'};
+
+// ---------- 렌더 ----------
+function drillHTML(it,idx){
+  const cls=it.kind==='pair'?'mid':(it.kind==='fix'?'xwide':'wide');
+  let body;
+  if(it.kind==='pair') body=`<span class="ko">${it.pre}</span> → ${INPUT} class="ans ${cls}" data-k="${it.k}" data-ans="${it.ans}">`;
+  else if(it.kind==='fix') body=`<span class="ko"><span class="wrongx">✗ ${it.pre}</span> →</span> ${INPUT} class="ans ${cls}" data-k="${it.k}" data-ans="${it.ans}">`;
+  else body=`<span class="ko">${it.pre}</span>${INPUT} class="ans ${cls}" data-k="${it.k}" data-ans="${it.ans}"><span class="ko">${it.post}</span>`;
+  const tier=it.tier?`<span class="tier t${it.tier}">${TIERNAME[it.tier]}</span>`:'';
+  return `<div class="drill" id="dr_${it.k}" data-k="${it.k}"><div class="row"><span class="num">${idx+1}.</span>${body}<span class="fb" id="fb_${it.k}"></span>${tier}<span class="dots" id="dots_${it.k}"></span></div></div>`;
+}
+function renderPane(pane,secs,tab){
+  let h='';
+  secs.forEach((s,si)=>{
+    h+=`<section id="sec_${s.id}" data-tab="${tab}"><h2>${si+1}. ${s.title} <span class="en">${s.en||''}</span><button class="secbtn" onclick="resetSection('${s.id}')" title="이 섹션 진도만 초기화">↺ 섹션 진도</button></h2>`;
+    if(s.rule) h+=`<div class="rule">${s.rule}</div>`;
+    if(s.lead) h+=`<p class="lead">${s.lead}</p>`;
+    h+=`<div class="list ${s.layout||''}" id="list_${s.id}">`+s.items.map((it,i)=>drillHTML(it,i)).join('')+`</div>`;
+    h+=`<div class="lockinfo" id="lock_${s.id}"></div>`;
+    h+=`<details class="mlist" id="ml_${s.id}" style="display:none"><summary id="mls_${s.id}"></summary><div class="list" id="mlist_${s.id}"></div></details></section>`;
+  });
+  el(pane).innerHTML=h;
+}
+renderPane('pane_p',PATTERNS,'p'); renderPane('pane_w',WORDS,'w');
+
+// ---------- 채점 ----------
+function isOk(it,v){ const n=it.strict?normStrict:normLoose; return it.ans.split("|").some(a=>n(v)===n(a)); }
 function check(elm){
-  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
-  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  const k=elm.dataset.k, it=ITEMS[k], v=elm.value.trim(), fb=el("fb_"+k);
+  store[k]=v; localStorage.setItem(KEY,JSON.stringify(store));
   if(!fb) return;
   if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
-  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
-  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
-  updateScore();
+  const ok=isOk(it,v); fb.textContent=ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no"); updateScore();
 }
 function updateScore(){
   let done=0,ok=0;
-  document.querySelectorAll("[data-k]").forEach(e=>{ const dr=e.closest(".drill"); if(dr&&dr.style.display==="none")return;
-    const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  document.querySelectorAll(".drill").forEach(dr=>{ if(dr.style.display==="none"||dr.closest("section").style.display==="none") return;
+    const e=dr.querySelector("[data-k]"); const fb=el("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
   el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
 }
 function updateDots(k){
-  const d=document.getElementById("dots_"+k); if(!d) return;
+  const d=el("dots_"+k); if(!d) return;
   const n=Math.min(master[k]||0,TARGET); let s="";
   for(let j=0;j<TARGET;j++) s+=`<i class="${j<n?'on':''}"></i>`;
-  d.innerHTML=s+(n>=TARGET?' <span class="mbadge">✓ 익힘</span>':'');
+  if(n>=TARGET){ s+=' <span class="mbadge">✓ 익힘</span>'; if(meta.due[k]!==undefined&&meta.due[k]<=meta.round) s+=' <span class="rbadge">🔁 다시 한 번</span>'; }
+  d.innerHTML=s;
 }
-function updateMasterCount(){
-  const all=document.querySelectorAll("[data-k]"); let m=0;
-  all.forEach(e=>{ if((master[e.dataset.k]||0)>=TARGET) m++; });
-  el("mcount").textContent=`익힘 ${m} / 전체 ${all.length}`;
-}
-function applyMastery(){
-  document.querySelectorAll("[data-k]").forEach(e=>{
-    const k=e.dataset.k, dr=e.closest(".drill"), done=(master[k]||0)>=TARGET;
-    if(dr){ dr.style.display=(done&&!showMastered)?"none":""; dr.classList.toggle("mastered",done); }
-    updateDots(k);
-  });
-  document.querySelectorAll("section").forEach(sec=>{
-    const ds=sec.querySelectorAll(".drill"); if(!ds.length) return;
-    sec.style.display=[...ds].some(d=>d.style.display!=="none")?"":"none";
-  });
-  updateMasterCount(); updateScore();
-}
-function clearInputs(){
-  for(const k in store) delete store[k]; localStorage.setItem(KEY,JSON.stringify(store));
-  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
-}
-function nextRound(){
-  let round=0,rok=0;
-  document.querySelectorAll("[data-k]").forEach(e=>{
-    const k=e.dataset.k, v=e.value.trim();
-    if((master[k]||0)>=TARGET) return;   // 이미 익힘
-    if(v==="") return;                    // 미응답: 변화 없음
-    round++;
-    const ok=e.dataset.ans.split("|").some(a=>norm(v)===norm(a));
-    if(ok){ master[k]=(master[k]||0)+1; rok++; } else { master[k]=0; }
-  });
-  localStorage.setItem(MKEY,JSON.stringify(master));
-  clearInputs(); applyMastery();
-  el("msg").textContent = round? `이번 회차 ${rok}/${round} 정답 · 진도 반영` : "채점할 답이 없어요";
-}
-function resetProgress(){
-  if(!confirm("진도(익힘 표시)를 모두 지우고 처음부터 할까요?")) return;
-  for(const k in master) delete master[k]; localStorage.removeItem(MKEY);
-  showMastered=false; const t=el("toggleM"); if(t) t.checked=false;
-  clearInputs(); applyMastery(); el("msg").textContent="";
-}
-function toggleMastered(cb){ showMastered=cb.checked; applyMastery(); }
 
-document.querySelectorAll("[data-k]").forEach(e=>{   // 진도 점 주입
-  const row=e.closest(".row"); if(!row) return;
-  const d=document.createElement("span"); d.className="dots"; d.id="dots_"+e.dataset.k; row.appendChild(d);
-});
+// ---------- 오늘의 복습 ----------
+function hash(s){ let h=0; for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))>>>0; return h; }
+function eligible(it){ return it.tab==='p' || it.tier<=meta.tier; }
+function mastered(k){ return (master[k]||0)>=TARGET; }
+function buildToday(){
+  const r=meta.round, pool={p:[],w:[]}, revisit=[];
+  ORDER.forEach(k=>{ const it=ITEMS[k]; if(!eligible(it)) return;
+    if(mastered(k)){ if(meta.due[k]!==undefined&&meta.due[k]<=r) revisit.push({k,score:hash(k+r+meta.nonce)%1000}); return; }
+    let sc=0; const st=master[k]||0;
+    if(meta.wrong[k]!==undefined && r-meta.wrong[k]<=3) sc+=3;
+    if(meta.seen[k]===undefined) sc+=2; else sc+=Math.min(2,(r-meta.seen[k])/3);
+    sc+=(TARGET-st)*0.3 + it.rec*0.6 + (hash(k+"|"+r+"|"+meta.nonce)%1000)/1000;
+    pool[it.tab].push({k,score:sc});
+  });
+  pool.p.sort((a,b)=>b.score-a.score); pool.w.sort((a,b)=>b.score-a.score); revisit.sort((a,b)=>b.score-a.score);
+  const rv=revisit.slice(0,REVISIT_MAX).map(x=>x.k);
+  let nw=Math.min(TODAY_WORDS,pool.w.length), np=Math.min(TODAY_N-rv.length-nw,pool.p.length);
+  if(np<TODAY_N-rv.length-nw) nw=Math.min(pool.w.length,TODAY_N-rv.length-np);
+  const keys=[...pool.p.slice(0,np).map(x=>x.k),...pool.w.slice(0,nw).map(x=>x.k),...rv];
+  meta.today={round:r,tier:meta.tier,nonce:meta.nonce,keys}; saveAll();
+}
+function todayKeys(){ if(!meta.today||meta.today.round!==meta.round||meta.today.tier!==meta.tier||meta.today.nonce!==meta.nonce) buildToday(); return new Set(meta.today.keys); }
+function reshuffle(){ meta.nonce=(meta.nonce||0)+1; buildToday(); applyView(); el("msg").textContent="오늘의 복습을 새로 뽑았어요"; }
+
+// ---------- 화면 적용 ----------
+function applyView(){
+  const T=meta.mode==='today'?todayKeys():null;
+  const both=meta.mode==='today';
+  el("pane_p").style.display=(both||meta.tab==='p')?"":"none"; el("pane_w").style.display=(both||meta.tab==='w')?"":"none";
+  document.querySelector(".tabs").style.display=both?"none":"";
+  el("tab_p").classList.toggle("on",meta.tab==='p'); el("tab_w").classList.toggle("on",meta.tab==='w');
+  el("mode_today").classList.toggle("on",meta.mode==='today'); el("mode_all").classList.toggle("on",meta.mode==='all');
+  el("toggleM").checked=!!meta.showM;
+  const secs=both?[...PATTERNS,...WORDS]:(meta.tab==='p'?PATTERNS:WORDS);
+  let visTotal=0, visM=0;
+  secs.forEach(s=>{
+    const list=el("list_"+s.id), ml=el("mlist_"+s.id), det=el("ml_"+s.id); let shown=0, mcount=0, locked={2:0,3:0}, tCount=0;
+    s.items.forEach(it=>{
+      const k=it.k, dr=el("dr_"+k), m=mastered(k), inT=!T||T.has(k), elig=eligible(it);
+      updateDots(k);
+      if(!elig){ dr.style.display="none"; locked[it.tier]++; if(dr.parentElement!==list) list.appendChild(dr); return; }
+      tCount++; if(m) mcount++;
+      // 배치: 익힘은 접힌 목록으로, 아니면 본 목록으로
+      const target=(m&&!meta.showM&&!(T&&T.has(k)))?ml:list; if(dr.parentElement!==target) target.appendChild(dr);
+      const vis = inT && (!m || meta.showM || (T&&T.has(k)));
+      dr.style.display=vis?"":"none"; if(vis) shown++;
+    });
+    visTotal+=tCount; visM+=mcount;
+    const showDet = meta.mode==='all' && !meta.showM && mcount>0;
+    det.style.display=showDet?"":"none"; el("mls_"+s.id).textContent=`✓ 익힘 ${mcount}개 — 펼쳐서 다시 보기`;
+    const li=el("lock_"+s.id); const lk=[]; if(locked[2]) lk.push(`보통 ${locked[2]}`); if(locked[3]) lk.push(`참고 ${locked[3]}`);
+    li.textContent=(meta.mode==='all'&&lk.length)?`🔒 다음 단계 단어: ${lk.join(' · ')}`:"";
+    const sec=el("sec_"+s.id); sec.style.display=(shown>0||(meta.mode==='all'&&(showDet||lk.length)))?"":"none";
+    sec.querySelector(".secbtn").style.display=meta.mode==='all'?"":"none";
+  });
+  el("mcount").textContent=`익힘 ${visM} / ${visTotal}`;
+  // 오늘의 복습 안내
+  const tn=el("todaynote");
+  if(meta.mode==='today'){
+    const keys=meta.today.keys, np=keys.filter(k=>ITEMS[k].tab==='p').length, nw=keys.length-np, rv=keys.filter(k=>mastered(k)).length;
+    tn.style.display=""; tn.innerHTML=`🌤 <b>오늘의 복습</b> ${keys.length}문항 (문형 ${np} · 단어 ${nw}${rv?` · 🔁 다시 보기 ${rv}`:''}) — 회차 ${meta.round+1}. 아래로 내려가며 다 풀고 <b>✅ 채점·다음 회차</b>! <button class="btn small" onclick="reshuffle()">🔄 다른 문제로</button>`;
+    if(keys.length===0) tn.innerHTML=`🎉 지금 단계에서 풀 문제가 없어요. 전체 보기에서 확인하거나, 단어 탭에서 다음 단계를 열어 보세요.`;
+  } else tn.style.display="none";
+  // 단계 상자
+  const tb=el("tierbox");
+  if(both||meta.tab==='w'){
+    const t=meta.tier, all=[]; WORDS.forEach(s=>s.items.forEach(it=>{ if(it.tier===t) all.push(it.k); }));
+    const m=all.filter(mastered).length, pct=all.length?Math.round(m/all.length*100):0;
+    tb.style.display=""; tb.innerHTML=`<span class="t">${t}단계 ${TIERNAME[t]} 단어</span> <span>${m} / ${all.length} 익힘 (${pct}%)</span><span class="prog"><i style="width:${pct}%"></i></span>`+
+      (t<3?`<button class="btn small" onclick="setTier(${t+1})">다음 단계 열기 →</button>`:'')+(t>1?`<button class="btn small" onclick="setTier(${t-1})">← ${t-1}단계로</button>`:'')+
+      `<span style="flex-basis:100%;font-size:12px;color:var(--muted)">1단계 ★핵심(일상에서 바로 쓰는 말) → 2단계 보통 → 3단계 참고. 지금 단계를 80% 익히면 다음 단계를 열자고 알려 드려요.</span>`;
+    const bn=el("banner");
+    if(pct>=UNLOCK_RATIO*100 && t<3 && !meta.suggested[t]){ bn.style.display=""; bn.innerHTML=`🎉 ${TIERNAME[t]} 단어를 ${pct}% 익혔어요! 다음 단계(${TIERNAME[t+1]})를 열까요? <button class="btn small" onclick="setTier(${t+1})">열기</button> <button class="btn small" onclick="meta.suggested[${t}]=true;saveAll();applyView()">나중에</button>`; }
+    else bn.style.display="none";
+  } else { tb.style.display="none"; el("banner").style.display="none"; }
+  updateScore();
+}
+function setTab(t){ meta.tab=t; saveAll(); applyView(); }
+function setMode(m){ meta.mode=m; saveAll(); applyView(); }
+function setTier(t){ meta.tier=Math.max(1,Math.min(3,t)); meta.suggested[t-1]=true; saveAll(); applyView(); el("msg").textContent=`${meta.tier}단계 ${TIERNAME[meta.tier]} 단어까지 열렸어요`; }
+function toggleMastered(cb){ meta.showM=cb.checked; saveAll(); applyView(); }
+
+// ---------- 회차 ----------
+function nextRound(){
+  let n=0,ok=0; const r=meta.round;
+  document.querySelectorAll("[data-k]").forEach(e=>{
+    const k=e.dataset.k, it=ITEMS[k], v=e.value.trim(); if(v==="") return;
+    const dr=el("dr_"+k); if(dr.style.display==="none"||dr.closest("section").style.display==="none") return;
+    n++; meta.seen[k]=r; const was=mastered(k);
+    if(isOk(it,v)){
+      ok++;
+      if(was){ meta.gap[k]=(meta.gap[k]||GAP0)*2; meta.due[k]=r+1+meta.gap[k]; }
+      else { master[k]=(master[k]||0)+1; if(master[k]>=TARGET){ meta.gap[k]=GAP0; meta.due[k]=r+1+GAP0; } }
+    } else {
+      meta.wrong[k]=r;
+      if(was){ master[k]=TARGET-2; delete meta.due[k]; delete meta.gap[k]; }
+      else master[k]=Math.max(0,(master[k]||0)-1);
+    }
+  });
+  if(!n){ el("msg").textContent="채점할 답이 없어요"; return; }
+  meta.round=r+1; for(const k in store) delete store[k]; saveAll();
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=el("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  applyView(); el("msg").textContent=`이번 회차 ${ok}/${n} 정답 · 진도 반영 · 다음 회차 준비됐어요`;
+}
+// ---------- 초기화 ----------
+function closeMenu(){ el("menu").classList.remove("open"); }
+function clearAnswers(){ closeMenu(); for(const k in store) delete store[k]; saveAll(); document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=el("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} }); updateScore(); el("msg").textContent="입력한 답만 지웠어요 (진도는 그대로)"; }
+function resetMasteredOnly(){ closeMenu(); let c=0; for(const k in master){ if(mastered(k)){ master[k]=0; delete meta.due[k]; delete meta.gap[k]; c++; } }
+  if(!c){ el("msg").textContent="익힌 문제가 아직 없어요"; return; }
+  if(!confirm(`익힌 문제 ${c}개를 다시 풀 수 있게 진도를 0으로 돌릴까요? (공부 중인 문제의 진도는 그대로예요)`)) return;
+  saveAll(); applyView(); el("msg").textContent=`익힌 문제 ${c}개를 다시 풀 수 있어요`; }
+function resetSection(id){ const s=[...PATTERNS,...WORDS].find(x=>x.id===id); if(!confirm(`「${s.title}」 섹션의 진도만 초기화할까요? (다른 섹션은 그대로)`)) return;
+  s.items.forEach(it=>{ delete master[it.k]; delete meta.due[it.k]; delete meta.gap[it.k]; delete meta.wrong[it.k]; delete meta.seen[it.k]; }); saveAll(); applyView(); el("msg").textContent=`「${s.title}」 진도를 초기화했어요`; }
+function resetAll(){ closeMenu(); if(!confirm("정말 전체 진도(익힘·공부 중 모두)를 지우고 처음부터 할까요?")) return; if(!confirm("되돌릴 수 없어요. 계속할까요?")) return;
+  for(const k in master) delete master[k]; for(const k in store) delete store[k]; Object.assign(meta,{round:0,wrong:{},seen:{},due:{},gap:{},today:null,suggested:{}}); saveAll();
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=el("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} }); applyView(); el("msg").textContent="전체 진도를 초기화했어요"; }
+document.addEventListener("click",e=>{ if(!e.target.closest("#menu")) closeMenu(); });
+
+// ---------- 시작 ----------
+try{ const q=new URLSearchParams(location.search); if(q.get('tab')) meta.tab=q.get('tab'); if(q.get('mode')) meta.mode=q.get('mode'); if(q.get('tier')) meta.tier=+q.get('tier'); }catch(e){}
 document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
 document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
-applyMastery();
+applyView();
 </script>
 </body>
 </html>
