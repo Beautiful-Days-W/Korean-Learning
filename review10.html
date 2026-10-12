@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>복습 · Lessons 31–35</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;--teal:#0d9488;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:17px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  h2 .tag{font-size:11px;font-weight:700;color:#fff;background:var(--teal);border-radius:999px;padding:2px 9px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:210px;text-align:center;}
+  input.tiny{width:64px;text-align:center;font-size:17px;}
+  input.wide{width:300px;text-align:center;}
+  input.midw{width:200px;text-align:center;}
+  input.xwide{width:360px;text-align:center;}
+  @media(max-width:560px){input.wide,input.xwide{width:100%;}}
+  .hint{font-size:12.5px;color:var(--muted);margin-left:4px;}
+  h2 .tag.hot{background:var(--no);}
+  section.hot{border-color:#fecaca;background:#fffafa;}
+  .wrongx{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 3px;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>복습 · Lessons 31–35 <span class="sub">Review</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>복습 목표 <span class="en">What we practice</span></h2>
+    <p class="lead">평가시험 31–35 결과를 반영한 복습이에요. 31~35과 핵심 문형도 <b>한 번에 다시</b>. 반복해서 손에 익히는 페이지예요 (점수만, 자유작문 없음). 한 번에 다 안 해도 돼요 — 답은 저장돼요.</p>
+    <div class="note">
+      L31 <b>들르다 · 듣다 · 들다</b> · L32 <b>-았/었으면 좋겠어요</b>(못 바꾸는 일) / <b>-(으)면 좋겠어요</b>(내 행동) · L33 <b>-더라고요</b>(직접 보고 알게 된 것) · L34 <b>-기도 하고 -기도 해요</b> · L35 <b>외래어 표기</b>(a·e → ㅐ/ㅔ/에이/ㅏ)<br>
+      ✎ 띄어쓰기 정확히 채점해요! (오는 <b>길</b>에 · 도착했을 <b>때</b> · 만드는 <b>게</b> · 넣어야 <b>해요</b> — 다 띄어요)
+    </div>
+    <div class="note" style="background:#fff1f2;color:#7f1d1d">
+      🔴 <b>집중 (평가시험 31–35 + 숙제 결과)</b> — 시험은 <b>띄어쓰기까지 25/25 만점</b>이에요! 🎉 남은 건 <b>자유롭게 쓸 때</b> 나오는 것들이에요: <b>띄어쓰기</b>(가까운 <b>데</b> · 둘 <b>다</b> · 두 <b>번째</b> · 다음 <b>주</b> / 음력<b>이라서</b>는 붙여요), <b>조사</b>(겨울<b>이</b> · 보름달<b>을</b>), <b>-아/어 오다 vs -고 오다</b>(사 <b>오셨어요</b>), <b>철자·높임</b>(어른께는 <b>편찮으셨어요</b>), <b>-(으)ㄴ데 vs 데(곳)</b>, <b>높임</b>(잘 지내고 <b>계세요</b> · 덕담 <b>건강하세요</b>). 앞의 A~G가 그 연습이고, 뒤의 L31~L35는 가벼운 점검(과마다 3문항)이에요.
+      <span class="en">(Test: perfect, spacing included. Sections A–G target what still slips in free writing: spacing, particles, -아/어 오다 vs -고 오다, spelling, 데 "place" vs -는데, and honorifics.)</span>
+    </div>
+  </div>
+
+  <section class="hot">
+    <h2><span class="tag hot">A</span> 띄어쓰기 고치기 <span class="en">Fix the spacing · 길 · 데 · 다 · 번째 · 주 · 게 앞은 띄고, 이라서 · 때문이에요는 붙여요</span></h2>
+    <p class="lead">띄어쓰기가 틀린 문장이에요. <b>띄어쓰기만 고쳐서</b> 전체를 다시 쓰세요. 길·데(=곳)·게(=것이)·번째·주는 <b>따로 서는 말</b>이라 띄어요. <b>이라서 · 이에요</b>는 "이다"의 일부라 명사에 붙여요.</p>
+    <div id="sA"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">B</span> 조사 넣기 <span class="en">Particles · 이/가 · 을/를 — the ones that got dropped</span></h2>
+    <p class="lead">빈칸에 <b>조사만</b> 쓰세요. 주어는 <b>이/가</b>, 목적어는 <b>을/를</b>. 말할 때는 빼도 되지만 <b>쓸 때는 꼭</b> 넣어요 — 제출 전에 한 번 확인!</p>
+    <div id="sB"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">C</span> -아/어 오다 vs -고 오다 <span class="en">Bring it back vs. do it there, then come</span></h2>
+    <p class="lead"><b>-아/어 오다</b> = 하고 나서 <b>그 결과(물건)를 가지고</b> 와요 → 사 오다 · 만들어 오다. <b>-고 오다</b> = 거기서 <b>하고 나서</b> 와요 (가져오는 건 없어요) → 먹고 오다 · 보고 오다. [ ] 안의 뜻을 보고 쓰세요.</p>
+    <div id="sC"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">D</span> 철자·표기 고치기 <span class="en">Fix the spelling · loanwords (ㅐ/ㅔ) and 받침·쌍자음</span></h2>
+    <p class="lead">숙제에 나온 철자예요. <b>맞는 표기</b>로 고쳐 쓰세요. 외래어는 영어 소리를 생각하고(cat 소리만 ㅐ, 나머지 e는 ㅔ), 우리말은 기본형(재미있다)을 떠올려요. 어른께 물을 때는 <b>높임말</b>로 고쳐요.</p>
+    <div id="sD"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">E</span> 문장 속 동사 짝 <span class="en">The right verb inside a sentence · 끓다/끓이다 · 익다 · 바르다 · 챙기다</span></h2>
+    <p class="lead"><b>물이</b>(주어)면 끓다, <b>물을</b>(목적어)이면 끓이다. 파스타는 끓지 않고 <b>익어요</b>. 선스크린은 <b>발라요</b>, 짐·옷은 <b>챙겨요</b>. [ ] 안의 형태로 쓰세요.</p>
+    <div id="sE"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">F</span> -(으)ㄴ데 · -는데 · 데(곳) <span class="en">"but/and" attaches · 데 = place stands alone</span></h2>
+    <p class="lead">"~인데, ~"로 이을 때: <b>형용사 -(으)ㄴ데</b>(다른데·추운데), <b>동사 -는데</b>(먹는데), 있다/없다도 <b>-는데</b> — 다 <b>붙여요</b>. 하지만 <b>데 = 곳(place)</b>이면 따로 서는 말이라 <b>띄어요</b>: 가까운 데 · 조용한 데.</p>
+    <div id="sF"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">G</span> 높임 · 시제 흐름 <span class="en">-고 계시다 · blessings · honorifics go on the person · keep the tense</span></h2>
+    <p class="lead">어른이 하고 계신 일은 <b>-고 계세요</b>. 덕담은 <b>-(으)세요</b>(건강하세요). 높임은 <b>사람</b>이 어른일 때만 — 음식이나 "우리"에는 X. <b>옛날에는</b>으로 시작한 이야기는 끝까지 과거.</p>
+    <div id="sG"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L31</span> 헷갈리는 동사 <span class="en">들르다 · 듣다(ㄷ 불규칙) · 들다 · 마음에 들다</span></h2>
+    <p class="lead">장소에 잠깐 가면 <b>들르다</b>, 소리는 <b>듣다</b>(들으-), 짐은 <b>들다</b>. [ ] 안의 형태로 쓰세요.</p>
+    <div id="s31"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L32</span> 여행 소망 <span class="en">-았/었으면 좋겠어요(못 바꾸는 일) · -(으)면 좋겠어요(내 행동)</span></h2>
+    <p class="lead">날씨·길·가게 사정처럼 <b>내가 못 바꾸는 일</b>은 <b>-았/었으면 좋겠어요</b>, <b>내가 할 행동</b>은 <b>-(으)면 좋겠어요</b>.</p>
+    <div id="s32"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L33</span> 여행 후기 <span class="en">-더라고요 · what you saw and found out yourself</span></h2>
+    <p class="lead">직접 가 보고 <b>알게 된 것</b>은 <b>-더라고요</b>. 형용사·동사 기본형에 그대로 붙여요(예쁘더라고요·걸리더라고요).</p>
+    <div id="s33"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L34</span> 추석이 뭐예요? <span class="en">-기도 하고 -기도 해요 · 과거는 끝에만</span></h2>
+    <p class="lead">"A하기도 하고 B하기도 해요" — 두 경우를 나란히. <b>과거는 마지막</b>에만(-기도 했어요). 명사는 <b>N이기도 해요</b>.</p>
+    <div id="s34"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L35</span> 외래어 표기 <span class="en">English → 한글 · cat=ㅐ · cake=에이 · bed=ㅔ · car=ㅏ</span></h2>
+    <p class="lead">영어 단어를 <b>한글 표기</b>로 쓰세요.</p>
+    <div id="s35"></div>
+  </section>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const SA=[ // 띄어쓰기 고치기 [틀린 표기, 정답]
+  ['토론토에 오는길에 오타와에 들르려고 해요','토론토에 오는 길에 오타와에 들르려고 해요'],
+  ['연어를 보러 가까운데에 가기도 해요','연어를 보러 가까운 데에 가기도 해요'],
+  ['둘다 가족이랑 같이 음식을 먹잖아요','둘 다 가족이랑 같이 음식을 먹잖아요'],
+  ['추수감사절은 10월 두번째 월요일이에요','추수감사절은 10월 두 번째 월요일이에요'],
+  ['다음주에 뵐게요','다음 주에 뵐게요'],
+  ['추석은 음력 이라서 날짜가 매년 달라요','추석은 음력이라서 날짜가 매년 달라요'],
+  ['파스타를 만드는게 쉬워요','파스타를 만드는 게 쉬워요'],
+  ['가을이 더 춥기 때문 이에요','가을이 더 춥기 때문이에요']
+];
+const SB=[ // 조사 [앞, 정답(|), 뒤]
+  ['카페에 좋은 커피','가',' 있었으면 좋겠어요.'],
+  ['나무','가',' 많이 있어서 그늘이 많더라고요.'],
+  ['겨울','이',' 오기 전에 가족이 모여요.'],
+  ['내년에는 한국에서 보름달','을',' 보면 좋겠어요.'],
+  ['모자','를',' 쓰고 선스크린을 발랐어요.'],
+  ['한국어','를',' 배운 지 2년 됐어요.']
+];
+const SC=[ // -아/어 오다 vs -고 오다 [힌트, 앞, 정답, 뒤]
+  ['사다 · 사서 집에 가지고 옴 · 과거','마트에서 쌀가루를 ','사 왔어요',' .'],
+  ['사다 · 사서 가지고 옴 · 높임 과거 — 주어는 어머니','어머니가 퇴근하고 깨를 ','사 오셨어요',' .'],
+  ['만들다 · 만들어서 가지고 옴 · 과거','친구가 송편을 직접 ','만들어 왔어요',' .'],
+  ['먹다 · 거기서 먹고 나서 옴 · 과거','회사에서 점심을 ','먹고 왔어요',' .'],
+  ['보다 · 거기서 보고 나서 옴 · 과거','공원에서 연어를 ','보고 왔어요',' .']
+];
+const SD=[ // 철자·표기 고치기 [틀린 표기 (힌트), 정답]
+  ['오토와 <span class="hint">Ottawa</span>','오타와'],
+  ['퀘백 <span class="hint">Quebec</span>','퀘벡'],
+  ['호탤 <span class="hint">hotel</span>','호텔'],
+  ['카패 <span class="hint">café</span>','카페'],
+  ['날시 <span class="hint">weather</span>','날씨'],
+  ['지미있어요 <span class="hint">fun</span>','재미있어요'],
+  ['앞아셨어요 <span class="hint">were you sick? · 어른께 (아프다의 높임말)</span>','편찮으셨어요']
+];
+const SE=[ // 문장 속 동사 짝 [힌트, 앞, 정답, 뒤]
+  ['끓다/끓이다 중 · -(으)ㄹ 때','물이 ','끓을 때',' 파스타를 넣어요.'],
+  ['끓다/끓이다 중 · 현재','먼저 냄비에 물을 ','끓여요',' .'],
+  ['익다 · -았/었을 때','파스타가 다 ','익었을 때',' 물을 버려요.'],
+  ['바르다 · 과거 (르 불규칙)','모자를 쓰고 선스크린을 ','발랐어요',' .'],
+  ['챙기다 · -(으)려고 해요','가을이라 옷을 더 많이 ','챙기려고 해요',' .']
+];
+const SF=[ // -(으)ㄴ데 · -는데 · 데(곳) [힌트, 앞, 정답, 뒤]
+  ['다르다 · 형용사 + "but"','옛날이랑 ','다른데',' 둘 다 재미있어요.'],
+  ['춥다 · 형용사 + "but" (ㅂ 불규칙)','밤에는 ','추운데',' 낮에는 따뜻해요.'],
+  ['먹다 · 동사 + "but"','송편은 자주 ','먹는데',' 전은 잘 안 먹어요.'],
+  ['재미있다 · 있다/없다 + "but"','영화가 ','재미있는데',' 좀 길었어요.'],
+  ['가깝다 · 데(=곳, place)','멀리 가기도 하고 ','가까운 데',' 에 가기도 해요.'],
+  ['조용하다 · 데(=곳, place)','주말에는 ','조용한 데',' 에서 쉬고 싶어요.']
+];
+const SG=[ // 높임 · 시제 흐름 [힌트, 앞, 정답, 뒤]
+  ['지내다 · -고 있다 → 높임 (할머니께)','할머니, 잘 지내고 ','계세요',' ?'],
+  ['건강하다 · 덕담 -(으)세요','할머니, 늘 ','건강하세요',' .'],
+  ['만들어 주다 · 높임 + 과거 — 주어는 엄마','어렸을 때 엄마가 파스타를 맛있게 ','만들어 주셨어요',' .'],
+  ['먹다 · -(으)면 — 주어는 우리 (높임 X)','송편을 ','먹으면',' 부드럽고 맛있어요.'],
+  ['드시다 · -(으)면 — 주어는 할머니','할머니께서 송편을 ','드시면',' 저도 같이 먹어요.'],
+  ['있다 · 과거 — 옛날 이야기','옛날에는 할로윈 때 간식이 많이 ','있었어요',' .']
+];
+const S31=[ // 들르다·듣다·들다
+  ['들르다 · -(으)려고 해요','가는 길에 휴게소에 ','들르려고 해요',' .'],
+  ['듣다 · -(으)려고 해요 (ㄷ 불규칙)','차에서 팟캐스트를 ','들으려고 해요',' .'],
+  ['마음에 들다 · 과거','그 호텔이 정말 ','마음에 들었어요',' .']
+];
+const S32=[ // -았/었으면 vs -(으)면 좋겠어요
+  ['좋다 · 못 바꾸는 일','여행 날씨가 ','좋았으면 좋겠어요',' .'],
+  ['먹다 · 내 행동','맛집에서 맛있는 걸 ','먹으면 좋겠어요',' .'],
+  ['있다 · 못 바꾸는 일','카페에 좋은 커피가 ','있었으면 좋겠어요',' .']
+];
+const S33=[ // -더라고요
+  ['춥다','밤에는 좀 ','춥더라고요',' .'],
+  ['없다','시작했을 때는 그늘이 ','없더라고요',' .'],
+  ['맛있다 · 먹어 보고 알게 됨','직접 만든 송편이 훨씬 ','맛있더라고요',' .']
+];
+const S34=[ // -기도 하고 -기도 해요
+  ['만들다 · -기도 하고','송편을 ','만들기도 하고',' 한국 마트에서 사기도 해요.'],
+  ['가다 · -기도 했어요 (과거는 끝에)','작년에는 성묘를 가기도 하고 친척 집에 ','가기도 했어요',' .'],
+  ['명절 · N이기도 해요','추석은 가족이 모이는 ','명절이기도 해요',' .']
+];
+const S35=[ // 외래어 표기 [영어, 정답]
+  ['taxi <span class="hint">cat 소리</span>','택시'],
+  ['menu <span class="hint">bed 소리</span>','메뉴'],
+  ['Calgary <span class="hint">지명</span>','캘거리']
+];
+
+function el(id){return document.getElementById(id);}
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+function renderFill(arr, cid, kp){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+     <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="${kp}${i}">
+     <span class="ko">${r[3]}</span><span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+function renderFix(arr, cid, kp, cls){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko"><span class="wrongx">✗ ${r[0]}</span> →</span>
+     ${IN} class="ans ${cls||'wide'}" data-type="exact" data-ans="${r[1]}" data-k="${kp}${i}">
+     <span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+function renderWord(arr, cid, kp){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${r[0]} →</span>
+     ${IN} class="ans midw" data-type="exact" data-ans="${r[1]}" data-k="${kp}${i}">
+     <span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+function renderPar(arr, cid, kp){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${r[0]}${IN} class="ans tiny" data-type="exact" data-ans="${r[1]}" data-k="${kp}${i}">${r[2]}</span>
+     <span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+renderFix(SA,"sA","fa","xwide");
+renderPar(SB,"sB","fb");
+renderFill(SC,"sC","fc");
+renderFix(SD,"sD","fd","midw");
+renderFill(SE,"sE","fe");
+renderFill(SF,"sF","ff");
+renderFill(SG,"sG","fg");
+renderFill(S31,"s31","a");
+renderFill(S32,"s32","b");
+renderFill(S33,"s33","c");
+renderFill(S34,"s34","d");
+renderWord(S35,"s35","e");
+
+const KEY="review10_3135_v2";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function resetAll(){
+  if(!confirm("복습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>

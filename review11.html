@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>복습 · Lessons 36–40</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;--teal:#0d9488;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:17px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  h2 .tag{font-size:11px;font-weight:700;color:#fff;background:var(--teal);border-radius:999px;padding:2px 9px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:210px;text-align:center;}
+  input.tiny{width:64px;text-align:center;font-size:17px;}
+  input.wide{width:300px;text-align:center;}
+  input.midw{width:200px;text-align:center;}
+  input.xwide{width:360px;text-align:center;}
+  @media(max-width:560px){input.wide,input.xwide{width:100%;}}
+  .hint{font-size:12.5px;color:var(--muted);margin-left:4px;}
+  h2 .tag.hot{background:var(--no);}
+  section.hot{border-color:#fecaca;background:#fffafa;}
+  .wrongx{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 3px;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head{border-color:#ccc;break-inside:avoid;}}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:8px 0 4px;font-size:14px;line-height:1.95;}
+  table.vv{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 4px;}
+  table.vv th,table.vv td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;}
+  table.vv th{background:#f3f4f6;}
+  .subh{font-size:14.5px;font-weight:700;margin:16px 0 4px;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>복습 · Lessons 36–40 <span class="sub">Review</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>복습 목표 <span class="en">What we practice</span></h2>
+    <p class="lead">평가시험 36–40 결과와 36~40과 숙제를 반영한 복습이에요. 36~40과 핵심 문형도 <b>한 번에 다시</b> 봐요. 점수만 나오고 자유작문은 없어요. 한 번에 다 안 해도 돼요. 답은 저장돼요.</p>
+    <div class="note">
+      L36 <b>-(으)ㄹ 때</b> · L37 <b>-(으)ㄴ/는 편이에요</b> · L38 <b>높임 동사</b>(드시다 · 주무시다 · 계시다 · 편찮으시다 · 드리다 · 뵙다) · L39 <b>-잖아요</b> · L40 <b>-아/어 줘서/주셔서 · 덕분에 · 때문에</b><br>
+      ✎ 띄어쓰기도 정확히 채점해요!
+    </div>
+    <div class="note" style="background:#fff1f2;color:#7f1d1d">
+      🔴 <b>집중 (평가시험 36–40 + 숙제 결과)</b>: 시험 문법은 이번에도 <b>25/25 만점</b>이에요! 🎉 남은 건 <b>자유롭게 쓸 때</b> 나오는 것들이에요.
+      <b>때 띄어쓰기</b>(살았을 <b>때</b> · 할로윈 <b>때</b>, 세 번 반복), <b>동사 두 개 잇기</b>(<b>사 먹을</b> 거예요 vs 버스를 <b>타고</b> 가요), <b>철자·단어</b>(얘기 · 원래 · 칠면조 · 외식), <b>지난 / 이번 / 다음</b>, <b>높임</b>. A~E가 그 연습이고, 뒤의 L36~L40은 가벼운 점검(과마다 3문항)이에요.
+      <span class="en">(Test: perfect again. Sections A–E target what still slips in free writing.)</span>
+    </div>
+  </div>
+
+  <section class="hot">
+    <h2><span class="tag hot">A</span> 띄어쓰기 고치기 <span class="en">Fix the spacing · 때 · 게 · 해요 · 때문에 앞은 띄고, 만 · 이었을 · 도와주다는 붙여요</span></h2>
+    <p class="lead">띄어쓰기가 틀린 문장이에요. <b>띄어쓰기만 고쳐서</b> 전체를 다시 쓰세요. <b>때 · 게(=것이) · 때문에</b>는 따로 서는 말이라 띄어요. <b>만</b>(only) · <b>이었을</b>("이다")은 앞말에 붙여요. <b>도와주다</b>는 한 단어예요.</p>
+    <div id="sA"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">B</span> 동사 두 개 잇기: -아/어 + 동사 vs -고 + 동사 <span class="en">사 먹다 vs 타고 가다</span></h2>
+    <p class="lead">동사 두 개를 이어서 한 가지 일을 말할 때, 앞 동사를 <b>-아/어</b>로 바꿀지 <b>-고</b>로 바꿀지는 <b>뜻</b>으로 정해요.<br><span class="en">When two verbs describe one action, the first verb ends in -아/어 or -고. The meaning decides which one.</span></p>
+    <div class="exbox" style="background:#f8fafc">
+      🇬🇧 <b>The idea in plain English</b><br>
+      · <b>-아/어 + verb = "do A, then use what you got."</b> You buy chicken, then you eat <i>that</i> chicken → <b>사 먹다</b>. You buy bread and bring <i>that</i> bread home → <b>사 오다</b>.<br>
+      · <b>-고 + 가다/오다 = "go while still ___."</b> You get on the bus and <i>stay on it</i> while you go → <b>타고 가다</b>. The same goes for wearing (입고), holding (들고), and bringing a person along (데리고). In English these are often "by / in / with": go by bus, go in a coat, come with wine.<br>
+      · <b>-고 + 오다 = "do it there, then come."</b> 먹고 왔어요 = I ate there, then came. Nothing comes back with you.
+    </div>
+    <table class="vv">
+      <tr><th style="width:24%">모양 <span class="en">Form</span></th><th>언제? <span class="en">When</span></th><th style="width:34%">예 <span class="en">Examples</span></th></tr>
+      <tr><td><b>① -아/어 + 동사</b></td><td>앞 동사로 <b>얻거나 만든 것</b>을 뒤 동사에서 <b>그대로 써요</b>.<br><span class="en">You use what you got or made in step 1 in step 2.</span></td><td>사다 + 먹다 → <b>사 먹다</b> <span class="en">buy and eat</span><br>만들다 + 먹다 → <b>만들어 먹다</b> <span class="en">make and eat</span><br>굽다 + 먹다 → <b>구워 먹다</b> <span class="en">grill and eat</span><br>사다 + 오다 → <b>사 오다</b> <span class="en">buy and bring</span><br>싸다 + 주다 → <b>싸 주다</b> <span class="en">pack for someone</span></td></tr>
+      <tr><td><b>② -고 + 가다/오다</b><br>(상태 그대로)</td><td>앞 동사의 <b>상태를 그대로 가진 채</b> 가요/와요.<br>타다 · 입다 · 쓰다 · 신다 · 들다 · 데리다<br><span class="en">You stay that way (on the bus, wearing a coat, holding a bag) while you go.</span></td><td>타다 + 가다 → <b>타고 가다</b> <span class="en">go by (bus)</span><br>입다 + 가다 → <b>입고 가다</b> <span class="en">go wearing</span><br>들다 + 오다 → <b>들고 오다</b> <span class="en">come holding</span><br>데리다 + 가다 → <b>데리고 가다</b> <span class="en">take (someone) along</span></td></tr>
+      <tr><td><b>③ -고 + 오다/가다</b><br>(하고 나서)</td><td>거기서 <b>다 하고 나서</b> 와요. 가져오는 건 없어요.<br><span class="en">Finish it there, then come. Nothing is brought back.</span></td><td>먹다 + 오다 → <b>먹고 오다</b> <span class="en">eat (there) and come</span><br>보다 + 오다 → <b>보고 오다</b> <span class="en">see (it) and come</span></td></tr>
+    </table>
+    <div class="exbox">
+      💡 <b>팁</b> <span class="en">A quick check (a helpful trick, not a rule)</span><br>
+      · "<b>그걸</b>"(that thing)을 넣어도 말이 되면 → <b>-아/어</b>: 치킨을 사서 그걸 먹어요 ✓ → 치킨을 <b>사 먹어요</b><br>
+      · "<b>채로</b>"(while still)를 넣어도 말이 되면 → <b>-고</b>: 버스를 탄 채로 가요 ✓ → 버스를 <b>타고 가요</b><br>
+      · 같은 사다라도 뜻에 따라 달라요: 마트에서 빵을 <b>사 왔어요</b>(빵을 가지고 옴) / 마트에서 빵을 <b>사고</b> 커피도 <b>샀어요</b>(순서대로 두 가지 일)<br>
+      <span class="en">Same verb, different meaning: 사 왔어요 = "bought it and brought it." 사고 … 샀어요 = "bought this, then bought that."</span><br>
+      ⚠️ 이 팁이 안 맞는 말도 있어요: <b>걸어가다</b>(걸어서 가요) · <b>들어가다</b>(안으로 가요)는 -아/어지만 "그걸"이 없어요. 이런 말은 <b>한 단어</b>로 외워요.<br>
+      <span class="en">The trick doesn't work for every verb. 걸어가다 (walk there) and 들어가다 (go in) use -아/어 but have no "that thing." Just learn them as single words.</span><br>
+      ✎ <b>띄어쓰기</b>: 사 먹다 · 사 오다 · 타고 가다는 <b>띄어요</b>. 가져오다 · 걸어가다 · 들어가다는 한 단어라 <b>붙여요</b>.
+    </div>
+
+    <p class="subh">B-1. [ ] 안의 두 동사를 이어서 쓰세요.</p>
+    <div id="sB"></div>
+    <p class="subh">B-2. 틀린 문장이에요. 바르게 고쳐서 전체를 다시 쓰세요.</p>
+    <div id="sB2"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">C</span> 철자·단어 고치기 <span class="en">Spelling and word choice from your writing</span></h2>
+    <p class="lead">숙제와 시험에 나온 표현이에요. <b>맞는 표기나 단어</b>로 고쳐 쓰세요. 소리 나는 대로 쓰지 말고 원래 모양을 떠올려요(원래는 [월래]로 소리 나요).</p>
+    <div id="sC"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">D</span> 지난 · 이번 · 다음 + 시제 <span class="en">Last · this · next — and keep the tense</span></h2>
+    <p class="lead">지금이 <b>10월</b>이에요. 이미 지나갔으면 <b>지난</b>, 지금이면 <b>이번</b>, 앞으로 오면 <b>다음</b>. 지난 일을 말할 때는 <b>-고</b> 앞도 과거(<b>있었고</b>)로 맞춰요.</p>
+    <div id="sD"></div>
+  </section>
+  <section class="hot">
+    <h2><span class="tag hot">E</span> 높임 <span class="en">-고 계시다 · 말씀드리다 · -아/어 주셔서</span></h2>
+    <p class="lead">어른이 하고 계신 일은 <b>-고 계세요</b>. 내가 어른께 말하면 <b>말씀드려요</b>. 어른이 해 주신 일은 <b>-아/어 주셔서</b>.</p>
+    <div id="sE"></div>
+  </section>
+
+  <section>
+    <h2><span class="tag">L36</span> 송편 만들기 <span class="en">-(으)ㄹ 때 · -았/었을 때</span></h2>
+    <p class="lead">[ ] 안의 형태로 쓰세요. <b>물이</b>면 끓다, <b>물을</b>이면 끓이다. 때 앞은 꼭 띄어요.</p>
+    <div id="s36"></div>
+  </section>
+  <section>
+    <h2><span class="tag">L37</span> 옛날 vs 요즘 <span class="en">-(으)ㄴ/는 편이에요 · 동사 -는 · 형용사 -(으)ㄴ</span></h2>
+    <p class="lead">동사는 <b>-는 편이에요</b>, 형용사는 <b>-(으)ㄴ 편이에요</b>. 옛날 이야기는 <b>편이었어요</b>.</p>
+    <div id="s37"></div>
+  </section>
+  <section>
+    <h2><span class="tag">L38</span> 추석 인사 <span class="en">높임 동사 · honorific verbs</span></h2>
+    <p class="lead">어른에 대해 말할 때는 <b>높임 동사</b>를 써요. [ ] 안의 형태로 쓰세요.</p>
+    <div id="s38"></div>
+  </section>
+  <section>
+    <h2><span class="tag">L39</span> 추석과 추수감사절 <span class="en">-잖아요 · you know</span></h2>
+    <p class="lead">서로 <b>이미 아는 사실</b>을 말할 때 <b>-잖아요</b>. 명사는 <b>(이)잖아요</b>, 과거는 <b>-았/었잖아요</b>.</p>
+    <div id="s39"></div>
+  </section>
+  <section>
+    <h2><span class="tag">L40</span> 감사 말하기 <span class="en">-아/어 줘서 · 덕분에 · 때문에</span></h2>
+    <p class="lead">고마운 일은 <b>-아/어 줘서</b>(어른께는 <b>주셔서</b>). 좋은 결과는 <b>덕분에</b>, 나쁜 결과는 <b>때문에</b>.</p>
+    <div id="s40"></div>
+  </section>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const SA=[ // 띄어쓰기 고치기 [틀린 표기, 정답]
+  ['혼자 살았을때 외식을 자주 했어요','혼자 살았을 때 외식을 자주 했어요'],
+  ['할로윈때 아이들이 사탕을 받아요','할로윈 때 아이들이 사탕을 받아요'],
+  ['외식은 일주일에 2번 만 해요','외식은 일주일에 2번만 해요'],
+  ['작년 추수감사절 이었을 때 눈이 왔어요','작년 추수감사절이었을 때 눈이 왔어요'],
+  ['송편에 소를 넣어야해요','송편에 소를 넣어야 해요'],
+  ['파이를 만드는게 생각보다 쉬워요','파이를 만드는 게 생각보다 쉬워요'],
+  ['눈때문에 길이 많이 막혔어요','눈 때문에 길이 많이 막혔어요'],
+  ['동생이 설거지를 도와 줬어요','동생이 설거지를 도와줬어요']
+];
+const SB=[ // -아/어 + 동사 vs -고 + 동사 [힌트, 앞, 정답, 뒤]
+  ['사다 + 먹다 · -(으)ㄹ 거예요','저녁은 한국 치킨을 ','사 먹을',' 거예요.'],
+  ['만들다 + 먹다 · 현재','요즘은 집에서 음식을 ','만들어 먹어요',' .'],
+  ['굽다 + 먹다 · 과거 (ㅂ 불규칙)','남은 칠면조를 ','구워 먹었어요',' .'],
+  ['사다 + 오다 · 과거','마트에서 호박 파이를 ','사 왔어요',' .'],
+  ['싸다 + 주다 · 높임 과거 — 주어는 엄마','엄마가 남은 음식을 ','싸 주셨어요|싸주셨어요',' .'],
+  ['타다 + 가다 · 현재','회사에 지하철을 ','타고 가요',' .'],
+  ['입다 + 가다 · -(으)세요','추우니까 코트를 ','입고 가세요',' .'],
+  ['들다 + 오다 · 과거','민수 씨가 와인을 한 병 ','들고 왔어요',' .'],
+  ['데리다 + 가다 · -(으)ㄹ 거예요','할머니 댁에 강아지를 ','데리고 갈',' 거예요.'],
+  ['먹다 + 오다 · 거기서 다 먹고 나서 옴 · 과거','친구 집에서 저녁을 ','먹고 왔어요',' .'],
+  ['보다 + 오다 · 거기서 다 보고 나서 옴 · 과거','공원에서 단풍을 ','보고 왔어요',' .']
+];
+const SB2=[ // 고쳐 쓰기 [틀린 문장, 정답]
+  ['저녁은 치킨을 사고 먹을 거예요','저녁은 치킨을 사 먹을 거예요'],
+  ['남은 칠면조로 샌드위치를 만들고 먹었어요','남은 칠면조로 샌드위치를 만들어 먹었어요'],
+  ['엄마가 쌀가루를 사고 오셨어요','엄마가 쌀가루를 사 오셨어요'],
+  ['회사에 버스를 타서 가요','회사에 버스를 타고 가요'],
+  ['비가 오니까 우산을 들어서 가세요','비가 오니까 우산을 들고 가세요'],
+  ['추우니까 모자를 써서 가세요','추우니까 모자를 쓰고 가세요']
+];
+const SC=[ // 철자·단어 고치기 [틀린 표기 (힌트), 정답]
+  ['예기 <span class="hint">talk · 이야기의 준말</span>','얘기'],
+  ['월래 <span class="hint">originally · 소리는 [월래]</span>','원래'],
+  ['터키 <span class="hint">turkey · 먹는 새</span>','칠면조'],
+  ['밖에 음식 <span class="hint">eating out · 한 단어</span>','외식'],
+  ['밀프랜 <span class="hint">meal plan</span>','밀플랜'],
+  ['타갯 <span class="hint">target</span>','타깃'],
+  ['지미있어요 <span class="hint">fun</span>','재미있어요']
+];
+const SD=[ // 지난 · 이번 · 다음 + 시제 [힌트, 앞, 정답, 뒤]
+  ['지금은 10월 · 9월 이야기','','지난',' 9월에 혼자 살았어요.'],
+  ['지금은 10월 · 지금 이 달','','이번',' 달에 추수감사절이 있어요.'],
+  ['지금은 10월 · 11월 이야기','','다음',' 달에 시험이 있어요.'],
+  ['있다 · 9월 이야기라서 과거 + -고','9월에는 목표가 ','있었고',' 요리를 많이 했어요.'],
+  ['살다 · 작년 이야기 + -았/었을 때','작년에 혼자 ','살았을 때',' 외식을 자주 했어요.']
+];
+const SE=[ // 높임 [힌트, 앞, 정답, 뒤]
+  ['지내다 · -고 있다 → 높임 (할머니께)','할머니, 잘 지내고 ','계세요',' ?'],
+  ['말하다 → 어른께 · 과거','할머니께 감사하다고 ','말씀드렸어요',' .'],
+  ['굽다 · 어른께 -아/어 주셔서 (ㅂ 불규칙)','아침부터 칠면조를 ','구워 주셔서|구워주셔서',' 감사해요.'],
+  ['챙기다 · 어른께 -아/어 주셔서','늘 저를 ','챙겨 주셔서|챙겨주셔서',' 감사합니다.']
+];
+const S36=[ // -(으)ㄹ 때
+  ['끓다/끓이다 중 · -(으)ㄹ 때','물이 ','끓을 때',' 송편을 넣어요.'],
+  ['굽다 · -(으)ㄹ 때 (ㅂ 불규칙)','칠면조를 ','구울 때',' 버터를 발라요.'],
+  ['어리다 · -았/었을 때','제가 ','어렸을 때',' 할로윈이 제일 좋았어요.']
+];
+const S37=[ // -(으)ㄴ/는 편이에요
+  ['받다 · 동사 현재','요즘 아이들은 사탕을 많이 ','받는 편이에요',' .'],
+  ['멀다 · 형용사 (ㄹ 탈락)','할머니 댁은 좀 ','먼 편이에요',' .'],
+  ['조용하다 · 옛날 이야기','옛날에는 명절이 ','조용한 편이었어요',' .']
+];
+const S38=[ // 높임 동사
+  ['자다 · 높임 현재 질문','할아버지는 벌써 ','주무세요',' ?'],
+  ['먹다 · 높임 과거 질문','할머니, 진지 ','드셨어요',' ?'],
+  ['아프다 · 높임 과거 질문','할머니, 지난주에 ','편찮으셨어요',' ?']
+];
+const S39=[ // -잖아요
+  ['멀다 · -잖아요 (ㄹ 그대로)','할머니 댁은 ','멀잖아요',' . 그래서 일찍 출발해요.'],
+  ['공휴일 · (이)잖아요','추수감사절은 ','공휴일이잖아요',' .'],
+  ['가르쳐 주다 · 과거 -잖아요 — 주어는 할머니 (높임)','작년에 할머니가 ','가르쳐 주셨잖아요|가르쳐주셨잖아요',' .']
+];
+const S40=[ // -아/어 줘서 · 덕분에 · 때문에
+  ['데려다주다 · 한 단어 · -아/어 줘서','집까지 ','데려다줘서',' 고마워요.'],
+  ['오다 · -아/어 줘서','바쁜데 ','와 줘서|와줘서',' 고마워.'],
+  ['덕분에 / 때문에 중','선생님 ','덕분에',' 한국어가 많이 늘었어요.']
+];
+
+function el(id){return document.getElementById(id);}
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+function renderFill(arr, cid, kp){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+     <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="${kp}${i}">
+     <span class="ko">${r[3]}</span><span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+function renderFix(arr, cid, kp, cls){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko"><span class="wrongx">✗ ${r[0]}</span> →</span>
+     ${IN} class="ans ${cls||'wide'}" data-type="exact" data-ans="${r[1]}" data-k="${kp}${i}">
+     <span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+function renderWord(arr, cid, kp){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${r[0]} →</span>
+     ${IN} class="ans midw" data-type="exact" data-ans="${r[1]}" data-k="${kp}${i}">
+     <span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+function renderPar(arr, cid, kp){
+  arr.forEach((r,i)=>el(cid).insertAdjacentHTML("beforeend",
+    `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${r[0]}${IN} class="ans tiny" data-type="exact" data-ans="${r[1]}" data-k="${kp}${i}">${r[2]}</span>
+     <span class="fb" id="fb_${kp}${i}"></span></div></div>`));
+}
+renderFix(SA,"sA","fa","xwide");
+renderFill(SB,"sB","fb");
+renderFix(SB2,"sB2","fx","xwide");
+renderFix(SC,"sC","fc","midw");
+renderFill(SD,"sD","fd");
+renderFill(SE,"sE","fe");
+renderFill(S36,"s36","a");
+renderFill(S37,"s37","b");
+renderFill(S38,"s38","c");
+renderFill(S39,"s39","d");
+renderFill(S40,"s40","e");
+
+const KEY="review11_3640_v2";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+// v1 → v2 이전: B 섹션이 바뀐 fb2~fb5만 빼고 예전 답을 옮겨요
+if(!localStorage.getItem(KEY)){ const old=JSON.parse(localStorage.getItem("review11_3640_v1")||"{}");
+  for(const k in old){ if(!/^fb[2-5]$/.test(k)) store[k]=old[k]; }
+  if(Object.keys(store).length) localStorage.setItem(KEY,JSON.stringify(store)); }
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function resetAll(){
+  if(!confirm("복습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
