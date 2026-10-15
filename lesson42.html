@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 42 · 단풍 구경</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  table.cmp{border-collapse:collapse;font-size:14px;margin:8px 0 2px;width:100%;}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.cmp th{background:#f3f4f6;}
+  table.cmp th.a{color:var(--warm);} table.cmp th.b{color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+  .ladder td:first-child{white-space:nowrap;}
+  .say .rs{color:var(--muted);font-size:13px;}
+  .stephead{font-weight:700;font-size:15px;color:var(--accent);margin:18px 0 6px;padding-top:12px;border-top:1px dashed var(--line);}
+  .rule .stephead:first-child{margin-top:2px;padding-top:0;border-top:none;}
+  .plain{margin:8px 0 2px;font-size:14.5px;line-height:1.8;}
+  table.cmp td.k b{color:var(--ok);}
+  .goal{margin:2px 0 10px;}
+  .goal:last-child{margin-bottom:0;}
+  .goal .gt{font-weight:700;color:#1f2937;}
+  .goal .gex{margin:3px 0 0 18px;color:#334155;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 42 · 단풍 구경 <span class="sub">-네요 · 퀘벡 단풍 여행</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">단풍 구경 가서 <b>지금 눈앞에 보이는 것</b>에 감탄하기: "와, 경치가 정말 멋있<b>네요</b>!" 그리고 다녀와서는 L33의 <b>-더라고요</b>로 전하기. <span class="en">(React to what you see right now with -네요, then tell about it later with -더라고요.)</span></p>
+    <div class="note">
+      <div class="goal"><div class="gt">1. -네요: 지금 보고 감탄할 때</div>
+        <div class="gex">단풍이 예뻐요. (사실) → 와, 단풍이 정말 예쁘<b>네요</b>! (지금 보고 "와!") <span class="en">Wow, the leaves are so pretty!</span></div></div>
+      <div class="goal"><div class="gt">2. 만드는 법: 기본형에서 다를 빼고 네요</div>
+        <div class="gex">멋있다 → 멋있<b>네요</b> · 춥다 → 춥<b>네요</b> · 멀다 → 머<b>네요</b> (ㄹ 받침은 ㄹ이 빠져요)</div></div>
+      <div class="goal"><div class="gt">3. -네요 vs -더라고요(L33)</div>
+        <div class="gex">여행지에서 지금: 경치가 멋있<b>네요</b>! → 다녀와서 친구에게: 경치가 멋있<b>더라고요</b>.</div></div>
+      <div class="goal"><div class="gt">4. 단풍 구경 어휘 10개</div></div>
+    </div>
+    <div class="series">
+      🍁 <b>토론토와 한국의 가을 ②</b>: ① 가을이 왔어요(-아/어지다) → <b>② 단풍 구경(-네요, 오늘)</b> → ③ 가을 나들이 계획 → ④ 환절기 건강 → ⑤ 토론토 vs 한국의 가을
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L33 · L41 + 다시 보는 단어</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (-네요)</span></h2>
+    <div class="rule">
+      <div class="stephead">STEP 1 · 뜻 <span class="en">What it means</span></div>
+      <table class="cmp">
+        <tr><th style="width:50%">단풍이 예뻐요.</th><th>와, 단풍이 정말 예쁘<b>네요</b>!</th></tr>
+        <tr><td>그냥 <b>사실</b>을 말해요.<br><span class="en">The leaves are pretty.</span></td><td>지금 <b>보고 느낀 것</b>을 바로 말해요.<br><span class="en">Wow, the leaves are so pretty!</span></td></tr>
+      </table>
+      <p class="plain">🇬🇧 <b>-네요 = "Oh, wow, ~!"</b> Use it for something you just saw, heard or noticed <i>right now</i>.</p>
+
+      <div class="stephead">STEP 2 · 만드는 법 <span class="en">How to make it</span></div>
+      <p class="plain"><b>기본형</b>에서 <b>다</b>를 빼고 <b>네요</b>를 붙여요. 받침이 있어도 없어도 같아요. <span class="en">Drop 다, add 네요.</span></p>
+      <table class="conj">
+        <tr><th>기본형</th><th>− 다</th><th>→ -네요</th></tr>
+        <tr><td>예쁘다</td><td>예쁘<s>다</s></td><td class="k">예쁘네요</td></tr>
+        <tr><td>멋있다</td><td>멋있<s>다</s></td><td class="k">멋있네요</td></tr>
+        <tr><td>춥다</td><td>춥<s>다</s></td><td class="k">춥네요</td></tr>
+        <tr><td>멀다</td><td>멀<s>다</s> → ㄹ 빠짐</td><td class="k">머네요</td></tr>
+        <tr><td>물들다 · 과거</td><td>물들었<s>다</s></td><td class="k">물들었네요</td></tr>
+        <tr><td>절정 (명사)</td><td>절정이<s>다</s></td><td class="k">절정이네요</td></tr>
+      </table>
+      <p class="plain">💡 불규칙 걱정 없어요(춥네요 · 덥네요). <b>ㄹ 받침만</b> ㄹ이 빠져요. 발음: 있네요 [인네요] · 많네요 [만네요] · 좋네요 [존네요] <span class="en">(L18 · L21)</span></p>
+
+      <div class="stephead">STEP 3 · 쓰임: -네요 vs -더라고요 <span class="en">Right there vs. later</span></div>
+      <table class="cmp">
+        <tr><th style="width:50%">🍁 토요일 · 퀘벡에서 (지금 보면서)</th><th>🏙 월요일 · 토론토에서 (다녀와서)</th></tr>
+        <tr><td class="k"><b>경치가 정말 멋있네요!</b></td><td class="k"><b>경치가 정말 멋있더라고요.</b></td></tr>
+        <tr><td><span class="en">Wow, the view is amazing! (I'm seeing it now.)</span></td><td><span class="en">The view was amazing, I found. (I'm telling you later.)</span></td></tr>
+      </table>
+
+      <div class="stephead">STEP 4 · 주의 두 가지 <span class="en">Two things to watch</span></div>
+      <div class="warnbox">
+        ① <b>ㄹ 받침은 ㄹ이 빠져요</b>: 머네요 ✓ · <span class="wrong">멀네요</span> ✗ · 기네요(길다) <span class="en">(ㄹ drops before ㄴ.)</span><br>
+        ② <b>모두 이미 아는 사실</b>엔 안 써요: <span class="wrong">토론토는 캐나다에 있네요</span> ✗ <span class="en">(-네요 is for something new to you right now. Shared facts use -잖아요, L39.)</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 단풍 구경 (10)</span></h2>
+    <table class="vocab"><tr><th>단어</th><th>뜻</th><th>단어</th><th>뜻</th></tr><tbody id="vtable"></tbody></table>
+    <div class="exbox" style="margin-top:12px">
+      🍁 <b>단풍 명소</b><br>
+      · <b>퀘벡</b>: 올드퀘벡(구시가지) · 몽모랑시 폭포 · 오를레앙섬 / <b>토론토 근처</b>: 하이파크 · 알곤퀸 공원<br>
+      · <b>한국</b>: 설악산(가장 먼저, 10월 초) · 내장산 · 서울 남산 · 덕수궁 돌담길 (10월 말~11월 초)<br>
+      💡 L33 단어도 같이: 성 · 성벽 · 전망 · 돌길 · 골목 · 분위기 · 폭포 · 야경
+    </div>
+  </section>
+
+  <section>
+    <h2>3. -네요 만들기 <span class="en">Make the form · 입력 즉시 채점</span></h2>
+    <p class="lead">[ ] 안의 말을 <b>-네요</b>로 바꿔 쓰세요. ㄹ 받침 조심!</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 채우기 <span class="en">Complete the sentences · -네요 · -더라고요</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요. <b>지금 거기서</b>면 -네요, <b>다녀와서</b>면 -더라고요.</p>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 — 퀘벡 단풍 여행 <span class="en">A fall trip to Quebec City</span></h2>
+    <p class="lead">선생님과 <b>역할을 나눠 소리 내어</b> 읽어요. 장면 ①은 여행 중(-네요), 장면 ②는 다녀와서(-더라고요)예요. 그다음 대본을 덮고 <b>내일 내 여행</b>으로 바꿔 말해 봐요.</p>
+
+    <div class="subh">장면 ① 토요일 · 올드퀘벡에서 <span class="en" style="font-weight:400;color:var(--muted)">In Old Quebec</span></div>
+    <div class="dlg">
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">드디어 도착했네요! 기차로 오니까 생각보다 <b>머네요</b>.</span></div>
+      <div class="turn b"><span class="who">🧑 민수</span><span class="say">그래도 창밖 단풍 보면서 와서 금방 왔어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">와, 저 건물 좀 보세요. 성 같은 호텔이 정말 <b>멋있네요</b>!</span></div>
+      <div class="turn b"><span class="who">🧑 민수</span><span class="say">샤토 프롱트낙 호텔이에요. 퀘벡에서 제일 유명한 건물이에요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">아, 그 호텔! 사진으로만 봤는데 직접 보니까 훨씬 <b>크네요</b>. 돌길도 정말 예쁘고요.</span></div>
+      <div class="turn b"><span class="who">🧑 민수</span><span class="say">근데 사람이 정말 많아요. 주말이라서 골목이 <b>붐비네요</b>.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">저기 전망대에 올라가 볼까요?</span></div>
+      <div class="turn b"><span class="who">🧑 민수</span><span class="say">(전망대에서) 와, 강하고 단풍이 한눈에 보여요. 산이 빨갛게 <b>물들었네요</b>.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">지금이 딱 <b>절정이네요</b>. 기념사진 찍어 줄게요. 아, 근데 바람이 좀 <b>차네요</b>.</span></div>
+      <div class="turn b"><span class="who">🧑 민수</span><span class="say">해가 지니까 갑자기 추워졌어요. 따뜻한 거 먹으러 가요!</span></div>
+    </div>
+
+    <div class="subh">장면 ② 월요일 · 토론토 회사에서 <span class="en" style="font-weight:400;color:var(--muted)">Back at work (L33 -더라고요)</span></div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 동료</span><span class="say">지호 씨, 주말에 퀘벡 잘 다녀왔어요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">네! 단풍이 딱 절정이었어요. 전망대에서 본 경치가 정말 <b>멋있더라고요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 동료</span><span class="say">사람 많지 않았어요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">골목은 좀 <b>붐비더라고요</b>. 그래도 분위기가 꼭 유럽 같았어요. 다음에 꼭 가 보세요.</span></div>
+    </div>
+
+    <div class="subh">빈칸 채우기 <span class="en" style="font-weight:400;color:var(--muted)">Fill in — from the dialogue</span></div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 쓰기 숙제 <span class="en">Homework · a message from your trip</span></h2>
+    <p class="lead">여행 중에 선생님께 보내는 <b>카톡 메시지</b>처럼 4~6문장으로 써 보세요. 지금 보고 있는 것처럼 <b>-네요를 3번 이상</b>, 날씨 이야기에 <b>-아/어지다(L41)를 1번</b> 넣어요. (여행에서 돌아와서 써도 괜찮아요. 그때는 마지막에 -더라고요 문장을 하나 더해 보세요.)</p>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 선생님, 지금 올드퀘벡이에요! 돌길이 정말 예쁘네요. 사람이 많아서 골목이 좀 붐비네요. 전망대에 올라가니까 단풍이 한눈에 보여요. 산이 빨갛게 물들었네요. 저녁이 되니까 바람이 차가워졌어요. 내일은 몽모랑시 폭포에 가요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요 <span class="en" style="font-weight:400;color:var(--muted)">write &amp; submit right here</span></div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="예) 선생님, 지금 퀘벡이에요! …네요."></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw42()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 사진 리액션 — -네요 + 한 문장 더</h3>
+    <p class="lead">퀘벡·단풍 사진을 한 장씩 보여 주면 학습자가 <b>-네요로 감탄 + 이유나 느낌 한 문장</b>.</p>
+    <ul>
+      <li>추임새: "뭐가 제일 눈에 띄어요?" · "또요?" · "가 보고 싶어요?"</li>
+    </ul>
+
+    <h3>② 내일 여행 리허설 → 다녀와서 버전</h3>
+    <ul>
+      <li>구시가지 · 전망대 · 식당 세 곳을 상상해서 -네요로 말하기 → 같은 내용을 "다녀와서" -더라고요로 바꿔 말하기</li>
+    </ul>
+
+    <p class="lead">다음: <b>L43 가을 나들이 계획</b>(-(으)ㄹ까 해요). 다녀오면 여행 이야기로 시작해요.</p>
+    <p class="lead" style="color:var(--warm)">성공 기준: 대본 없이 <b>-네요 5번</b>(ㄹ 빠짐 1번 포함) + 같은 장면을 -더라고요로 2번. (숙제 = 6번 → 제출)</p>
+  </div>
+
+  <footer>Lesson 42 / 단풍 구경 · -네요 · 토론토와 한국의 가을 ②</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[
+  ["단풍 구경(하다)","going to see the fall colors"],["절정","peak (단풍이 절정이에요)"],
+  ["물들다","to be colored, to turn (산이 빨갛게 물들었어요)"],["경치","scenery, view"],
+  ["전망대","lookout, observation deck"],["한눈에 (보이다)","at a glance (you can see it all at once)"],
+  ["붐비다","to be crowded"],["줄을 서다","to line up, wait in line"],
+  ["기념사진","souvenir photo"],["(바람이) 차다","(the wind is) cold"]
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['-아/어지다 · 춥다 · 과거 (L41)','10월 말이 되니까 많이 ','추워졌어요',' .'],
+  ['-아/어지다 · 빨갛다 · 과거 (L41)','단풍잎이 다 ','빨개졌어요',' .'],
+  ['단어 · eating out 🍽','여행 가면 매일 ','외식',' 을 해요.'],
+  ['-더라고요 · 맛있다 (L33)','지난번에 간 그 식당이 정말 ','맛있더라고요',' .'],
+  ['입다 + 가다 · 현재 (복습11)','여행 갈 때는 따뜻한 옷을 ','입고 가요',' .']
+];
+const ADV=[ // [힌트, 앞, 정답(|), 뒤]
+  ['예쁘다','와, 단풍이 정말 ','예쁘네요',' !'],
+  ['멋있다','경치가 ','멋있네요',' !'],
+  ['춥다','오늘 좀 ','춥네요',' .'],
+  ['많다','사람이 정말 ','많네요',' .'],
+  ['멀다 (ㄹ 받침)','생각보다 ','머네요',' .'],
+  ['길다 (ㄹ 받침)','줄이 정말 ','기네요',' .'],
+  ['붐비다','골목이 ','붐비네요',' .'],
+  ['절정 (명사)','지금이 딱 ','절정이네요',' .'],
+  ['물들다 · 과거','산이 빨갛게 ','물들었네요',' .'],
+  ['빨개지다 · 과거 (L41)','벌써 다 ','빨개졌네요',' .']
+];
+const EXP=[ // [앞, 정답(|), 뒤, 힌트]
+  ['와, 폭포가 정말 ','크네요',' !','크다 · 지금 보면서'],
+  ['전망대에서 보니까 경치가 정말 ','멋있네요',' .','멋있다 · 지금 보면서'],
+  ['걸어가기에는 좀 ','머네요',' .','멀다 · 지금 (ㄹ 받침)'],
+  ['해가 지니까 바람이 ','차네요',' .','차다 · 지금 느끼면서'],
+  ['(퀘벡에서) 구시가지가 정말 ','예쁘네요',' !','예쁘다 · 지금 거기서'],
+  ['(다녀와서 친구에게) 구시가지가 정말 ','예쁘더라고요',' .','예쁘다 · 다녀와서'],
+  ['(다녀와서) 주말이라서 골목이 좀 ','붐비더라고요',' .','붐비다 · 다녀와서'],
+  ['메이플 태피를 처음 먹어 봤는데 생각보다 ','맛있네요',' .','맛있다 · 지금 먹으면서']
+];
+const DLG=[ // 실전 대화 [앞, 정답(|), 뒤, 힌트]
+  ['기차로 오니까 생각보다 ','머네요',' .','멀다'],
+  ['성 같은 호텔이 정말 ','멋있네요',' !','멋있다'],
+  ['직접 보니까 훨씬 ','크네요',' .','크다'],
+  ['주말이라서 골목이 ','붐비네요',' .','붐비다'],
+  ['산이 빨갛게 ','물들었네요',' .','물들다 · 과거'],
+  ['전망대에서 본 경치가 정말 ','멋있더라고요',' .','멋있다 · 다녀와서'],
+  ['골목은 좀 ','붐비더라고요',' .','붐비다 · 다녀와서']
+];
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((v,i)=>{ if(i%2===0){const r=document.createElement("tr");r.id="vr"+i;el("vtable").appendChild(r);} });
+VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjacentHTML("beforeend",`<td><b>${v[0]}</b></td><td>${v[1]}</td>`); });
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
+   <span class="ko">${a[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="ko">${a[3]}</span><span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson42_foliage_neyo";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw42(){
+  const ta=document.getElementById("hwtext"), msg=document.getElementById("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 42 · 단풍 구경 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 42 · 단풍 구경(-네요)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
