@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 43 · 가을 나들이 계획</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  table.cmp{border-collapse:collapse;font-size:14px;margin:8px 0 2px;width:100%;}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.cmp th{background:#f3f4f6;}
+  table.cmp th.a{color:var(--warm);} table.cmp th.b{color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+  .ladder td:first-child{white-space:nowrap;}
+  .say .rs{color:var(--muted);font-size:13px;}
+  .stephead{font-weight:700;font-size:15px;color:var(--accent);margin:18px 0 6px;padding-top:12px;border-top:1px dashed var(--line);}
+  .rule .stephead:first-child{margin-top:2px;padding-top:0;border-top:none;}
+  .plain{margin:8px 0 2px;font-size:14.5px;line-height:1.8;}
+  table.cmp td.k b{color:var(--ok);}
+  .goal{margin:2px 0 10px;}
+  .goal:last-child{margin-bottom:0;}
+  .goal .gt{font-weight:700;color:#1f2937;}
+  .goal .gex{margin:3px 0 0 18px;color:#334155;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 43 · 가을 나들이 계획 <span class="sub">-(으)ㄹ까 해요 · 주말에 뭐 할까?</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">퀘벡 여행 이야기로 시작해서, <b>아직 정하지 않은 주말 계획</b>을 말해 봐요: "날씨가 좋으면 하이파크에 <b>갈까 해요</b>." <span class="en">(Talk about plans you haven't fully decided yet.)</span></p>
+    <div class="note">
+      <div class="goal"><div class="gt">1. -(으)ㄹ까 해요: 아직 생각 중인 계획</div>
+        <div class="gex">주말에 하이파크에 <b>갈까 해요</b>. (아직 확실하지 않아요) <span class="en">I'm thinking of going to High Park this weekend.</span></div></div>
+      <div class="goal"><div class="gt">2. 만드는 법: -(으)ㄹ 거예요에서 거예요를 빼고 까 해요</div>
+        <div class="gex">갈 거예요 → 갈<b>까 해요</b> · 찍을 거예요 → 찍을<b>까 해요</b> · 걸을 거예요 → 걸을<b>까 해요</b></div></div>
+      <div class="goal"><div class="gt">3. 얼마나 정했어요? -(으)ㄹ까 해요 → -(으)려고 해요 → -기로 했어요(L30)</div>
+        <div class="gex">갈까 해요 (생각 중) → 가려고 해요 (마음먹었어요) → 가기로 했어요 (정했어요)</div></div>
+      <div class="goal"><div class="gt">4. 가을 나들이 어휘 10개</div></div>
+    </div>
+    <div class="series">
+      🍁 <b>토론토와 한국의 가을 ③</b>: ① 가을이 왔어요(-아/어지다) → ② 단풍 구경(-네요) → <b>③ 가을 나들이 계획(-(으)ㄹ까 해요, 오늘)</b> → ④ 환절기 건강 → ⑤ 토론토 vs 한국의 가을
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 퀘벡 여행 이야기 + 미니 복습 <span class="en">Trip talk · L33 · L41 · L42</span></h2>
+    <div class="exbox">
+      🗣 <b>먼저 말해 봐요</b> (선생님과 3분): 퀘벡에서 뭐가 제일 좋았어요? → <b>-더라고요</b>로 2~3문장.<br>
+      <span class="en">e.g. 테라스에서 보니까 단풍이 많이 들었더라고요. 퀘벡은 꼭 유럽 같더라고요.</span>
+    </div>
+    <p class="lead" style="margin-top:12px">[ ] 안의 힌트를 보고 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (-(으)ㄹ까 해요)</span></h2>
+    <div class="rule">
+      <div class="stephead">STEP 1 · 뜻 <span class="en">What it means</span></div>
+      <table class="cmp">
+        <tr><th style="width:50%">주말에 하이파크에 갈 거예요.</th><th>주말에 하이파크에 갈<b>까 해요</b>.</th></tr>
+        <tr><td>정한 <b>계획</b>이에요.<br><span class="en">I'm going to go to High Park.</span></td><td>아직 <b>생각 중</b>이에요. 바뀔 수도 있어요.<br><span class="en">I'm thinking of going to High Park.</span></td></tr>
+      </table>
+      <p class="plain">🇬🇧 <b>-(으)ㄹ까 해요 = "I'm thinking of ~ing."</b> Use it for your own plan that isn't fixed yet.</p>
+
+      <div class="stephead">STEP 2 · 만드는 법 <span class="en">How to make it</span></div>
+      <p class="plain">이미 아는 <b>-(으)ㄹ 거예요</b>에서 <b>거예요</b>를 빼고 <b>까 해요</b>를 붙여요. <span class="en">Take the future form, drop 거예요, add 까 해요.</span></p>
+      <table class="conj">
+        <tr><th>기본형</th><th>-(으)ㄹ 거예요</th><th>→ -(으)ㄹ까 해요</th></tr>
+        <tr><td>가다</td><td>갈 <s>거예요</s></td><td class="k">갈까 해요</td></tr>
+        <tr><td>찍다</td><td>찍을 <s>거예요</s></td><td class="k">찍을까 해요</td></tr>
+        <tr><td>만들다</td><td>만들 <s>거예요</s></td><td class="k">만들까 해요</td></tr>
+        <tr><td>걷다</td><td>걸을 <s>거예요</s></td><td class="k">걸을까 해요</td></tr>
+        <tr><td>굽다</td><td>구울 <s>거예요</s></td><td class="k">구울까 해요</td></tr>
+      </table>
+      <p class="plain">💡 -(으)ㄹ 거예요만 알면 돼요. 걷다(걸을) · 굽다(구울)처럼 <b>불규칙도 그대로</b>예요. <span class="en">If you know the future form, irregular verbs take care of themselves.</span></p>
+
+      <div class="stephead">STEP 3 · 얼마나 정했어요? <span class="en">How sure are you?</span></div>
+      <table class="cmp">
+        <tr><th>🤔 생각 중</th><th>💪 마음먹었어요 (L30)</th><th>✅ 정했어요 (L30)</th></tr>
+        <tr><td class="k"><b>갈까 해요</b></td><td class="k"><b>가려고 해요</b></td><td class="k"><b>가기로 했어요</b></td></tr>
+        <tr><td><span class="en">I'm thinking of going.</span></td><td><span class="en">I'm planning to go.</span></td><td><span class="en">We've decided to go.</span></td></tr>
+      </table>
+      <p class="plain">+ 생각했지만 안 했을 때는 <b>과거</b>: 하이파크에 갈<b>까 했는데</b> 비가 와서 못 갔어요. <span class="en">(I was thinking of going, but…)</span></p>
+
+      <div class="stephead">STEP 4 · 주의 두 가지 <span class="en">Two things to watch</span></div>
+      <div class="warnbox">
+        ① <b>띄어쓰기</b>: 갈까 해요 ✓ · <span class="wrong">갈까해요</span> ✗ · <span class="wrong">갈 까 해요</span> ✗ <span class="en">(까 sticks to the verb; space before 해요.)</span><br>
+        ② <b>갈까요? 와 달라요</b>: 같이 갈<b>까요</b>? = 상대에게 묻는 제안 · 갈<b>까 해요</b> = 내 생각 <span class="en">("Shall we go?" vs. "I'm thinking of going.")</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 가을 나들이 (10)</span></h2>
+    <table class="vocab"><tr><th>단어</th><th>뜻</th><th>단어</th><th>뜻</th></tr><tbody id="vtable"></tbody></table>
+    <div class="exbox" style="margin-top:12px">
+      🧺 <b>가을 나들이 장소</b><br>
+      · <b>토론토</b>: 하이파크 · 스카버러 블러프스 · 근교 사과 농장 · 호박 농장(할로윈 전에 인기)<br>
+      · <b>한국</b>: 서울숲 · 남산 둘레길 · 하늘공원(10월 억새 축제) · 근교 사과 따기 체험<br>
+      💡 복습11 단어도 같이: 도시락을 <b>싸 가다</b> · 따뜻한 옷을 <b>입고 가다</b>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. -(으)ㄹ까 해요 만들기 <span class="en">Make the form · 입력 즉시 채점</span></h2>
+    <p class="lead">[ ] 안의 말을 <b>-(으)ㄹ까 해요</b>로 바꿔 쓰세요. 띄어쓰기 조심!</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 채우기 <span class="en">Complete the sentences · 얼마나 정했어요?</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요. <b>생각 중</b>이면 -(으)ㄹ까 해요, <b>마음먹었으면</b> -(으)려고 해요, <b>정했으면</b> -기로 했어요.</p>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 — 이번 주말에 뭐 해요? <span class="en">Weekend plans</span></h2>
+    <p class="lead">선생님과 <b>역할을 나눠 소리 내어</b> 읽어요. 그다음 대본을 덮고 <b>내 진짜 주말 계획</b>으로 바꿔 말해 봐요.</p>
+
+    <div class="subh">장면 ① 월요일 점심 · 회사에서 <span class="en" style="font-weight:400;color:var(--muted)">Lunch with a coworker</span></div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">지호 씨, 퀘벡 여행은 어땠어요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">정말 좋았어요! 테라스에서 보니까 단풍이 많이 들었더라고요. 퀘벡은 꼭 유럽 <b>같더라고요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">부럽네요! 이번 주말에는 뭐 해요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">아직 안 정했어요. 날씨가 좋으면 하이파크에 <b>갈까 해요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">하이파크 좋죠. 도시락도 싸 가요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">네, 김밥을 <b>만들까 해요</b>. 수진 씨는요?</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">저는 가족이랑 호박 농장에 <b>가기로 했어요</b>. 아이들이 할로윈 호박을 직접 고르고 싶대요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">와, 재미있네요! 저도 사과 따기는 한번 해 <b>보려고 해요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">근데 일기 예보 봤어요? 토요일에 비가 온대요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">정말요? 그럼 하이파크는 일요일에 <b>갈까 해요</b>.</span></div>
+    </div>
+
+    <div class="subh">장면 ② 토요일 아침 · 엄마와 통화 <span class="en" style="font-weight:400;color:var(--muted)">A call with Mom</span></div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 엄마</span><span class="say">지호야, 오늘 비 오는데 뭐 해?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">오늘은 집에서 쉬면서 다음 주 밀플랜을 <b>짤까 해요</b>. 내일은 하이파크에 가려고 해요.</span></div>
+      <div class="turn b"><span class="who">👩 엄마</span><span class="say">하이파크? 엄마도 같이 갈까?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">좋아요! 그럼 도시락은 제가 쌀게요. 돗자리는 엄마가 가져오세요.</span></div>
+      <div class="turn b"><span class="who">👩 엄마</span><span class="say">그래. 요즘 일교차가 크니까 따뜻하게 입고 와.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">네. 요즘 하루에 만 보 걷는 게 제 타깃이라서, 점심 먹고 산책로도 한 바퀴 <b>걸을까 해요</b>.</span></div>
+    </div>
+
+    <div class="subh">빈칸 채우기 <span class="en" style="font-weight:400;color:var(--muted)">Fill in — from the dialogue</span></div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 쓰기 숙제 <span class="en">Homework · my fall outing plan</span></h2>
+    <p class="lead">이번 주말이나 다음 달의 <b>가을 나들이 계획</b>을 4~6문장으로 써 보세요. 아직 생각 중인 것은 <b>-(으)ㄹ까 해요를 서로 다른 동사로 3번 이상</b>, 이미 정한 것은 <b>-기로 했어요나 -(으)려고 해요로 1번</b> 써요.</p>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 이번 주말에는 날씨가 좋으면 스카버러 블러프스에 갈까 해요. 단풍이 절정이라서 사진을 많이 찍을까 해요. 점심은 김밥을 만들어서 바닷가에서 먹을까 해요. 엄마랑 같이 가기로 했어요. 요즘 일교차가 커서 따뜻한 옷을 챙겨 가려고 해요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요 <span class="en" style="font-weight:400;color:var(--muted)">write &amp; submit right here</span></div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="예) 이번 주말에는 …(으)ㄹ까 해요."></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw43()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 퀘벡 여행 이야기 (도입 5분)</h3>
+    <p class="lead">L42 숙제 카톡을 떠올리며 <b>-더라고요</b>로 다시 말하기. 숙제에서 고친 표현(단풍이 들다 · 골목 · 같지 않다)을 써 보게 해요.</p>
+    <ul>
+      <li>추임새: "제일 좋았던 곳은요?" · "날씨는 어땠어요?" · "다시 가고 싶어요?"</li>
+    </ul>
+
+    <h3>② 계획 인터뷰: 생각 중 → 정했어요</h3>
+    <ul>
+      <li>"이번 주말에 / 할로윈에 / 다음 달에 뭐 해요?" → 학습자가 <b>-(으)ㄹ까 해요 + 이유</b>(-아서 · -(으)니까)로 2문장 이상</li>
+      <li>선생님: "비가 오면요?" · "누구랑요?" → 다른 계획도 -(으)ㄹ까 해요로 → 마지막에 "그럼 정했어요?" → <b>-기로 했어요</b>로 바꿔 말하기</li>
+    </ul>
+
+    <p class="lead">다음: <b>L44 환절기 건강</b>(-기 쉽다).</p>
+    <p class="lead" style="color:var(--warm)">성공 기준: 대본 없이 <b>-(으)ㄹ까 해요 5번</b>(ㄹ 받침이나 불규칙 1번 포함) + -(으)려고 해요 · -기로 했어요 각 1번. (숙제 = 6번 → 제출)</p>
+  </div>
+
+  <footer>Lesson 43 / 가을 나들이 계획 · -(으)ㄹ까 해요 · 토론토와 한국의 가을 ③</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[
+  ["나들이(를 가다)","a short outing, a day out"],["소풍","picnic (outing)"],
+  ["도시락(을 싸다)","packed lunch (to pack a lunch)"],["돗자리(를 펴다)","picnic mat (to spread it out)"],
+  ["사과 따기","apple picking"],["호박 농장","pumpkin farm / pumpkin patch"],
+  ["산책로","walking trail"],["등산(하다)","hiking (in the mountains)"],
+  ["일기 예보","weather forecast"],["고민(하다)","to think hard about, to be torn"]
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['-네요 · 단풍이 들다 · 과거 (L42 숙제)','와, 산에 단풍이 많이 ','들었네요',' !'],
+  ['-더라고요 · 같다 (L33)','퀘벡은 꼭 유럽 ','같더라고요',' .'],
+  ['단어 · alley (L33)','작은 ','골목',' 이 정말 예뻤어요.'],
+  ['-아/어지다 · 짧다 · 과거 (L41 숙제)','해가 많이 ','짧아졌어요',' .'],
+  ['단어 · leaves (L41 숙제)','바람이 불어서 ','나뭇잎',' 이 떨어져요.'],
+  ['단어 · meal plan 🍱','일요일마다 다음 주 ','밀플랜',' 을 짜요.']
+];
+const ADV=[ // [힌트, 앞, 정답(|), 뒤]
+  ['가다','이번 주말에 하이파크에 ','갈까 해요',' .'],
+  ['쉬다','토요일에는 집에서 ','쉴까 해요',' .'],
+  ['찍다','단풍 사진을 많이 ','찍을까 해요',' .'],
+  ['먹다','점심은 공원에서 ','먹을까 해요',' .'],
+  ['만들다 (ㄹ 받침)','김밥을 ','만들까 해요',' .'],
+  ['걷다 (불규칙)','산책로를 한 바퀴 ','걸을까 해요',' .'],
+  ['싸다','도시락을 ','쌀까 해요',' .'],
+  ['따다','농장에서 사과를 ','딸까 해요',' .'],
+  ['가 보다','호박 농장에 처음 ','가 볼까 해요',' .'],
+  ['굽다 (불규칙)','집에서 호박 파이를 ','구울까 해요',' .']
+];
+const EXP=[ // [앞, 정답(|), 뒤, 힌트]
+  ['아직 안 정했는데, 토요일에 사과 따러 ','갈까 해요',' .','가다 · 생각 중'],
+  ['날씨가 좋으면 공원에서 도시락을 ','먹을까 해요',' .','먹다 · 생각 중'],
+  ['비가 오면 그냥 집에서 영화를 ','볼까 해요',' .','보다 · 생각 중'],
+  ['다음 주에는 호박 농장에 꼭 ','가려고 해요',' .','가다 · 마음먹었어요 (L30)'],
+  ['어제 친구랑 이야기해서 일요일에 등산을 ','하기로 했어요',' .','하다 · 정했어요 (L30)'],
+  ['수진 씨, 이번 주말에 같이 단풍 구경 ','갈까요',' ?','가다 · 친구에게 제안'],
+  ['원래 하이파크에 ','갈까 했는데',' 비가 와서 못 갔어요.','가다 · 생각했지만 못 함 (과거)'],
+  ['요즘 일교차가 커서 따뜻한 옷을 ','챙겨 갈까 해요',' .','챙겨 가다 · 생각 중']
+];
+const DLG=[ // 실전 대화 [앞, 정답(|), 뒤, 힌트]
+  ['퀘벡은 꼭 유럽 ','같더라고요',' .','같다 · 다녀와서'],
+  ['날씨가 좋으면 하이파크에 ','갈까 해요',' .','가다 · 생각 중'],
+  ['네, 김밥을 ','만들까 해요',' .','만들다 · 생각 중'],
+  ['저는 가족이랑 호박 농장에 ','가기로 했어요',' .','가다 · 정했어요'],
+  ['저도 사과 따기는 한번 해 ','보려고 해요',' .','보다 · 마음먹었어요'],
+  ['집에서 쉬면서 다음 주 밀플랜을 ','짤까 해요',' .','짜다 · 생각 중'],
+  ['점심 먹고 산책로도 한 바퀴 ','걸을까 해요',' .','걷다 · 생각 중']
+];
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((v,i)=>{ if(i%2===0){const r=document.createElement("tr");r.id="vr"+i;el("vtable").appendChild(r);} });
+VOCAB.forEach((v,i)=>{ document.getElementById("vr"+(i%2===0?i:i-1)).insertAdjacentHTML("beforeend",`<td><b>${v[0]}</b></td><td>${v[1]}</td>`); });
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
+   <span class="ko">${a[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="ko">${a[3]}</span><span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson43_outing_lkka";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw43(){
+  const ta=document.getElementById("hwtext"), msg=document.getElementById("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 43 · 가을 나들이 계획 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 43 · 가을 나들이 계획(-(으)ㄹ까 해요)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>

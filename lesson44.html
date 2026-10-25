@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 44 · 환절기 건강</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  table.cmp{border-collapse:collapse;font-size:14px;margin:8px 0 2px;width:100%;}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.cmp th{background:#f3f4f6;}
+  table.cmp th.a{color:var(--warm);} table.cmp th.b{color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+  .ladder td:first-child{white-space:nowrap;}
+  .say .rs{color:var(--muted);font-size:13px;}
+  .stephead{font-weight:700;font-size:15px;color:var(--accent);margin:18px 0 6px;padding-top:12px;border-top:1px dashed var(--line);}
+  .rule .stephead:first-child{margin-top:2px;padding-top:0;border-top:none;}
+  .plain{margin:8px 0 2px;font-size:14.5px;line-height:1.8;}
+  table.cmp td.k b{color:var(--ok);}
+  .goal{margin:2px 0 10px;}
+  .goal:last-child{margin-bottom:0;}
+  .goal .gt{font-weight:700;color:#1f2937;}
+  .goal .gex{margin:3px 0 0 18px;color:#334155;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 44 · 환절기 건강 <span class="sub">-기 쉽다 · 감기 조심하세요</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">계절이 바뀔 때 자주 생기는 일을 말하고, 건강 조언을 해 봐요: "환절기에는 감기에 걸리<b>기 쉬워요</b>."</p>
+    <div class="note">
+      <div class="goal"><div class="gt">1. -기 쉬워요: 그렇게 되는 일이 많아요</div>
+        <div class="gex">환절기에는 감기에 걸리<b>기 쉬워요</b>.</div></div>
+      <div class="goal"><div class="gt">2. 만드는 법: 기본형에서 다를 빼고 기 쉬워요</div>
+        <div class="gex">걸리다 → 걸리<b>기 쉬워요</b> · 넘어지다 → 넘어지<b>기 쉬워요</b></div></div>
+      <div class="goal"><div class="gt">3. 반대는 -기 어려워요</div>
+        <div class="gex">일이 많아서 일찍 자<b>기 어려워요</b>.</div></div>
+      <div class="goal"><div class="gt">4. 환절기 건강 어휘 10개</div></div>
+    </div>
+    <div class="series">
+      🍁 <b>토론토와 한국의 가을 ④</b>: ① 가을이 왔어요(-아/어지다) → ② 단풍 구경(-네요) → ③ 가을 나들이 계획(-(으)ㄹ까 해요) → <b>④ 환절기 건강(-기 쉽다, 오늘)</b> → ⑤ 토론토 vs 한국의 가을
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · 특강 · L43</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (-기 쉽다)</span></h2>
+    <div class="rule">
+      <div class="stephead">STEP 1 · 뜻</div>
+      <table class="cmp">
+        <tr><th style="width:50%">감기에 걸렸어요.</th><th>감기에 걸리<b>기 쉬워요</b>.</th></tr>
+        <tr><td>한 번 있었던 일이에요.</td><td>그렇게 되는 일이 <b>많아요</b>.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 -기 쉬워요 means "it's easy to ~." It is often used for things that easily happen, like catching a cold.</p>
+
+      <div class="stephead">STEP 2 · 만드는 법</div>
+      <table class="conj">
+        <tr><th>기본형</th><th>− 다</th><th>→ -기 쉬워요</th></tr>
+        <tr><td>걸리다</td><td>걸리<s>다</s></td><td class="k">걸리기 쉬워요</td></tr>
+        <tr><td>넘어지다</td><td>넘어지<s>다</s></td><td class="k">넘어지기 쉬워요</td></tr>
+        <tr><td>건조해지다</td><td>건조해지<s>다</s></td><td class="k">건조해지기 쉬워요</td></tr>
+        <tr><td>만들다</td><td>만들<s>다</s></td><td class="k">만들기 쉬워요</td></tr>
+      </table>
+      <p class="plain">🇬🇧 Just drop 다 and add 기. No irregular changes here.</p>
+
+      <div class="stephead">STEP 3 · 쉽다는 모양이 바뀌어요</div>
+      <table class="conj">
+        <tr><th>지금</th><th>과거</th><th>명사 앞</th><th>반대</th></tr>
+        <tr><td class="k">걸리기 쉬워요</td><td class="k">넘어지기 쉬웠어요</td><td class="k">걸리기 쉬운 계절</td><td class="k">자기 어려워요</td></tr>
+      </table>
+      <p class="plain">🇬🇧 쉽다 changes like 어렵다: 쉬워요 · 쉬웠어요 · 쉬운. The opposite is -기 어려워요 ("it's hard to ~").</p>
+
+      <div class="stephead">STEP 4 · 주의 두 가지</div>
+      <div class="warnbox">
+        ① <b>띄어쓰기</b>: 걸리기 쉬워요 ✓ · <span class="wrong">걸리기쉬워요</span> ✗ (기는 붙이고, 쉬워요는 띄어요)<br>
+        ② <b>철자</b>: 쉬워요 ✓ · <span class="wrong">쉽어요</span> ✗ (어려워요와 같은 모양이에요)
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 환절기 건강 (10)</span></h2>
+    <p class="lead">소리 내어 읽어 보세요. 굵은 글씨가 새 단어예요.</p>
+    <div id="vlist"></div>
+    <div class="exbox" style="margin-top:12px">
+      🍵 <b>환절기에 하는 일</b><br>
+      · <b>한국</b>: 생강차 · 유자차를 많이 마셔요. 미세먼지가 많은 날에는 마스크를 써요.<br>
+      · <b>토론토</b>: 가을에 약국에서 독감 예방 주사를 무료로 맞을 수 있어요.
+    </div>
+  </section>
+
+  <section>
+    <h2>3. -기 쉬워요 만들기 <span class="en">Make the form · 입력 즉시 채점</span></h2>
+    <p class="lead">[ ] 안의 말로 쓰세요. 띄어쓰기 조심!</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 채우기 <span class="en">Complete the sentences</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요.</p>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 — 감기 조심하세요 <span class="en">Cold season</span></h2>
+    <p class="lead">선생님과 <b>역할을 나눠 소리 내어</b> 읽어요. 그다음 대본을 덮고 <b>내 이야기</b>로 바꿔 말해 봐요.</p>
+
+    <div class="subh">장면 ① 회사에서 · 감기 걸린 동료</div>
+    <div class="dlg">
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">수진 씨, 목소리가 왜 그래요?</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">감기에 걸렸어요. 어제부터 목이 따갑고 콧물이 나요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">요즘 아침저녁으로 추워져서 감기에 <b>걸리기 쉬워요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">맞아요. 요즘 무리해서 몸살도 났어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">오늘은 일찍 퇴근해서 푹 쉬는 게 좋겠어요. 무리하면 더 <b>아프기 쉬워요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">고마워요. 지호 씨도 조심하세요. 사무실이 건조해서 목이 <b>건조해지기 쉬워요</b>.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">그래서 책상에 작은 가습기를 <b>놓을까 해요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">좋은 생각이네요. 아, 독감 예방 주사는 맞았어요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">아직요. 요즘 약국 예약이 꽉 차서 <b>예약하기 어렵더라고요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">회사 앞 약국에 전화해 보세요. 거기는 <b>예약하기 쉬워요</b>.</span></div>
+    </div>
+
+    <div class="subh">장면 ② 집에서 · 엄마와 생강차</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 엄마</span><span class="say">지호야, 콧물 나?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">네, 조금요. 아침에 일어나면 목도 따가워요.</span></div>
+      <div class="turn b"><span class="who">👩 엄마</span><span class="say">환절기에는 면역력이 떨어지기 쉬워. 생강차 끓여 줄게.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">고마워요. 한국에서도 환절기에 생강차를 많이 마셔요?</span></div>
+      <div class="turn b"><span class="who">👩 엄마</span><span class="say">응, 유자차도 많이 마셔. 늦게 자면 감기에 더 걸리기 쉬우니까 오늘은 일찍 자.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">요즘 일이 많아서 일찍 <b>자기 어려워요</b>. 그래도 이번 주 밀플랜에 따뜻한 국을 <b>넣을까 해요</b>.</span></div>
+    </div>
+
+    <div class="subh">빈칸 채우기</div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 쓰기 숙제 <span class="en">Homework · fall health tips</span></h2>
+    <p class="lead">한국에 사는 친구에게 <b>토론토의 환절기</b>를 알려 주는 글을 4~6문장으로 써 보세요. <b>-기 쉬워요를 서로 다른 동사로 3번</b>, <b>-기 어려워요 1번</b>, 조언 <b>-는 게 좋겠어요(L26) 1번</b>을 넣어요.</p>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 토론토는 10월이 되면 일교차가 커서 감기에 걸리기 쉬워요. 집 안이 건조해서 목도 건조해지기 쉬워요. 낙엽이 젖으면 길이 미끄러워서 넘어지기 쉬워요. 요즘은 약국 예약이 많아서 독감 예방 주사를 맞기 어려워요. 그래서 일찍 예약하는 게 좋겠어요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요</div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="예) 토론토는 10월이 되면 …기 쉬워요."></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw44()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 원리 설명하기 (5분): 질문으로 진행해요</h3>
+    <p class="lead">원리 STEP 1~4를 차례로 보면서, 선생님이 묻고 학습자가 답해요.</p>
+    <ul>
+      <li><b>STEP 1</b> · "감기에 걸렸어요"와 "감기에 걸리기 쉬워요"는 뭐가 달라요? → 한 번 있었던 일 / 자주 그렇게 되는 일</li>
+      <li><b>STEP 2</b> · "넘어지다를 -기 쉬워요로?" → <b>넘어지기 쉬워요</b></li>
+      <li><b>STEP 3</b> · "가을은 감기에 걸리기 ___ 계절이에요." → <b>쉬운</b> (3번 연습 10번)<br>
+        "일이 많아서 일찍 자기 ___." → <b>어려워요</b> (대화 ②)</li>
+      <li><b>STEP 4</b> · 학습자가 "걸리기 쉬워요"를 직접 써 보게 해요. 띄어쓰기와 쉬워요 철자를 확인해요.</li>
+    </ul>
+
+    <h3>② 건강 상담 역할극</h3>
+    <p class="lead">선생님이 증상을 말하면, 학습자가 <b>이유(-기 쉬워요) + 조언(-는 게 좋겠어요)</b>으로 답해요.</p>
+    <ul>
+      <li>선생님: "아침에 일어나면 목이 따가워요." → 학습자: "방이 건조하면 목이 건조해지기 쉬워요. 가습기를 켜는 게 좋겠어요."</li>
+      <li>그다음 증상: 콧물이 나요 · 몸살이 났어요 · 밤에 기침을 해요</li>
+    </ul>
+
+    <p class="lead">다음: <b>L45 토론토 vs 한국의 가을</b>(-와/과 달리) → 평가시험9(L41–45 + 특강 처럼·같다).</p>
+    <p class="lead" style="color:var(--warm)">성공 기준: 대본 없이 <b>-기 쉬워요 4번</b>(쉬운 + 명사 1번 포함) + -기 어려워요 1번 + 조언 1번. (숙제 = 6번 → 제출)</p>
+  </div>
+
+  <footer>Lesson 44 / 환절기 건강 · -기 쉽다 · 토론토와 한국의 가을 ④</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[ // [예문, 영어]
+  ['<b>환절기</b>에는 감기에 걸리기 쉬워요.','환절기 = the change of seasons'],
+  ['어제부터 <b>감기에 걸렸어요</b>.','감기에 걸리다 = to catch a cold'],
+  ['아침에 일어나면 <b>목이 따가워요</b>.','목이 따갑다 = to have a scratchy throat'],
+  ['<b>콧물이 나서</b> 휴지를 많이 썼어요.','콧물이 나다 = to have a runny nose'],
+  ['밤에 <b>기침을 해서</b> 잠을 못 잤어요.','기침을 하다 = to cough'],
+  ['일을 너무 많이 해서 <b>몸살이 났어요</b>.','몸살이 나다 = to ache all over (from tiredness or a cold)'],
+  ['잠을 잘 자야 <b>면역력</b>이 좋아져요.','면역력 = immunity'],
+  ['약국에서 <b>독감 예방 주사</b>를 맞았어요.','독감 예방 주사 (를 맞다) = (to get) a flu shot'],
+  ['방이 건조해서 <b>가습기</b>를 켰어요.','가습기 = humidifier'],
+  ['목이 아플 때는 <b>생강차</b>를 마셔요.','생강차 = ginger tea']
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['밴쿠버 · 문장 끝 (특강)','토론토는 꼭 ','밴쿠버 같아요',' .'],
+  ['바다 · not like (특강)','온타리오 호수는 ','바다 같지 않아요',' .'],
+  ['by the lake (특강 숙제)','토론토는 ','호숫가에',' 있어요.'],
+  ['있다 + 것이 · 띄어쓰기 ★','토론토는 할 수 ','있는 게',' 많아요.'],
+  ['both (특강 숙제)','토론토와 밴쿠버는 ','둘 다',' 건물이 높아요.'],
+  ['맞다 · 생각 중 (L43)','이번 주에 독감 예방 주사를 ','맞을까 해요',' .']
+];
+const ADV=[ // [힌트, 앞, 정답(|), 뒤]
+  ['걸리다 · 쉽다','환절기에는 감기에 ','걸리기 쉬워요',' .'],
+  ['건조해지다 · 쉽다','가을에는 피부가 ','건조해지기 쉬워요',' .'],
+  ['피곤해지다 · 쉽다','일교차가 크면 몸이 ','피곤해지기 쉬워요',' .'],
+  ['넘어지다 · 쉽다','낙엽이 젖으면 미끄러워서 ','넘어지기 쉬워요',' .'],
+  ['잊어버리다 · 쉽다','바쁘면 물 마시는 걸 ','잊어버리기 쉬워요',' .'],
+  ['나다 · 쉽다','무리하면 몸살이 ','나기 쉬워요',' .'],
+  ['만들다 · 쉽다','생강차는 집에서 ','만들기 쉬워요',' .'],
+  ['쉬다 · 어렵다','회사 일이 많아서 ','쉬기 어려워요',' .'],
+  ['하다 · 어렵다','요즘 독감 예방 주사 예약을 ','하기 어려워요',' .'],
+  ['걸리다 · 쉽다 · 명사 앞','가을은 감기에 ','걸리기 쉬운',' 계절이에요.']
+];
+const EXP=[ // [앞, 정답(|), 뒤, 힌트]
+  ['아침저녁으로 추워서 감기에 ','걸리기 쉬워요',' .','걸리다 · 쉽다'],
+  ['가습기가 없으면 목이 ','건조해지기 쉬워요',' .','건조해지다 · 쉽다'],
+  ['콧물이 나고 기침을 해서 어젯밤에 ','자기 어려웠어요',' .','자다 · 어렵다 · 과거'],
+  ['어제는 비가 와서 길에서 ','넘어지기 쉬웠어요',' .','넘어지다 · 쉽다 · 과거'],
+  ['환절기는 면역력이 ','떨어지기 쉬운',' 때예요.','떨어지다 · 쉽다 · 명사 앞'],
+  ['이 감기약은 하루에 한 번만 먹어서 ','먹기 쉬워요',' .','먹다 · 쉽다'],
+  ['감기에 걸리기 쉬우니까 따뜻하게 ','입는 게 좋겠어요',' .','입다 · 조언 (L26)'],
+  ['몸살이 났을 때는 무리하지 ','않는 게 좋겠어요',' .','않다 · 조언 (L26)']
+];
+const DLG=[ // 실전 대화 [앞, 정답(|), 뒤, 힌트]
+  ['요즘 아침저녁으로 추워져서 감기에 ','걸리기 쉬워요',' .','걸리다 · 쉽다'],
+  ['무리하면 더 ','아프기 쉬워요',' .','아프다 · 쉽다'],
+  ['그래서 책상에 작은 가습기를 ','놓을까 해요',' .','놓다 · 생각 중 (L43)'],
+  ['요즘 약국 예약이 꽉 차서 ','예약하기 어렵더라고요',' .','예약하다 · 어렵다 · -더라고요'],
+  ['회사 앞 약국은 ','예약하기 쉬워요',' .','예약하다 · 쉽다'],
+  ['요즘 일이 많아서 일찍 ','자기 어려워요',' .','자다 · 어렵다'],
+  ['이번 주 밀플랜에 따뜻한 국을 ','넣을까 해요',' .','넣다 · 생각 중 (L43)']
+];
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((p,i)=>el("vlist").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="ko"><span class="num">${i+1}.</span> ${p[0]}</div><div class="lbl" style="margin-left:22px">${p[1]}</div></div>`));
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
+   <span class="ko">${a[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="ko">${a[3]}</span><span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson44_health_gi_swipda";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw44(){
+  const ta=document.getElementById("hwtext"), msg=document.getElementById("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 44 · 환절기 건강 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 44 · 환절기 건강(-기 쉽다)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
