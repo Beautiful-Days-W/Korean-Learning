@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>평가시험 · Lessons 41–45 Review Test</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  a.home{display:inline-block;margin-bottom:8px;color:var(--accent);text-decoration:none;font-size:13.5px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 4px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  p.lead{font-size:14px;color:#374151;margin:4px 0 8px;}
+  .drill{padding:9px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.tiny{width:96px;text-align:center;font-size:17px;}
+  input.mid{width:220px;}
+  input.full{flex:1;min-width:220px;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .fb.warn{color:#854d0e;background:#fde047;border:1px solid #eab308;border-radius:6px;padding:1px 7px;font-size:12px;}
+  .fb.open{color:var(--muted);font-weight:500;font-size:12px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .passage{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:15px 17px;font-size:15.5px;line-height:1.95;}
+  .trans{display:none;font-size:13.5px;color:#475569;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:11px 14px;margin-top:8px;line-height:1.7;}
+  .trans.show{display:block;}
+  .q{font-size:14.5px;margin:0 0 2px;font-weight:600;}
+  textarea.ans{font:inherit;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;resize:vertical;margin-top:4px;}
+  textarea.short{min-height:46px;}
+  textarea.long{min-height:90px;}
+  textarea.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .submitbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center;}
+  .submitbox label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;}
+  .submitbox input{font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:9px;width:200px;}
+  .bigbtn{font:inherit;font-size:15px;font-weight:700;cursor:pointer;border:none;border-radius:999px;padding:13px 26px;margin-top:14px;background:var(--accent);color:#fff;}
+  .bigbtn:disabled{opacity:.5;}
+  .msg{margin-top:12px;font-size:14px;font-weight:600;}
+  .msg.ok{color:var(--ok);} .msg.no{color:#dc2626;}
+  .wrongx{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 3px;}
+  .ko .opt{color:var(--muted);font-size:14px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>평가시험 · Lessons 41–45 <span class="sub">Review test</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <a class="home" href="index.html">← 수업 홈</a>
+  <div class="head">
+    <h2>Lessons 41–45 종합 평가 <span class="en">Comprehensive review · 가을 시리즈 + 처럼·같다 특강</span></h2>
+    <p class="lead">41~45과와 <b>처럼·같다 특강</b>을 한 번에 점검해요. <b>① 문법 확인(자동채점)</b> → <b>② 숙제에서 고친 말(자동채점)</b> → <b>③ 읽기 지문 + 이해 문항</b> → <b>④ 자유 작문</b>. 입력하면 바로 채점되고, 맨 아래에서 결과를 선생님께 제출할 수 있어요. ★ 띄어쓰기도 정확히 쓰세요.</p>
+  </div>
+
+  <div id="test"></div>
+
+  <section>
+    <h2>9. 읽기 <span class="en">Reading · 이해 문항은 선생님이 봐요</span></h2>
+    <p class="lead">지문을 읽고 아래 질문에 <b>한국어 문장으로</b> 답하세요. 어려우면 영어 번역을 펼쳐 봐도 돼요.</p>
+    <div class="passage" id="passage">10월이 되니까 토론토 날씨가 많이 쌀쌀해졌어요. 해도 점점 짧아지고 있어요. 지난 주말에 친구하고 하이 파크에 갔어요. 공원에 들어가니까 친구가 "와, 단풍이 정말 그림 같네요!" 하고 말했어요. 나무들이 빨갛게 물들어서 정말 그림처럼 예뻤어요. 토론토는 서울과 달리 단풍이 일찍 들고 첫눈도 일찍 와요. 하지만 서울처럼 가을 하늘이 높고 맑아요. 요즘은 일교차가 커서 감기에 걸리기 쉬워요. 그래서 저는 매일 아침 생강차를 마셔요. 다음 주말에는 가족하고 호박 농장에 갈까 해요. 아직 정하지는 않았어요. 날씨가 좋으면 사과도 딸까 해요.</div>
+    <button class="hintbtn" onclick="toggleModel('eng')">🔁 영어로 보기 (English)</button>
+    <div class="trans" id="eng">Now that it's October, the weather in Toronto has gotten quite chilly. The days are getting shorter, too. Last weekend I went to High Park with a friend. When we walked into the park, my friend said, "Wow, the leaves look just like a painting!" The trees had turned red, and they really were as pretty as a painting. Unlike Seoul, Toronto's leaves change color early, and the first snow comes early too. But like Seoul, the autumn sky is high and clear. These days the temperature swings a lot between day and night, so it's easy to catch a cold. That's why I drink ginger tea every morning. Next weekend I'm thinking of going to a pumpkin farm with my family. We haven't decided yet. If the weather is nice, I'm thinking of picking apples too.</div>
+    <div id="comp" style="margin-top:6px"></div>
+  </section>
+
+  <section>
+    <h2>10. 자유 작문 <span class="en">Free writing · 선생님이 봐요</span></h2>
+    <p class="lead">요즘 <b>토론토의 가을</b>이나 나의 가을 계획을 <b>3문장 이상</b> 써 보세요. (-아/어지다 · -네요 · -(으)ㄹ까 해요 · 처럼/같아요 · -기 쉬워요 · 과/와 달리 등 자유롭게) — 점수에는 안 들어가고 선생님이 봐요.</p>
+    <textarea class="ans long" data-type="free" data-k="free" data-q="자유 작문" placeholder=""></textarea>
+    <span class="fb" id="fb_free"></span>
+  </section>
+
+  <div class="submitbox">
+    <label for="name">이름 <span style="font-weight:400;color:var(--muted)">Name</span></label>
+    <input id="name" value="" placeholder="이름">
+    <div><button class="bigbtn" id="submitBtn" onclick="submitTest()">✅ 제출하고 점수 보내기</button></div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <footer>songfamily.work · 평가시험 (Lessons 41–45)</footer>
+</div>
+
+<script>
+const API_BASE="https://korean.songfamily.work";
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const SECTIONS=[
+  {t:"1. Lesson 41 · 가을이 왔어요 (-아/어지다)", en:"Getting ~ (change)", items:[
+    {kind:"exact",cue:"춥다 → -아/어졌어요:",ans:"추워졌어요",q:"L41-1 추워졌어요"},
+    {kind:"exact",cue:"짧다 → 해가 점점 ( ____ ) (-아/어지고 있어요):",ans:"짧아지고 있어요",q:"L41-2 짧아지고 있어요"},
+    {kind:"exact",cue:"빨갛다(ㅎ 불규칙) → -아/어졌어요:",ans:"빨개졌어요",q:"L41-3 빨개졌어요"},
+    {kind:"exact",cue:"쌀쌀하다 → 내일은 더 ( ____ ) (-아/어질 거예요):",ans:"쌀쌀해질 거예요",q:"L41-4 쌀쌀해질 거예요"},
+    {kind:"make",label:'문장: (요즘 · 날씨 · 선선하다 · -아/어졌어요)',need:"선선해졌어요",adj:"날씨",ex:"요즘 날씨가 선선해졌어요.",q:"L41-5 -아/어지다 문장"},
+  ]},
+  {t:"2. Lesson 42 · 단풍 구경 (-네요)", en:"Oh, it's ~! (right now)", items:[
+    {kind:"exact",cue:"멀다(ㄹ 받침) → -네요:",ans:"머네요",q:"L42-1 머네요"},
+    {kind:"exact",cue:"절정(명사) → -네요:",ans:"절정이네요",q:"L42-2 절정이네요"},
+    {kind:"exact",cue:"물들다 → 과거 -네요 (단풍이 다 …):",ans:"물들었네요",q:"L42-3 물들었네요"},
+    {kind:"exact",cue:"(여행 다녀와서 친구에게) 퀘벡 단풍이 정말 ( ____ ) (예쁘다):",ans:"예쁘더라고요",q:"L42-4 예쁘더라고요"},
+    {kind:"make",label:'문장: (전망대에서 · 경치 · 멋있다 · -네요)',need:"멋있네요",adj:"경치",ex:"와, 경치가 정말 멋있네요!",q:"L42-5 -네요 문장"},
+  ]},
+  {t:"3. Lesson 43 · 가을 나들이 계획 (-(으)ㄹ까 해요)", en:"I'm thinking of ~", items:[
+    {kind:"exact",cue:"싸다(도시락을) → -(으)ㄹ까 해요:",ans:"쌀까 해요",q:"L43-1 쌀까 해요"},
+    {kind:"exact",cue:"걷다(ㄷ 불규칙) → -(으)ㄹ까 해요:",ans:"걸을까 해요",q:"L43-2 걸을까 해요"},
+    {kind:"exact",cue:"들르다 → -(으)ㄹ까 해요:",ans:"들를까 해요",q:"L43-3 들를까 해요"},
+    {kind:"exact",cue:"(벌써 정했어요) 토요일에 사과를 따러 ( ____ ) (가다 · -기로 하다 · 과거):",ans:"가기로 했어요",q:"L43-4 가기로 했어요"},
+    {kind:"make",label:'문장: (이번 주말 · 호박 농장 · 가다 · -(으)ㄹ까 해요)',need:"갈까 해요",adj:"호박",ex:"이번 주말에 호박 농장에 갈까 해요.",q:"L43-5 -(으)ㄹ까 해요 문장"},
+  ]},
+  {t:"4. 문법 특강 · 처럼과 같다", en:"Like ~ · not ~", items:[
+    {kind:"exact",cue:"그림 + (처럼 / 같아요) → 단풍이 ( ____ ) 예뻐요:",ans:"그림처럼",q:"특강-1 그림처럼"},
+    {kind:"exact",cue:"바다 + 같다 (문장 끝) → 이 호수는 ( ____ ):",ans:"바다 같아요",q:"특강-2 바다 같아요"},
+    {kind:"exact",cue:"바다 + 같다 + 호수 (명사 앞) → ( ____ ) 호수예요:",ans:"바다 같은",q:"특강-3 바다 같은"},
+    {kind:"exact",cue:"캐나다 + 같다 + not → 퀘벡은 ( ____ ):",ans:"캐나다 같지 않아요",q:"특강-4 캐나다 같지 않아요"},
+    {kind:"exact",cue:"학생(명사) + not → 저는 ( ____ ):",ans:"학생이 아니에요",q:"특강-5 학생이 아니에요"},
+    {kind:"exact",cue:"춥다(형용사) + not (-지 않아요) → 오늘은 ( ____ ):",ans:"춥지 않아요",q:"특강-6 춥지 않아요"},
+  ]},
+  {t:"5. Lesson 44 · 환절기 건강 (-기 쉽다)", en:"Easy to ~ / hard to ~", items:[
+    {kind:"exact",cue:"걸리다 → 환절기에는 감기에 ( ____ ) (-기 쉬워요):",ans:"걸리기 쉬워요",q:"L44-1 걸리기 쉬워요"},
+    {kind:"exact",cue:"일어나다 → 겨울에는 아침에 일찍 ( ____ ) (-기 어려워요):",ans:"일어나기 어려워요",q:"L44-2 일어나기 어려워요"},
+    {kind:"exact",cue:"걸리다 → 작년 겨울에는 감기에 ( ____ ) (-기 쉽다 · 과거):",ans:"걸리기 쉬웠어요",q:"L44-3 걸리기 쉬웠어요"},
+    {kind:"exact",cue:"만들다 → 생강차는 ( ____ ) 차예요 (-기 쉽다 + 명사):",ans:"만들기 쉬운",q:"L44-4 만들기 쉬운"},
+    {kind:"make",label:'문장: (환절기 · 목이 따갑다 · -기 쉬워요)',need:"따갑기 쉬워요",adj:"환절기",ex:"환절기에는 목이 따갑기 쉬워요.",q:"L44-5 -기 쉽다 문장"},
+  ]},
+  {t:"6. Lesson 45 · 토론토 vs 한국의 가을 (과/와 달리)", en:"Unlike ~", items:[
+    {kind:"exact",cue:"서울 + 과/와 달리 → 토론토는 ( ____ ) 첫눈이 일찍 와요:",ans:"서울과 달리",q:"L45-1 서울과 달리"},
+    {kind:"exact",cue:"토론토 + 과/와 달리 → 서울은 ( ____ ) 서머타임이 없어요:",ans:"토론토와 달리",q:"L45-2 토론토와 달리"},
+    {kind:"exact",cue:"한국 + (이)랑 달리 (친구와 말할 때) → 캐나다는 ( ____ ) 김장을 안 해요:",ans:"한국이랑 달리",q:"L45-3 한국이랑 달리"},
+    {kind:"exact",cue:"비슷하다 → 두 도시는 9월 날씨가 ( ____ ):",ans:"비슷해요",q:"L45-4 비슷해요"},
+    {kind:"make",label:'문장: (토론토 · 한국 · 과/와 달리 · 가을이 짧다)',need:"한국과 달리",adj:"짧",ex:"토론토는 한국과 달리 가을이 짧아요.",q:"L45-5 과/와 달리 문장"},
+  ]},
+  {t:"7. 숙제에서 고친 말 ① · 고쳐 쓰기", en:"Fix the sentence · from your homework", lead:"숙제에서 고쳤던 말이에요. 틀린 곳을 고쳐서 <b>문장 전체</b>를 다시 쓰세요. (띄어쓰기도 채점해요)", items:[
+    {kind:"fix",wrong:"길에 당풍이 정말 예쁘네요.",ans:"길에 단풍이 정말 예쁘네요",q:"고치기-1 단풍"},
+    {kind:"fix",wrong:"공원에 나무닢이 많이 떨어졌어요.",ans:"공원에 나뭇잎이 많이 떨어졌어요",q:"고치기-2 나뭇잎"},
+    {kind:"fix",wrong:"해가 많이 자가졌어요.",ans:"해가 많이 짧아졌어요",q:"고치기-3 짧아졌어요"},
+    {kind:"fix",wrong:"퀘벡은 캐나다 처럼 않이에요.",ans:"퀘벡은 캐나다 같지 않아요|퀘벡은 캐나다 같지 않네요",q:"고치기-4 같지 않아요"},
+    {kind:"fix",wrong:"우리 둘다 단풍을 좋아해요.",ans:"우리 둘 다 단풍을 좋아해요",q:"고치기-5 둘 다"},
+    {kind:"fix",wrong:"집 근처에 공원이 있는게 좋아요.",ans:"집 근처에 공원이 있는 게 좋아요",q:"고치기-6 있는 게"},
+    {kind:"fix",wrong:"외냐하면 비가 오기 때문 이에요.",ans:"왜냐하면 비가 오기 때문이에요",q:"고치기-7 왜냐하면·때문이에요"},
+    {kind:"fix",wrong:"주말에 친구를 만날 거에요.",ans:"주말에 친구를 만날 거예요",q:"고치기-8 거예요"},
+    {kind:"fix",wrong:"여름이 가을로 밖우고 있어요.",ans:"여름이 가을로 바뀌고 있어요",q:"고치기-9 바뀌고"},
+    {kind:"fix",wrong:"가게들이 여름 옷을 쎄일 하고 있어요.",ans:"가게들이 여름 옷을 세일하고 있어요",q:"고치기-10 세일하고"},
+    {kind:"fix",wrong:"숙제를 해야데서 못 가요.",ans:"숙제를 해야 해서 못 가요|숙제를 해야 돼서 못 가요",q:"고치기-11 해야 해서"},
+    {kind:"fix",wrong:"내일 카페에 들릴까 해요.",ans:"내일 카페에 들를까 해요",q:"고치기-12 들를까 해요"},
+  ]},
+  {t:"8. 숙제에서 고친 말 ② · 알맞은 말 고르기", en:"Choose the right word", lead:"( ) 안에서 맞는 말을 골라 쓰세요.", items:[
+    {kind:"exact",cue:"마트에 할로윈 ( ____ )이 정말 많아요. <span class='opt'>(장 / 물건)</span>",ans:"물건",q:"고르기-1 물건"},
+    {kind:"exact",cue:"세일이라서 코트를 싸게 ( ____ ). <span class='opt'>(받았어요 / 샀어요)</span>",ans:"샀어요",q:"고르기-2 샀어요"},
+    {kind:"exact",cue:"오늘 정말 추워요. ( ____ ) 코트를 입었어요. <span class='opt'>(그래서 / 그리고)</span>",ans:"그래서",q:"고르기-3 그래서"},
+    {kind:"exact",cue:"토론토는 첫눈이 일찍 와요. ( ____ ) 서울은 단풍이 늦게 들어요. <span class='opt'>(그래서 / 그리고)</span>",ans:"그리고",q:"고르기-4 그리고"},
+    {kind:"exact",cue:"지금 토론토는 ( ____ ). <span class='opt'>(환절기가 있어요 / 환절기예요)</span>",ans:"환절기예요",q:"고르기-5 환절기예요"},
+    {kind:"exact",cue:"와, 단풍이 정말 예쁘게 ( ____ ). <span class='opt'>(변했네요 / 물들었네요)</span>",ans:"물들었네요",q:"고르기-6 물들었네요"},
+    {kind:"exact",cue:"어제는 가족하고 식당에서 외식을 ( ____ ). <span class='opt'>(했어요 / 사 먹었어요)</span>",ans:"했어요",q:"고르기-7 했어요"},
+  ]},
+];
+
+const COMP=[
+  {q:"토론토의 가을은 서울과 뭐가 달라요? 뭐가 같아요?", ex:"(예시) 토론토는 서울과 달리 단풍이 일찍 들고 첫눈도 일찍 와요. 하지만 서울처럼 가을 하늘이 높고 맑아요.", k:"q1"},
+  {q:"요즘 왜 감기에 걸리기 쉬워요? 그래서 '저'는 뭘 해요?", ex:"(예시) 일교차가 커서 감기에 걸리기 쉬워요. 그래서 매일 아침 생강차를 마셔요.", k:"q2"},
+  {q:"'저'는 다음 주말에 호박 농장에 가기로 했어요? 글에서 어떤 말을 보고 알 수 있어요?", ex:"(예시) 아니요, 아직 정하지 않았어요. \"갈까 해요\"라고 했으니까 생각만 하고 있어요.", k:"q3"},
+];
+
+function el(id){return document.getElementById(id);}
+let mc=0;
+const test=el("test");
+SECTIONS.forEach((s,si)=>{
+  let html=`<section><h2>${s.t} <span class="en">${s.en}</span></h2>`+(s.lead?`<p class="lead">${s.lead}</p>`:"");
+  s.items.forEach((it,ii)=>{
+    const k=`s${si}_${ii}`;
+    if(it.kind==="par"){
+      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.pre}<input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans tiny" data-type="par" data-ans="${it.ans}" data-k="${k}" data-q="${it.q}">${it.post}</span><span class="fb" id="fb_${k}"></span></div></div>`;
+    } else if(it.kind==="exact"){
+      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.cue}</span> <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans mid" data-type="exact" data-ans="${it.ans}" data-k="${k}" data-q="${it.q}"><span class="fb" id="fb_${k}"></span></div></div>`;
+    } else if(it.kind==="fix"){
+      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko"><span class="wrongx">✗ ${it.wrong}</span> →</span></div><div class="row" style="margin-top:6px"><input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="exact" data-ans="${it.ans}" data-k="${k}" data-q="${it.q}" placeholder="고쳐서 다시 쓰세요"><span class="fb" id="fb_${k}"></span></div></div>`;
+    } else if(it.kind==="make"){
+      const mid="m"+(mc++);
+      html+=`<div class="drill"><div class="row"><span class="num">${ii+1}.</span><span class="ko">${it.label}</span> <input readonly onfocus="this.removeAttribute('readonly')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" class="ans full" data-type="make" data-need="${it.need}" data-adj="${it.adj}" data-k="${k}" data-q="${it.q}" placeholder="문장을 쓰세요"><span class="fb" id="fb_${k}"></span></div>
+        <button class="hintbtn" onclick="toggleModel('${mid}')">예시 보기</button>
+        <div class="model" id="${mid}">예시: ${it.ex}</div></div>`;
+    }
+  });
+  html+=`</section>`;
+  test.insertAdjacentHTML("beforeend",html);
+});
+
+const comp=el("comp");
+COMP.forEach((c,i)=>{
+  const mid="cex"+i;
+  comp.insertAdjacentHTML("beforeend",
+  `<div class="drill"><p class="q">${i+1}. ${c.q}</p>
+    <textarea class="ans short" data-type="open" data-k="${c.k}" data-q="이해 ${i+1}: ${c.q}" placeholder="한국어 문장으로 답하세요"></textarea>
+    <span class="fb open" id="fb_${c.k}"></span>
+    <button class="hintbtn" onclick="toggleModel('${mid}')">예시 답 보기</button>
+    <div class="model" id="${mid}">${c.ex}</div></div>`);
+});
+
+const KEY="review_test_41_45_v1";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const t=elm.dataset.type, v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"+(t==="open"?" open":""); updateScore(); return; }
+  if(t==="open"){ fb.textContent="✎ 선생님이 봐요"; fb.className="fb open"; return; }
+  const flat=v.replace(/\s/g,"");
+  let state="no";
+  if(t==="par") state = v===elm.dataset.ans ? "ok":"no";
+  else if(t==="exact") state = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a)) ? "ok":"no";
+  else if(t==="make"){
+    const pOk=flat.includes(elm.dataset.need.replace(/\s/g,""));
+    const aOk=flat.includes(elm.dataset.adj.replace(/\s/g,""));
+    state = !pOk ? "no" : (aOk ? "ok" : "warn");
+  }
+  else if(t==="free"){
+    const n=(v.match(/[.?!]/g)||[]).length;
+    state = n>=2 ? "ok" : "warn";
+  }
+  let okSym="✓", warnSym="확인", noSym="✗";
+  if(t==="make"){ noSym="핵심어 ✗"; warnSym="핵심어 ✓ · 형태 확인"; }
+  else if(t==="free"){ okSym="형식 OK · 내용은 선생님과"; warnSym="문장 2개 이상 써 보세요"; }
+  fb.textContent = state==="ok" ? okSym : state==="warn" ? warnSym : noSym;
+  fb.className = "fb "+state;
+  updateScore();
+}
+function scored(){
+  let total=0, done=0, ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{
+    if(e.dataset.type==="free"||e.dataset.type==="open") return;
+    total++;
+    const fb=document.getElementById("fb_"+e.dataset.k);
+    if(e.value.trim()!==""){ done++; if(fb&&fb.classList.contains("ok")) ok++; }
+  });
+  return {total,done,ok};
+}
+function updateScore(){
+  const {total,done,ok}=scored();
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done} (총 ${total})` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+function resetAll(){
+  if(!confirm("시험 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb"+(e.dataset.type==="open"?" open":"");} });
+  el("score").textContent=""; el("msg").textContent="";
+}
+async function submitTest(){
+  const name=el("name").value.trim(), msg=el("msg"), btn=el("submitBtn");
+  const {total,ok}=scored();
+  const payload={ "점수(문법)": `정답 ${ok} / 총 ${total}` };
+  document.querySelectorAll("[data-k]").forEach(e=>{ payload[e.dataset.q||e.dataset.k]=e.value.trim(); });
+  btn.disabled=true; msg.className="msg"; msg.textContent="제출 중…";
+  try{
+    const res=await fetch(API_BASE+"/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"assessment", title:"Lessons 41–45 평가시험", learner_name:name||null, payload })});
+    if(res.ok){ msg.className="msg ok"; msg.textContent=`✅ 제출됐어요! (${payload["점수(문법)"]}) 읽기·작문은 선생님이 봐요.`; }
+    else { msg.className="msg no"; msg.textContent="제출 실패: "+res.status; }
+  }catch(e){ msg.className="msg no"; msg.textContent="오류: "+e; }
+  btn.disabled=false;
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>문법 특강 · 이에요와 예요</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  table.cmp{border-collapse:collapse;font-size:14px;margin:8px 0 2px;width:100%;}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.cmp th{background:#f3f4f6;}
+  table.cmp th.a{color:var(--warm);} table.cmp th.b{color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+  .ladder td:first-child{white-space:nowrap;}
+  .say .rs{color:var(--muted);font-size:13px;}
+  .stephead{font-weight:700;font-size:15px;color:var(--accent);margin:18px 0 6px;padding-top:12px;border-top:1px dashed var(--line);}
+  .rule .stephead:first-child{margin-top:2px;padding-top:0;border-top:none;}
+  .plain{margin:8px 0 2px;font-size:14.5px;line-height:1.8;}
+  table.cmp td.k b{color:var(--ok);}
+  .goal{margin:2px 0 10px;}
+  .goal:last-child{margin-bottom:0;}
+  .goal .gt{font-weight:700;color:#1f2937;}
+  .goal .gex{margin:3px 0 0 18px;color:#334155;}
+  input.xwide{width:360px;text-align:center;}
+  @media(max-width:560px){input.xwide{width:100%;}}
+  .wrongx{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 3px;}
+  .sp{display:inline-block;background:#fef3c7;color:#92400e;border-radius:4px;padding:0 4px;font-size:12px;font-weight:700;margin:0 2px;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>문법 특강 · 이에요와 예요 <span class="sub">"It is ~" 바르게 쓰기 · 학생이에요 / 토론토예요</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <a class="home" href="index.html" style="display:inline-block;margin-bottom:8px;color:var(--accent);text-decoration:none;font-size:13.5px">← 수업 홈</a>
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">명사 뒤에 붙는 <b>이에요</b>와 <b>예요</b>를 바르게 골라 써요. 숙제에서 자주 틀린 <b>거예요 · 아니에요</b>도 정리해요.</p>
+    <div class="note">
+      <div class="goal"><div class="gt">1. 받침이 있으면 이에요, 없으면 예요</div>
+        <div class="gex">단풍<b>이에요</b> · 토론토<b>예요</b></div></div>
+      <div class="goal"><div class="gt">2. 자주 틀리는 말 바르게 쓰기</div>
+        <div class="gex">갈 <b>거예요</b> · 학생이 <b>아니에요</b> · <b>뭐예요</b>?</div></div>
+      <div class="goal"><div class="gt">3. 과거와 이유도 받침을 봐요</div>
+        <div class="gex">학생<b>이었어요</b> · 의사<b>였어요</b> · 공휴일<b>이라서</b> · 환절기<b>라서</b></div></div>
+      <div class="goal"><div class="gt">4. 명사에 붙여 써요</div>
+        <div class="gex">학생이에요 ✓ · 학생 이에요 ✗</div></div>
+    </div>
+    <div class="series">
+      📌 <b>특강</b>: 4과부터 계속 나온 "거에요" 실수, 그리고 평가시험9에 나온 "아니에요"를 한 번에 정리해요. 10월 31일 할로윈 대화로 연습해요. 🎃
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L45 숙제</span></h2>
+    <p class="lead">L45 숙제에서 고친 말이에요. [ ] 안의 힌트를 보고 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (이에요 · 예요)</span></h2>
+    <div class="rule">
+      <div class="stephead">STEP 1 · 마지막 글자의 받침을 봐요</div>
+      <table class="conj">
+        <tr><th>명사</th><th>마지막 글자</th><th>받침</th><th>→ 이에요 / 예요</th></tr>
+        <tr><td>단풍</td><td>풍</td><td>ㅇ 있어요</td><td class="k">단풍이에요</td></tr>
+        <tr><td>학생</td><td>생</td><td>ㅇ 있어요</td><td class="k">학생이에요</td></tr>
+        <tr><td>토론토</td><td>토</td><td>없어요</td><td class="k">토론토예요</td></tr>
+        <tr><td>환절기</td><td>기</td><td>없어요</td><td class="k">환절기예요</td></tr>
+      </table>
+      <p class="plain">🇬🇧 "It is ~" after a noun: final consonant (받침) → 이에요, no final consonant → 예요.</p>
+
+      <div class="stephead">STEP 2 · 자주 틀리는 세 가지</div>
+      <table class="conj">
+        <tr><th>바른 말</th><th>왜?</th><th>✗</th></tr>
+        <tr><td class="k">갈 거예요</td><td>거 → 받침 없어요</td><td><span class="wrong">갈 거에요</span></td></tr>
+        <tr><td class="k">뭐예요? · 어디예요? · 얼마예요?</td><td>뭐 · 어디 · 얼마 → 받침 없어요</td><td><span class="wrong">뭐에요?</span></td></tr>
+        <tr><td class="k">학생이 아니에요</td><td>아니다는 언제나 아니에요</td><td><span class="wrong">아니예요</span> · <span class="wrong">않이에요</span></td></tr>
+      </table>
+      <p class="plain">🇬🇧 거 has no final consonant, so it is always 거예요. "Not" is always 아니에요.</p>
+
+      <div class="stephead">STEP 3 · 과거와 이유도 받침을 봐요</div>
+      <table class="conj">
+        <tr><th></th><th>받침 있어요</th><th>받침 없어요</th></tr>
+        <tr><td>지금</td><td class="k">학생이에요</td><td class="k">의사예요</td></tr>
+        <tr><td>과거</td><td class="k">학생이었어요</td><td class="k">의사였어요</td></tr>
+        <tr><td>이유</td><td class="k">공휴일이라서</td><td class="k">환절기라서</td></tr>
+      </table>
+      <p class="plain">🇬🇧 The same rule works for the past (이었어요 / 였어요) and for "because" (이라서 / 라서).</p>
+
+      <div class="stephead">STEP 4 · 명사에 붙여 써요 · 소리와 글자가 달라요</div>
+      <div class="warnbox">
+        ① 이에요 · 예요는 명사에 <b>붙여</b> 써요: <b>학생이에요</b> ✓ · <span class="wrong">학생 이에요</span> ✗ · <b>추수감사절이었어요</b> ✓ · <span class="wrong">추수감사절 이었어요</span> ✗<br>
+        ② 예요는 보통 [에요]처럼 들려요. 그래도 받침이 없으면 <b>예요</b>로 써요: 토론토예요 [토론토에요]
+      </div>
+      <p class="plain">🇬🇧 Always attach it to the noun. 예요 often sounds like [에요], but spell it 예요.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 자주 쓰는 표현 <span class="en">Common sentences</span></h2>
+    <p class="lead">소리 내어 읽어 보세요. 굵은 글씨 앞 글자의 받침을 보세요.</p>
+    <div class="subh">받침 있어요 → 이에요</div>
+    <div id="phr1"></div>
+    <div class="subh">받침 없어요 → 예요</div>
+    <div id="phr2"></div>
+  </section>
+
+  <section>
+    <h2>3. 이에요? 예요? <span class="en">Choose & write · 입력 즉시 채점</span></h2>
+    <p class="lead">마지막 글자의 받침을 보고 고르세요. <b>명사까지 같이</b> 쓰세요.</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 거예요 · 아니에요 <span class="en">The two most common mistakes</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요.</p>
+    <div id="neg"></div>
+  </section>
+
+  <section>
+    <h2>5. 과거 · 이유 <span class="en">이었어요/였어요 · 이라서/라서</span></h2>
+    <p class="lead">받침을 보고 고르세요. <b>명사까지 같이</b> 쓰세요.</p>
+    <div id="exp"></div>
+  </section>
+
+  <section>
+    <h2>6. 고쳐 쓰기 <span class="en">Fix the sentence</span></h2>
+    <p class="lead">틀린 곳을 찾아 <b>문장 전체</b>를 다시 쓰세요. 숙제와 시험에서 나온 문장이에요.</p>
+    <div id="fix"></div>
+  </section>
+
+  <section class="big">
+    <h2>7. 🎬 실전 대화 — 회사 할로윈 <span class="en">Halloween at the office</span></h2>
+    <p class="lead">할로윈 전날(금요일), 회사 의상 데이예요. 선생님과 <b>역할을 나눠 소리 내어</b> 읽어요. 굵은 글씨 앞 글자의 받침을 확인하면서 읽어요.</p>
+
+    <div class="subh">장면 ① 이 의상은 뭐예요? <span class="en" style="font-weight:400;color:var(--muted)">Guess my costume</span></div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">지호 씨, 그 옷은 <b>뭐예요</b>? 할로윈 의상<b>이에요</b>?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">네, 맞혀 보세요. 힌트는 색깔<b>이에요</b>. 주황색<b>이에요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">음… 당근<b>이에요</b>?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">아니요, 당근이 <b>아니에요</b>. 가을 채소<b>예요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">아, 호박<b>이에요</b>!</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">맞아요! 그런데 진짜 의상은 <b>아니에요</b>. 그냥 주황색 티셔츠<b>예요</b>. 하하.</span></div>
+    </div>
+
+    <div class="subh">장면 ② 내일은 뭐 할 거예요? <span class="en" style="font-weight:400;color:var(--muted)">Plans for Halloween</span></div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">내일 할로윈에는 뭐 할 <b>거예요</b>?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">동네 아이들한테 사탕을 줄 <b>거예요</b>. 작년 할로윈은 금요일<b>이었어요</b>. 그래서 일찍 퇴근하고 사탕을 사러 갔어요.</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">한국에도 할로윈이 있어요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">요즘은 젊은 사람들이 파티를 많이 해요. 하지만 공휴일은 <b>아니에요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진</span><span class="say">그렇군요. 그런데 책상 위에 있는 사탕은 누구 <b>거예요</b>?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">제 <b>거예요</b>. 내일이 할로윈<b>이라서</b> 하나 드릴게요!</span></div>
+    </div>
+
+    <div class="subh">빈칸 채우기 <span class="en" style="font-weight:400;color:var(--muted)">Fill in — from the dialogue</span></div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>8. 쓰기 숙제 <span class="en">Homework · introduce yourself & your week</span></h2>
+    <p class="lead"><b>나와 이번 주</b>를 소개하는 글을 4~6문장으로 써 보세요. <b>이에요 2번</b>, <b>예요 2번</b>, <b>거예요 1번</b>, <b>아니에요 1번</b>을 넣어요. 다 쓰면 받침을 하나씩 확인해요.</p>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 제 고향은 토론토예요. 제 직업은 회사원이에요. 요즘 토론토는 환절기예요. 이번 주 토요일은 할로윈이에요. 할로윈은 공휴일이 아니에요. 그래도 아이들에게는 정말 큰 날이에요. 저는 저녁에 사탕을 나눠 줄 거예요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요 <span class="en" style="font-weight:400;color:var(--muted)">write &amp; submit right here</span></div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="예) 제 고향은 …"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHwEyo()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 원리 설명하기 (5분): 질문으로 진행해요</h3>
+    <p class="lead">원리 STEP 1~4를 차례로 보면서, 선생님이 묻고 학습자가 답해요.</p>
+    <table class="cmp">
+      <tr><th style="width:16%">STEP</th><th>선생님 질문</th><th style="width:36%">학습자 답</th></tr>
+      <tr><td>1</td><td>"단풍 · 토론토 · 환절기: 마지막 글자에 받침이 있어요?" (STEP 1 표)</td><td>단풍<b>이에요</b> · 토론토<b>예요</b> · 환절기<b>예요</b></td></tr>
+      <tr><td>2</td><td>"내일 할로윈에는 뭐 할 ___?" (대화 ② 첫 줄) · "지호 씨, 그 옷은 뭐___?" (대화 ① 첫 줄)</td><td>할 <b>거예요</b> · <b>뭐예요</b> (거 · 뭐는 받침 없어요)</td></tr>
+      <tr><td>2</td><td>"당근이에요?" "아니요, 당근이 ___." (대화 ① 4번째 줄)</td><td>당근이 <b>아니에요</b> (아니예요 ✗)</td></tr>
+      <tr><td>3</td><td>"작년 할로윈은 금요일 ___." (대화 ②) · "내일이 할로윈 ___ 하나 드릴게요." (대화 ② 마지막 줄)</td><td>금요일<b>이었어요</b> · 할로윈<b>이라서</b></td></tr>
+      <tr><td>4</td><td>고쳐 쓰기 2번 "저는 학생 이에요."를 보여 주고 학습자가 직접 고쳐요.</td><td>저는 <b>학생이에요</b>. (붙여 써요)</td></tr>
+    </table>
+    <ul>
+      <li>💡 학습자가 "왜 [에요]로 들려요?"라고 물으면: 말할 때는 예요를 [에요]처럼 발음해도 괜찮아요. 쓸 때만 받침을 보고 예요로 써요. (STEP 4 ②)</li>
+      <li>💡 사람 이름도 같아요: 지호<b>예요</b> · 수진<b>이에요</b>. 학습자 이름으로 직접 해 보게 해요.</li>
+    </ul>
+
+    <h3>② 스무고개 게임 (10분) 🎃</h3>
+    <p class="lead">선생님이 단어 하나를 생각해요. 학습자는 <b>"~이에요? / ~예요?"</b>로만 질문해서 맞혀요. 선생님은 <b>"네, ~이에요" / "아니요, ~이/가 아니에요"</b>로만 답해요. 스무 번 안에 맞히면 성공!</p>
+    <ul>
+      <li>선생님 단어 후보: 호박 · 칠면조 · 생강차 · 단풍 · 가습기 · 퀘벡 · 할로윈 (받침 있는 말과 없는 말을 섞어요)</li>
+      <li>질문 예: "음식이에요?" · "채소예요?" · "가을 거예요?" · "캐나다에 있는 도시예요?"</li>
+      <li><b>역할 바꾸기</b>: 학습자가 단어를 생각하고, 선생님이 질문해요. 학습자는 <b>아니에요</b>로 길게 답해요. 예: "아니요, 음식이 아니에요. 마시는 거예요."</li>
+      <li>선생님은 일부러 한 번씩 틀리게 질문해요("호박예요?"). 학습자가 고쳐 주면 보너스 점수!</li>
+    </ul>
+
+    <p class="lead">다음: 평가시험9 결과를 보고 <b>복습12</b>(41–45)를 만들어요.</p>
+    <p class="lead" style="color:var(--warm)">성공 기준: 받침을 보고 이에요/예요를 바로 고르기 + 거예요 · 아니에요를 틀리지 않고 쓰기. (숙제 = 8번 → 제출)</p>
+  </div>
+
+  <footer>문법 특강 / 이에요와 예요 · 숙제와 평가시험9에서</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const PHR1=[ // [문장, 영어]
+  ['저는 <b>회사원이에요</b>.','I am an office worker.'],
+  ['이번 주 토요일은 <b>할로윈이에요</b>.','This Saturday is Halloween.'],
+  ['10월은 단풍이 예쁜 <b>달이에요</b>.','October is a month with beautiful fall leaves.'],
+  ['한국에서 추석은 <b>공휴일이라서</b> 회사에 안 가요.','In Korea, Chuseok is a public holiday, so people don\'t go to work.']
+];
+const PHR2=[
+  ['이게 <b>뭐예요</b>?','What is this?'],
+  ['화장실이 <b>어디예요</b>?','Where is the restroom?'],
+  ['이 호박은 <b>얼마예요</b>?','How much is this pumpkin?'],
+  ['제 고향은 <b>토론토예요</b>.','My hometown is Toronto.'],
+  ['그 사탕은 제 <b>거예요</b>.','That candy is mine.'],
+  ['내일은 비가 올 <b>거예요</b>.','It will rain tomorrow.']
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['so · 철자 (L45)','오늘 추워요. ','그래서',' 코트를 입었어요.'],
+  ['가을 + 에 · 날씨 (L45)','토론토는 ','가을에 날씨가',' 빨리 추워져요.'],
+  ['and · 이유 아니에요 (L45)','토론토는 첫눈이 일찍 와요. ','그리고',' 서울은 단풍이 늦게 들어요.'],
+  ['both · 띄어쓰기 (L45)','토론토와 서울은 ','둘 다',' 하늘이 높아요.'],
+  ['해 + 지다 (L45)','겨울에는 해가 일찍 ','져요',' .']
+];
+const ADV=[ // [힌트, 앞, 정답(|), 뒤]
+  ['단풍','와, 정말 예쁜 ','단풍이에요',' !'],
+  ['토론토','제 고향은 ','토론토예요',' .'],
+  ['할로윈','이번 주 토요일은 ','할로윈이에요',' .'],
+  ['환절기','요즘은 ','환절기예요',' .'],
+  ['호박','이 큰 건 ','호박이에요',' .'],
+  ['사과','이 빨간 건 ','사과예요',' .'],
+  ['생강차','제가 매일 마시는 건 ','생강차예요',' .'],
+  ['선물','이건 엄마 ','선물이에요',' .'],
+  ['어디','화장실이 ','어디예요',' ?'],
+  ['얼마','이 사탕은 ','얼마예요',' ?']
+];
+const NEG=[ // [힌트, 앞, 정답(|), 뒤]
+  ['가다 · 미래','이번 주말에 호박 농장에 ','갈 거예요',' .'],
+  ['춥다 · 미래','내일은 더 ','추울 거예요',' .'],
+  ['나의 것 (mine)','그 사탕은 제 ','거예요',' .'],
+  ['당근 · not','이건 ','당근이 아니에요',' . 호박이에요.'],
+  ['공휴일 · not','할로윈은 ','공휴일이 아니에요',' .'],
+  ['토론토 · not','제 고향은 ','토론토가 아니에요',' . 밴쿠버예요.']
+];
+const EXP=[ // [앞, 정답(|), 뒤, 힌트]
+  ['작년에는 ','학생이었어요',' .','학생 · 과거'],
+  ['우리 할머니는 ','의사였어요',' .','의사 · 과거'],
+  ['10월 12일은 ','추수감사절이었어요',' .','추수감사절 · 과거'],
+  ['올해 추수감사절은 ','월요일이었어요',' .','월요일 · 과거'],
+  ['크리스마스는 ','공휴일이라서',' 회사에 안 가요.','공휴일 · 이유'],
+  ['지금은 ','환절기라서',' 감기에 걸리기 쉬워요.','환절기 · 이유']
+];
+const FIX=[ // [틀린 문장, 정답(|)]
+  ['주말에 친구를 만날 거에요.','주말에 친구를 만날 거예요'],
+  ['저는 학생 이에요.','저는 학생이에요'],
+  ['제 고향은 토론토이에요.','제 고향은 토론토예요'],
+  ['그건 사실이 아니예요.','그건 사실이 아니에요'],
+  ['이게 뭐에요?','이게 뭐예요'],
+  ['작년 추수감사절 이었을 때 할머니 댁에 갔어요.','작년 추수감사절이었을 때 할머니 댁에 갔어요'],
+  ['추석은 음력 이라서 날짜가 달라요.','추석은 음력이라서 날짜가 달라요'],
+  ['지금 토론토는 환절기에요.','지금 토론토는 환절기예요']
+];
+const DLG=[ // 실전 대화 [앞, 정답(|), 뒤, 힌트]
+  ['지호 씨, 그 옷은 ','뭐예요',' ?','뭐 + it is'],
+  ['아니요, 당근이 ','아니에요',' .','not'],
+  ['가을 ','채소예요',' .','채소 + it is'],
+  ['그냥 주황색 ','티셔츠예요',' .','티셔츠 + it is'],
+  ['동네 아이들한테 사탕을 ','줄 거예요',' .','주다 · 미래'],
+  ['작년 할로윈은 ','금요일이었어요',' .','금요일 · 과거'],
+  ['내일이 ','할로윈이라서',' 하나 드릴게요!','할로윈 · 이유']
+];
+function el(id){return document.getElementById(id);}
+[[PHR1,"phr1"],[PHR2,"phr2"]].forEach(([arr,id])=>arr.forEach((p,i)=>el(id).insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="ko"><span class="num">${i+1}.</span> ${p[0]}</div><div class="lbl" style="margin-left:22px">${p[1]}</div></div>`)));
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
+   <span class="ko">${a[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="ko">${a[3]}</span><span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+NEG.forEach((r,i)=>el("neg").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="n${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_n${i}"></span></div></div>`));
+FIX.forEach((f,i)=>el("fix").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko"><span class="wrongx">✗ ${f[0]}</span> →</span>
+   ${IN} class="ans xwide" data-type="exact" data-ans="${f[1]}" data-k="f${i}">
+   <span class="fb" id="fb_f${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="special_eyo_yeyo";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHwEyo(){
+  const ta=document.getElementById("hwtext"), msg=document.getElementById("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"문법 특강 · 이에요와 예요 숙제", learner_name:null,
+        payload:{ lesson:"문법 특강 · 이에요와 예요", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{ if(e.target.dataset.k) check(e.target); });
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+updateScore();
+</script>
+</body>
+</html>
