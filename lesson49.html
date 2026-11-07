@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 49 · 영화 이야기 ① 인사이드 아웃</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  table.cmp{border-collapse:collapse;font-size:14px;margin:8px 0 2px;width:100%;}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.cmp th{background:#f3f4f6;}
+  table.cmp th.a{color:var(--warm);} table.cmp th.b{color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+  .ladder td:first-child{white-space:nowrap;}
+  .say .rs{color:var(--muted);font-size:13px;}
+  .stephead{font-weight:700;font-size:15px;color:var(--accent);margin:18px 0 6px;padding-top:12px;border-top:1px dashed var(--line);}
+  .rule .stephead:first-child{margin-top:2px;padding-top:0;border-top:none;}
+  .plain{margin:8px 0 2px;font-size:14.5px;line-height:1.8;}
+  table.cmp td.k b{color:var(--ok);}
+  .goal{margin:2px 0 10px;}
+  .goal:last-child{margin-bottom:0;}
+  .goal .gt{font-weight:700;color:#1f2937;}
+  .goal .gex{margin:3px 0 0 18px;color:#334155;}
+  .survey .q{margin:12px 0;}
+  .survey .qt{font-weight:700;font-size:15px;}
+  .survey textarea{width:100%;min-height:60px;font:inherit;padding:8px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7;margin-top:4px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .chip{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff;cursor:pointer;}
+  .chip:has(input:checked){border-color:var(--accent);background:var(--accent-soft);}
+  .pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:8px 0;}
+  .pc{background:#fff;border:1px solid #fed7aa;border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.6;}
+  .pc .pe{font-size:28px;line-height:1.2;margin-bottom:4px;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 49 · 영화 이야기 ① 〈인사이드 아웃〉 <span class="sub">동사로 꾸미기 -는 · -(으)ㄴ · -(으)ㄹ</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">애니메이션 〈인사이드 아웃〉으로 <b>캐릭터와 줄거리</b>를 소개해요. 동사로 명사를 꾸미면 한 문장에 더 많은 이야기를 담을 수 있어요: "기쁨이는 늘 <b>웃는</b> 감정이에요."</p>
+    <div class="note">
+      <div class="goal"><div class="gt">1. 동사로 명사를 꾸며요</div>
+        <div class="gex">아이가 웃어요. → <b>웃는</b> 아이</div></div>
+      <div class="goal"><div class="gt">2. 현재는 -는, 과거는 -(으)ㄴ, 미래는 -(으)ㄹ</div>
+        <div class="gex">지금 보<b>는</b> 영화 · 어제 <b>산</b> 표 · 내일 만<b>날</b> 친구</div></div>
+      <div class="goal"><div class="gt">3. 꾸미는 말 안에서 "저는"은 "제가"로</div>
+        <div class="gex">저는 자주 가는 카페 ✗ → <b>제가</b> 자주 가는 카페 ✓</div></div>
+      <div class="goal"><div class="gt">4. 영화 줄거리를 짧게 소개해요</div>
+        <div class="gex">라일리 가족이 샌프란시스코로 이사해요. 그런데…</div></div>
+    </div>
+    <div class="series">
+      🎨 <b>취미 시리즈</b>: ① 내 취미 소개 → ② 철학 ① 내 생각 말하기 → ③ 철학 ② 만약에… → <b>④ 영화 ① 〈인사이드 아웃〉(동사로 꾸미기, 오늘)</b> → ⑤ 영화 ② 추천과 후기 → 복습13 → 평가시험10
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L48 숙제 · 다시 보는 단어</span></h2>
+    <p class="lead">숙제에서 고친 말이에요. [ ] 안의 힌트를 보고 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (동사 + -는 / -(으)ㄴ / -(으)ㄹ + 명사)</span></h2>
+    <div class="rule">
+      <div class="stephead">STEP 1 · 뜻: 동사를 바꿔서 명사 앞에 붙여요</div>
+      <table class="cmp">
+        <tr><th style="width:50%">문장</th><th>꾸미는 말 + 명사</th></tr>
+        <tr><td class="k">아이가 웃어요.</td><td class="k"><b>웃는</b> 아이</td></tr>
+        <tr><td class="k">어제 책을 샀어요.</td><td class="k">어제 <b>산</b> 책</td></tr>
+      </table>
+      <p class="plain">🇬🇧 Change the verb and put it <i>before</i> the noun: 웃는 아이 = "a child who is smiling". The verb's other words (like 어제) move with it: 어제 산 책 = "the book I bought yesterday". It works like "who / that / which" in English.</p>
+
+      <div class="stephead">STEP 2 · 만드는 법 (현재): 동사 + -는</div>
+      <table class="conj">
+        <tr><th>종류</th><th>규칙</th><th>예</th></tr>
+        <tr><td>동사 (받침 X · 받침 O)</td><td class="k">-는</td><td>가<b>는</b> 길 · 먹<b>는</b> 음식</td></tr>
+        <tr><td>있다 · 없다</td><td class="k">-는</td><td>재미있<b>는</b> 영화 · 맛없<b>는</b> 빵</td></tr>
+        <tr><td>동사 (ㄹ 받침)</td><td class="k">ㄹ 빠지고 -는</td><td>만들 → 만드<b>는</b> 사람</td></tr>
+      </table>
+      <p class="plain">🇬🇧 For now (present), every verb just adds -는, with or without 받침. 있다/없다 also take -는. A verb ending in ㄹ drops the ㄹ: 만드는.</p>
+
+      <div class="stephead">STEP 3 · 시제: 현재 -는 · 과거 -(으)ㄴ · 미래 -(으)ㄹ</div>
+      <table class="cmp">
+        <tr><th style="width:24%">언제</th><th>받침 X (마시다)</th><th>받침 O (찾다)</th></tr>
+        <tr><td>현재 -는</td><td class="k">지금 마시<b>는</b> 커피</td><td class="k">지금 찾<b>는</b> 책</td></tr>
+        <tr><td>과거 -(으)ㄴ</td><td class="k">아까 마<b>신</b> 커피</td><td class="k">어제 찾<b>은</b> 책</td></tr>
+        <tr><td>미래 -(으)ㄹ</td><td class="k">이따가 마<b>실</b> 커피</td><td class="k">내일 찾<b>을</b> 책</td></tr>
+      </table>
+      <p class="plain">🇬🇧 Past: -ㄴ after a vowel, -은 after 받침. Future: -ㄹ after a vowel, -을 after 받침. You already know the future one from -(으)ㄹ 때 (L36): 마실 때 · 찾을 때.</p>
+
+      <div class="stephead">STEP 4 · 주의 두 가지</div>
+      <div class="warnbox">
+        ① <b>꾸미는 말 안에서 "저는"은 "제가"로</b><br>
+        &nbsp;&nbsp;&nbsp;<span class="wrong">저는 자주 가는 카페예요.</span> ✗ → <b>제가</b> 자주 가는 카페예요. ✓<br>
+        ② <b>ㄹ 받침 동사는 ㄹ이 빠져요</b><br>
+        &nbsp;&nbsp;&nbsp;<span class="wrong">빵을 팔는 가게</span> ✗ → 빵을 파<b>는</b> 가게 ✓<br>
+        &nbsp;&nbsp;&nbsp;<span class="wrong">어제 빵을 팔은 사람</span> ✗ → 어제 빵을 <b>판</b> 사람 ✓
+      </div>
+      <p class="plain">🇬🇧 Inside a describing part, the subject takes 이/가 (제가, 라일리가), just like inside 만약 -다면 (L48). ㄹ verbs drop the ㄹ: 빵을 파는 가게 (present), 빵을 판 사람 (past), 빵을 팔 사람 (future). Here 팔다 means "to sell", not "arm".</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 등장인물 · 핵심 어휘 <span class="en">Characters &amp; vocabulary (10)</span></h2>
+    <p class="lead">라일리의 머릿속 <b>본부</b>에서 일하는 감정들이에요. 한국어 이름은 끝에 <b>-이</b>를 붙여서 친근하게 불러요.</p>
+    <div class="pcards">
+      <div class="pc"><div class="pe">😄</div><b>기쁨이</b> · Joy<br>노란색</div>
+      <div class="pc"><div class="pe">😢</div><b>슬픔이</b> · Sadness<br>파란색</div>
+      <div class="pc"><div class="pe">😡</div><b>버럭이</b> · Anger<br>빨간색</div>
+      <div class="pc"><div class="pe">😨</div><b>소심이</b> · Fear<br>보라색</div>
+      <div class="pc"><div class="pe">😒</div><b>까칠이</b> · Disgust<br>초록색</div>
+    </div>
+    <p class="lead" style="font-size:13.5px;color:var(--muted)">〈인사이드 아웃 2〉에는 <b>불안이</b>(Anxiety) · <b>부럽이</b>(Envy) · <b>따분이</b>(Ennui) · <b>당황이</b>(Embarrassment)도 나와요.</p>
+    <div class="subh">핵심 어휘</div>
+    <div id="vlist"></div>
+  </section>
+
+  <section>
+    <h2>3. 꾸미는 말 만들기 <span class="en">Make the form · 입력 즉시 채점</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 <b>꾸미는 말</b>만 쓰세요. "현재 / 과거 / 미래"를 잘 보세요.</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 채우기 <span class="en">Complete the sentences</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요. 2번은 "나"를 쓰는 자리예요.</p>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 — 이 영화 봤어요? <span class="en">Telling the story</span></h2>
+    <p class="lead">선생님과 <b>역할을 나눠 소리 내어</b> 읽어요. 그다음 대본을 덮고 <b>내 말</b>로 줄거리를 소개해 봐요.</p>
+
+    <div class="subh">장면 ① 월요일 점심시간 · 동료 서연에게 영화 소개</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">지호 씨, 주말에 뭐 했어요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">집에서 영화를 봤어요. 제가 제일 <b>좋아하는</b> 애니메이션 〈인사이드 아웃〉이요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">아, 이름은 들어 봤어요. 무슨 이야기예요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">열한 살 여자아이 라일리의 머릿속 이야기예요. 머릿속에 감정 다섯 개가 <b>사는</b> 본부가 있어요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">감정이 산다고요? 신기하네요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">네. 늘 웃는 기쁨이, 자주 우는 슬픔이, 금방 화내는 버럭이, 걱정이 많은 소심이, 그리고 브로콜리를 싫어하는 까칠이예요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">하하, 까칠이는 저랑 비슷하네요. 그래서 무슨 일이 생겨요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">라일리 가족이 샌프란시스코로 이사해요. 그런데 새 학교에 <b>간</b> 첫날, 라일리가 반 친구들 앞에서 울어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">그때 기쁨이하고 슬픔이가 본부 밖으로 빨려 나가 버려요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">그럼 본부에는 버럭이, 소심이, 까칠이만 남아요? 큰일이네요!</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">맞아요. 그래서 라일리가 <b>하는</b> 말이 다 차갑고 이상해져요. 저녁을 먹다가 아빠한테 화도 내고요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">결말은요? 기쁨이가 돌아와요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">그건 비밀이에요. 서연 씨가 직접 <b>볼</b> 때까지요!</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">에이, 궁금하잖아요! 오늘 저녁에 바로 봐야겠어요.</span></div>
+    </div>
+
+    <div class="subh">장면 ② 토요일 저녁 · 도서관 "영화의 밤" 후 철학 모임</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">오늘 같이 <b>본</b> 영화, 어땠어요?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">저는 슬픔이가 제일 기억에 남아요. 처음에는 일을 다 망치는 캐릭터라고 생각했어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">저도요. 그런데 마지막에 라일리를 <b>도와준</b> 감정은 슬픔이였어요.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">맞아요. 지호 씨는 왜 그렇다고 생각해요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">슬플 때 슬프다고 말해야 다른 사람이 위로해 줄 수 있다고 생각해요. 라일리가 울었을 때 엄마 아빠가 꼭 안아 줬잖아요.</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">그 장면에서 저도 울었어요. 그때 생긴 핵심 기억은 파란색하고 노란색이 섞여 있었어요.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">기쁨하고 슬픔이 같이 있는 기억이네요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">저한테도 그런 기억이 있어요. 대학교를 <b>졸업하는</b> 날, 친구들하고 울면서 웃었어요.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">오늘 질문 "슬픔도 필요할까?"의 답이 나온 것 같네요.</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">다음 모임에서는 〈인사이드 아웃 2〉를 봐요! 불안이가 나오는 영화요.</span></div>
+    </div>
+
+    <div class="subh">빈칸 채우기</div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 숙제 · 내가 좋아하는 영화 <span class="en">Homework · introduce a film you like</span></h2>
+    <p class="lead">좋아하는 영화나 애니메이션 하나를 5~6문장으로 소개해 보세요. <b>꾸미는 말을 4번</b> 넣어요(현재 -는 · 과거 -(으)ㄴ · 미래 -(으)ㄹ을 섞어서). 〈인사이드 아웃〉도 좋아요!</p>
+    <ul style="font-size:14.5px;margin:6px 0 4px;padding-left:20px;line-height:1.9">
+      <li>제목과 주인공은 누구예요?</li>
+      <li>무슨 이야기예요? (줄거리 2~3문장)</li>
+      <li>제일 기억에 남는 장면은요?</li>
+    </ul>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 제가 어릴 때 좋아한 애니메이션은 〈토이 스토리〉예요. 주인공은 앤디가 아끼는 카우보이 인형 우디예요. 어느 날 앤디가 생일 선물로 받은 우주 비행사 인형 버즈가 와요. 처음에 우디는 버즈를 싫어해요. 그런데 둘이 같이 위험한 일을 겪고 친구가 돼요. 다음에 볼 영화는 〈토이 스토리 2〉예요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요</div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="제가 좋아하는 영화는 …"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw49()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 원리 설명하기 (5분): 질문으로 진행해요</h3>
+    <p class="lead">원리 STEP 1~4를 차례로 보면서, 선생님이 묻고 학습자가 답해요.</p>
+    <ul>
+      <li><b>STEP 1</b> · "아이가 웃어요. '아이'를 꾸미면?" → <b>웃는 아이</b> · "어제 책을 샀어요. '책'을 꾸미면?" → <b>어제 산 책</b></li>
+      <li><b>STEP 2</b> · "가다?" → <b>가는</b> 길 · "먹다?" → <b>먹는</b> 음식 · "재미있다?" → <b>재미있는</b> 영화 · "만들다?" → <b>만드는</b> 사람</li>
+      <li><b>STEP 3</b> · "마시다로 현재 · 과거 · 미래?" → <b>마시는 · 마신 · 마실</b> 커피 · "찾다로?" → <b>찾는 · 찾은 · 찾을</b> 책</li>
+      <li><b>STEP 4</b> · "저는 자주 가는 카페", "빵을 팔는 가게", "어제 빵을 팔은 사람"을 보여 주고 학습자가 직접 고쳐요. → <b>제가</b> 자주 가는 카페 · 빵을 <b>파는</b> 가게 · 어제 빵을 <b>판</b> 사람</li>
+    </ul>
+
+    <h3>② 정보 차 활동 (10분): 감정 캐릭터 카드</h3>
+    <p class="lead">선생님과 학습자가 <b>서로 다른 카드</b>를 봐요. 학습자는 자기 카드의 캐릭터 셋을 <b>꾸미는 말</b>로 소개해요("슬픔이는 자주 <b>우는</b> 감정이에요. 슬픔이가 만진 기억은 슬픈 기억이 돼요."). 그다음 선생님 카드의 캐릭터를 질문해서 알아내요("기쁨이는 어떤 감정이에요?"). 선생님은 짧게 대답해요.</p>
+    <div class="pcards">
+      <div class="pc"><div class="pe">🙋</div><b>학습자 카드</b><br>😢 슬픔이 — 파란색 · 자주 울다 · 슬픔이가 만진 기억 → 파란색(슬픈 기억)이 되다 · 남의 마음을 잘 알다<br>😡 버럭이 — 빨간색 · 금방 화내다 · 머리에서 불이 나다<br>🥺 부럽이(2편) — 작다 · 남의 물건을 부러워하다 · 눈이 크다</div>
+      <div class="pc"><div class="pe">👩‍🏫</div><b>선생님 카드</b><br>😄 기쁨이 — 노란색 · 늘 웃다 · 라일리를 행복하게 만들고 싶다<br>😨 소심이 — 보라색 · 걱정이 많다 · 위험한 일을 미리 막다<br>😰 불안이(2편) — 주황색 · 앞으로 일어날 일을 걱정하다 · 계획을 많이 세우다</div>
+    </div>
+    <ul>
+      <li>마무리: "요즘 머릿속 본부에서 제일 바쁜 감정은 누구예요?" (= 요즘 제일 자주 느끼는 감정. 영화처럼 그 감정이 조종판 앞에서 제일 많이 일한다는 뜻) → 학습자가 꾸미는 말 2번 이상 넣어서 이유와 함께 길게 말해요("요즘 제 머릿속에서 제일 바쁜 감정은 불안이예요. 다음 주에 볼 시험이 있어서…").</li>
+    </ul>
+
+    <p class="lead">다음: <b>L50 영화 ② 추천과 후기</b>. 학습자가 숙제로 소개한 영화로 이어서 이야기해요.</p>
+    <p class="lead" style="color:var(--warm)">성공 기준: 대본 없이 <b>꾸미는 말 6번</b>(현재 · 과거 · 미래 각 1번 이상) + <b>줄거리 3문장</b>. (숙제 = 6번 → 제출)</p>
+  </div>
+
+  <footer>Lesson 49 / 영화 이야기 ① 〈인사이드 아웃〉 · 동사로 꾸미기 -는 · -(으)ㄴ · -(으)ㄹ · 취미 시리즈 ④</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[ // [예문, 영어]
+  ['기쁨, 슬픔, 화는 모두 <b>감정</b>이에요.','감정 = emotion, feeling'],
+  ['요즘 <b>머릿속</b>이 복잡해요.','머릿속 = inside one\'s head'],
+  ['감정들은 <b>본부</b>에서 라일리를 도와요.','본부 = headquarters'],
+  ['어릴 때 <b>기억</b>이 아직 생생해요.','기억 = memory · 기억하다 = to remember'],
+  ['라일리의 <b>핵심 기억</b>은 가족, 하키, 친구예요.','핵심 기억 = core memory'],
+  ['라일리는 밝고 장난을 좋아하는 <b>성격</b>이에요.','성격 = personality'],
+  ['이 영화의 <b>주인공</b>은 열한 살 여자아이예요.','주인공 = main character'],
+  ['어릴 때 <b>상상 속 친구</b>가 있었어요?','상상 속 친구 = imaginary friend'],
+  ['슬픈 친구를 <b>위로해</b> 주고 싶어요.','위로하다 = to comfort'],
+  ['그 장면이 가장 <b>기억에 남아요</b>.','기억에 남다 = to be memorable, to stay with you']
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['travel the world (L48 숙제)','만약 돈이 아주 많다면 ','세계 여행',' 을 할 거예요.'],
+  ['to talk · ★철자 (L46 · L48 숙제)','외계인하고 ','이야기를|얘기를',' 해 보고 싶어요.'],
+  ['만나다 · 만약 · 앞으로 (L48 숙제)','만약 외계인을 ','만난다면',' 이야기를 해 보고 싶어요.'],
+  ['보다 + 싶다 · 띄어쓰기 (L48 숙제)','세상에서 ','보고 싶은',' 것을 다 봤어요.'],
+  ['갈 수 있다 · 상상이니까 미래 (L48 숙제)','돈이 많아서 우주에 ','갈 수 있을 거예요',' .'],
+  ['turkey · 다시 보는 단어','추수감사절에는 ','칠면조',' 를 먹어요.']
+];
+const ADV=[ // [힌트, 앞, 정답, 뒤]
+  ['타다 · 현재','라일리는 스케이트를 잘 ','타는',' 아이예요.'],
+  ['기억하다 · 현재','기쁨이는 행복한 순간을 다 ','기억하는',' 감정이에요.'],
+  ['달리다 · 현재','라일리가 얼음 위를 ','달리는',' 장면이 멋있어요.'],
+  ['먹다 · 과거 · 받침','라일리가 샌프란시스코에서 처음 ','먹은',' 피자에는 브로콜리가 있었어요.'],
+  ['이사하다 · 과거','라일리 가족이 ','이사한',' 집은 좀 낡았어요.'],
+  ['만들다 · 과거 · ㄹ 조심','픽사가 ','만든',' 영화 중에서 이 영화가 제일 좋아요.'],
+  ['놀다 · 과거 · ㄹ 조심','어릴 때 빙봉하고 ','논',' 기억이 사라졌어요.'],
+  ['잊어버리다 · 과거','라일리가 ','잊어버린',' 상상 속 친구는 빙봉이에요.'],
+  ['나오다 · 미래','2편에 새로 ','나올',' 감정은 누구일까요?'],
+  ['읽다 · 미래 · 받침','비행기에서 ','읽을',' 책을 샀어요.']
+];
+const EXP=[ // [앞, 정답, 뒤, 힌트]
+  ['제가 요즘 자주 ','듣는',' 노래는 이 영화 OST예요.','듣다 · 현재'],
+  ['어제 ','제가',' 본 영화는 정말 재미있었어요.','I · 꾸미는 말 안의 나'],
+  ['처음에는 라일리가 ','아는',' 사람이 샌프란시스코에 한 명도 없었어요.','알다 · 현재 · ㄹ 조심'],
+  ['슬픔이는 친구를 ','위로하는',' 방법을 알아요.','위로하다 · 현재'],
+  ['어릴 때 ','들은',' 노래를 지금도 기억해요.','듣다 · 과거 · ㄷ 불규칙'],
+  ['영화관에서 ','먹을',' 팝콘을 미리 샀어요.','먹다 · 미래'],
+  ['마지막에 라일리는 엄마 아빠한테 ','하고 싶은',' 말을 다 했어요.','하다 + 싶다'],
+  ['다음 주에 친구하고 ','갈',' 영화관을 예약했어요.','가다 · 미래']
+];
+const DLG=[ // 실전 대화 [앞, 정답, 뒤, 힌트]
+  ['제가 제일 ','좋아하는',' 애니메이션 〈인사이드 아웃〉이요.','좋아하다 · 현재'],
+  ['머릿속에 감정 다섯 개가 ','사는',' 본부가 있어요.','살다 · 현재 · ㄹ 조심'],
+  ['그런데 새 학교에 ','간',' 첫날, 라일리가 반 친구들 앞에서 울어요.','가다 · 과거'],
+  ['그래서 라일리가 ','하는',' 말이 다 차갑고 이상해져요.','하다 · 현재'],
+  ['서연 씨가 직접 ','볼',' 때까지요!','보다 · 미래'],
+  ['오늘 같이 ','본',' 영화, 어땠어요?','보다 · 과거'],
+  ['마지막에 라일리를 ','도와준',' 감정은 슬픔이였어요.','도와주다 · 과거'],
+  ['대학교를 ','졸업하는|졸업한',' 날, 친구들하고 울면서 웃었어요.','졸업하다']
+];
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((p,i)=>el("vlist").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="ko"><span class="num">${i+1}.</span> ${p[0]}</div><div class="lbl" style="margin-left:22px">${p[1]}</div></div>`));
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
+   <span class="ko">${a[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="ko">${a[3]}</span><span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson49_insideout_modifier";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw49(){
+  const ta=el("hwtext"), msg=el("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 49 · 영화 이야기 ① 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 49 · 영화 이야기 ① 〈인사이드 아웃〉(동사로 꾸미기)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; delete store.hw; localStorage.setItem(KEY,JSON.stringify(store)); }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{
+  if(e.target.dataset.k) check(e.target);
+  else if(e.target.id==="hwtext"){ store.hw=e.target.value; localStorage.setItem(KEY,JSON.stringify(store)); }
+});
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+if(store.hw) el("hwtext").value=store.hw; // 숙제 임시 저장 복원
+updateScore();
+</script>
+</body>
+</html>
