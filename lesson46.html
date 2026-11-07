@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 46 · 내 취미 소개</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  table.cmp{border-collapse:collapse;font-size:14px;margin:8px 0 2px;width:100%;}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.cmp th{background:#f3f4f6;}
+  table.cmp th.a{color:var(--warm);} table.cmp th.b{color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+  .ladder td:first-child{white-space:nowrap;}
+  .say .rs{color:var(--muted);font-size:13px;}
+  .stephead{font-weight:700;font-size:15px;color:var(--accent);margin:18px 0 6px;padding-top:12px;border-top:1px dashed var(--line);}
+  .rule .stephead:first-child{margin-top:2px;padding-top:0;border-top:none;}
+  .plain{margin:8px 0 2px;font-size:14.5px;line-height:1.8;}
+  table.cmp td.k b{color:var(--ok);}
+  .goal{margin:2px 0 10px;}
+  .goal:last-child{margin-bottom:0;}
+  .goal .gt{font-weight:700;color:#1f2937;}
+  .goal .gex{margin:3px 0 0 18px;color:#334155;}
+  .survey .q{margin:12px 0;}
+  .survey .qt{font-weight:700;font-size:15px;}
+  .survey textarea{width:100%;min-height:60px;font:inherit;padding:8px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7;margin-top:4px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .chip{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff;cursor:pointer;}
+  .chip:has(input:checked){border-color:var(--accent);background:var(--accent-soft);}
+  .pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:8px 0;}
+  .pc{background:#fff;border:1px solid #fed7aa;border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.6;}
+  .pc .pe{font-size:28px;line-height:1.2;margin-bottom:4px;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 46 · 내 취미 소개 <span class="sub">-는 것 · -기 시작했어요</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">새 시리즈 <b>취미</b>를 시작해요. 내가 좋아하는 일과 언제 시작했는지를 말해 봐요: "제 취미는 정원을 <b>가꾸는 거예요</b>. 작년 봄부터 <b>가꾸기 시작했어요</b>."</p>
+    <div class="note">
+      <div class="goal"><div class="gt">1. -는 것: 동사를 명사처럼 써요</div>
+        <div class="gex">게임하다 → 게임하<b>는 것</b> · 제 취미는 게임하<b>는 거예요</b>.</div></div>
+      <div class="goal"><div class="gt">2. 말할 때는 짧게: 거예요 · 게 · 걸</div>
+        <div class="gex">집을 만드<b>는 게</b> 재미있어요. · 영화를 보<b>는 걸</b> 좋아해요.</div></div>
+      <div class="goal"><div class="gt">3. -기 시작했어요: 언제부터 했는지 말해요</div>
+        <div class="gex">작년 봄부터 정원을 가꾸<b>기 시작했어요</b>.</div></div>
+      <div class="goal"><div class="gt">4. 취미 어휘 10개</div></div>
+    </div>
+    <div class="series">
+      🎨 <b>취미 시리즈 ①</b>: <b>① 내 취미 소개(-는 것 · -기 시작하다, 오늘)</b> → ②~⑤는 오늘 숙제(요즘 관심사 설문)의 답을 보고 정해요 → 평가시험10
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · 특강 숙제 · 평가시험9</span></h2>
+    <p class="lead">숙제와 시험에서 고친 말이에요. [ ] 안의 힌트를 보고 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (-는 것 · -기 시작하다)</span></h2>
+    <div class="rule">
+      <div class="stephead">STEP 1 · 뜻: 동사를 명사처럼</div>
+      <table class="cmp">
+        <tr><th style="width:50%">동사 (문장 끝)</th><th>-는 것 (명사처럼)</th></tr>
+        <tr><td class="k">저는 주말에 게임<b>해요</b>.</td><td class="k">제 취미는 게임하<b>는 거예요</b>.</td></tr>
+        <tr><td class="k">저는 정원을 <b>가꿔요</b>.</td><td class="k">정원을 가꾸<b>는 게</b> 재미있어요.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 -는 것 turns a verb into a noun, like "-ing" in English: 게임하는 것 = playing games.</p>
+
+      <div class="stephead">STEP 2 · 만드는 법: 동사 + 는 것 → 말할 때는 짧게</div>
+      <p class="plain">받침이 있어도 없어도 <b>는 것</b>을 붙여요: 하<b>는 것</b> · 듣<b>는 것</b> · 읽<b>는 것</b></p>
+      <table class="conj">
+        <tr><th>원래 모양</th><th>말할 때</th><th>예문</th></tr>
+        <tr><td>것이에요</td><td class="k">거예요</td><td>제 취미는 사진을 찍<b>는 거예요</b>.</td></tr>
+        <tr><td>것이</td><td class="k">게</td><td>집을 만드<b>는 게</b> 재미있어요.</td></tr>
+        <tr><td>것을</td><td class="k">걸</td><td>영화를 보<b>는 걸</b> 좋아해요.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 Add 는 것 to any verb stem. In speech, 것이에요 → 거예요, 것이 → 게, 것을 → 걸.</p>
+
+      <div class="stephead">STEP 3 · 시작: -기 시작했어요</div>
+      <table class="cmp">
+        <tr><th style="width:30%">언제</th><th>문장</th></tr>
+        <tr><td>작년 봄부터 (과거)</td><td class="k">정원을 가꾸<b>기 시작했어요</b>.</td></tr>
+        <tr><td>오늘부터 (지금)</td><td class="k">매일 운동하<b>기 시작해요</b>.</td></tr>
+        <tr><td>다음 달부터 (미래)</td><td class="k">수영을 배우<b>기 시작할 거예요</b>.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 Verb stem + 기 시작하다 means "to start doing." Use 부터 to say when it started.</p>
+
+      <div class="stephead">STEP 4 · 주의 두 가지</div>
+      <div class="warnbox">
+        ① <b>게 · 걸 · 거예요는 띄어 써요</b> (평가시험9에서 틀린 문장이에요)<br>
+        &nbsp;&nbsp;&nbsp;<span class="wrong">집 근처에 공원이 있는게 좋아요.</span> ✗ → 집 근처에 공원이 있<b>는 게</b> 좋아요. ✓<br>
+        ② <b>ㄹ 받침 동사는 ㄹ이 빠져요</b><br>
+        &nbsp;&nbsp;&nbsp;만들다 → 만드<b>는 게</b> ✓ · <span class="wrong">만들는 게</span> ✗ &nbsp;·&nbsp; 놀다 → 노<b>는 게</b> ✓ · <span class="wrong">놀는 게</span> ✗
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 취미 이야기 (10)</span></h2>
+    <p class="lead">소리 내어 읽어 보세요. 굵은 글씨가 새 단어예요.</p>
+    <div id="vlist"></div>
+  </section>
+
+  <section>
+    <h2>3. -는 거예요 · 게 · 걸 · -기 시작했어요 <span class="en">Make the form · 입력 즉시 채점</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요. 띄어쓰기 조심!</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 채우기 <span class="en">Complete the sentences</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요.</p>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 — 취미 이야기 <span class="en">Talking about hobbies</span></h2>
+    <p class="lead">선생님과 <b>역할을 나눠 소리 내어</b> 읽어요. 그다음 대본을 덮고 <b>내 취미</b>로 바꿔 말해 봐요.</p>
+
+    <div class="subh">장면 ① 회사 점심시간 · 새로 온 동료 민준</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">지호 씨는 주말에 보통 뭐 해요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">저는 집에서 <b>게임하는 걸</b> 좋아해요. 요즘은 마인크래프트에 푹 빠졌어요.</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">아, 마인크래프트요? 제 조카도 그 게임을 좋아해요. 뭐가 제일 재미있어요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">큰 집이나 도시를 <b>만드는 게</b> 제일 재미있어요. 한번 시작하면 시간 가는 줄 몰라요.</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">언제부터 했어요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">고등학교 때 <b>하기 시작했어요</b>. 민준 씨 취미는 뭐예요?</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">제 취미는 사진을 <b>찍는 거예요</b>. 요즘은 단풍 사진을 찍으러 공원에 자주 가요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">와, 멋있네요! 사진은 언제부터 <b>찍기 시작했어요</b>?</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">작년 봄부터요. 처음에는 휴대폰으로 찍었는데, 올여름에 카메라를 샀어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">저도 사진에 관심이 생겼어요. 다음에 같이 찍으러 가도 돼요?</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">그럼요! 이번 주말에 하이파크 어때요?</span></div>
+    </div>
+
+    <div class="subh">장면 ② 토요일 아침 · 동네 공동 텃밭에서 옆집 할머니와</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👵 할머니</span><span class="say">지호 씨, 아침부터 텃밭에서 뭐 해요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">마늘을 심고 있어요. 가을에 심으면 내년 여름에 먹을 수 있대요.</span></div>
+      <div class="turn b"><span class="who">👵 할머니</span><span class="say">텃밭 <b>가꾸는 걸</b> 정말 좋아하네요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">네, 흙을 <b>만지는 게</b> 좋아요. 여기서 일하면서 스트레스를 풀어요.</span></div>
+      <div class="turn b"><span class="who">👵 할머니</span><span class="say">언제부터 텃밭을 했어요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">작년 봄부터 <b>가꾸기 시작했어요</b>. 처음에는 토마토만 키웠어요.</span></div>
+      <div class="turn b"><span class="who">👵 할머니</span><span class="say">지금은 이것저것 많이 키우네요. 대단해요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">아직 잘 못해요. 그래도 꾸준히 하니까 실력이 조금씩 늘고 있어요.</span></div>
+      <div class="turn b"><span class="who">👵 할머니</span><span class="say">나도 한국에서 깻잎이랑 고추를 <b>키우는 게</b> 취미였어요. 내년 봄에 깻잎 씨를 좀 줄게요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">정말요? 감사합니다! 깻잎은 처음 키워 봐요.</span></div>
+    </div>
+
+    <div class="subh">빈칸 채우기</div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 숙제 · 나의 요즘 취미 설문 <span class="en">Homework · tell me about your hobbies now</span></h2>
+    <p class="lead">다음 레슨부터는 <b>이 답을 보고</b> 주제를 정해요. 질문마다 한국어로 1~2문장 써 주세요. (5번은 영어로 써도 돼요.)</p>
+    <div class="survey">
+      <div class="q"><div class="qt">1. 요즘 제일 좋아하는 취미는 뭐예요?</div><div class="lbl">Use: 제 취미는 -는 거예요.</div><textarea id="q1"></textarea></div>
+      <div class="q"><div class="qt">2. 그 취미는 언제부터, 왜 시작했어요?</div><div class="lbl">Use: -부터 -기 시작했어요.</div><textarea id="q2"></textarea></div>
+      <div class="q"><div class="qt">3. 그 취미에서 뭐가 제일 재미있어요? 뭐가 어려워요?</div><div class="lbl">Use: -는 게 재미있어요 / 어려워요.</div><textarea id="q3"></textarea></div>
+      <div class="q"><div class="qt">4. 요즘 새로 관심이 생긴 게 있어요? (게임 · 영화 · 노래 · 음식 · 무엇이든)</div><div class="lbl">Use: 요즘 -에 관심이 생겼어요. / -는 걸 좋아해요.</div><textarea id="q4"></textarea></div>
+      <div class="q"><div class="qt">5. 한국어로 꼭 이야기해 보고 싶은 주제가 있어요?</div><div class="lbl">Korean or English is fine.</div><textarea id="q5"></textarea></div>
+      <div class="q"><div class="qt">6. 관심 있는 주제를 모두 골라 주세요.</div>
+        <div class="chips" id="chips"></div>
+        <input id="qother" class="ans" style="width:100%;margin-top:8px" placeholder="기타 · Other (자유롭게)">
+      </div>
+    </div>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 1. 제 취미는 사진을 찍는 거예요. 2. 작년 봄부터 찍기 시작했어요. 단풍이 너무 예뻐서 시작했어요. 3. 공원에서 새를 찍는 게 제일 재미있어요. 그런데 새가 빨리 날아가서 찍는 게 어려워요. 4. 요즘 한국 요리에 관심이 생겼어요. 5. 저는 한국 영화 이야기를 해 보고 싶어요.</div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw46()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 원리 설명하기 (5분): 질문으로 진행해요</h3>
+    <p class="lead">원리 STEP 1~4를 차례로 보면서, 선생님이 묻고 학습자가 답해요.</p>
+    <ul>
+      <li><b>STEP 1</b> · "저는 주말에 게임해요. 이 말로 '제 취미는 ___.'을 만들면?" → <b>제 취미는 게임하는 거예요.</b></li>
+      <li><b>STEP 2</b> · "집을 만들다 + 재미있어요?" → <b>집을 만드는 게 재미있어요.</b> · "영화를 보다 + 좋아해요?" → <b>영화를 보는 걸 좋아해요.</b></li>
+      <li><b>STEP 3</b> · "정원은 언제부터 가꿨어요? '작년 봄부터 ___.'" → <b>작년 봄부터 가꾸기 시작했어요.</b> · "다음 달부터 수영을 배울 거예요. 시작하다로?" → <b>수영을 배우기 시작할 거예요.</b></li>
+      <li><b>STEP 4</b> · "있는게 좋아요"를 보여 주고 학습자가 직접 고쳐요. → <b>있는 게</b> · "놀다 + 게?" → <b>노는 게</b></li>
+      <li><b>참고 · 에는</b> · 대화나 예문에 "주말<b>에는</b>"이 나오면 짧게 알려 주세요: 에는 = 에 + 는. "다른 때는 몰라도 그때는"이라는 느낌이에요. (평일에는 바빠요. 주말<b>에는</b> 게임해요.) 아직 시험 문제로는 내지 않아요.</li>
+    </ul>
+
+    <h3>② 그림 카드 이야기 (10분)</h3>
+    <p class="lead">카드가 <b>섞여</b> 있어요. 학습자가 ① 순서를 맞추고 ② 카드를 보면서 이야기를 이어 말해요. 카드마다 <b>-기 시작했어요</b>나 <b>-는 게 / -는 걸</b>을 한 번씩 넣어요. 선생님은 "그다음에는요?" "왜요?"만 물어요.</p>
+    <div class="subh" style="color:var(--warm);border-color:var(--warm)">이야기 A · 민준 씨의 사진 취미</div>
+    <div class="pcards">
+      <div class="pc"><div class="pe">🍁📷</div><b>가</b><br>가을 · 하이파크 · 단풍 사진 · 찍으러 자주 가다</div>
+      <div class="pc"><div class="pe">🌸📱</div><b>나</b><br>작년 봄 · 휴대폰 · 꽃 사진 · 찍기 시작하다</div>
+      <div class="pc"><div class="pe">🖼️👨‍👩‍👧</div><b>다</b><br>겨울 · 사진을 가족에게 보여 주다 · 좋아하다</div>
+      <div class="pc"><div class="pe">☀️📸</div><b>라</b><br>올여름 · 카메라를 사다 · 새 사진 · 재미있다</div>
+    </div>
+    <p class="lead" style="font-size:13px;color:var(--muted)">순서: 나 → 라 → 가 → 다</p>
+    <div class="subh" style="color:var(--warm);border-color:var(--warm)">이야기 B · 지호 씨의 텃밭 1년</div>
+    <div class="pcards">
+      <div class="pc"><div class="pe">🍅</div><b>가</b><br>여름 · 토마토를 따다 · 먹는 게 최고</div>
+      <div class="pc"><div class="pe">🧄🍂</div><b>나</b><br>10월 · 마늘을 심다 · 내년 여름</div>
+      <div class="pc"><div class="pe">🌱</div><b>다</b><br>작년 봄 · 씨를 심다 · 가꾸기 시작하다</div>
+      <div class="pc"><div class="pe">💧☀️</div><b>라</b><br>매일 아침 · 물을 주다 · 꾸준히 · 힘들다</div>
+    </div>
+    <p class="lead" style="font-size:13px;color:var(--muted)">순서: 다 → 라 → 가 → 나</p>
+    <p class="lead">마지막으로 학습자가 <b>내 취미</b>로 카드 네 장을 말로 만들어요: "처음에는… → 그다음에… → 요즘은… → 앞으로는…"</p>
+
+    <h3>③ 다음 레슨 준비 (3분): 요즘 관심사 듣기</h3>
+    <p class="lead">숙제 설문 외에, 수업 끝에 두 가지만 물어보고 <b>답을 메모</b>해 두세요. L47부터 이 답을 반영해요.</p>
+    <ul>
+      <li>"요즘 시간이 있으면 제일 하고 싶은 게 뭐예요?"</li>
+      <li>"한국어로 꼭 말해 보고 싶은 상황이 있어요?" (예: 가족 모임 · 식당 · 게임 친구)</li>
+    </ul>
+
+    <p class="lead" style="color:var(--warm)">성공 기준: 대본 없이 <b>-는 거예요 / -는 게 / -는 걸</b>을 3번, <b>-기 시작했어요</b>를 2번 써서 취미 이야기하기. (숙제 = 6번 설문 → 제출)</p>
+  </div>
+
+  <footer>Lesson 46 / 내 취미 소개 · -는 것 · -기 시작하다 · 취미 시리즈 ①</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[ // [예문, 영어]
+  ['요즘 한국 노래에 <b>관심이 생겼어요</b>.','관심이 생기다 = to become interested'],
+  ['요즘 마인크래프트에 <b>푹 빠졌어요</b>.','N에 푹 빠지다 = to be really into N'],
+  ['게임을 하면 <b>시간 가는 줄 몰라요</b>.','시간 가는 줄 모르다 = to lose track of time'],
+  ['클라리넷을 불면서 <b>스트레스를 풀어요</b>.','스트레스를 풀다 = to relieve stress'],
+  ['매일 <b>꾸준히</b> 연습해요.','꾸준히 = steadily, regularly'],
+  ['연습을 많이 해서 <b>실력이 늘었어요</b>.','실력이 늘다 = to get better (skills improve)'],
+  ['주말마다 뒷마당에서 정원을 <b>가꿔요</b>.','가꾸다 = to tend (a garden)'],
+  ['동네 <b>텃밭</b>에서 토마토랑 고추를 <b>키워요</b>.','텃밭 = vegetable patch · 키우다 = to grow, raise'],
+  ['피규어를 <b>모으는 게</b> 제 동생 취미예요.','모으다 = to collect'],
+  ['유튜브를 보고 김밥을 <b>직접</b> 만들었어요.','직접 = by oneself, firsthand']
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['to stick · -(으)면 (특강 숙제)','밴드를 ','붙이면',' 돼요.'],
+  ['bird (특강 숙제)','나무 위에 ','새',' 가 있어요.'],
+  ['because · 이에요 (특강 숙제)','단풍을 더 보고 싶기 ','때문이에요',' .'],
+  ['outside · 하는 곳 (특강 숙제)','','밖에서',' 다람쥐를 봤어요.'],
+  ['빨갛다 · -아/어졌어요 (평가시험9)','추워서 얼굴이 ','빨개졌어요',' .'],
+  ['hobby · 이에요/예요 (특강)','클라리넷은 제 ','취미예요',' .']
+];
+const ADV=[ // [힌트, 앞, 정답(|), 뒤]
+  ['게임하다 · 거예요','제 취미는 ','게임하는 거예요|게임하는 것이에요',' .'],
+  ['그리다 · 거예요','제 취미는 그림을 ','그리는 거예요|그리는 것이에요',' .'],
+  ['듣다 · 거예요','제 취미는 한국 노래를 ','듣는 거예요|듣는 것이에요',' .'],
+  ['만들다 · 게 · ㄹ 조심!','마인크래프트에서 집을 ','만드는 게|만드는 것이',' 재미있어요.'],
+  ['키우다 · 게','식물을 ','키우는 게|키우는 것이',' 재미있어요.'],
+  ['놀다 · 게 · ㄹ 조심!','주말에 친구들과 ','노는 게|노는 것이',' 좋아요.'],
+  ['보다 · 걸','저는 애니메이션 영화를 ','보는 걸|보는 것을',' 좋아해요.'],
+  ['요리하다 · 걸','저는 한국 음식을 ','요리하는 걸|요리하는 것을',' 좋아해요.'],
+  ['배우다 · 시작하다 · 과거','작년부터 한국어를 ','배우기 시작했어요',' .'],
+  ['가꾸다 · 시작하다 · 과거','올봄부터 정원을 ','가꾸기 시작했어요',' .']
+];
+const EXP=[ // [앞, 정답(|), 뒤, 힌트]
+  ['저는 주말에 텃밭에서 ','일하는 게|일하는 것이',' 좋아요.','일하다 · 게'],
+  ['제 동생은 ','춤추는 걸|춤추는 것을',' 좋아해요.','춤추다 · 걸'],
+  ['제 취미는 맛있는 한국 음식을 ','먹는 거예요|먹는 것이에요',' .','먹다 · 거예요'],
+  ['클라리넷으로 어려운 곡을 ','연습하는 게|연습하는 것이',' 힘들지만 재미있어요.','연습하다 · 게'],
+  ['요즘 한국 드라마를 ','보기 시작했어요',' .','보다 · 시작하다 · 과거'],
+  ['다음 달부터 수영을 ','배우기 시작할 거예요',' .','배우다 · 시작하다 · 미래'],
+  ['게임을 하면 ','시간 가는 줄',' 몰라요.','표현 · lose track of time'],
+  ['매일 연습해서 ','실력이 늘었어요',' .','어휘 · my skills got better · 과거']
+];
+const DLG=[ // 실전 대화 [앞, 정답(|), 뒤, 힌트]
+  ['저는 집에서 ','게임하는 걸|게임하는 것을',' 좋아해요.','게임하다 · 걸'],
+  ['큰 집이나 도시를 ','만드는 게|만드는 것이',' 제일 재미있어요.','만들다 · 게'],
+  ['고등학교 때 ','하기 시작했어요',' .','하다 · 시작하다'],
+  ['제 취미는 사진을 ','찍는 거예요|찍는 것이에요',' .','찍다 · 거예요'],
+  ['저도 사진에 ','관심이 생겼어요',' .','어휘 · I got interested'],
+  ['네, 흙을 ','만지는 게|만지는 것이',' 좋아요.','만지다 · 게'],
+  ['작년 봄부터 ','가꾸기 시작했어요',' .','가꾸다 · 시작하다']
+];
+const TOPICS=['마인크래프트 · 게임','정원 · 텃밭','애니메이션 영화','한국 노래 · K-pop','클라리넷 · 음악','한국 음식 · 요리','주식 · 경제','운동 · 스포츠','여행','회사 생활','가족과 대화','사진','책 · 웹툰'];
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((p,i)=>el("vlist").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="ko"><span class="num">${i+1}.</span> ${p[0]}</div><div class="lbl" style="margin-left:22px">${p[1]}</div></div>`));
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
+   <span class="ko">${a[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="ko">${a[3]}</span><span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+TOPICS.forEach((t,i)=>el("chips").insertAdjacentHTML("beforeend",
+  `<label class="chip"><input type="checkbox" data-topic="${t}"> ${t}</label>`));
+
+const KEY="lesson46_hobby_neungeot";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw46(){
+  const msg=el("hwmsg");
+  const qs=[1,2,3,4,5].map(n=>el("q"+n).value.trim());
+  const picked=[...document.querySelectorAll("[data-topic]:checked")].map(c=>c.dataset.topic);
+  const other=el("qother").value.trim();
+  if(qs.every(q=>!q)){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  const t=qs.map((q,i)=>`${i+1}. ${q||"(빈칸)"}`).join("\n")
+    +`\n6. 관심 주제: ${picked.length?picked.join(", "):"(선택 없음)"}${other?" / 기타: "+other:""}`;
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 46 · 내 취미 소개 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 46 · 내 취미 소개(-는 것 · -기 시작하다)", text:t, topics:picked, topic_other:other } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488";
+      [1,2,3,4,5].forEach(n=>{el("q"+n).value=""; delete store["q"+n];}); localStorage.setItem(KEY,JSON.stringify(store)); }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{
+  if(e.target.dataset.k) check(e.target);
+  else if(/^q[1-5]$/.test(e.target.id)){ store[e.target.id]=e.target.value; localStorage.setItem(KEY,JSON.stringify(store)); }
+});
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+[1,2,3,4,5].forEach(n=>{ if(store["q"+n]) el("q"+n).value=store["q"+n]; }); // 설문 임시 저장 복원
+updateScore();
+</script>
+</body>
+</html>

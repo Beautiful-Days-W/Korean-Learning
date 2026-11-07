@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 47 · 철학 이야기 ① 내 생각 말하기</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  table.cmp{border-collapse:collapse;font-size:14px;margin:8px 0 2px;width:100%;}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.cmp th{background:#f3f4f6;}
+  table.cmp th.a{color:var(--warm);} table.cmp th.b{color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+  .ladder td:first-child{white-space:nowrap;}
+  .say .rs{color:var(--muted);font-size:13px;}
+  .stephead{font-weight:700;font-size:15px;color:var(--accent);margin:18px 0 6px;padding-top:12px;border-top:1px dashed var(--line);}
+  .rule .stephead:first-child{margin-top:2px;padding-top:0;border-top:none;}
+  .plain{margin:8px 0 2px;font-size:14.5px;line-height:1.8;}
+  table.cmp td.k b{color:var(--ok);}
+  .goal{margin:2px 0 10px;}
+  .goal:last-child{margin-bottom:0;}
+  .goal .gt{font-weight:700;color:#1f2937;}
+  .goal .gex{margin:3px 0 0 18px;color:#334155;}
+  .survey .q{margin:12px 0;}
+  .survey .qt{font-weight:700;font-size:15px;}
+  .survey textarea{width:100%;min-height:60px;font:inherit;padding:8px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7;margin-top:4px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .chip{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff;cursor:pointer;}
+  .chip:has(input:checked){border-color:var(--accent);background:var(--accent-soft);}
+  .pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:8px 0;}
+  .pc{background:#fff;border:1px solid #fed7aa;border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.6;}
+  .pc .pe{font-size:28px;line-height:1.2;margin-bottom:4px;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 47 · 철학 이야기 ① 내 생각 말하기 <span class="sub">-다고 생각해요</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">요즘 취미인 <b>철학 이야기</b>를 한국어로 해 봐요. 정답이 없는 질문에 내 생각을 말하고, 다른 사람 생각에 동의하거나 반대해요: "저는 돈보다 시간이 더 <b>중요하다고 생각해요</b>."</p>
+    <div class="note">
+      <div class="goal"><div class="gt">1. -다고 생각해요: 내 생각이라고 분명히 말해요</div>
+        <div class="gex">인공지능은 위험해요. → 저는 인공지능이 위험하<b>다고 생각해요</b>.</div></div>
+      <div class="goal"><div class="gt">2. 동사는 -ㄴ/는다고, 명사는 -(이)라고 써요</div>
+        <div class="gex">시간이 빨리 간<b>다고</b> · 밥을 늦게 먹<b>는다고</b> · 작은 실수<b>라고</b> 생각해요.</div></div>
+      <div class="goal"><div class="gt">3. 지난 생각과 앞으로의 생각도 말해요</div>
+        <div class="gex">처음에는 어려웠<b>다고</b> 생각했어요. · 앞으로 더 좋아질 <b>거라고</b> 생각해요.</div></div>
+      <div class="goal"><div class="gt">4. 동의하고 반대해요</div>
+        <div class="gex">저도 그렇게 생각해요. · 글쎄요, 제 생각은 좀 달라요.</div></div>
+    </div>
+    <div class="series">
+      🎨 <b>취미 시리즈</b>: ① 내 취미 소개 → <b>② 철학 ① 내 생각 말하기(-다고 생각해요, 오늘)</b> → ③ 철학 ② 만약에…(-ㄴ/는다면) → ④ 영화 ① 〈인사이드 아웃〉 줄거리 → ⑤ 영화 ② 추천과 후기 → 복습13 → 평가시험10
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L46 숙제 · 깜냥 3장</span></h2>
+    <p class="lead">숙제에서 고친 말이에요. [ ] 안의 힌트를 보고 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (-다고 생각해요)</span></h2>
+    <div class="rule">
+      <div class="stephead">STEP 1 · 뜻: 사실이 아니라 내 생각</div>
+      <table class="cmp">
+        <tr><th style="width:50%">그냥 말해요</th><th>내 생각이라고 말해요</th></tr>
+        <tr><td class="k">인공지능은 위험해요.</td><td class="k">저는 인공지능이 위험하<b>다고 생각해요</b>.</td></tr>
+        <tr><td class="k">시간이 돈보다 중요해요.</td><td class="k">저는 시간이 돈보다 중요하<b>다고 생각해요</b>.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 Adding -다고 생각해요 shows that this is your opinion, not a fact. It means "I think (that) …".</p>
+
+      <div class="stephead">STEP 2 · 만드는 법: L4 전하기(-다고 해요)와 똑같아요</div>
+      <table class="conj">
+        <tr><th>종류</th><th>규칙</th><th>예</th></tr>
+        <tr><td>형용사 · 있다/없다</td><td class="k">-다고</td><td>크<b>다고</b> · 맛있<b>다고</b> · 있<b>다고</b> 생각해요</td></tr>
+        <tr><td>동사 (받침 X · ㄹ)</td><td class="k">-ㄴ다고</td><td>가 → 간<b>다고</b> · 놀 → 논<b>다고</b> 생각해요</td></tr>
+        <tr><td>동사 (받침 O)</td><td class="k">-는다고</td><td>먹<b>는다고</b> · 찾<b>는다고</b> 생각해요</td></tr>
+        <tr><td>명사</td><td class="k">-(이)라고</td><td>의사<b>라고</b> · 학생<b>이라고</b> 생각해요</td></tr>
+      </table>
+      <p class="plain">🇬🇧 Adjectives take -다고, verbs take -ㄴ/는다고, and nouns take -(이)라고. This is the same rule you learned for reporting speech in Lesson 4.</p>
+
+      <div class="stephead">STEP 3 · 지난 생각 · 앞으로의 생각</div>
+      <table class="cmp">
+        <tr><th style="width:30%">언제</th><th>문장</th></tr>
+        <tr><td>과거 (-았/었다고)</td><td class="k">어릴 때가 더 편했<b>다고</b> 생각해요.</td></tr>
+        <tr><td>지금 (-다고)</td><td class="k">요즘이 더 편하<b>다고</b> 생각해요.</td></tr>
+        <tr><td>미래 (-(으)ㄹ 거라고)</td><td class="k">나중에는 더 편해질 <b>거라고</b> 생각해요.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 For the past, use -았/었다고. For the future, use -(으)ㄹ 거라고. If you thought it before but not now, change the end: 생각<b>했어요</b> (I thought).</p>
+
+      <div class="stephead">STEP 4 · 주의 두 가지</div>
+      <div class="warnbox">
+        ① <b>동사는 -다고만 붙이면 안 돼요</b><br>
+        &nbsp;&nbsp;&nbsp;<span class="wrong">인공지능도 생각하다고 생각해요.</span> ✗ → 인공지능도 생각<b>한다고</b> 생각해요. ✓<br>
+        ② <b>명사는 -다고가 아니라 -(이)라고</b><br>
+        &nbsp;&nbsp;&nbsp;<span class="wrong">그건 좋은 질문이다고 생각해요.</span> ✗ → 그건 좋은 질문<b>이라고</b> 생각해요. ✓
+      </div>
+      <p class="plain">🇬🇧 Verbs need -ㄴ/는다고, not just -다고. Nouns use -(이)라고. 생각해요 is a separate word, so put a space before it.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 핵심 어휘 <span class="en">Vocabulary · 생각 나누기 (10)</span></h2>
+    <p class="lead">소리 내어 읽어 보세요. 굵은 글씨가 새 단어와 표현이에요. 6~9번은 대화에서 자주 써요.</p>
+    <div id="vlist"></div>
+  </section>
+
+  <section>
+    <h2>3. -다고 생각해요 만들기 <span class="en">Make the form · 입력 즉시 채점</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 <b>-다고 생각해요</b> 형태로 쓰세요. 띄어쓰기 조심!</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 채우기 <span class="en">Complete the sentences</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요. "과거로"가 있으면 <b>생각했어요</b>로 써요.</p>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 — 정답이 없는 질문 <span class="en">Sharing opinions</span></h2>
+    <p class="lead">선생님과 <b>역할을 나눠 소리 내어</b> 읽어요. 그다음 대본을 덮고 <b>내 생각</b>으로 바꿔 말해 봐요.</p>
+
+    <div class="subh">장면 ① 회사 휴게실 · 동료 민준과 뉴스 이야기</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">지호 씨, 이 기사 봤어요? 복권 1등에 당첨된 사람이 5년 후에 더 불행해졌대요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">정말요? 저는 돈이 많으면 누구나 <b>행복하다고 생각했어요</b>.</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">저도요. 그런데 이 사람은 돈 때문에 친구들하고 사이가 나빠졌대요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">아, 그럴 수도 있겠네요. 그럼 민준 씨는 돈이 행복에 얼마나 <b>중요하다고 생각해요</b>?</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">글쎄요, 저는 돈이 어느 정도는 <b>필요하다고 생각해요</b>. 월세도 내야 하고, 부모님 선물도 사야 하잖아요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">맞아요. 그런데 너무 큰돈은 좀 무서워요. 저는 돈이 갑자기 많이 생기면 사람이 <b>변한다고 생각해요</b>.</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">저도 그렇게 생각해요. 제 생각에는 돈보다 시간이 더 중요해요. 매일 야근하는 것보다 저녁에 가족이랑 밥 먹는 게 더 좋아요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">그런데 민준 씨, 우리 오늘도 야근하잖아요.</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">하하, 그러네요. 오늘은 꼭 7시 전에 퇴근해요!</span></div>
+    </div>
+
+    <div class="subh">장면 ② 토요일 오후 · 동네 도서관 철학 모임</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">오늘 질문은 "인공지능도 친구가 될 수 있을까?"예요. 지호 씨는 어떻게 생각해요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">저는 인공지능이 정말 <b>똑똑하다고 생각해요</b>. 그런데 친구는 될 수 없다고 생각해요.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">왜 그렇게 생각해요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">인공지능은 슬픈 영화를 봐도 울지 않잖아요. 마음이 없으니까 진짜 친구는 아니에요.</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">글쎄요, 제 생각은 좀 달라요. 저는 10년 후에는 인공지능도 감정을 <b>가질 거라고 생각해요</b>.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">정말요? 왜요?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">벌써 인공지능이랑 매일 이야기하는 사람이 많아요. 외로운 사람한테는 큰 힘이 돼요. 저는 그것도 <b>우정이라고 생각해요</b>.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">음… 그럴 수도 있겠네요. 그래도 저는 친구가 제 이야기를 기억하고 다음에 먼저 물어봐 주는 게 좋아요. 아, 그런데 요즘은 인공지능도 기억하네요!</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">하하, 역시 정답이 없는 질문이에요. 다음 모임에서 계속 이야기해요.</span></div>
+    </div>
+
+    <div class="subh">빈칸 채우기</div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 숙제 · 나의 철학 질문 <span class="en">Homework · my answer to a big question</span></h2>
+    <p class="lead">아래 질문 중 <b>하나</b>를 골라 내 생각을 5~6문장으로 써 보세요. <b>-다고 생각해요를 3번</b> 넣고, 이유도 하나 말해요(왜냐하면 -기 때문이에요). 다음 수업에서 이 글로 이야기를 시작해요.</p>
+    <ul style="font-size:14.5px;margin:6px 0 4px;padding-left:20px;line-height:1.9">
+      <li>돈이 많으면 더 행복할까요?</li>
+      <li>인공지능도 친구가 될 수 있을까요?</li>
+      <li>철학 유튜브에서 본 질문 하나 (질문도 같이 써 주세요)</li>
+    </ul>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 질문: 거짓말은 언제나 나쁠까요? 저는 거짓말이 보통 나쁘다고 생각해요. 왜냐하면 다른 사람을 속이기 때문이에요. 그런데 작은 거짓말은 괜찮다고 생각해요. 예를 들어 친구가 새 옷을 입고 오면 "잘 어울려요."라고 말할 수 있어요. 그래서 거짓말은 상황마다 다르다고 생각해요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요</div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="질문: …"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw47()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 원리 설명하기 (5분): 질문으로 진행해요</h3>
+    <p class="lead">원리 STEP 1~4를 차례로 보면서, 선생님이 묻고 학습자가 답해요.</p>
+    <ul>
+      <li><b>STEP 1</b> · "인공지능은 위험해요. 내 생각이라고 말하면?" → <b>저는 인공지능이 위험하다고 생각해요.</b> (는 → 가로 바뀌는 것도 짚어 주세요.)</li>
+      <li><b>STEP 2</b> · "크다?" → <b>크다고</b> · "가다?" → <b>간다고</b> · "먹다?" → <b>먹는다고</b> · "의사?" → <b>의사라고</b> 생각해요</li>
+      <li><b>STEP 3</b> · "어릴 때가 더 편했어요. 내 생각으로?" → <b>어릴 때가 더 편했다고 생각해요.</b> · "나중에는 더 편해질 거예요?" → <b>더 편해질 거라고 생각해요.</b></li>
+      <li><b>STEP 4</b> · "생각하다고", "질문이다고"를 보여 주고 학습자가 직접 고쳐요. → <b>생각한다고</b> · <b>질문이라고</b></li>
+    </ul>
+
+    <h3>② 순위 정하기 토론 (10분): 행복에 제일 중요한 것은?</h3>
+    <p class="lead">학습자가 카드 여섯 장 중 <b>1~3위</b>를 골라요. 순위마다 "저는 ___이/가 제일 중요하다고 생각해요. 왜냐하면…"으로 이유를 말해요. 선생님은 일부러 <b>다른 순위</b>를 말하고 "글쎄요, 제 생각은 좀 달라요. 저는 ___라고 생각해요."로 반대해요. 학습자가 자기 순위를 지키거나 바꾸면서 이유를 말해요.</p>
+    <div class="pcards">
+      <div class="pc"><div class="pe">💰</div><b>돈</b></div>
+      <div class="pc"><div class="pe">💪</div><b>건강</b></div>
+      <div class="pc"><div class="pe">👨‍👩‍👧</div><b>가족</b></div>
+      <div class="pc"><div class="pe">🤝</div><b>친구</b></div>
+      <div class="pc"><div class="pe">⏰</div><b>자유 시간</b></div>
+      <div class="pc"><div class="pe">💼</div><b>좋아하는 일</b></div>
+    </div>
+    <ul>
+      <li>추임새: "왜요?" · "예를 들면요?" · "그럼 돈이 없어도 행복할 수 있어요?"</li>
+      <li>끝에 학습자가 선생님 순위에 대해 "저도 그렇게 생각해요" 또는 "그럴 수도 있겠네요. 그런데…"로 한 번 대답해요.</li>
+    </ul>
+
+    <p class="lead">다음: <b>L48 철학 ② 만약에…</b>(만약 -ㄴ/는다면). 학습자가 자주 쓰는 "저는 ~라면"을 "제가 ~라면"으로 고치는 과예요.</p>
+    <p class="lead" style="color:var(--warm)">성공 기준: 대본 없이 <b>-다고 생각해요를 5번</b>(형용사 · 동사 · 명사 각 1번 이상) + <b>동의 · 반대 표현 2번</b>. (숙제 = 6번 → 제출)</p>
+  </div>
+
+  <footer>Lesson 47 / 철학 이야기 ① 내 생각 말하기 · -다고 생각해요 · 취미 시리즈 ②</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[ // [예문, 영어]
+  ['요즘 <b>철학</b> 유튜브를 자주 봐요.','철학 = philosophy'],
+  ['이 질문에는 <b>정답</b>이 없어요.','정답 = the right answer'],
+  ['돈이 많으면 더 <b>행복할까요</b>?','행복하다 = to be happy'],
+  ['건강이 돈보다 더 <b>중요해요</b>. 가족은 정말 <b>소중해요</b>.','중요하다 = to be important · 소중하다 = to be precious'],
+  ['<b>인공지능</b>도 사람처럼 생각할 수 있을까요?','인공지능 = artificial intelligence (AI)'],
+  ['<b>제 생각에는</b> 가족이 제일 중요해요.','제 생각에는 = in my opinion'],
+  ['A: 시간이 돈보다 중요해요. B: <b>저도 그렇게 생각해요</b>.','저도 그렇게 생각해요 = I think so too'],
+  ['<b>글쎄요</b>, <b>제 생각은 좀 달라요</b>.','글쎄요 = hmm, well… · 제 생각은 좀 달라요 = I see it a bit differently'],
+  ['<b>왜 그렇게 생각해요</b>? · <b>그럴 수도 있겠네요</b>.','Why do you think so? · That could be true.'],
+  ['친구와 <b>의견</b>이 달라도 괜찮아요.','의견 = opinion']
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['to talk · 철자 조심 (L46 숙제)','제 취미는 철학에 대해 ','이야기하는|얘기하는',' 거예요.'],
+  ['YouTuber (L46 숙제)','철학 이야기를 하는 ','유튜버',' 를 봤어요.'],
+  ['보다 · because · 과거 (L46 숙제)','그 영상을 ','봤기 때문이에요',' .'],
+  ['to be complicated · -아/어서 · 소리는 [복짭] (L46 숙제)','생각이 ','복잡해서',' 이해하는 게 어려워요.'],
+  ['듣다 · 시작하다 · 과거 (L46 숙제)','9월부터 철학 이야기를 ','듣기 시작했어요',' .'],
+  ['있다 · because (깜냥 3장)','경기가 내일도 ','있기 때문이에요',' .']
+];
+const ADV=[ // [힌트, 앞, 정답, 뒤]
+  ['쉽다 · 형용사','행복해지는 건 생각보다 ','쉽다고 생각해요',' .'],
+  ['없다','모든 질문에 정답이 ','없다고 생각해요',' .'],
+  ['하다 · 동사','돈이 사람을 행복하게 ','한다고 생각해요',' .'],
+  ['바꾸다 · 동사','좋은 책이 사람을 ','바꾼다고 생각해요',' .'],
+  ['읽다 · 동사 · 받침','요즘 사람들은 책을 많이 안 ','읽는다고 생각해요',' .'],
+  ['만들다 · 동사 · ㄹ 조심','좋은 습관이 좋은 사람을 ','만든다고 생각해요',' .'],
+  ['문제 · 명사','스마트폰을 너무 많이 쓰는 게 ','문제라고 생각해요',' .'],
+  ['선택 · 명사','행복은 ','선택이라고 생각해요',' .'],
+  ['살다 · 과거','옛날 사람들은 지금보다 더 힘들게 ','살았다고 생각해요',' .'],
+  ['달라지다 · 미래','10년 후에는 우리 생활이 많이 ','달라질 거라고 생각해요',' .']
+];
+const EXP=[ // [앞, 정답, 뒤, 힌트]
+  ['A: 돈이 많으면 행복할까요? B: 저는 돈이 행복에 꼭 ','필요하지 않다고 생각해요',' .','필요하지 않다'],
+  ['저는 가족과 같이 보내는 시간이 제일 ','소중하다고 생각해요',' .','소중하다'],
+  ['동물도 사람처럼 슬픔을 ','느낄 수 있다고 생각해요',' .','느낄 수 있다'],
+  ['요즘 사람들은 휴대폰을 너무 많이 ','본다고 생각해요',' .','보다 · 동사'],
+  ['좋은 친구는 힘들 때 옆에 있어 주는 ','사람이라고 생각해요',' .','사람 · 명사'],
+  ['그 철학자는 행복이 우리 마음 안에 ','있다고 생각했어요',' .','있다 · 생각하다를 과거로'],
+  ['처음에는 철학이 너무 ','어렵다고 생각했어요','. 그런데 지금은 재미있어요.','어렵다 · 생각하다를 과거로'],
+  ['나중에는 인공지능이 사람의 일을 많이 ','할 거라고 생각해요',' .','하다 · 미래']
+];
+const DLG=[ // 실전 대화 [앞, 정답, 뒤, 힌트]
+  ['저는 돈이 많으면 누구나 ','행복하다고 생각했어요',' .','행복하다 · 생각하다를 과거로'],
+  ['민준 씨는 돈이 행복에 얼마나 ','중요하다고 생각해요',' ?','중요하다'],
+  ['저는 돈이 어느 정도는 ','필요하다고 생각해요',' .','필요하다'],
+  ['돈이 갑자기 많이 생기면 사람이 ','변한다고 생각해요',' .','변하다 · 동사'],
+  ['저는 인공지능이 정말 ','똑똑하다고 생각해요',' .','똑똑하다'],
+  ['10년 후에는 인공지능도 감정을 ','가질 거라고 생각해요',' .','가지다 · 미래'],
+  ['저는 그것도 ','우정이라고 생각해요',' .','우정 · 명사']
+];
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((p,i)=>el("vlist").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="ko"><span class="num">${i+1}.</span> ${p[0]}</div><div class="lbl" style="margin-left:22px">${p[1]}</div></div>`));
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
+   <span class="ko">${a[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="ko">${a[3]}</span><span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson47_philosophy_dago";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw47(){
+  const ta=el("hwtext"), msg=el("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 47 · 철학 이야기 ① 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 47 · 철학 이야기 ① 내 생각 말하기(-다고 생각해요)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; delete store.hw; localStorage.setItem(KEY,JSON.stringify(store)); }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{
+  if(e.target.dataset.k) check(e.target);
+  else if(e.target.id==="hwtext"){ store.hw=e.target.value; localStorage.setItem(KEY,JSON.stringify(store)); }
+});
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+if(store.hw) el("hwtext").value=store.hw; // 숙제 임시 저장 복원
+updateScore();
+</script>
+</body>
+</html>
