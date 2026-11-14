@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 50 · 영화 이야기 ② 추천과 후기</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  table.cmp{border-collapse:collapse;font-size:14px;margin:8px 0 2px;width:100%;}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.cmp th{background:#f3f4f6;}
+  table.cmp th.a{color:var(--warm);} table.cmp th.b{color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+  .ladder td:first-child{white-space:nowrap;}
+  .say .rs{color:var(--muted);font-size:13px;}
+  .stephead{font-weight:700;font-size:15px;color:var(--accent);margin:18px 0 6px;padding-top:12px;border-top:1px dashed var(--line);}
+  .rule .stephead:first-child{margin-top:2px;padding-top:0;border-top:none;}
+  .plain{margin:8px 0 2px;font-size:14.5px;line-height:1.8;}
+  table.cmp td.k b{color:var(--ok);}
+  .goal{margin:2px 0 10px;}
+  .goal:last-child{margin-bottom:0;}
+  .goal .gt{font-weight:700;color:#1f2937;}
+  .goal .gex{margin:3px 0 0 18px;color:#334155;}
+  .survey .q{margin:12px 0;}
+  .survey .qt{font-weight:700;font-size:15px;}
+  .survey textarea{width:100%;min-height:60px;font:inherit;padding:8px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7;margin-top:4px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .chip{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff;cursor:pointer;}
+  .chip:has(input:checked){border-color:var(--accent);background:var(--accent-soft);}
+  .pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:8px 0;}
+  .pc{background:#fff;border:1px solid #fed7aa;border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.6;}
+  .pc .pe{font-size:28px;line-height:1.2;margin-bottom:4px;}
+</style>
+  .wordbox{background:#f8fafc;border:1px dashed var(--line);border-radius:8px;padding:8px 12px;font-size:14px;margin:6px 0 10px;color:#334155;}
+  .wordbox b{color:var(--accent);}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 50 · 영화 이야기 ② 추천과 후기 <span class="sub">-(으)ㄹ 만해요 · 별점 · 감상 말하기</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">영화를 <b>추천</b>하고 <b>후기</b>를 말해요. "재미있어요"는 내 느낌이고, "<b>볼 만해요</b>"는 상대에게 권하는 말이에요: "이 영화는 두 번 볼 만해요."</p>
+    <div class="note">
+      <div class="goal"><div class="gt">1. 추천할 때는 -(으)ㄹ 만해요</div>
+        <div class="gex">이 영화 재미있어요. (내 느낌) → 이 영화 <b>볼 만해요</b>. (추천)</div></div>
+      <div class="goal"><div class="gt">2. 동사 + -(으)ㄹ 만해요</div>
+        <div class="gex">보다 → <b>볼 만해요</b> · 읽다 → <b>읽을 만해요</b> · 가 보다 → <b>가 볼 만해요</b></div></div>
+      <div class="goal"><div class="gt">3. 명사 앞에서는 -(으)ㄹ 만한 (L49처럼 꾸미기)</div>
+        <div class="gex">주말에 <b>볼 만한</b> 영화 · 토론토에서 <b>가 볼 만한</b> 곳</div></div>
+      <div class="goal"><div class="gt">4. 후기는 별점 + 감상 말로</div>
+        <div class="gex">별점은 다섯 개 중에 네 개예요. 마지막 장면이 <b>감동적이었어요</b>.</div></div>
+    </div>
+    <div class="series">
+      🎨 <b>취미 시리즈</b>: ① 내 취미 소개 → ② 철학 ① 내 생각 말하기 → ③ 철학 ② 만약에… → ④ 영화 ① 〈인사이드 아웃〉 → <b>⑤ 영화 ② 추천과 후기(-(으)ㄹ 만해요, 오늘)</b> → 복습13 → 평가시험10
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L49 숙제 · 깜냥 4장 · 다시 보는 단어</span></h2>
+    <p class="lead">숙제에서 고친 말이에요. [ ] 안의 힌트를 보고 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (동사 + -(으)ㄹ 만해요)</span></h2>
+    <div class="rule">
+      <div class="stephead">STEP 1 · 뜻: 추천할 때 "할 가치가 있어요"</div>
+      <table class="cmp">
+        <tr><th class="a" style="width:50%">내 느낌</th><th class="b">추천</th></tr>
+        <tr><td class="k">이 영화 재미있어요.</td><td class="k">이 영화 <b>볼 만해요</b>.</td></tr>
+        <tr><td class="k">이 식당 음식 맛있어요.</td><td class="k">이 식당 음식 <b>먹을 만해요</b>.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 -(으)ㄹ 만해요 = "worth ~ing", "good enough to ~". 재미있어요 says how <i>you</i> felt. 볼 만해요 tells the other person it's worth <i>their</i> time. It's a little softer than 정말 재미있어요: "it's pretty good, give it a try."</p>
+
+      <div class="stephead">STEP 2 · 만드는 법: 동사 + -(으)ㄹ 만해요</div>
+      <table class="conj">
+        <tr><th>종류</th><th>규칙</th><th>예</th></tr>
+        <tr><td>받침 X (보다)</td><td class="k">-ㄹ 만해요</td><td><b>볼 만해요</b></td></tr>
+        <tr><td>받침 O (읽다)</td><td class="k">-을 만해요</td><td><b>읽을 만해요</b></td></tr>
+        <tr><td>ㄹ 받침 (살다)</td><td class="k">ㄹ 그대로 + 만해요</td><td><b>살 만해요</b></td></tr>
+        <tr><td>ㄷ 불규칙 (듣다)</td><td class="k">들 + -을 만해요</td><td><b>들을 만해요</b></td></tr>
+        <tr><td>-아/어 보다 (가 보다)</td><td class="k">가 볼 만해요</td><td>한 번 <b>가 볼 만해요</b></td></tr>
+      </table>
+      <p class="plain">🇬🇧 It's the same -(으)ㄹ you already use in -(으)ㄹ 때 (L36) and 내일 볼 영화 (L49): -ㄹ after a vowel, -을 after 받침. ㄹ verbs keep their ㄹ (살 만해요), and 듣다 becomes 들을 만해요. 만해요 is written as a separate word.</p>
+
+      <div class="stephead">STEP 3 · 쓰임: 문장 끝 · 명사 앞 · 과거 · 아니에요</div>
+      <table class="cmp">
+        <tr><th style="width:28%">어디에</th><th>예</th></tr>
+        <tr><td>문장 끝</td><td class="k">이 영화는 <b>볼 만해요</b>.</td></tr>
+        <tr><td>명사 앞 (L49 꾸미기)</td><td class="k"><b>볼 만한</b> 영화 · <b>가 볼 만한</b> 곳 · <b>읽을 만한</b> 책</td></tr>
+        <tr><td>과거</td><td class="k">어제 본 영화는 <b>볼 만했어요</b>.</td></tr>
+        <tr><td>아니에요</td><td class="k">2편은 별로 <b>볼 만하지 않아요</b>.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 Before a noun, 만하다 works like an adjective: 볼 만한 영화 = "a movie worth watching" (same -(으)ㄴ as 따뜻한 날). Past: 볼 만했어요. Negative: 별로 … 볼 만하지 않아요 = "not really worth it".</p>
+
+      <div class="stephead">STEP 4 · 주의 두 가지</div>
+      <div class="warnbox">
+        ① <b>만 앞은 띄어요</b><br>
+        &nbsp;&nbsp;&nbsp;<span class="wrong">볼만해요</span> ✗ → <b>볼 만해요</b> ✓ · <span class="wrong">볼만한 영화</span> ✗ → <b>볼 만한</b> 영화 ✓<br>
+        ② <b>동사에만 써요</b> (형용사 ✗)<br>
+        &nbsp;&nbsp;&nbsp;<span class="wrong">이 영화는 재미있을 만해요.</span> ✗ → 이 영화는 <b>재미있어요</b>. / 이 영화는 <b>볼 만해요</b>. ✓
+      </div>
+      <p class="plain">🇬🇧 ① Space before 만: 볼 만해요, 볼 만한. ② Only verbs take -(으)ㄹ 만해요 (watch, read, eat, go). With an adjective like 재미있다, just say 재미있어요, or switch to a verb: 볼 만해요.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. 후기 어휘 <span class="en">Review vocabulary (10)</span></h2>
+    <p class="lead">영화 후기를 말할 때 자주 쓰는 말이에요. 별점은 "다섯 개 중에 네 개"처럼 말해요.</p>
+    <div id="vlist"></div>
+  </section>
+
+  <section>
+    <h2>3. 추천 문장 만들기 <span class="en">Make the form · 입력 즉시 채점</span></h2>
+    <p class="lead">[ ] 안의 동사로 <b>-(으)ㄹ 만해요</b>를 만드세요. "명사 앞"이면 <b>-(으)ㄹ 만한</b>, "과거"면 <b>-(으)ㄹ 만했어요</b>. 띄어쓰기도 정확히!</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 후기 문장 채우기 <span class="en">Complete the review</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요. 감상 말은 아래 <b>보기</b>에서 골라 쓰세요.</p>
+    <div class="wordbox">보기: <b>뻔했어요</b> · <b>웃겨요</b> · <b>감동적이었어요</b> · <b>실망했어요</b> · <b>지루했어요</b></div>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🎬 실전 대화 — 이 영화 볼 만해요? <span class="en">Recommending &amp; reviewing</span></h2>
+    <p class="lead">선생님과 <b>역할을 나눠 소리 내어</b> 읽어요. 그다음 대본을 덮고 <b>내 말</b>로 영화를 추천해 봐요.</p>
+
+    <div class="subh">장면 ① 화요일 점심시간 · 동료 서연에게 〈월-E〉 추천</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">지호 씨, 지난주에 말한 〈인사이드 아웃〉 봤어요. 정말 볼 만하더라고요!</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">그렇죠? 저도 그 영화 세 번 봤어요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">이번 주말에 <b>볼 만한</b> 영화 또 있어요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">〈월-E〉 봤어요? 혼자 사는 로봇 이야기예요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">아니요, 이름만 들어 봤어요. 어떤 영화예요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">대사가 거의 없는데 정말 <b>감동적이에요</b>. 월-E가 이브를 처음 <b>만나는</b> 장면은 두 번 볼 만해요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">대사가 없다고요? 그럼 지루하지 않아요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">처음 20분은 조금 지루할 수도 있어요. 그런데 그 뒤부터는 시간 가는 줄 몰라요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">결말은요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">결말은 비밀이에요. 그래도 하나만 말하면, 마지막에 울 수도 있어요. 휴지 준비하세요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">하하, 알겠어요. 별점은 몇 개예요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">다섯 개 중에 다섯 개요. 제가 어릴 때부터 제일 좋아하는 영화예요.</span></div>
+    </div>
+
+    <div class="subh">장면 ② 토요일 저녁 · 도서관 영화 모임, 〈월-E〉를 같이 본 후</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">오늘 같이 본 〈월-E〉, 별점부터 말해 볼까요? 하은 씨는요?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">저는 다섯 개 중에 세 개요. 그림은 예쁜데 중간이 좀 <b>지루했어요</b>.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">저는 다섯 개요! 지루한 부분이 어디예요?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">우주선에 간 다음부터요. 사람들 이야기는 좀 <b>뻔했어요</b>.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">음, 그 부분은 저도 조금 그랬어요. 그래도 이브가 월-E를 찾는 장면은 정말 감동적이지 않았어요?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">그건 맞아요. 그 장면은 다시 <b>볼 만했어요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">그럼 이 영화, 다른 사람한테 <b>추천할 만해요</b>?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">네, 아이가 있는 가족한테 추천하고 싶어요. 대사가 없어서 아이들도 볼 수 있어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">저는 혼자 <b>사는</b> 친구한테 추천할 거예요. 월-E처럼 외로운 날에 보면 좋을 것 같아요.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">좋아요. 다음 모임에서 볼 만한 영화는요?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">〈업〉 어때요? 처음 10분이 정말 감동적이에요. 휴지가 필요할 거예요.</span></div>
+    </div>
+
+    <div class="subh">빈칸 채우기</div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 숙제 · 영화 후기 쓰기 <span class="en">Homework · write a short review</span></h2>
+    <p class="lead">지난 숙제에서 소개한 영화(또는 다른 영화)의 <b>후기</b>를 5~6문장으로 써 보세요.</p>
+    <ul style="font-size:14.5px;margin:6px 0 4px;padding-left:20px;line-height:1.9">
+      <li>별점은 몇 개예요? ("다섯 개 중에 …")</li>
+      <li><b>-(으)ㄹ 만해요를 2번</b> (문장 끝 1번 + 명사 앞 "-(으)ㄹ 만한" 1번)</li>
+      <li>감상 말 2개 (감동적이에요 · 지루해요 · 뻔해요 · 웃겨요 · 실망했어요 중에서)</li>
+      <li>누구한테 추천하고 싶어요? 왜요?</li>
+    </ul>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 제가 지난주에 소개한 〈토이 스토리〉 후기예요. 별점은 다섯 개 중에 네 개예요. 우디하고 버즈가 친구가 되는 장면이 제일 감동적이었어요. 중간에 조금 뻔한 부분도 있었어요. 그래도 어른이 봐도 볼 만한 영화예요. 아이가 있는 가족한테 추천하고 싶어요. 같이 보면 이야기할 게 많을 거예요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요</div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="제가 지난주에 소개한 〈…〉 후기예요. 별점은 …"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw50()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 원리 설명하기 (5분): 질문으로 진행해요</h3>
+    <p class="lead">원리 STEP 1~4를 차례로 보면서, 선생님이 묻고 학습자가 답해요.</p>
+    <ul>
+      <li><b>STEP 1</b> · "'이 영화 재미있어요'는 누구 이야기예요?" → 내 느낌 · "친구한테 권하고 싶으면?" → 이 영화 <b>볼 만해요</b></li>
+      <li><b>STEP 2</b> · "보다?" → <b>볼 만해요</b> · "읽다?" → <b>읽을 만해요</b> · "살다?" → <b>살 만해요</b> · "듣다?" → <b>들을 만해요</b> · "가 보다?" → <b>가 볼 만해요</b></li>
+      <li><b>STEP 3</b> · "'영화' 앞에 붙이면?" → <b>볼 만한</b> 영화 · "어제 본 영화 이야기면?" → <b>볼 만했어요</b> · "추천 안 하고 싶으면?" → 별로 <b>볼 만하지 않아요</b></li>
+      <li><b>STEP 4</b> · "볼만해요", "이 영화는 재미있을 만해요"를 보여 주고 학습자가 직접 고쳐요. → 볼 <b>만해요</b>(띄기) · 재미있<b>어요</b> / 볼 <b>만해요</b></li>
+    </ul>
+
+    <h3>② 역할극 카드 (10분): 영화 추천 상담소</h3>
+    <p class="lead">학습자 = <b>영화를 추천하는 친구</b>, 선생님 = <b>조건이 까다로운 손님</b>. 손님 카드는 학습자가 못 봐요. 손님은 조건만 짧게 말하고, 추천과 이유는 학습자가 길게 말해요.</p>
+    <ul>
+      <li><b>흐름</b> · 손님이 조건을 말해요 → 학습자가 질문 2개 이상(무슨 영화 좋아해요? 누구하고 봐요? 시간은요?) → 영화 1편 추천 + 이유 3문장(<b>-(으)ㄹ 만해요 2번</b> + 감상 말 1개) → 손님이 반박("지루하지 않아요?" "너무 길지 않아요?") → 학습자가 더 설명해요.</li>
+      <li><b>추임새(선생님)</b> · "왜요?" · "또 있어요?" · "별점은요?" · "결말은 뻔하지 않아요?" — 짧게만. 손님 카드 3장을 다 돌려요.</li>
+    </ul>
+    <div class="model show" style="margin:6px 0 10px">예: 👩‍🏫 7살 아이하고 볼 거예요. 무서운 건 싫어요. → 🙋 그럼 〈월-E〉 어때요? 대사가 거의 없어서 아이도 <b>볼 만해요</b>. 로봇 둘이 친구가 되는 장면이 감동적이에요. → 👩‍🏫 지루하지 않아요? → 🙋 처음은 조금 조용한데, 그 뒤부터는 시간 가는 줄 몰라요. 가족이 같이 <b>볼 만한</b> 영화예요.</div>
+    <div class="pcards">
+      <div class="pc"><div class="pe">🙋</div><b>학습자 카드 · 추천 메뉴</b><br>🤖 월-E — 대사 거의 없음 · 감동적 · 1시간 40분<br>😄 인사이드 아웃 — 감정 이야기 · 웃기고 슬픔 · 1시간 35분<br>🤠 토이 스토리 — 장난감 우정 · 아이와 어른 모두 · 1시간 20분<br>🎈 업 — 처음 10분 감동 · 모험 · 1시간 35분<br>🎸 코코 — 가족 · 음악 · 멕시코 · 1시간 45분<br><span style="color:var(--muted)">(다른 영화를 추천해도 좋아요)</span></div>
+      <div class="pc"><div class="pe">👩‍🏫</div><b>손님 카드</b> <button class="hintbtn" onclick="toggleModel('tcard')">🔒 선생님만 보기</button><div class="model" id="tcard" style="color:var(--ink);background:#fff;border-color:#fed7aa">㉠ <b>가족 손님</b> — 7살 아이하고 같이 볼 거예요. 무서운 건 싫어요. 2시간 넘으면 안 돼요.<br>㉡ <b>피곤한 손님</b> — 요즘 일이 많아서 웃긴 영화가 보고 싶어요. 〈인사이드 아웃〉은 벌써 봤어요. 슬픈 결말은 싫어요.<br>㉢ <b>혼자 보는 손님</b> — 주말에 혼자 볼 거예요. 음악이 좋은 영화가 좋아요. 울어도 괜찮아요.</div></div>
+    </div>
+
+    <p class="lead">다음: <b>복습13 (46–50)</b> → 평가시험10. 복습13 집중 문항은 L46~50 숙제 첨삭의 반복 오류로 만들어요.</p>
+    <p class="lead" style="color:var(--warm)">성공 기준: 대본 없이 <b>-(으)ㄹ 만해요 4번</b>(문장 끝 · 명사 앞 각 1번 이상) + <b>감상 말 2개</b> + 추천 이유 3문장. (숙제 = 6번 → 제출)</p>
+  </div>
+
+  <footer>Lesson 50 / 영화 이야기 ② 추천과 후기 · -(으)ㄹ 만해요 · 취미 시리즈 ⑤</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[ // [예문, 영어]
+  ['친구한테 이 영화를 <b>추천하고</b> 싶어요.','추천하다 = to recommend · 추천 = recommendation'],
+  ['영화를 보고 <b>후기</b>를 썼어요.','후기 = review (what you thought after watching, eating, visiting)'],
+  ['<b>별점</b>은 다섯 개 중에 네 개예요.','별점 = star rating · 별 다섯 개 = five stars'],
+  ['마지막 장면이 정말 <b>감동적이었어요</b>.','감동적이에요 = moving, touching · 감동을 받다 = to be moved'],
+  ['중간 부분은 좀 <b>지루했어요</b>.','지루하다 = boring'],
+  ['<b>결말</b>이 좀 <b>뻔했어요</b>.','결말 = ending · 뻔하다 = predictable, obvious'],
+  ['까칠이가 나오는 장면이 제일 <b>웃겨요</b>.','웃기다 = funny (makes you laugh) · 웃겨요'],
+  ['〈월-E〉는 <b>대사</b>가 거의 없어요.','대사 = lines, dialogue (in a film)'],
+  ['기대를 많이 했는데 2편은 좀 <b>실망했어요</b>.','실망하다 = to be disappointed · 기대하다 = to expect, look forward to'],
+  ['이 영화는 두 번 <b>볼 만해요</b>.','-(으)ㄹ 만해요 = worth ~ing (오늘의 문형)']
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['이에요/예요 · E는 [이]로 끝나요 (L49 숙제)','제가 어릴 때 많이 본 영화는 〈월-E〉','예요',' .'],
+  ['꾸미는 말 안의 주어 조사 (L49 숙제)','이브는 사람','이',' 만든 로봇이에요.'],
+  ['찾다 · 과거 · ★철자 (L49 숙제)','이브가 월-E를 ','찾았어요',' .'],
+  ['보다 · 미래 꾸미기 (L49 숙제에 없던 것)','다음에 다시 ','볼',' 영화는 〈월-E〉예요.'],
+  ['the last time (깜냥 4장 · "시간" 아니에요)','','마지막으로',' 블루제이스가 월드시리즈에 갔을 때가 1993년이었어요.'],
+  ['meal plan · 다시 보는 단어','이번 주 ','밀플랜',' 을 짰어요.']
+];
+const ADV=[ // [힌트, 앞, 정답, 뒤]
+  ['보다','이 영화는 꼭 ','볼 만해요',' .'],
+  ['읽다 · 받침','이 책은 영어 번역도 ','읽을 만해요',' .'],
+  ['먹다 · 받침','회사 식당 밥은 그냥 ','먹을 만해요',' .'],
+  ['가 보다','토론토 아일랜드는 한 번 ','가 볼 만해요',' .'],
+  ['듣다 · ㄷ 불규칙','이 영화 OST는 따로 ','들을 만해요',' .'],
+  ['살다 · ㄹ 그대로','집은 작지만 ','살 만해요',' .'],
+  ['믿다 · 받침','그 후기는 ','믿을 만해요',' .'],
+  ['보다 · 명사 앞','주말에 ','볼 만한',' 영화 있어요?'],
+  ['가 보다 · 명사 앞','토론토에서 ','가 볼 만한',' 곳을 추천해 주세요.'],
+  ['보다 · 과거','어제 본 영화는 생각보다 ','볼 만했어요',' .']
+];
+const EXP=[ // [앞, 정답, 뒤, 힌트]
+  ['마지막 장면이 정말 ','감동적이었어요',' .','moving · 과거 · 보기에서'],
+  ['중간 부분은 좀 ','지루했어요',' .','boring · 과거 · 보기에서'],
+  ['결말이 좀 ','뻔했어요',' .','predictable · 과거 · 보기에서'],
+  ['기대를 많이 했는데 2편은 좀 ','실망했어요',' .','disappointed · 과거 · 보기에서'],
+  ['제가 제일 ','좋아하는',' 장면은 월-E가 이브를 처음 만나는 장면이에요.','좋아하다 · 현재 꾸미기 (L49)'],
+  ['이 영화는 두 번 ','볼 만해요',' .','보다'],
+  ['2편은 별로 ','볼 만하지 않아요',' . 결말이 너무 뻔해요.','보다 · 아니에요 (별로 … 않아요)'],
+  ['주말에 가족하고 같이 ','볼 만한',' 영화를 찾고 있어요.','보다 · 명사 앞']
+];
+const DLG=[ // 실전 대화 [앞, 정답, 뒤, 힌트]
+  ['이번 주말에 ','볼 만한',' 영화 또 있어요?','보다 · 명사 앞'],
+  ['대사가 거의 없는데 정말 ','감동적이에요',' .','moving · 현재'],
+  ['월-E가 이브를 처음 ','만나는',' 장면은 두 번 볼 만해요.','만나다 · 현재 꾸미기 (L49)'],
+  ['그림은 예쁜데 중간이 좀 ','지루했어요',' .','boring · 과거'],
+  ['사람들 이야기는 좀 ','뻔했어요',' .','predictable · 과거'],
+  ['그 장면은 다시 ','볼 만했어요',' .','보다 · 과거'],
+  ['이 영화, 다른 사람한테 ','추천할 만해요',' ?','추천하다'],
+  ['저는 혼자 ','사는',' 친구한테 추천할 거예요.','살다 · 현재 꾸미기 · ㄹ 조심']
+];
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((p,i)=>el("vlist").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="ko"><span class="num">${i+1}.</span> ${p[0]}</div><div class="lbl" style="margin-left:22px">${p[1]}</div></div>`));
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
+   <span class="ko">${a[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="ko">${a[3]}</span><span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson50_movie_review_manhada";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw50(){
+  const ta=el("hwtext"), msg=el("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 50 · 영화 이야기 ② 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 50 · 영화 이야기 ② 추천과 후기(-(으)ㄹ 만해요)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; delete store.hw; localStorage.setItem(KEY,JSON.stringify(store)); }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{
+  if(e.target.dataset.k) check(e.target);
+  else if(e.target.id==="hwtext"){ store.hw=e.target.value; localStorage.setItem(KEY,JSON.stringify(store)); }
+});
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+if(store.hw) el("hwtext").value=store.hw; // 숙제 임시 저장 복원
+updateScore();
+</script>
+</body>
+</html>
