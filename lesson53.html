@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 53 · AI 이야기 ③ AI, 어디까지 괜찮을까?</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  table.cmp{border-collapse:collapse;font-size:14px;margin:8px 0 2px;width:100%;}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.cmp th{background:#f3f4f6;}
+  table.cmp th.a{color:var(--warm);} table.cmp th.b{color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+  .ladder td:first-child{white-space:nowrap;}
+  .say .rs{color:var(--muted);font-size:13px;}
+  .formula{margin:8px 0 10px;padding:12px 14px;border:2px solid var(--accent);border-radius:10px;background:#f8fafc;text-align:center;font-size:19px;font-weight:700;}
+  .formula .minus{color:var(--warm);} .formula .plus{color:var(--ok);}
+  .formula .sub{font-size:13px;font-weight:500;color:var(--muted);margin-top:6px;}
+  .muted{color:var(--muted);font-size:12px;}
+  .stephead{font-weight:700;font-size:15px;color:var(--accent);margin:18px 0 6px;padding-top:12px;border-top:1px dashed var(--line);}
+  .rule .stephead:first-child{margin-top:2px;padding-top:0;border-top:none;}
+  .plain{margin:8px 0 2px;font-size:14.5px;line-height:1.8;}
+  table.cmp td.k b{color:var(--ok);}
+  .goal{margin:2px 0 10px;}
+  .goal:last-child{margin-bottom:0;}
+  .goal .gt{font-weight:700;color:#1f2937;}
+  .goal .gex{margin:3px 0 0 18px;color:#334155;}
+  .survey .q{margin:12px 0;}
+  .survey .qt{font-weight:700;font-size:15px;}
+  .survey textarea{width:100%;min-height:60px;font:inherit;padding:8px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7;margin-top:4px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .chip{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff;cursor:pointer;}
+  .chip:has(input:checked){border-color:var(--accent);background:var(--accent-soft);}
+  .pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:8px 0;}
+  .pc{background:#fff;border:1px solid #fed7aa;border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.6;}
+  .pc .pe{font-size:28px;line-height:1.2;margin-bottom:4px;}
+  .wordbox{background:#f8fafc;border:1px dashed var(--line);border-radius:8px;padding:8px 12px;font-size:14px;margin:6px 0 10px;color:#334155;}
+  .wordbox b{color:var(--accent);}
+  .pc .ptxt{background:#f8fafc;border-radius:8px;padding:8px 10px;margin-top:6px;font-size:14.5px;line-height:1.7;color:#1f2937;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 53 · AI 이야기 ③ AI, 어디까지 괜찮을까? <span class="sub">-(으)ㄹ 필요가 있어요 · 없어요</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">인공지능을 쓸 때 <b>꼭 해야 하는 것</b>과 <b>안 해도 되는 것</b>을 이야기해요: "답이 사실인지 <b>확인할 필요가 있어요</b>." · "모든 정보를 <b>줄 필요가 없어요</b>."</p>
+    <div class="note">
+      <div class="goal"><div class="gt">1. 해야 할 이유가 있으면 -(으)ㄹ 필요가 있어요</div>
+        <div class="gex">뉴스를 공유하기 전에 사실인지 <b>확인할 필요가 있어요</b>.</div></div>
+      <div class="goal"><div class="gt">2. 안 해도 되면 -(으)ㄹ 필요가 없어요</div>
+        <div class="gex">작은 실수예요. <b>걱정할 필요가 없어요</b>.</div></div>
+      <div class="goal"><div class="gt">3. 지난 일은 필요가 없었어요</div>
+        <div class="gex">답장이 바로 왔어요. 오래 <b>기다릴 필요가 없었어요</b>.</div></div>
+      <div class="goal"><div class="gt">4. 필요가 없어요는 "안 해도 돼요", -(으)면 안 돼요는 "하지 마세요"</div>
+        <div class="gex">이름은 <b>넣을 필요가 없어요</b>. · 비밀번호는 <b>넣으면 안 돼요</b>.</div></div>
+    </div>
+    <div class="series">
+      🤖 <b>철학 ③ AI 시리즈</b>: ① AI가 바꾼 하루(-게 되다) → ② AI는 생각할 수 있을까?(-(으)ㄹ지도 몰라요) → <b>③ AI, 어디까지 괜찮을까?(-(으)ㄹ 필요가 있어요, 오늘)</b> → ④ AI vs 사람(-는 반면에) → ⑤ 10년 후(-(으)려면) → 평가시험11 → 복습14
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L52 수업 · L52 숙제</span></h2>
+    <p class="lead">지난 수업과 숙제에서 어려웠던 말이에요. [ ] 안의 힌트를 보고 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (-(으)ㄹ 필요가 있어요 · 없어요)</span></h2>
+    <div class="rule">
+      <div class="stephead">STEP 1 · 뜻: 해야 할 이유가 있어요 · 안 해도 돼요</div>
+      <table class="cmp">
+        <tr><th style="width:50%" class="b">필요가 있어요 (해야 할 이유가 있어요)</th><th class="a">필요가 없어요 (안 해도 돼요)</th></tr>
+        <tr><td class="k">인공지능 답은 출처를 <b>확인할 필요가 있어요</b>.</td><td class="k">작은 실수예요. <b>걱정할 필요가 없어요</b>.</td></tr>
+        <tr><td class="k">비밀번호를 자주 <b>바꿀 필요가 있어요</b>.</td><td class="k">집에 우산이 있어요. 새 우산을 <b>살 필요가 없어요</b>.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 -(으)ㄹ 필요가 있어요 = "there's a need to ~, you should ~". -(으)ㄹ 필요가 없어요 = "there's no need to ~, you don't have to ~". 필요 is the noun you know from 필요해요 ("I need").</p>
+
+      <div class="stephead">STEP 2 · 만드는 법: -(으)ㄹ 거예요 모양 그대로</div>
+      <div class="formula">-(으)ㄹ <span class="minus">거예요</span> → -(으)ㄹ <span class="plus">필요가 있어요 · 없어요</span><div class="sub">필요 앞은 띄어요</div></div>
+      <p class="plain">확인할 거예요 → <b>확인할 필요가 있어요</b> · 믿을 거예요 → <b>믿을 필요가 없어요</b> · 알 거예요 → <b>알 필요가 없어요</b></p>
+      <p class="plain">🇬🇧 Same -(으)ㄹ shape as in L52: take the -(으)ㄹ 거예요 form and put 필요가 있어요 / 없어요 after it, with a space.</p>
+
+      <div class="stephead">STEP 3 · 시제: 지금 · 지난 일</div>
+      <table class="cmp">
+        <tr><th style="width:28%">언제</th><th>예</th></tr>
+        <tr><td>지금 · 앞으로</td><td class="k">보고서에 출처를 <b>쓸 필요가 있어요</b>. · 오늘은 <b>올 필요가 없어요</b>.</td></tr>
+        <tr><td>지난 일 (과거)</td><td class="k">답장이 바로 왔어요. 오래 <b>기다릴 필요가 없었어요</b>.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 Only the end changes for the past: 필요가 있었어요 / 없었어요. 기다릴 필요가 없었어요 = "I didn't need to wait (it turned out)".</p>
+
+      <div class="stephead">STEP 4 · 주의 두 가지</div>
+      <div class="warnbox">① <b>필요가 없어요 ≠ -(으)면 안 돼요</b>: 필요가 없어요는 "해도 되고, 안 해도 돼요". -(으)면 안 돼요(L13)는 "하지 마세요".</div>
+      <table class="cmp">
+        <tr><th style="width:24%"></th><th style="width:38%">-(으)ㄹ 필요가 없어요</th><th>-(으)면 안 돼요</th></tr>
+        <tr><td>뜻</td><td>안 해도 돼요 (해도 괜찮아요)</td><td>하지 마세요</td></tr>
+        <tr><td>예</td><td class="k">발표 디자인만 부탁하면 이름은 <b>넣을 필요가 없어요</b>.</td><td class="k">비밀번호는 챗봇에 <b>넣으면 안 돼요</b>.</td></tr>
+      </table>
+      <div class="warnbox">② <b>말할 때는 가를 자주 빼요</b>: 걱정할 필요가 없어요 = 걱정할 <b>필요 없어요</b>. 둘 다 맞아요. 이 레슨에서는 <b>필요가</b>까지 써요.</div>
+      <p class="plain">🇬🇧 ① "No need to" is not "must not". 넣을 필요가 없어요 = you don't have to put it in (it's OK if you do). 넣으면 안 돼요 = don't put it in. ② In speech 가 often drops: 필요 없어요. Both are correct; in this lesson's exercises, write 필요가.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. AI와 규칙 어휘 <span class="en">Words for AI rules & safety (10)</span></h2>
+    <p class="lead">인공지능을 안전하게 쓰는 이야기를 할 때 쓰는 말이에요. 51~52과 단어(<b>출처 · 가짜 · 흉내 내다 · 확실하다 · 의존하다</b>)도 다시 나와요.</p>
+    <div id="vlist"></div>
+  </section>
+
+  <section>
+    <h2>3. 필요가 있어요 · 없어요 만들기 <span class="en">Make the form · 입력 즉시 채점</span></h2>
+    <p class="lead">[ ] 안의 동사로 <b>-(으)ㄹ 필요가 있어요</b> 또는 <b>-(으)ㄹ 필요가 없어요</b>를 만드세요. "과거"면 <b>필요가 없었어요</b>. <b>필요가</b>까지 쓰고, 띄어쓰기도 정확히!</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 채우기 <span class="en">Complete the sentences</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요. 아래 <b>보기</b>에서 골라 쓰세요. 보기 하나는 안 써요.</p>
+    <div class="wordbox">보기: <b>사실</b> · <b>흉내</b> · <b>비밀번호</b> · <b>책임</b> · <b>조심해요</b> · <b>개인 정보</b> · <b>공유해요</b> · <b>허락</b> · <b>보호해야</b></div>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🤖 실전 대화 — 어디까지 괜찮을까? <span class="en">Where's the line?</span></h2>
+    <p class="lead">선생님과 <b>역할을 나눠 소리 내어</b> 읽어요. 그다음 대본을 덮고 <b>내 생각</b>으로 바꿔서 말해 봐요.</p>
+
+    <div class="subh">장면 ① 목요일 오후 사무실 · 동료 민준과</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">지호 씨, 내일 발표 자료를 챗봇한테 부탁하려고요. 고객 명단 파일을 그대로 올리면 되죠?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">명단에 뭐가 있는데요?</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">고객 쉰 명 이름하고 전화번호, 주소요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">잠깐만요. 고객 전화번호까지 <b>넣을 필요가 있어요</b>? 그건 개인 정보잖아요. 회사 밖으로 나가면 안 돼요.</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">아, 그렇네요. 그럼 숫자만 넣을까요? 지역별 고객 수요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">네, 그게 좋아요. 디자인만 부탁하면 이름은 <b>넣을 필요가 없어요</b>.</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">그리고 첫 장에 지난달 팀 회식 사진을 넣고 싶어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">좋은 생각이에요. 그런데 사진에 나온 동료들한테 허락을 <b>받을 필요가 있어요</b>.</span></div>
+      <div class="turn b"><span class="who">🧑 민준</span><span class="say">알겠어요. 아, 어젯밤에 고객 명단을 두 시간이나 정리했는데… <b>정리할 필요가 없었네요</b>.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">하하, 그래도 다음 달 보고서에 쓸 수 있을지도 몰라요.</span></div>
+    </div>
+
+    <div class="subh">장면 ② 토요일 저녁 · 도서관 철학 모임 "인공지능, 어디까지 괜찮을까?"</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">오늘 주제는 "인공지능, 어디까지 괜찮을까?"예요. 하은 씨가 할 이야기가 있다고 했죠?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">네. 지난주에 우리 할머니가 이상한 전화를 받으셨어요. 제 사촌 동생 목소리로 전화가 왔는데, "할머니, 급해요. 오백만 원만 보내 주세요."라고 했어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">인공지능이 목소리를 흉내 낸 거예요? 무섭네요.</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">네. 다행히 할머니가 전화를 끊고 사촌 동생한테 다시 전화하셨어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">그게 정답이에요. 그런 전화를 받으면 전화를 끊고 직접 <b>확인할 필요가 있어요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">그럼 인공지능을 아예 쓰지 말아야 할까요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">아니요, 인공지능을 <b>무서워할 필요가 없어요</b>. 규칙이 있으면 돼요. 예를 들면, 인공지능이 만든 사진이나 영상에는 표시를 <b>할 필요가 있어요</b>.</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">숙제는요? 인공지능이 고쳐 준 숙제를 선생님한테 말해야 해요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">저는 <b>숨길 필요가 없다고</b> 생각해요. "여기는 인공지능이 고쳐 줬어요"라고 말하면 돼요. 선생님도 그걸 알면 더 잘 도와줄 수 있어요.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">좋은 의견이에요. 다음 모임에서는 "인공지능 vs 사람, 뭐가 다를까?"를 이야기해요.</span></div>
+    </div>
+
+    <div class="subh">빈칸 채우기</div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 숙제 · 내가 인공지능을 쓸 때 지키는 규칙 <span class="en">Homework · my AI rules</span></h2>
+    <p class="lead">회사 · 공부 · 집 중에서 하나를 골라, 인공지능을 쓸 때 <b>내 규칙</b>을 5~6문장으로 써 보세요.</p>
+    <ul style="font-size:14.5px;margin:6px 0 4px;padding-left:20px;line-height:1.9">
+      <li>꼭 해야 하는 것 <b>-(으)ㄹ 필요가 있어요 2번</b></li>
+      <li>안 해도 되는 것 <b>-(으)ㄹ 필요가 없어요 1번</b></li>
+      <li>하면 안 되는 것 <b>-(으)면 안 돼요 1번</b> (L13)</li>
+    </ul>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 저는 한국어를 공부할 때 인공지능을 써요. 그런데 규칙이 있어요. 먼저 인공지능 답이 맞는지 사전으로 확인할 필요가 있어요. 인공지능도 틀릴지도 모르기 때문이에요. 그리고 고쳐 준 문장을 소리 내어 읽을 필요가 있어요. 하지만 모든 숙제를 인공지능한테 보여 줄 필요가 없어요. 숙제를 전부 인공지능한테 쓰게 하면 안 돼요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요</div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="저는 … 때 인공지능을 써요. 그런데 규칙이 있어요."></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw53()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 원리 설명하기 (5분): 질문으로 진행해요</h3>
+    <p class="lead">원리 STEP 1~4를 차례로 보면서, 선생님이 묻고 학습자가 답해요.</p>
+    <ul>
+      <li><b>STEP 1</b> · "인공지능 답, 그대로 믿어도 돼요?" → 출처를 <b>확인할 필요가 있어요</b> · "작은 실수를 했어요. 걱정해야 해요?" → <b>걱정할 필요가 없어요</b></li>
+      <li><b>STEP 2</b> · "확인하다? 믿다? 알다?" → <b>확인할 · 믿을 · 알 필요가</b> … (먼저 -(으)ㄹ 거예요로 말하게 하면 쉬워요)</li>
+      <li><b>STEP 3</b> · "답장이 바로 왔어요. 오래 기다렸어요?" → 아니요, <b>기다릴 필요가 없었어요</b></li>
+      <li><b>STEP 4</b> · "이름은 넣을 필요가 없어요 / 비밀번호는 넣으면 안 돼요, 뭐가 달라요?" → 안 해도 돼요 / 하지 마세요 · 말할 때 "필요 없어요"도 맞다는 것만 짧게</li>
+    </ul>
+
+    <h3>② 문제 해결 (10분): "이럴 땐 어떻게 해요?"</h3>
+    <p class="lead">상황 카드를 학습자가 읽고 <b>해결 방법</b>을 말해요. 카드마다 <b>3문장 이상</b>: 해야 할 것(필요가 있어요) + 안 해도 되는 것(필요가 없어요) + 하면 안 되는 것(-(으)면 안 돼요). 학습자가 말한 뒤 선생님이 🔒 반대 의견을 <b>한 번</b> 던지고, 학습자가 다시 대답해요.</p>
+    <div class="pcards">
+      <div class="pc"><div class="pe">📷</div><b>A · 가짜 사진</b><div class="ptxt">가족 단톡방에 "토론토에 눈 1미터!" 사진이 올라왔어요. 이모는 벌써 다른 단톡방에 공유했어요.</div></div>
+      <div class="pc"><div class="pe">📞</div><b>B · 목소리 전화</b><div class="ptxt">엄마 목소리로 전화가 왔어요. "급해. 지금 바로 이 계좌로 돈 좀 보내 줘."</div></div>
+      <div class="pc"><div class="pe">📝</div><b>C · 숙제</b><div class="ptxt">친구가 인공지능으로 숙제를 전부 썼어요. 선생님은 아직 몰라요.</div></div>
+      <div class="pc"><div class="pe">🏢</div><b>D · 회사</b><div class="ptxt">동료가 회의 녹음 파일을 무료 챗봇에 올려서 요약하려고 해요. 회의에서 새 프로젝트 예산 이야기를 했어요.</div></div>
+    </div>
+    <div class="pcards">
+      <div class="pc"><div class="pe">🎤</div><b>학습자 카드 · 말할 때 쓰는 말</b><br>· "먼저 …을/를 <b>확인할 필요가 있어요</b>."<br>· "…은/는 <b>할 필요가 없어요</b>."<br>· "…<b>-(으)면 안 돼요</b>."<br>· "왜냐하면 …<b>-(으)ㄹ지도 모르기 때문이에요</b>."</div>
+      <div class="pc"><div class="pe">👩‍🏫</div><b>선생님 카드 · 반대 의견</b> <button class="hintbtn" onclick="toggleModel('tcard')">🔒 선생님만 보기</button><div class="model" id="tcard" style="color:var(--ink);background:#fff;border-color:#fed7aa">A "근데 진짜일지도 몰라요! 사진이 너무 진짜 같아요."<br>B "엄마 목소리가 확실해요. 전화를 끊으면 엄마가 화낼지도 몰라요."<br>C "친구가 혼날지도 몰라요. 그냥 모르는 척하면 안 돼요?"<br>D "유료 챗봇은 비싸요. 이번 한 번만 올려도 되지 않아요?"<br><span style="color:var(--muted)">반대 의견은 한 번만. 학습자가 이유(왜냐하면 … 때문이에요)로 다시 길게 말하게 해요. C는 정답이 없어서 제일 길게 말할 수 있어요.</span></div></div>
+    </div>
+
+    <p class="lead">다음: <b>L54 AI vs 사람</b>(-는 반면에). 장면 ②의 마지막 주제로 이어져요.</p>
+    <p class="lead" style="color:var(--warm)">수업 말하기 목표(대본 없이): ② 카드 4장 중 3장 이상에서 <b>필요가 있어요 1번 + 필요가 없어요 1번 + -(으)면 안 돼요 1번</b>, 반대 의견에 이유로 다시 대답하기.<br>숙제는 6번 섹션(내 규칙 쓰기 5~6문장) → 제출.</p>
+  </div>
+
+  <footer>Lesson 53 / AI 이야기 ③ AI, 어디까지 괜찮을까? · -(으)ㄹ 필요가 있어요 · 철학 ③ AI 시리즈 ③</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[ // [예문, 영어]
+  ['인터넷에 <b>개인 정보</b>를 올리면 위험해요.','개인 정보 = personal information (name, phone number, address)'],
+  ['<b>비밀번호</b>는 아무한테도 알려 주면 안 돼요.','비밀번호 = password'],
+  ['재미있는 글은 친구들하고 <b>공유해요</b>.','공유하다 = to share (a file, a post)'],
+  ['아이들의 개인 정보는 꼭 <b>보호해야</b> 해요.','보호하다 = to protect'],
+  ['다른 사람 사진을 쓸 때는 <b>허락</b>을 받을 필요가 있어요.','허락(을) 받다 = to get permission'],
+  ['<b>가짜 뉴스</b>는 출처가 확실하지 않아요.','가짜 뉴스 = fake news · 가짜 · 확실하다 · 출처 (L52)'],
+  ['그 이야기가 <b>사실</b>인지 확인해 보세요.','사실 = fact, truth'],
+  ['모르는 전화번호는 <b>조심하세요</b>.','조심하다 = to be careful'],
+  ['인공지능이 실수하면 누구 <b>책임</b>이에요?','책임 = responsibility · 책임지다 = to take responsibility'],
+  ['인공지능을 쓸 때도 <b>규칙</b>이 필요해요.','규칙 = rule (L52 숙제에서 고친 단어) · 의존하다 (L51)']
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['기계 + 이다 · -(으)ㄹ지도 몰라요 (L52 수업)','답장이 너무 빨라요. 사람이 아니라 ','기계일지도 몰라요','.'],
+  ['쓰다 · 과거 · -(으)ㄹ지도 몰라요 (L52 수업)','너무 완벽해요. 이 글은 인공지능이 ','썼을지도 몰라요','.'],
+  ['숨기다 · hide something (L52 숙제)','규칙을 만드는 사람들이 어떤 생각을 ','숨길지도 몰라요','.'],
+  ['왜냐하면 … 짝 · 하다 (L52 숙제)','왜냐하면 인공지능은 논리적인 생각을 ','하기 때문이에요','.'],
+  ['생각하다 + 때 · 띄어쓰기 (L52 숙제)','사람들은 ','생각할 때',' 자연스럽게 단어를 써요.']
+];
+const ADV=[ // [힌트, 앞, 정답, 뒤]
+  ['확인하다 · 있어요','뉴스를 공유하기 전에 사실인지 ','확인할 필요가 있어요',' .'],
+  ['걱정하다 · 없어요','작은 실수예요. ','걱정할 필요가 없어요',' .'],
+  ['믿다 · 없어요 · 받침','챗봇 말을 그대로 ','믿을 필요가 없어요',' .'],
+  ['알다 · 없어요 · ㄹ 받침','운전할 때 엔진 원리까지 ','알 필요가 없어요',' .'],
+  ['듣다 · 없어요 · ㄷ 불규칙','그 강의는 처음부터 다시 ','들을 필요가 없어요',' .'],
+  ['바꾸다 · 있어요','비밀번호를 자주 ','바꿀 필요가 있어요',' .'],
+  ['쓰다 · 있어요','보고서에 출처를 ','쓸 필요가 있어요',' .'],
+  ['받다 · 있어요','다른 사람 사진을 쓸 때는 허락을 ','받을 필요가 있어요',' .'],
+  ['사다 · 과거 · 없어요','집에 우산이 있었어요. 새 우산을 ','살 필요가 없었어요',' .'],
+  ['기다리다 · 과거 · 없어요','답장이 바로 왔어요. 오래 ','기다릴 필요가 없었어요',' .']
+];
+const EXP=[ // [앞, 정답(|), 뒤, 힌트]
+  ['인터넷에 ','개인 정보|개인정보','를 올리면 위험해요.','personal information · 보기에서'],
+  ['','비밀번호','는 아무한테도 알려 주면 안 돼요.','password · 보기에서'],
+  ['좋은 글은 친구들하고 ','공유해요',' .','share · 보기에서'],
+  ['이 영상은 인공지능이 유명한 사람 목소리를 ','흉내',' 낸 거예요.','imitate (L52) · 보기에서'],
+  ['그 이야기가 ','사실','인지 확인할 필요가 있어요.','fact · 보기에서'],
+  ['아이들의 정보는 꼭 ','보호해야',' 해요.','protect + -아/어야 · 보기에서'],
+  ['회사 사진을 쓰기 전에 ','허락','을 받을 필요가 있어요.','permission · 보기에서'],
+  ['인공지능이 실수하면 누구 ','책임','이에요?','responsibility · 보기에서']
+];
+const DLG=[ // 실전 대화 [앞, 정답, 뒤, 힌트]
+  ['고객 전화번호까지 ','넣을 필요가 있어요','?','넣다 · 있어요'],
+  ['디자인만 부탁하면 이름은 ','넣을 필요가 없어요',' .','넣다 · 없어요'],
+  ['사진에 나온 동료들한테 허락을 ','받을 필요가 있어요',' .','받다 · 있어요'],
+  ['어젯밤에 고객 명단을 두 시간이나 정리했는데… ','정리할 필요가 없었네요',' .','정리하다 · 과거 + -네요'],
+  ['그런 전화를 받으면 전화를 끊고 직접 ','확인할 필요가 있어요',' .','확인하다 · 있어요'],
+  ['아니요, 인공지능을 ','무서워할 필요가 없어요',' .','무서워하다 · 없어요'],
+  ['인공지능이 만든 사진이나 영상에는 표시를 ','할 필요가 있어요',' .','하다 · 있어요'],
+  ['저는 ','숨길 필요가 없다고',' 생각해요.','숨기다 · 없다 + -다고 (L47)']
+];
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((p,i)=>el("vlist").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="ko"><span class="num">${i+1}.</span> ${p[0]}</div><div class="lbl" style="margin-left:22px">${p[1]}</div></div>`));
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
+   <span class="ko">${a[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="ko">${a[3]}</span><span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson53_ai_pilyo";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw53(){
+  const ta=el("hwtext"), msg=el("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 53 · AI 이야기 ③ 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 53 · AI 이야기 ③ AI, 어디까지 괜찮을까?(-(으)ㄹ 필요가 있어요)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; delete store.hw; localStorage.setItem(KEY,JSON.stringify(store)); }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{
+  if(e.target.dataset.k) check(e.target);
+  else if(e.target.id==="hwtext"){ store.hw=e.target.value; localStorage.setItem(KEY,JSON.stringify(store)); }
+});
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+if(store.hw) el("hwtext").value=store.hw; // 숙제 임시 저장 복원
+updateScore();
+</script>
+</body>
+</html>

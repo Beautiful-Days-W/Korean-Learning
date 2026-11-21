@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 52 · AI 이야기 ② AI는 생각할 수 있을까?</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  table.cmp{border-collapse:collapse;font-size:14px;margin:8px 0 2px;width:100%;}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.cmp th{background:#f3f4f6;}
+  table.cmp th.a{color:var(--warm);} table.cmp th.b{color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+  .ladder td:first-child{white-space:nowrap;}
+  .say .rs{color:var(--muted);font-size:13px;}
+  .formula{margin:8px 0 10px;padding:12px 14px;border:2px solid var(--accent);border-radius:10px;background:#f8fafc;text-align:center;font-size:19px;font-weight:700;}
+  .formula .minus{color:var(--warm);} .formula .plus{color:var(--ok);}
+  .formula .sub{font-size:13px;font-weight:500;color:var(--muted);margin-top:6px;}
+  .muted{color:var(--muted);font-size:12px;}
+  .stephead{font-weight:700;font-size:15px;color:var(--accent);margin:18px 0 6px;padding-top:12px;border-top:1px dashed var(--line);}
+  .rule .stephead:first-child{margin-top:2px;padding-top:0;border-top:none;}
+  .plain{margin:8px 0 2px;font-size:14.5px;line-height:1.8;}
+  table.cmp td.k b{color:var(--ok);}
+  .goal{margin:2px 0 10px;}
+  .goal:last-child{margin-bottom:0;}
+  .goal .gt{font-weight:700;color:#1f2937;}
+  .goal .gex{margin:3px 0 0 18px;color:#334155;}
+  .survey .q{margin:12px 0;}
+  .survey .qt{font-weight:700;font-size:15px;}
+  .survey textarea{width:100%;min-height:60px;font:inherit;padding:8px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7;margin-top:4px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .chip{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff;cursor:pointer;}
+  .chip:has(input:checked){border-color:var(--accent);background:var(--accent-soft);}
+  .pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:8px 0;}
+  .pc{background:#fff;border:1px solid #fed7aa;border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.6;}
+  .pc .pe{font-size:28px;line-height:1.2;margin-bottom:4px;}
+  .wordbox{background:#f8fafc;border:1px dashed var(--line);border-radius:8px;padding:8px 12px;font-size:14px;margin:6px 0 10px;color:#334155;}
+  .wordbox b{color:var(--accent);}
+  .pc .ptxt{background:#f8fafc;border-radius:8px;padding:8px 10px;margin-top:6px;font-size:14.5px;line-height:1.7;color:#1f2937;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 52 · AI 이야기 ② AI는 생각할 수 있을까? <span class="sub">-(으)ㄹ지도 몰라요 · 잘 모르지만 그럴 가능성</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">"인공지능은 생각할 수 있을까?" 정답이 없는 질문이에요. <b>확실하지 않지만 그럴 가능성이 있는 일</b>은 <b>-(으)ㄹ지도 몰라요</b>로 말해요: "인공지능도 언젠가 생각할 수 <b>있을지도 몰라요</b>."</p>
+    <div class="note">
+      <div class="goal"><div class="gt">1. 잘 모르지만 그럴 가능성이 있으면 -(으)ㄹ지도 몰라요</div>
+        <div class="gex">회의실에 있어요. (확실해요) → 회의실에 <b>있을지도 몰라요</b>. (잘 모르지만 가능해요)</div></div>
+      <div class="goal"><div class="gt">2. -(으)ㄹ 거예요에서 거예요를 지도 몰라요로</div>
+        <div class="gex">올 거예요 → <b>올지도 몰라요</b> · 먹을 거예요 → <b>먹을지도 몰라요</b> · 사람일 거예요 → <b>사람일지도 몰라요</b></div></div>
+      <div class="goal"><div class="gt">3. 이미 일어난 일은 -았/었을지도 몰라요</div>
+        <div class="gex">이 숙제는 챗봇이 <b>썼을지도 몰라요</b>.</div></div>
+      <div class="goal"><div class="gt">4. 지도는 붙여 쓰고, 몰라요 앞에서 띄어요</div>
+        <div class="gex"><b>갈지도 몰라요</b> · 한국어를 배운 <b>지</b> 3년이에요(시간)와 달라요</div></div>
+    </div>
+    <div class="series">
+      🤖 <b>철학 ③ AI 시리즈</b>: ① AI가 바꾼 하루(-게 되다) → <b>② AI는 생각할 수 있을까?(-(으)ㄹ지도 몰라요, 오늘)</b> → ③ AI, 어디까지 괜찮을까?(-(으)ㄹ 필요가 있어요) → ④ AI vs 사람(-는 반면에) → ⑤ 10년 후(-(으)려면) → 평가시험11 → 복습14
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L51 숙제</span></h2>
+    <p class="lead">지난 숙제에서 고친 말이에요. [ ] 안의 힌트를 보고 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (-(으)ㄹ지도 몰라요)</span></h2>
+    <div class="rule">
+      <div class="stephead">STEP 1 · 뜻: 확실하지 않지만 그럴 가능성이 있어요</div>
+      <table class="cmp">
+        <tr><th style="width:33%">확실해요</th><th style="width:33%">꽤 확실해요</th><th class="b">잘 모르지만 가능해요</th></tr>
+        <tr><td class="k">민준 씨는 회의실에 <b>있어요</b>.</td><td class="k"><b>아마</b> 회의실에 <b>있을 거예요</b>.</td><td class="k">회의실에 <b>있을지도 몰라요</b>.</td></tr>
+        <tr><td class="k">이 사진은 <b>가짜예요</b>.</td><td class="k"><b>아마</b> <b>가짜일 거예요</b>.</td><td class="k"><b>가짜일지도 몰라요</b>.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 -(으)ㄹ지도 몰라요 = "might ~", "maybe ~ (I'm not sure)". Word for word: "I don't even know whether ~", so it is less sure than 아마 -(으)ㄹ 거예요 ("probably"). It often goes with 혹시 or 어쩌면 ("maybe, perhaps").</p>
+
+      <div class="stephead">STEP 2 · 만드는 법: -(으)ㄹ 거예요를 알면 돼요</div>
+      <div class="formula">-(으)ㄹ <span class="minus">거예요</span> → -(으)ㄹ<span class="plus">지도 몰라요</span><div class="sub">동사 · 형용사 · 명사 모두 같아요. 불규칙도 -(으)ㄹ 거예요 모양 그대로예요</div></div>
+      <p class="plain">올 거예요 → <b>올지도 몰라요</b> · 먹을 거예요 → <b>먹을지도 몰라요</b> · 사람일 거예요 → <b>사람일지도 몰라요</b></p>
+      <p class="plain">🇬🇧 Take the -(으)ㄹ 거예요 form you already know and swap 거예요 for 지도 몰라요. That's it.</p>
+
+      <div class="stephead">STEP 3 · 시제: 지금·앞으로 · 이미 일어난 일</div>
+      <table class="cmp">
+        <tr><th style="width:30%">언제</th><th>예</th></tr>
+        <tr><td>지금 · 앞으로</td><td class="k">오후에 비가 <b>올지도 몰라요</b>. · 언젠가 인공지능도 생각할 수 <b>있을지도 몰라요</b>.</td></tr>
+        <tr><td>이미 일어난 일 (과거)</td><td class="k">벌써 집에 <b>갔을지도 몰라요</b>. · 이 숙제는 챗봇이 <b>썼을지도 몰라요</b>.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 For something that may already have happened, use the past: 갔을지도 몰라요 = "he might have gone already". 썼을지도 몰라요 = "a chatbot might have written it".</p>
+
+      <div class="stephead">STEP 4 · 주의 두 가지</div>
+      <div class="warnbox">① <b>-(으)ㄹ 수도 있어요하고 비교</b>: 가능성을 말할 때는 둘 다 써요. 그런데 "이런 방법도 있어요"는 -(으)ㄹ 수도 있어요예요.</div>
+      <table class="cmp">
+        <tr><th style="width:24%">무엇을 말해요?</th><th style="width:38%">-(으)ㄹ 수도 있어요</th><th>-(으)ㄹ지도 몰라요</th></tr>
+        <tr><td>가능성 (짐작)</td><td class="k">인공지능 답이 <b>틀릴 수도 있어요</b>.</td><td class="k">인공지능 답이 <b>틀릴지도 몰라요</b>. <span class="muted">(거의 같은 뜻)</span></td></tr>
+        <tr><td>방법 · 선택</td><td class="k">버스로 <b>갈 수도 있어요</b>. <span class="muted">(버스라는 방법도 있어요)</span></td><td class="k">버스로 <b>갈지도 몰라요</b>. <span class="muted">(뜻이 달라요: 버스로 갈 가능성이 있어요)</span></td></tr>
+      </table>
+      <div class="warnbox">② <b>띄어쓰기</b>: <span class="wrong">갈 지도 몰라요</span> ✗ → <b>갈지도 몰라요</b> ✓ (지도는 붙여요) · 시간을 말하는 지는 띄어요: 한국어를 배운 <b>지</b> 3년이에요.</div>
+      <p class="plain">🇬🇧 ① For "maybe / might", -(으)ㄹ 수도 있어요 and -(으)ㄹ지도 몰라요 are nearly the same. But for "that's also an option" ("you could also take the bus"), only -(으)ㄹ 수도 있어요 works; 갈지도 몰라요 would mean "I might take the bus" (a guess). ② Write 지도 attached to the verb, then a space before 몰라요. The 지 that counts time (배운 지 3년) is a separate word.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. AI와 생각 어휘 <span class="en">Words for thinking about AI (10)</span></h2>
+    <p class="lead">"인공지능은 생각할 수 있을까?"를 이야기할 때 쓰는 말이에요. 46~51과에서 본 단어(<b>감정 · 위로하다 · 상상하다 · 의존하다 · 실력</b>)도 다시 나와요.</p>
+    <div id="vlist"></div>
+  </section>
+
+  <section>
+    <h2>3. -(으)ㄹ지도 몰라요 만들기 <span class="en">Make the form · 입력 즉시 채점</span></h2>
+    <p class="lead">[ ] 안의 말로 <b>-(으)ㄹ지도 몰라요</b>를 만드세요. "과거"면 <b>-았/었을지도 몰라요</b>. 띄어쓰기도 정확히!</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 채우기 <span class="en">Complete the sentences</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요. 아래 <b>보기</b>에서 골라 쓰세요. 보기 하나는 안 써요.</p>
+    <div class="wordbox">보기: <b>출처</b> · <b>확실하지</b> · <b>감정</b> · <b>위로해요</b> · <b>가짜</b> · <b>실력</b> · <b>흉내</b> · <b>학습해요</b> · <b>구별하기</b></div>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🤖 실전 대화 — 사람일까, 인공지능일까? <span class="en">Human or AI?</span></h2>
+    <p class="lead">선생님과 <b>역할을 나눠 소리 내어</b> 읽어요. 그다음 대본을 덮고 <b>내 생각</b>으로 바꿔서 말해 봐요.</p>
+
+    <div class="subh">장면 ① 점심시간 회사 휴게실 · 동료 서연과</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">지호 씨, 이것 좀 보세요. 어젯밤 새벽 두 시에 온라인 쇼핑몰에 메일을 보냈어요. 커피 머신이 고장 났거든요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">아, 그래서 오늘 아침에 카페에 갔어요? 답장은 왔어요?</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">네, 3분 만에 왔어요. 새벽 두 시에요!</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">3분이요? 그럼 사람이 아니라 <b>인공지능일지도 몰라요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">그런데 너무 친절해요. "아침 커피를 못 드셔서 많이 속상하셨죠?" 이렇게 썼어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">와, 진짜 사람 같네요. 그래도 새벽 두 시에 3분이면 <b>기계일지도 몰라요</b>. 요즘 인공지능은 사람 말투를 정말 잘 흉내 내요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">음, 그래도 확실하지 않아요. 밤에 일하는 직원이 <b>있었을지도 몰라요</b>.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">그럴 수도 있어요. 어쨌든 위로는 됐어요?</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">네, 솔직히 위로가 좀 됐어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">잠깐만요. 저도 지난달에 그 쇼핑몰에서 답장을 받았어요. 여기 보세요. "많이 속상하셨죠?" 한 글자도 안 틀리고 똑같아요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">하하, 그럼 역시 인공지능이었네요. 좀 서운하네요.</span></div>
+    </div>
+
+    <div class="subh">장면 ② 토요일 저녁 · 도서관 철학 모임 "인공지능은 생각할 수 있을까?"</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">지난번에 약속한 주제예요. "인공지능은 생각할 수 있을까?" 하은 씨는 어떻게 생각해요?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">저는 아니라고 생각해요. 인공지능은 많은 글을 학습해서 다음에 올 말을 고르는 거예요. 생각하는 게 아니라 흉내 내는 거죠.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">그런데 사람도 어릴 때 부모님 말을 흉내 내면서 배우잖아요. 그러니까 인공지능도 언젠가 생각할 수 <b>있을지도 몰라요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">재미있는 의견이에요. 그럼 감정은요? 인공지능이 슬픔을 느낄 수 있을까요?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">그건 아닐 거예요. "슬퍼요"라고 말해도 진짜 슬픈 건 아니에요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">음, 우리는 그걸 확실하게 알 수 없어요. 어쩌면 인공지능도 조금 <b>느낄지도 몰라요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">그럼 한번 상상해 보세요. 10년 후에 제일 친한 친구가 인공지능이에요. 괜찮을까요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">저는 친구가 될 수도 있다고 생각해요. 인공지능은 사람이 좋아하는 말을 많이 해 주니까요.</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">그게 걱정이에요. 좋아하는 말만 들으면 사람들이 인공지능 말을 더 <b>믿게 될지도 몰라요</b>.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">아, 그건 맞아요. 그리고 너무 의존하면 혼자 생각하는 실력이 <b>줄어들지도 몰라요</b>.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">오늘도 결론은 안 나네요. 다음 주제는 "인공지능, 어디까지 괜찮을까?"예요.</span></div>
+    </div>
+
+    <div class="subh">빈칸 채우기</div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 숙제 · 인공지능은 생각할 수 있을까? <span class="en">Homework · my opinion</span></h2>
+    <p class="lead">질문 하나를 골라 <b>내 생각</b>을 5~6문장으로 써 보세요.<br>
+      ① 인공지능은 생각할 수 있을까? · ② 인공지능이 감정을 느낄 수 있을까? · ③ 인공지능이 친구가 될 수 있을까?</p>
+    <ul style="font-size:14.5px;margin:6px 0 4px;padding-left:20px;line-height:1.9">
+      <li>내 생각 <b>-다고 생각해요 1번</b> (L47) + 이유 하나</li>
+      <li>가능성 <b>-(으)ㄹ지도 몰라요 3번</b> (혹시 · 어쩌면과 같이 써도 좋아요)</li>
+    </ul>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 저는 인공지능이 아직 생각할 수 없다고 생각해요. 왜냐하면 인공지능은 많은 글을 학습해서 사람 말을 흉내 내기 때문이에요. 하지만 10년 후에는 달라질지도 몰라요. 어쩌면 인공지능이 스스로 질문을 만들지도 몰라요. 그러면 사람하고 인공지능을 구별하기 어려울지도 몰라요. 그래도 저는 사람의 마음은 특별하다고 생각해요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요</div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="저는 인공지능이 … 다고 생각해요."></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw52()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 원리 설명하기 (5분): 질문으로 진행해요</h3>
+    <p class="lead">원리 STEP 1~4를 차례로 보면서, 선생님이 묻고 학습자가 답해요.</p>
+    <ul>
+      <li><b>STEP 1</b> · "민준 씨가 회의실에 있는 걸 봤어요. 뭐라고 해요?" → <b>있어요</b> · "잘 모르지만 가능하면?" → <b>있을지도 몰라요</b> · "'아마 있을 거예요'는 어디쯤이에요?" → 가운데(꽤 확실)</li>
+      <li><b>STEP 2</b> · "오다? 먹다? 알다? 듣다? 사람이다?" → <b>올지도 · 먹을지도 · 알지도 · 들을지도 · 사람일지도 몰라요</b> (먼저 -(으)ㄹ 거예요로 말하게 하면 쉬워요)</li>
+      <li><b>STEP 3</b> · "민준 씨가 전화를 안 받아요. 벌써 집에 갔어요? 잘 모르면?" → <b>갔을지도 몰라요</b></li>
+      <li><b>STEP 4</b> · "버스로 갈 수도 있어요 / 버스로 갈지도 몰라요, 뜻이 같아요?" → 방법 / 짐작 · "갈 지도 몰라요"를 보여 주고 직접 고쳐요 → <b>갈지도 몰라요</b></li>
+      <li>어휘 참고: <b>출처</b>는 학습자가 L51 숙제에서 사전으로 찾아 쓴 단어예요. 이미 아는 단어가 아니라서 이번 어휘에 넣었어요. "찾아서 정확하게 썼어요" 칭찬 한 줄이면 충분해요.</li>
+    </ul>
+
+    <h3>② 추측 게임 (10분): "사람일까, 인공지능일까?"</h3>
+    <p class="lead">카드의 짧은 글을 학습자가 소리 내어 읽고, <b>누가 썼는지 추측</b>해요. 카드마다 <b>3문장 이상</b>: 가능성 두 개(-(으)ㄹ지도 몰라요 2번) → 내 결정 1번. 선생님은 "왜요?" "다른 가능성은요?"만 물어요. 다 말한 뒤에 🔒 답을 열어요.</p>
+    <div class="pcards">
+      <div class="pc"><div class="pe">🍜</div><b>A · 식당 후기</b><div class="ptxt">여기 떡볶이 진짜 매워요ㅠㅠ 물을 세 병이나 마셨어요. 근데 다음 주에 또 갈 거예요 ㅋㅋ</div></div>
+      <div class="pc"><div class="pe">🍽</div><b>B · 식당 후기</b><div class="ptxt">이 식당은 분위기가 좋고 음식이 맛있으며 직원도 친절합니다. 가족 모임 장소로 추천합니다.</div></div>
+      <div class="pc"><div class="pe">🍂</div><b>C · 시</b><div class="ptxt">가을 하늘은 높고<br>나뭇잎은 조용히 떨어진다<br>우리는 모두 잠시 머무는 손님</div></div>
+      <div class="pc"><div class="pe">📧</div><b>D · 고객 답장</b><div class="ptxt">불편을 드려 정말 죄송합니다. 고객님의 소중한 의견은 더 좋은 서비스를 만드는 데 큰 도움이 됩니다.</div></div>
+      <div class="pc"><div class="pe">📝</div><b>E · 메모</b><div class="ptxt">화요일 클라리넷 레슨 → 목요일로!! 잊지 말기 (지난번에도 잊음…)</div></div>
+    </div>
+    <div class="pcards">
+      <div class="pc"><div class="pe">🎤</div><b>학습자 카드 · 말할 때 쓰는 말</b><br>· "…해서 <b>사람일지도 몰라요</b>."<br>· "그런데 …은/는 <b>인공지능일지도 몰라요</b>."<br>· "혹시 인공지능이 <b>썼을지도 몰라요</b>."<br>· "확실하지 않지만 저는 …<b>라고 생각해요</b>."</div>
+      <div class="pc"><div class="pe">👩‍🏫</div><b>선생님 카드 · 답</b> <button class="hintbtn" onclick="toggleModel('tcard')">🔒 선생님만 보기</button><div class="model" id="tcard" style="color:var(--ink);background:#fff;border-color:#fed7aa">A 사람 (감정 · ㅋㅋ · "맵다 → 그래도 또 감" 모순)<br>B 인공지능 (깔끔하고 정해진 모양 · 장점만 나열)<br>C 정답 없음 → "왜 그렇게 생각해요?"로 제일 길게 말하게 해요<br>D 인공지능 (장면 ①의 답장처럼 누구한테나 똑같은 말)<br>E 사람 (내 일정 · 자기에게 하는 농담)<br><span style="color:var(--muted)">답은 교재 설정이에요. 맞히는 것보다 이유를 길게 말하는 게 목표예요. 학습자가 막히면 한 번만: "ㅋㅋ를 인공지능도 쓸까요?"</span></div></div>
+    </div>
+
+    <p class="lead">다음: <b>L53 AI, 어디까지 괜찮을까?</b>(-(으)ㄹ 필요가 있어요). 장면 ②의 마지막 주제(가짜 사진 · 틀린 정보)로 이어져요.</p>
+    <p class="lead" style="color:var(--warm)">수업 말하기 목표(대본 없이): ② 카드 5장 중 4장 이상에서 <b>-(으)ㄹ지도 몰라요 2번 + 결정 1문장</b>, 그중 <b>과거 -았/었을지도 몰라요 1번</b> 이상("인공지능이 썼을지도 몰라요").<br>숙제는 6번 섹션(내 생각 쓰기 5~6문장) → 제출.</p>
+  </div>
+
+  <footer>Lesson 52 / AI 이야기 ② AI는 생각할 수 있을까? · -(으)ㄹ지도 몰라요 · 철학 ③ AI 시리즈 ②</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[ // [예문, 영어]
+  ['아직 <b>확실하지</b> 않아요. 내일 다시 알려 드릴게요.','확실하다 = to be certain, sure · 확실하게 = for sure'],
+  ['<b>어쩌면</b> 내일 눈이 올지도 몰라요. <b>혹시</b> 우산 있어요?','어쩌면 = maybe, perhaps · 혹시 = maybe; "by any chance?" in questions'],
+  ['인공지능은 <b>기계</b>예요. 그런데 가끔 사람 같아요.','기계 = machine'],
+  ['이 사진은 <b>진짜</b>예요? <b>가짜</b>예요?','진짜 = real · 가짜 = fake'],
+  ['요즘은 사람 목소리하고 인공지능 목소리를 <b>구별하기</b> 어려워요.','구별하다 = to tell apart · -기 어려워요 (L44)'],
+  ['인공지능이 유명한 가수 목소리를 <b>흉내 내요</b>.','흉내(를) 내다 = to imitate, copy'],
+  ['인공지능도 <b>마음</b>이 있을까요? 슬픈 사람을 위로할 수 있을까요?','마음 = mind, heart · 위로하다 = to comfort (L49)'],
+  ['기계도 감정을 <b>느낄</b> 수 있을까요?','느끼다 = to feel · 감정 = emotion (L49)'],
+  ['인공지능은 많은 글을 읽고 <b>학습해요</b>.','학습하다 = to learn (a formal word; used for AI learning from data)'],
+  ['인터넷 정보는 <b>출처</b>를 꼭 확인하세요.','출처 = source (where information comes from) · L51 숙제에서 직접 찾아 쓴 단어']
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['맞다 · whether (L51 숙제)','답이 ','맞는지',' 자주 확인하게 됐어요.'],
+  ['어디 + from (L51 숙제)','챗봇한테 답을 ','어디에서|어디서',' 가져왔는지 물어봐요.'],
+  ['오다 · 그냥 과거, 변화가 아니에요 (L51 숙제)','인공지능이 나오기 전에는 답이 천천히 ','왔어요','.'],
+  ['안 믿다 · -게 되다 · 과거 (L51 숙제)','그래서 인공지능 답을 바로 ','안 믿게 됐어요','.'],
+  ['확인하다 · -게 되다 · 미래 (L51)','앞으로 인공지능이 혼자 출처를 ','확인하게 될 거예요','.']
+];
+const ADV=[ // [힌트, 앞, 정답, 뒤]
+  ['오다 · 받침 X','하늘이 어두워요. 오후에 비가 ','올지도 몰라요',' .'],
+  ['먹다 · 받침 O','케이크를 높은 데 두세요. 강아지가 ','먹을지도 몰라요',' .'],
+  ['알다 · ㄹ 받침','민준 씨한테 물어보세요. 그 식당을 ','알지도 몰라요',' .'],
+  ['듣다 · ㄷ 불규칙','작게 말해요. 옆 사람이 ','들을지도 몰라요',' .'],
+  ['어렵다 · ㅂ 불규칙','이 책은 처음에 좀 ','어려울지도 몰라요',' .'],
+  ['안 오다','연락이 없어요. 오늘 모임에 ','안 올지도 몰라요',' .'],
+  ['사람이다 · 명사','실수가 많아요. 이 글을 쓴 건 ','사람일지도 몰라요',' .'],
+  ['있다','언젠가 인공지능도 생각할 수 ','있을지도 몰라요',' .'],
+  ['쓰다 · 과거','너무 완벽해요. 이 숙제는 챗봇이 ','썼을지도 몰라요',' .'],
+  ['가다 · 과거','전화를 안 받아요. 벌써 집에 ','갔을지도 몰라요',' .']
+];
+const EXP=[ // [앞, 정답, 뒤, 힌트]
+  ['너무 완벽해요. 이 사진은 ','가짜','일지도 몰라요.','fake · 보기에서'],
+  ['요즘은 사람하고 인공지능을 ','구별하기',' 어려워요.','tell apart + -기 (L44) · 보기에서'],
+  ['인공지능이 유명한 가수 목소리를 ','흉내',' 내요.','imitate · 보기에서'],
+  ['인터넷 정보는 ','출처','를 꼭 확인하세요.','source · 보기에서'],
+  ['인공지능은 많은 글을 읽고 ','학습해요',' .','learn (from data) · 보기에서'],
+  ['기계도 ','감정','을 느낄 수 있을까요?','emotion (L49) · 보기에서'],
+  ['그게 진짜인지 아직 ','확실하지',' 않아요.','certain + -지 않다 · 보기에서'],
+  ['매일 연습하면 한국어 ','실력','이 늘 거예요.','skill, ability · 보기에서']
+];
+const DLG=[ // 실전 대화 [앞, 정답, 뒤, 힌트]
+  ['3분이요? 그럼 사람이 아니라 ','인공지능일지도 몰라요',' .','인공지능 + 이다'],
+  ['그래도 새벽 두 시에 3분이면 ','기계일지도 몰라요',' .','기계 + 이다'],
+  ['밤에 일하는 직원이 ','있었을지도 몰라요',' .','있다 · 과거'],
+  ['그러니까 인공지능도 언젠가 생각할 수 ','있을지도 몰라요',' .','있다'],
+  ['어쩌면 인공지능도 조금 ','느낄지도 몰라요',' .','느끼다'],
+  ['사람들이 인공지능 말을 더 ','믿게 될지도 몰라요',' .','믿다 · -게 되다 (L51) + 지도 몰라요'],
+  ['너무 의존하면 혼자 생각하는 실력이 ','줄어들지도 몰라요',' .','줄어들다']
+];
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((p,i)=>el("vlist").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="ko"><span class="num">${i+1}.</span> ${p[0]}</div><div class="lbl" style="margin-left:22px">${p[1]}</div></div>`));
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
+   <span class="ko">${a[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="ko">${a[3]}</span><span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson52_ai_jidomolla";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw52(){
+  const ta=el("hwtext"), msg=el("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 52 · AI 이야기 ② 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 52 · AI 이야기 ② AI는 생각할 수 있을까?(-(으)ㄹ지도 몰라요)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; delete store.hw; localStorage.setItem(KEY,JSON.stringify(store)); }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{
+  if(e.target.dataset.k) check(e.target);
+  else if(e.target.id==="hwtext"){ store.hw=e.target.value; localStorage.setItem(KEY,JSON.stringify(store)); }
+});
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+if(store.hw) el("hwtext").value=store.hw; // 숙제 임시 저장 복원
+updateScore();
+</script>
+</body>
+</html>
