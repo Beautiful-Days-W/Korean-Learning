@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 54 · AI 이야기 ④ AI vs 사람</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1f2328;--muted:#6b7280;--line:#e5e7eb;
+    --accent:#2563eb;--accent-soft:#eff4ff;--ok:#0d9488;--no:#dc2626;--warm:#9a3412;--warm-soft:#fff7ed;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;font-size:16px;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,system-ui,sans-serif;}
+  .wrap{max-width:820px;margin:0 auto;padding:24px 18px 120px;}
+  .bar{position:sticky;top:0;z-index:50;background:rgba(246,247,249,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 30px;margin:0 -18px 24px;}
+  .bar h1{font-size:18px;margin:0;flex:1;min-width:160px;line-height:1.4;padding-left:12px;}
+  .bar .sub{font-size:12px;color:var(--muted);font-weight:400;}
+  #score{font-size:13px;color:var(--ok);font-weight:700;}
+  .btn{font:inherit;font-size:13px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--ink);}
+  .btn:hover{border-color:var(--accent);color:var(--accent);}
+  .head{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .head .note{background:var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#334155;margin-top:10px;}
+  .series{background:#fdf6e9;border:1px solid #f3dcb3;border-radius:10px;padding:10px 14px;font-size:13.5px;color:#5c4a1e;margin-top:10px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;}
+  h2{font-size:18px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  h2 .en{font-size:12.5px;color:var(--muted);font-weight:500;}
+  .note .en{font-size:12px;color:var(--muted);font-weight:500;font-style:italic;margin-left:4px;}
+  p.lead{font-size:14.5px;color:#374151;margin:6px 0;}
+  .rule{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14.5px;margin:8px 0;line-height:1.85;}
+  .rule b{color:var(--accent);}
+  .rule .ex{color:var(--ok);font-weight:600;}
+  .exbox{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin:6px 0 2px;font-size:14px;line-height:1.9;}
+  .warnbox{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13.5px;}
+  table.vocab{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  table.vocab th,table.vocab td{border:1px solid var(--line);padding:7px 9px;text-align:left;}
+  table.vocab th{background:#f3f4f6;}
+  table.conj{border-collapse:collapse;font-size:14px;margin:6px 0 2px;width:100%;}
+  table.conj th,table.conj td{border:1px solid var(--line);padding:6px 9px;text-align:center;}
+  table.conj th{background:#f3f4f6;font-weight:700;}
+  table.conj td.k{color:var(--ok);font-weight:600;}
+  table.cmp{border-collapse:collapse;font-size:14px;margin:8px 0 2px;width:100%;}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.cmp th{background:#f3f4f6;}
+  table.cmp th.a{color:var(--warm);} table.cmp th.b{color:var(--accent);}
+  .drill{padding:10px 0;border-top:1px dashed var(--line);}
+  .drill:first-of-type{border-top:none;}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .num{font-weight:700;color:var(--accent);}
+  .ko{font-size:16px;}
+  .lbl{font-size:13px;color:var(--muted);}
+  input.ans{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;}
+  input.mid{width:220px;text-align:center;}
+  input.ans:focus{outline:none;border-color:var(--accent);background:var(--accent-soft);}
+  .fb{font-size:14px;font-weight:700;min-width:22px;}
+  .fb.ok{color:var(--ok);} .fb.no{color:var(--no);font-size:13px;}
+  .hintbtn{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;}
+  .model{display:none;font-size:13.5px;color:var(--ok);background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:6px 10px;margin-top:6px;}
+  .model.show{display:block;}
+  .big{background:#fffdf5;border:2px solid #fed7aa;}
+  .subh{font-size:14px;font-weight:700;color:var(--accent);border-left:3px solid var(--accent);padding-left:9px;margin:18px 0 8px;}
+  .dlg{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0;}
+  .turn{display:flex;gap:10px;padding:5px 0;font-size:15px;line-height:1.6;}
+  .turn .who{flex:0 0 84px;font-weight:700;font-size:12.5px;padding-top:3px;color:var(--accent);}
+  .turn.b .who{color:var(--warm);}
+  .turn .say b{color:var(--ok);}
+  .wrong{color:var(--no);font-weight:700;background:#fee2e2;border-radius:3px;padding:0 2px;}
+  .teacher{background:var(--warm-soft);border:1px solid #fed7aa;border-radius:14px;padding:18px 20px;margin-bottom:18px;}
+  .teacher h2{color:var(--warm);}
+  .teacher h3{font-size:14px;border-left:3px solid var(--warm);color:var(--warm);padding-left:9px;margin:16px 0 6px;}
+  .teacher ul{margin:6px 0 0;padding-left:20px;font-size:14.5px;}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;}
+  @media print{.bar{display:none;}body{background:#fff;}section,.head,.teacher{border-color:#ccc;break-inside:avoid;}}
+  .ladder td:first-child{white-space:nowrap;}
+  .say .rs{color:var(--muted);font-size:13px;}
+  .formula{margin:8px 0 10px;padding:12px 14px;border:2px solid var(--accent);border-radius:10px;background:#f8fafc;text-align:center;font-size:19px;font-weight:700;}
+  .formula .minus{color:var(--warm);} .formula .plus{color:var(--ok);}
+  .formula .sub{font-size:13px;font-weight:500;color:var(--muted);margin-top:6px;}
+  .muted{color:var(--muted);font-size:12px;}
+  .stephead{font-weight:700;font-size:15px;color:var(--accent);margin:18px 0 6px;padding-top:12px;border-top:1px dashed var(--line);}
+  .rule .stephead:first-child{margin-top:2px;padding-top:0;border-top:none;}
+  .plain{margin:8px 0 2px;font-size:14.5px;line-height:1.8;}
+  table.cmp td.k b{color:var(--ok);}
+  .goal{margin:2px 0 10px;}
+  .goal:last-child{margin-bottom:0;}
+  .goal .gt{font-weight:700;color:#1f2937;}
+  .goal .gex{margin:3px 0 0 18px;color:#334155;}
+  .survey .q{margin:12px 0;}
+  .survey .qt{font-weight:700;font-size:15px;}
+  .survey textarea{width:100%;min-height:60px;font:inherit;padding:8px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7;margin-top:4px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .chip{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff;cursor:pointer;}
+  .chip:has(input:checked){border-color:var(--accent);background:var(--accent-soft);}
+  .pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:8px 0;}
+  .pc{background:#fff;border:1px solid #fed7aa;border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.6;}
+  .pc .pe{font-size:28px;line-height:1.2;margin-bottom:4px;}
+  .wordbox{background:#f8fafc;border:1px dashed var(--line);border-radius:8px;padding:8px 12px;font-size:14px;margin:6px 0 10px;color:#334155;}
+  .wordbox b{color:var(--accent);}
+  .pc .ptxt{background:#f8fafc;border-radius:8px;padding:8px 10px;margin-top:6px;font-size:14.5px;line-height:1.7;color:#1f2937;}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Lesson 54 · AI 이야기 ④ AI vs 사람 <span class="sub">-는 반면에</span></h1>
+  <span id="score"></span>
+  <button class="btn" onclick="window.print()">🖨 인쇄</button>
+  <button class="btn" onclick="resetAll()">↺ 초기화</button>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <h2>학습 목표 <span class="en">Goals</span></h2>
+    <p class="lead">인공지능과 사람을 <b>비교해서</b> 이야기해요: "인공지능은 <b>빠른 반면에</b> 사람은 느려요." · "사람은 감정이 <b>있는 반면에</b> 인공지능은 감정이 없어요."</p>
+    <div class="note">
+      <div class="goal"><div class="gt">1. 두 쪽을 반대로 비교할 때 -는 반면에</div>
+        <div class="gex">인공지능은 <b>빠른 반면에</b> 사람은 느려요.</div></div>
+      <div class="goal"><div class="gt">2. 명사 앞 모양(L49) 그대로: 동사 -는 · 형용사 -(으)ㄴ</div>
+        <div class="gex">인공지능은 밤에도 <b>일하는 반면에</b> 사람은 잠을 자야 해요.</div></div>
+      <div class="goal"><div class="gt">3. 지난 일은 -(으)ㄴ 반면에</div>
+        <div class="gex">예전에는 번역이 하루 <b>걸린 반면에</b> 요즘은 1분이면 돼요.</div></div>
+      <div class="goal"><div class="gt">4. 비교하는 두 쪽에 은/는</div>
+        <div class="gex">사람<b>은</b> 감정이 있는 반면에 인공지능<b>은</b> 감정이 없어요.</div></div>
+    </div>
+    <div class="series">
+      🤖 <b>철학 ③ AI 시리즈</b>: ① AI가 바꾼 하루(-게 되다) → ② AI는 생각할 수 있을까?(-(으)ㄹ지도 몰라요) → ③ AI, 어디까지 괜찮을까?(-(으)ㄹ 필요가 있어요) → <b>④ AI vs 사람(-는 반면에, 오늘)</b> → ⑤ 10년 후(-(으)려면) → 평가시험11 → 복습14
+    </div>
+  </div>
+
+  <section>
+    <h2>0. 미니 복습 <span class="en">Quick review · L53 숙제 · L52 숙제</span></h2>
+    <p class="lead">지난 숙제에서 고친 말이에요. [ ] 안의 힌트를 보고 쓰세요.</p>
+    <div id="review"></div>
+  </section>
+
+  <section>
+    <h2>1. 원리 <span class="en">How it works (-는 반면에)</span></h2>
+    <div class="rule">
+      <div class="stephead">STEP 1 · 뜻: 두 쪽을 반대로 비교해요</div>
+      <table class="cmp">
+        <tr><th style="width:44%" class="b">두 문장</th><th class="a">한 문장 (-는 반면에)</th></tr>
+        <tr><td class="k">인공지능은 빨라요. 사람은 느려요.</td><td class="k">인공지능은 <b>빠른 반면에</b> 사람은 느려요.</td></tr>
+        <tr><td class="k">기계는 안 지쳐요. 사람은 쉬어야 해요.</td><td class="k">기계는 <b>지치지 않는 반면에</b> 사람은 쉬어야 해요.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 -는 반면에 = "while / whereas". It puts two opposite sides of a comparison into one sentence: A is like this, while B is like that.</p>
+
+      <div class="stephead">STEP 2 · 만드는 법: 명사 앞 모양(L49) + 반면에</div>
+      <div class="formula">일하는 <span class="minus">사람</span> · 빠른 <span class="minus">차</span> → 일하는 <span class="plus">반면에</span> · 빠른 <span class="plus">반면에</span><div class="sub">동사 -는 · 형용사 -(으)ㄴ · 반면 앞은 띄어요</div></div>
+      <p class="plain">일하다 → <b>일하는 반면에</b> · 있다 → <b>있는 반면에</b> · 쉽다 → <b>쉬운 반면에</b> · 기계이다 → <b>기계인 반면에</b></p>
+      <p class="plain">🇬🇧 Use the form you already put before a noun (L49): verbs and 있다/없다 take -는, adjectives take -(으)ㄴ. Then add 반면에 with a space.</p>
+
+      <div class="stephead">STEP 3 · 시제: 지금 · 지난 일</div>
+      <table class="cmp">
+        <tr><th style="width:28%">언제</th><th>예</th></tr>
+        <tr><td>지금 (동사 -는)</td><td class="k">요즘 사람들은 챗봇을 많이 <b>쓰는 반면에</b> 번역기는 덜 써요.</td></tr>
+        <tr><td>지난 일 (동사 -(으)ㄴ)</td><td class="k">작년에는 번역기를 많이 <b>쓴 반면에</b> 올해는 챗봇을 많이 써요.</td></tr>
+      </table>
+      <p class="plain">🇬🇧 When the second half is about now, mark the earlier past action with -(으)ㄴ (like 어제 산 책 → 쓴 반면에). If the whole sentence is about the past, -는 반면에 also works, because the ending already shows the past. In this lesson, adjectives stay in the present form (빠른, 쉬운).</p>
+
+      <div class="stephead">STEP 4 · 주의 두 가지</div>
+      <div class="warnbox">① <b>-지만 · -는 반면에 · N과 달리(L45)</b>: 셋 다 비교할 때 써요. 느낌이 조금 달라요.</div>
+      <table class="cmp">
+        <tr><th style="width:26%"></th><th>언제 많이 써요?</th><th style="width:40%">예</th></tr>
+        <tr><td>-지만</td><td>가장 넓게 "but". 매일 말할 때.</td><td class="k">비싸<b>지만</b> 맛있어요.</td></tr>
+        <tr><td>-는 반면에</td><td>두 쪽을 반대로 나란히 놓을 때. 발표·토론·글에서 자주.</td><td class="k">인공지능은 <b>빠른 반면에</b> 사람은 느려요.</td></tr>
+        <tr><td>N과/와 달리</td><td>명사 뒤에 붙여서 "unlike N".</td><td class="k">사람<b>과 달리</b> 인공지능은 안 지쳐요.</td></tr>
+      </table>
+      <div class="warnbox">② <b>비교하는 두 쪽에 은/는</b>: 인공지능<b>은</b> … 반면에 사람<b>은</b> …. 은/는이 "이쪽은, 저쪽은"을 보여 줘요.</div>
+      <p class="plain">🇬🇧 ① -지만 is the everyday "but"; -는 반면에 sets two sides against each other and sounds a bit more like a presentation or debate. ② Put 은/는 on both things you compare. It works like "as for A…, as for B…".</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. AI vs 사람 어휘 <span class="en">Words for comparing AI and people (10)</span></h2>
+    <p class="lead">인공지능과 사람을 비교할 때 쓰는 말이에요. 앞에서 본 단어(<b>감정 · 위로하다 · 흉내 내다 · 책임 · 실력</b>)도 다시 나와요.</p>
+    <div id="vlist"></div>
+  </section>
+
+  <section>
+    <h2>3. -는 반면에 만들기 <span class="en">Make the form · 입력 즉시 채점</span></h2>
+    <p class="lead">[ ] 안의 말로 <b>-는 반면에</b> 또는 <b>-(으)ㄴ 반면에</b>를 만드세요. "과거"면 <b>-(으)ㄴ 반면에</b>. 띄어쓰기도 정확히!</p>
+    <div id="adv"></div>
+  </section>
+
+  <section>
+    <h2>4. 문장 채우기 <span class="en">Complete the sentences</span></h2>
+    <p class="lead">[ ] 안의 힌트를 보고 빈칸을 채우세요. 아래 <b>보기</b>에서 골라 쓰세요. 보기 하나는 안 써요.</p>
+    <div class="wordbox">보기: <b>일자리</b> · <b>찬성해요</b> · <b>정확해요</b> · <b>흉내</b> · <b>장점</b> · <b>공감해</b> · <b>창의적이에요</b> · <b>지쳐요</b> · <b>경험</b></div>
+    <div id="exp"></div>
+  </section>
+
+  <section class="big">
+    <h2>5. 🤖 실전 대화 — 인공지능 vs 사람 <span class="en">AI vs people</span></h2>
+    <p class="lead">선생님과 <b>역할을 나눠 소리 내어</b> 읽어요. 그다음 대본을 덮고 <b>내 생각</b>으로 바꿔서 말해 봐요.</p>
+
+    <div class="subh">장면 ① 월요일 아침 사무실 · 동료 서연과</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">지호 씨, 이번 달부터 회사 문서 번역을 인공지능이 해요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">정말요? 그럼 번역 팀은요?</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">번역 팀은 인공지능이 번역한 문서를 확인하는 일을 해요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">그렇군요. 인공지능은 번역이 <b>빠른 반면에</b> 가끔 이상한 문장을 만들어요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">맞아요. 지난주에 "잘 부탁드립니다"를 "Please take care of me well"이라고 번역했어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">하하. 인공지능은 단어를 많이 <b>아는 반면에</b> 분위기는 잘 몰라요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">그래도 번역 실력이 정말 좋아졌어요. 예전에는 긴 문서가 하루 <b>걸린 반면에</b> 요즘은 1분이면 돼요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">그럼 번역 팀은 일이 줄어들지도 몰라요.</span></div>
+      <div class="turn b"><span class="who">👩 서연</span><span class="say">팀장님 생각은 달라요. 번역하는 일은 <b>줄어드는 반면에</b> 확인하는 책임은 더 커져요. 마지막 확인은 사람이 해야 하니까요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">결국 인공지능하고 사람이 같이 일하는 거네요.</span></div>
+    </div>
+
+    <div class="subh">장면 ② 토요일 저녁 · 도서관 철학 모임 "인공지능 vs 사람, 뭐가 다를까?"</div>
+    <div class="dlg">
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">오늘 주제는 "인공지능 vs 사람, 뭐가 다를까?"예요. 하은 씨부터 이야기해 볼까요?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">저는 취미로 그림을 그려요. 그런데 인공지능은 그림을 1초 만에 <b>그리는 반면에</b> 저는 일주일이 걸려요. 좀 슬펐어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">그래도 하은 씨 그림에는 하은 씨 경험이 있어요. 인공지능은 다른 사람 그림을 <b>흉내 내는 반면에</b> 하은 씨는 자기 이야기를 그려요.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">좋은 말이에요. 또 뭐가 달라요?</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">사람은 감정이 <b>있는 반면에</b> 인공지능은 감정이 없어요. 그래서 진짜 공감은 사람만 할 수 있다고 생각해요.</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">저는 반대해요. 지난번에 힘들 때 챗봇이 저를 정말 잘 위로해 줬어요.</span></div>
+      <div class="turn"><span class="who">🙂 지호</span><span class="say">말은 잘하지만 마음으로 느끼지는 못해요. 저는 그게 제일 큰 차이라고 생각해요.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">그럼 인공지능이 사람을 대신할 수 있을까요?</span></div>
+      <div class="turn b"><span class="who">👱 하은</span><span class="say">음… 같은 일을 반복하는 건 인공지능이 <b>잘하는 반면에</b> 새로운 생각은 아직 사람이 더 잘해요.</span></div>
+      <div class="turn b"><span class="who">👩 수진(진행)</span><span class="say">좋아요. 다음 모임 주제는 "10년 후, 인공지능과 사는 하루"예요.</span></div>
+    </div>
+
+    <div class="subh">빈칸 채우기</div>
+    <p class="lead">대화를 떠올리며, <b>대화에 나온 형태 그대로</b> 채우세요.</p>
+    <div id="dlgblank"></div>
+  </section>
+
+  <section>
+    <h2>6. 숙제 · 인공지능 vs 사람, 뭐가 달라요? <span class="en">Homework · compare AI and people</span></h2>
+    <p class="lead">일 하나를 골라서(번역 · 운전 · 그림 · 의사 · 선생님 · <b>내 일</b>) 인공지능과 사람을 비교해 5~6문장으로 써 보세요.</p>
+    <ul style="font-size:14.5px;margin:6px 0 4px;padding-left:20px;line-height:1.9">
+      <li>비교하기 <b>-는 반면에 3번</b> (형용사 -(으)ㄴ 반면에 1번 포함)</li>
+      <li>비교하는 두 쪽에 <b>은/는</b></li>
+      <li>마지막에 내 생각 <b>-다고 생각해요 1번</b> (L47)</li>
+    </ul>
+    <button class="hintbtn" onclick="toggleModel('fm')">예시 보기</button>
+    <div class="model" id="fm">예: 저는 번역을 골랐어요. 인공지능은 번역이 아주 빠른 반면에 사람은 시간이 많이 걸려요. 그리고 인공지능은 단어를 많이 아는 반면에 분위기는 잘 몰라요. 사람은 지치는 반면에 인공지능은 밤에도 일할 수 있어요. 그래서 저는 인공지능이 먼저 번역하고 사람이 마지막에 확인하는 게 제일 좋다고 생각해요.</div>
+    <div class="subh">여기에 쓰고 바로 제출하세요</div>
+    <textarea id="hwtext" style="width:100%;min-height:96px;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;line-height:1.7" placeholder="저는 …을/를 골랐어요. 인공지능은 … 반면에 사람은 …"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button class="btn" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:14px;padding:9px 16px" onclick="submitHw54()">✅ 제출하기</button>
+      <span id="hwmsg" style="font-size:13.5px;font-weight:600"></span>
+    </div>
+    <p class="lead" style="font-size:12.5px;color:var(--muted)">제출 후 <b>첨삭</b>은 <a href="숙제.html" style="color:var(--accent);font-weight:600">숙제 페이지</a>에서 볼 수 있어요.</p>
+  </section>
+
+  <div class="teacher">
+    <h2>👩‍🏫 선생님 카드 <span class="en">말하기 중심 · 선생님은 짧게, 학습자가 길게</span></h2>
+
+    <h3>① 원리 설명하기 (5분): 질문으로 진행해요</h3>
+    <p class="lead">원리 STEP 1~4를 차례로 보면서, 선생님이 묻고 학습자가 답해요.</p>
+    <ul>
+      <li><b>STEP 1</b> · "인공지능은 빨라요. 사람은요?" → 인공지능은 <b>빠른 반면에</b> 사람은 느려요 (한 문장으로)</li>
+      <li><b>STEP 2</b> · "일하다? 있다? 쉽다? 기계이다?" → <b>일하는 · 있는 · 쉬운 · 기계인</b> 반면에 (먼저 "일하는 사람 · 쉬운 문제"처럼 명사 앞에 놓아 보게 하면 쉬워요)</li>
+      <li><b>STEP 3</b> · "작년에는 뭘 많이 했어요? 올해는요?" → 작년에는 …을/를 많이 <b>한 반면에</b> 올해는 …</li>
+      <li><b>STEP 4</b> · "비싸지만 맛있어요 / 빠른 반면에 느려요, 느낌이 어떻게 달라요?" → 반면에는 두 쪽을 나란히 · 은/는 두 번</li>
+    </ul>
+
+    <h3>② 찬반 토론 (10분): 입장 카드 뽑기</h3>
+    <p class="lead">주제 카드를 하나 고르고, 학습자가 <b>입장 카드</b>(찬성/반대)를 뽑아요. 내 진짜 생각과 달라도 뽑은 쪽으로 말해요. 학습자가 <b>1분</b> 말하면(이유 2개, -는 반면에 1번 이상) 선생님이 🔒 반대쪽 의견을 <b>한 번</b> 말하고, 학습자가 다시 대답해요. 다음 주제에서는 입장을 바꿔요.</p>
+    <div class="pcards">
+      <div class="pc"><div class="pe">👩‍🏫</div><b>주제 A</b><div class="ptxt">인공지능 선생님이 사람 선생님보다 좋아요.</div></div>
+      <div class="pc"><div class="pe">🎨</div><b>주제 B</b><div class="ptxt">인공지능이 그린 그림도 예술이에요.</div></div>
+      <div class="pc"><div class="pe">🚗</div><b>주제 C</b><div class="ptxt">10년 후에는 사람이 운전할 필요가 없어요.</div></div>
+    </div>
+    <div class="pcards">
+      <div class="pc"><div class="pe">🎤</div><b>학습자 카드 · 말할 때 쓰는 말</b><br>· "저는 …에 <b>찬성해요 / 반대해요</b>."<br>· "인공지능은 …<b>-는 반면에</b> 사람은 …"<br>· "왜냐하면 …<b>-기 때문이에요</b>."<br>· "그 말도 맞아요. <b>하지만</b> …"</div>
+      <div class="pc"><div class="pe">👩‍🏫</div><b>선생님 카드 · 반대쪽 의견</b> <button class="hintbtn" onclick="toggleModel('tcard')">🔒 선생님만 보기</button><div class="model" id="tcard" style="color:var(--ink);background:#fff;border-color:#fed7aa">A 찬성에게: "인공지능 선생님은 답은 잘 아는 반면에 학생 얼굴은 못 봐요." · 반대에게: "사람 선생님은 바쁜 반면에 인공지능은 밤 2시에도 대답해요."<br>B 찬성에게: "사람 화가는 자기 경험을 그리는 반면에 인공지능은 흉내만 내요." · 반대에게: "사진도 처음에는 예술이 아니라고 했어요."<br>C 찬성에게: "눈 오는 날은요? 기계는 실수할지도 몰라요." · 반대에게: "사람은 피곤하면 사고가 나는 반면에 기계는 안 지쳐요."<br><span style="color:var(--muted)">반대 의견은 한 번만. 학습자가 "그 말도 맞아요. 하지만 …"으로 다시 길게 말하게 해요.</span></div></div>
+    </div>
+
+    <p class="lead">다음: <b>L55 10년 후 AI와 사는 미래</b>(-(으)려면). 장면 ②의 마지막 주제로 이어져요.</p>
+    <p class="lead" style="color:var(--warm)">수업 말하기 목표(대본 없이): ② 주제 3개 중 2개 이상에서 <b>1분 말하기 + -는 반면에 1번 이상</b>, 반대 의견에 "하지만 …"으로 다시 대답하기.<br>숙제는 6번 섹션(인공지능 vs 사람 비교 5~6문장) → 제출.</p>
+  </div>
+
+  <footer>Lesson 54 / AI 이야기 ④ AI vs 사람 · -는 반면에 · 철학 ③ AI 시리즈 ④</footer>
+</div>
+
+<script>
+function norm(s){ return s.trim().replace(/\s+/g," ").replace(/[.?!]+$/,""); } // 띄어쓰기 정확 채점
+
+const VOCAB=[ // [예문, 영어]
+  ['인공지능의 <b>장점</b>은 빠른 거예요. <b>단점</b>은 가끔 틀리는 거예요.','장점 = advantage, strength · 단점 = disadvantage, weakness'],
+  ['계산기는 항상 <b>정확해요</b>.','정확하다 = to be accurate, exact'],
+  ['이 그림은 아주 <b>창의적이에요</b>.','창의적이다 = to be creative'],
+  ['할머니는 <b>경험</b>이 많아서 무엇이든 잘 아세요.','경험 = experience'],
+  ['어려운 문제는 사람이 <b>판단할</b> 필요가 있어요.','판단하다 = to judge, decide'],
+  ['좋은 친구는 제 감정에 <b>공감해</b> 줘요.','공감하다 = to empathize · 감정 (L49)'],
+  ['하루 종일 일하면 <b>지쳐요</b>.','지치다 = to get tired, worn out'],
+  ['인공지능 때문에 <b>일자리</b>가 줄어들지도 몰라요.','일자리 = job, position'],
+  ['번역기는 <b>발전해서</b> 실력이 정말 좋아졌어요.','발전하다 = to develop, improve · 실력 (L51·L52)'],
+  ['저는 그 의견에 <b>찬성해요</b>. 저는 <b>반대해요</b>.','찬성하다 = to agree, be for · 반대하다 = to disagree, be against']
+];
+const REVIEW=[ // [힌트, 앞, 정답(|), 뒤]
+  ['나가다 · might · 수 있다 + 도 (L53 숙제)','다시 ','나갈 수도 있어서',' 나중에 씻으면 돼요.'],
+  ['넣다 · put in · 필요가 있어요 (L53 숙제)','신발은 신발 통 안에 ','넣을 필요가 있어요','.'],
+  ['발 + 비교 은/는 (L53 숙제)','손은 씻을 필요가 있어요. 그런데 ','발은',' 씻을 필요가 없어요.'],
+  ['very · 글에서는 되게 대신 (L52 숙제)','사람들은 생각할 때 ','아주|매우',' 자연스럽게 단어를 써요.']
+];
+const ADV=[ // [힌트, 앞, 정답, 뒤]
+  ['빠르다 · 형용사','인공지능은 계산이 ','빠른 반면에',' 사람은 느려요.'],
+  ['일하다 · 동사','인공지능은 밤에도 ','일하는 반면에',' 사람은 잠을 자야 해요.'],
+  ['지치지 않다 · 동사','기계는 ','지치지 않는 반면에',' 사람은 쉬어야 해요.'],
+  ['있다','사람은 감정이 ','있는 반면에',' 인공지능은 감정이 없어요.'],
+  ['정확하다 · 형용사','계산기는 ','정확한 반면에',' 사람은 가끔 실수해요.'],
+  ['쉽다 · 형용사 · ㅂ 불규칙','번역기는 쓰기 ','쉬운 반면에',' 가끔 이상한 문장을 만들어요.'],
+  ['길다 · 형용사 · ㄹ 빠짐','토론토는 겨울이 ','긴 반면에',' 여름은 짧아요.'],
+  ['프로그램 + 이다','이 상담 챗봇은 ','프로그램인 반면에',' 저 상담사는 진짜 사람이에요.'],
+  ['배우다 · 과거','형은 대학에서 컴퓨터를 ','배운 반면에|배우는 반면에',' 저는 음악을 배웠어요.'],
+  ['쓰다 · 과거','작년에는 번역기를 많이 ','쓴 반면에',' 올해는 챗봇을 많이 써요.']
+];
+const EXP=[ // [앞, 정답(|), 뒤, 힌트]
+  ['인공지능의 ','장점','은 빠르고 편리한 거예요.','advantage · 보기에서'],
+  ['할머니는 ','경험','이 많아서 무엇이든 잘 아세요.','experience · 보기에서'],
+  ['하루 종일 일하면 사람은 ','지쳐요',' .','get tired · 보기에서'],
+  ['아이들 그림은 정말 ','창의적이에요',' .','creative · 보기에서'],
+  ['좋은 친구는 제 감정에 ','공감해',' 줘요.','empathize · 보기에서'],
+  ['인공지능 때문에 ','일자리','가 줄어들지도 몰라요.','job(s) · 보기에서'],
+  ['인공지능은 사람 목소리도 ','흉내',' 낼 수 있어요.','imitate (L52·L53) · 보기에서'],
+  ['저는 그 의견에 ','찬성해요',' .','agree, be for · 보기에서']
+];
+const DLG=[ // 실전 대화 [앞, 정답, 뒤, 힌트]
+  ['인공지능은 번역이 ','빠른 반면에',' 가끔 이상한 문장을 만들어요.','빠르다 · 형용사'],
+  ['인공지능은 단어를 많이 ','아는 반면에',' 분위기는 잘 몰라요.','알다 · ㄹ 빠짐'],
+  ['예전에는 긴 문서가 하루 ','걸린 반면에',' 요즘은 1분이면 돼요.','걸리다 · 과거'],
+  ['번역하는 일은 ','줄어드는 반면에',' 확인하는 책임은 더 커져요.','줄어들다 · ㄹ 빠짐'],
+  ['인공지능은 그림을 1초 만에 ','그리는 반면에',' 저는 일주일이 걸려요.','그리다 · 동사'],
+  ['인공지능은 다른 사람 그림을 ','흉내 내는 반면에',' 하은 씨는 자기 이야기를 그려요.','흉내 내다 · 동사'],
+  ['사람은 감정이 ','있는 반면에',' 인공지능은 감정이 없어요.','있다'],
+  ['같은 일을 반복하는 건 인공지능이 ','잘하는 반면에',' 새로운 생각은 아직 사람이 더 잘해요.','잘하다 · 동사']
+];
+function el(id){return document.getElementById(id);}
+VOCAB.forEach((p,i)=>el("vlist").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="ko"><span class="num">${i+1}.</span> ${p[0]}</div><div class="lbl" style="margin-left:22px">${p[1]}</div></div>`));
+
+const IN='<input readonly onfocus="this.removeAttribute(\'readonly\')" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false"';
+REVIEW.forEach((r,i)=>el("review").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${r[0]}]</span>
+   <span class="ko">${r[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${r[2]}" data-k="rv${i}">
+   <span class="ko">${r[3]}</span><span class="fb" id="fb_rv${i}"></span></div></div>`));
+ADV.forEach((a,i)=>el("adv").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="lbl">[${a[0]}]</span>
+   <span class="ko">${a[1]}</span>${IN} class="ans mid" data-type="exact" data-ans="${a[2]}" data-k="a${i}">
+   <span class="ko">${a[3]}</span><span class="fb" id="fb_a${i}"></span></div></div>`));
+EXP.forEach((e,i)=>el("exp").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${e[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${e[1]}" data-k="e${i}">
+   <span class="ko">${e[2]}</span><span class="lbl">[${e[3]}]</span><span class="fb" id="fb_e${i}"></span></div></div>`));
+DLG.forEach((d,i)=>el("dlgblank").insertAdjacentHTML("beforeend",
+  `<div class="drill"><div class="row"><span class="num">${i+1}.</span><span class="ko">${d[0]}</span>
+   ${IN} class="ans mid" data-type="exact" data-ans="${d[1]}" data-k="d${i}">
+   <span class="ko">${d[2]}</span><span class="lbl">[${d[3]}]</span><span class="fb" id="fb_d${i}"></span></div></div>`));
+
+const KEY="lesson54_ai_banmyeon";
+const store=JSON.parse(localStorage.getItem(KEY)||"{}");
+function check(elm){
+  const v=elm.value.trim(), fb=document.getElementById("fb_"+elm.dataset.k);
+  store[elm.dataset.k]=v; localStorage.setItem(KEY,JSON.stringify(store));
+  if(!fb) return;
+  if(v===""){ fb.textContent=""; fb.className="fb"; updateScore(); return; }
+  const ok = elm.dataset.ans.split("|").some(a=>norm(v)===norm(a));
+  fb.textContent = ok?"✓":"✗"; fb.className="fb "+(ok?"ok":"no");
+  updateScore();
+}
+function updateScore(){
+  let done=0,ok=0;
+  document.querySelectorAll("[data-type]").forEach(e=>{ const fb=document.getElementById("fb_"+e.dataset.k); if(e.value.trim()!==""){done++; if(fb&&fb.classList.contains("ok"))ok++;} });
+  el("score").textContent = done? `정답 ${ok} / 푼 ${done}` : "";
+}
+function toggleModel(id){ document.getElementById(id).classList.toggle("show"); }
+async function submitHw54(){
+  const ta=el("hwtext"), msg=el("hwmsg");
+  const t=ta.value.trim();
+  if(!t){ msg.textContent="내용을 적어 주세요."; msg.style.color="#dc2626"; return; }
+  msg.textContent="제출 중…"; msg.style.color="#6b7280";
+  try{
+    const res=await fetch("https://korean.songfamily.work/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ kind:"homework", title:"Lesson 54 · AI 이야기 ④ 숙제", learner_name:null,
+        payload:{ lesson:"Lesson 54 · AI 이야기 ④ AI vs 사람(-는 반면에)", text:t } })});
+    if(res.ok){ msg.textContent="✅ 제출됐어요! 첨삭은 숙제 페이지에서 볼 수 있어요."; msg.style.color="#0d9488"; ta.value=""; delete store.hw; localStorage.setItem(KEY,JSON.stringify(store)); }
+    else { msg.textContent="제출 실패: "+res.status; msg.style.color="#dc2626"; }
+  }catch(e){ msg.textContent="오류: "+e; msg.style.color="#dc2626"; }
+}
+function resetAll(){
+  if(!confirm("연습 답을 모두 지울까요?")) return;
+  localStorage.removeItem(KEY); for(const k in store) delete store[k];
+  document.querySelectorAll("[data-k]").forEach(e=>{ e.value=""; const fb=document.getElementById("fb_"+e.dataset.k); if(fb){fb.textContent="";fb.className="fb";} });
+  el("score").textContent="";
+}
+document.addEventListener("input",e=>{
+  if(e.target.dataset.k) check(e.target);
+  else if(e.target.id==="hwtext"){ store.hw=e.target.value; localStorage.setItem(KEY,JSON.stringify(store)); }
+});
+document.querySelectorAll("[data-k]").forEach(e=>{ if(store[e.dataset.k]!==undefined){ e.value=store[e.dataset.k]; check(e);} });
+if(store.hw) el("hwtext").value=store.hw; // 숙제 임시 저장 복원
+updateScore();
+</script>
+</body>
+</html>
